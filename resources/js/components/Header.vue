@@ -132,7 +132,7 @@
                         </li>
                         <li class="has-submenu">
                             <router-link to="/home/assessores" exact>
-                                <i class="remixicon-phone-line"></i>Ver Assessores de Conta
+                                <i class="far fa-user-circle"></i>Ver Assessores de Conta
                             </router-link>
                         </li>
                         

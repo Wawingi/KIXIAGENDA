@@ -21986,7 +21986,7 @@ var render = function() {
                   "router-link",
                   { attrs: { to: "/home/assessores", exact: "" } },
                   [
-                    _c("i", { staticClass: "remixicon-phone-line" }),
+                    _c("i", { staticClass: "far fa-user-circle" }),
                     _vm._v("Ver Assessores de Conta\n                        ")
                   ]
                 )
