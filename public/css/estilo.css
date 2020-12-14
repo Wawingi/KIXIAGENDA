@@ -1,0 +1,63 @@
+.logotipo{
+    font-size: 24px;
+    color: #1abc9c;
+    font-weight: bold;
+}
+
+.corPadrao{
+    background:#709f89;
+}
+
+.corTexto{
+    color:#fff"
+}
+
+.titulo{
+    text-align: center;
+    font-weight: bold;
+}
+
+.error{
+    color:red;
+    font-size:12px;
+}
+
+#cabecatabela{
+    background-color:#f7b84bcc;
+    font-weight: bold;
+    color:hsl(0, 2%, 8%);   
+}
+
+#cabeca-modal{
+    background-color:#f7b84bcc;
+    height:40px;
+}
+
+#cabeca-modal h4{
+   color:white;
+   margin-top:-10px;
+}
+
+.corInput{
+  background: #fff;
+}
+
+#foto{
+    border:solid #709f89 1px"
+}
+
+.tabelaClicked:hover{
+    background: #ddfff6;
+}
+
+#InputMostrar{
+    pointer-events: none;
+    font-weight: bolder;
+    background:#f7b84b73;
+}
+
+#Linha{
+    height:1px;
+    color:#f5f6f8;
+    background-color:rgb(211, 214, 213);
+}
