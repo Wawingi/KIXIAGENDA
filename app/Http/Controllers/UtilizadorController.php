@@ -13,10 +13,11 @@ class UtilizadorController extends Controller
     public function registarUtilizador(){
         $user = new User;
         $user->username = 'dion.andr';
-        $user->name = 'Dionísio André';
+        $user->name = 'Dionisio André';
         $user->departamento = 'Sistemas & Organização';
         $user->email = 'dionisio.andre@kixicredito.com';
-        $user->password = Hash::make('123456');
+        //$user->password = Hash::make('123456');
+        $user->password = MD5('123456');
         $user->estado = 1;
         $user->tipo = 2;
         $user->foto = 'dion.andr'.'.jpg';
@@ -27,16 +28,22 @@ class UtilizadorController extends Controller
     }
 
     public function logar(Request $request){
-        if (Auth::attempt(['username' => $request->username, 'password' => $request->senha],true)) {
-            //return response()->json(Auth::user(),200);
+        /*if (Auth::attempt(['username' => $request->username, 'password' => $request->senha],true)) {
             return response()->json(200);
         } else {
             return response()->json(['error'=>'Erro ao logar'],401);
-        }
+        }*/
+        $user = User::where('username', $request->username)
+                  ->where('password',md5($request->senha))
+                  ->first();
+        Auth::login($user);
+        if (is_object($user))
+            return response()->json(200);
+        else
+            return response()->json(['error'=>'Erro ao logar'],401);
     }
 
     public function logout(){
-        //dd(Auth::user()->name);
         Auth::logout();
     }
 

@@ -1,11 +1,171 @@
 <template>
     <div class="container-fluid">
-        <br />    
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">KIXIAGENDA</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Minhas Actividades</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Ver Actividade</a></li>
+                        </ol>
+                    </div>
+                    <h4 class="page-title">Ver Actividade</h4>
+                </div>
+            </div>
+        </div>
+        <br />  
+
+        <!-- Modal Acção -->
+        <div class="modal fade" id="modalNovaAccao" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+                <div class="modal-content">
+                <div id="cabeca-modal" class="modal-header">
+                        <h4 class="modal-title" id="exampleModalScrollableTitle"><i class="mdi mdi-plus-circle mr-1"></i>Registar Acção</h4>
+                        <button style="margin-top:-20px" id="modalCloseAccao" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">                   
+                        <form v-on:submit.prevent="registarAccao">
+                            <input v-model.trim="idActividade" type="hidden" class="form-control form-control-sm">                       
+                            <div class="row">
+                                <div class="col-3">
+                                    <label for="name">Data Operação</label>
+                                    <input v-model.trim="$v.data_operacao.$model" :class="{'is-invalid':$v.data_operacao.$error, 'is-valid':!$v.data_operacao.$invalid}" type="datetime-local" class="form-control form-control-sm">
+                                    <div class="invalid-feedback">
+                                        <span v-if="!$v.data_operacao.required">A data deve ser fornecida</span>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <label for="name">Tempo de Acção</label>
+                                    <select v-model.trim="$v.tempo_acao.$model" :class="{'is-invalid':$v.tempo_acao.$error, 'is-valid':!$v.tempo_acao.$invalid}" class="custom-select custom-select-sm ">
+                                        <option selected disabled :value="''">Escolha o tempo</option>
+                                        <option value="5">0:05</option>
+                                        <option value="10">0:10</option>
+                                        <option value="15">0:15</option>
+                                        <option value="20">0:20</option>
+                                        <option value="30">0:30</option>
+                                        <option value="40">0:40</option>
+                                        <option value="50">0:50</option>
+                                        <option value="60">1:00</option>
+                                        <option value="90">1:30</option>
+                                        <option value="120">2:00</option>
+                                        <option value="150">2:30</option>
+                                        <option value="180">3:00</option>
+                                        <option value="210">3:30</option>
+                                        <option value="240">4:00</option>
+                                        <option value="270">4:30</option>
+                                        <option value="300">5:00</option>
+                                        <option value="330">5:30</option>
+                                        <option value="360">6:00</option>
+                                        <option value="390">6:30</option>
+                                        <option value="420">7:00</option>
+                                    </select>                                
+                                </div>
+                                <div class="col-3">
+                                    <label for="name">Utilizador</label>
+                                    <select v-model.trim="$v.utilizador_codigo.$model" :class="{'is-invalid':$v.utilizador_codigo.$error, 'is-valid':!$v.utilizador_codigo.$invalid}" class="custom-select custom-select-sm">
+                                        <option disabled selected :value="''">Escolha o utilizador</option>
+                                        <option v-for="utilizador in utilizadores" v-bind:key="utilizador.id" v-bind:value="utilizador.username">{{utilizador.username}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label for="name">Tipo Origem</label>
+                                        <select v-model.trim="$v.id_origem.$model" :class="{'is-invalid':$v.id_origem.$error, 'is-valid':!$v.id_origem.$invalid}" class="custom-select custom-select-sm">
+                                            <option disabled selected :value="''">Selecione a origem</option>
+                                            <option v-for="origem in origens" v-bind:value="origem.titulo">{{origem.titulo}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label for="name">Dado Origem</label>
+                                        <input v-model.trim="$v.acOrigemDado.$model" :class="{'is-invalid':$v.acOrigemDado.$error, 'is-valid':!$v.acOrigemDado.$invalid}" type="text" class="form-control form-control-sm corInput" placeholder="Informe o dado de contacto">
+                                        <div class="invalid-feedback">
+                                            <span v-if="!$v.acOrigemDado.required">O Dado de origem deve ser fornecido</span>
+                                            <span v-if="!$v.acOrigemDado.minLength">O Dado de origem deve possuír um tamanho maior que 5 dígitos</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <label for="name">Estado</label>
+                                    <select @change="onChangeEstado($event)" v-model.trim="$v.estado.$model" :class="{'is-invalid':$v.estado.$error, 'is-valid':!$v.estado.$invalid}" class="custom-select custom-select-sm">
+                                        <option selected disabled :value="''">Escolha o estado</option>
+                                        <option value="ACCO">Actividade Concluída</option>
+                                        <option value="ACCU">Actividade em Curso</option>
+                                        <option value="ACRG">Actividade Reagendada</option>
+                                        <option value="ACRT">Actividade Reativada</option>
+                                        <option value="CUSS">Em Curso(Solicitar Suporte)</option>
+                                        <option value="CURS">Em Curso(Responder Suporte)</option>
+                                    </select>
+                                </div>
+
+                                <div v-if="tipo_accao==1" class="col-3">
+                                    <label for="name">Utilizador Suporte</label>
+                                    <select v-model.trim="utilizador_pergunta" class="custom-select custom-select-sm">
+                                        <option disabled selected :value="''">Solicitante</option>
+                                        <option selected v-for="utilizador in utilizadores" v-bind:value="utilizador.username">{{utilizador.username}}</option>
+                                    </select>
+                                </div>
+
+                                <div v-if="showAvanco==1" class="col-3">
+                                    <div class="form-group mb-3">
+                                        <label>Avanço</label><br>
+                                        <range-slider 
+                                            v-model="avanco"
+                                            class="slider form-control"
+                                            min="0"
+                                            max="100"
+                                            step="1">
+                                        </range-slider>
+                                        <br><span class="slider-value">{{avanco}} %</span>
+                                    </div>
+                                </div>
+
+                                <div v-else class="col-3">
+                                    <div class="form-group mb-3">
+                                        <label>Avanço</label><br>
+                                        <input disabled class="form-control form-control-sm" style="text-align:center;background:#21FB92;font-size:15px;color:#000" value="100 %">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <label for="name">Descrição da Acção</label>
+                                    <textarea v-model.trim="$v.descricao_accao.$model" :class="{'is-invalid':$v.descricao_accao.$error, 'is-valid':!$v.descricao_accao.$invalid}" class="form-control form-control-sm corInput" rows="5"></textarea>
+                                    <div class="invalid-feedback">
+                                        <span v-if="!$v.descricao_accao.required">A descricao deve ser fornecida</span>
+                                        <span v-if="!$v.descricao_accao.minLength">A descricao deve possuír um tamanho maior</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="height:1px;background-color:#c9d4ce" />
+                            <div class="text-right">
+                                <button id="modalCloseAccao" type="button" class="btn btn-rounded btn-secondary waves-effect" data-dismiss="modal">
+                                    <i class="mdi mdi-close mr-1"></i>Fechar
+                                </button>
+                                <button type="submit" class="btn btn-rounded btn-warning waves-effect waves-light">
+                                    <i class="mdi mdi-content-save mr-1"></i>Registar
+                                </button>
+                            </div>
+                        </form>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fim Modal Acção -->
+
         <div class="row">
             <div class="col-12">
                 <div class="card-box">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-6">
                             <ul class="nav nav-tabs">
                                 <li class="nav-item">
                                     <a href="#dados" data-toggle="tab" aria-expanded="true" class="nav-link active">
@@ -16,7 +176,7 @@
                                 <li class="nav-item">
                                     <a href="#accao" data-toggle="tab" aria-expanded="false" class="nav-link ">
                                         <span class="d-inline-block d-sm-none"><i class="far fa-user"></i></span>
-                                        <span class="d-none d-sm-inline-block"><i class="fas fa-cog"></i> Accção Actividade</span>
+                                        <span class="d-none d-sm-inline-block"><i class="fas fa-cog"></i> Accção da Actividade</span>
                                     </a>
                                 </li>
                             </ul>
@@ -26,13 +186,13 @@
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="dados">
                             <div id="VerActividade" v-if="visualizar">
-                                <div class="row">
+                                <!--<div class="row">
                                     <div class="col-12">
                                         <button id="app" v-on:click="visualizar = !visualizar" style="float: right" type="button" class="btn btn-sm btn-rounded btn-success waves-effect waves-light">
                                             <i class="far fa-edit mr-1"></i>Modificar Actividade
                                         </button>
                                     </div>
-                                </div>
+                                </div>-->
                                 <hr style="height:1px;background-color:#d3d6d5">
                         
                                 <div class="row">
@@ -50,13 +210,19 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-2">
+                                        <div class="form-group">
+                                            <label for="name">Código</label>
+                                            <input v-model.trim="codigo" type="text" class="form-control form-control-sm" id="InputMostrar">
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
                                         <div class="form-group">
                                             <label for="name">Tipo Origem</label>
                                             <input v-model.trim="selectedOrigem" type="text" class="form-control form-control-sm" id="InputMostrar">
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-5">
                                         <div class="form-group">
                                             <label for="name">Dado Origem</label>
                                             <input v-model.trim="dado_origem" type="text" class="form-control form-control-sm" id="InputMostrar">
@@ -142,7 +308,7 @@
                                 </div>                    
                             </div>
                             <!--Formulário para editar actividade -->
-                            <div id="EditarActividade" v-else="visualizar">
+                            <!--<div id="EditarActividade" v-else="visualizar">
                                 <form ref="formTarefaEdit" v-on:submit.prevent="editarTarefa">
                                     <div class="row">
                                         <div class="col-12">                                            
@@ -375,11 +541,70 @@
                                         </div>
                                     </div>
                                 </form>
-                            </div>
+                            </div>-->
                         </div>
 
                         <div class="tab-pane fade" id="accao">
-                            
+                            <div class="row">
+                                <div class="col-8">
+                                    
+                                </div>
+                                <div class="col-4">                                            
+                                    <button 
+                                        style="float: right;margin:5px" 
+                                        type="submit" 
+                                        class="btn btn-sm btn-rounded btn-success waves-effect waves-light" 
+                                        data-backdrop="static"
+                                        data-keyboard="false"
+                                        data-toggle="modal"
+                                        data-target="#modalNovaAccao">
+                                        <i class="mdi mdi-plus-circle mr-1"></i>Adicionar Acção
+                                    </button>
+                                </div>
+                            </div>
+                            <hr style="height:1px;background-color:#d3d6d5">
+
+                            <table class="table table-sm table-bordeless" cellspacing="0" width="100%">
+                                <thead id="cabecatabela">
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Mensagem</th>
+                                        <th>Utilizador</th>
+                                        <th>Suporte a</th>
+                                        <th>Estado</th>
+                                        <th>Avanço</th>
+                                        <th>Tempo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>                          
+                                    <tr v-for="accao in accoes" class="tabelaClicked" title='Clique aqui para Editar acção'>
+                                        <td>{{accao.created_at}}</td>
+                                        <td>{{accao.descricao}}</td>
+                                        <td>{{accao.utilizador_codigo}}</td>
+                                        <td>
+                                            <p v-if="accao.utilizador_pergunta==null" style="color:#f5b602">Sem Suporte</p>
+                                            <p v-else>{{accao.utilizador_pergunta}}</p>
+                                        </td>
+                                        <td>
+                                            <p v-if="accao.estado=='ACCO'">Actividade Concluída</p>
+                                            <p v-if="accao.estado=='ACCU'">Actividade em Curso</p>
+                                            <p v-if="accao.estado=='ACRG'">Actividade Reagendada</p>
+                                            <p v-if="accao.estado=='ACRT'">Actividade Reativada</p>
+                                            <p v-if="accao.estado=='CUSS'">Em Curso Solic. Suporte</p>
+                                            <p v-if="accao.estado=='CURS'">Em Curso Resp. Suporte</p>
+                                        </td>
+                                        <td>
+                                            <div class="progress mb-1 progress-xl">
+                                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                                    {{accao.avanco}} %
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{{accao.tempo_acao}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
                         </div>
                     </div>
                 </div>
@@ -387,25 +612,34 @@
         </div>
     </div>
 </template>
+
 <script>
     import ModalActividade from "../components/ModalActividade.vue";
     import moment from 'moment';
+    import RangeSlider from 'vue-range-slider'
+    import 'vue-range-slider/dist/vue-range-slider.css'
+
     import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+
 
     export default {
         components: {
-            ModalActividade
+            ModalActividade,
+            RangeSlider
         },
         data(){
             return{
                 idActividade:'',
+                codigo:'',
                 tipos: [],  
                 origens: [], 
                 utilizadores: [], 
                 selectedTipo: '',
                 selectedOrigem: '',
+                id_origem:'',
                 titulo:'',
                 dado_origem:'',
+                acOrigemDado:'',
                 descricao:'',
                 data_prevista:'',
                 data_solicitacao:'',
@@ -418,7 +652,20 @@
                 fotoResponsavel: 'default.jpg',
                 visualizar: true,
                 data_solicitacaoEdit:'',
-                data_previstaEdit:''
+                data_previstaEdit:'',
+                //Dados da Acção
+                data_operacao:'',
+                descricao_accao:'',
+                utilizador_pergunta:'',
+                estado:'',
+                utilizador_codigo:'',
+                tempo_acao:'',
+                tipo_accao:2,  
+                avanco:0,
+                showAvanco:1,
+                submitStatus: null,
+                accoes: [],
+                id_tarefa: this.$route.params.id
             };       
         },
         validations: {
@@ -452,6 +699,13 @@
             selectedOrigem: { 
                 required     
             },
+            id_origem: { 
+                required     
+            },
+            acOrigemDado: { 
+                required,
+                 minLength: minLength(5)     
+            },
             tempo: {
                 required
             },
@@ -466,10 +720,26 @@
             },
             data_previstaEdit: { 
                 required     
-            },            
+            },
+            //Dados da acção
+            data_operacao: {
+                required
+            },
+            descricao_accao: {
+                required,       
+                minLength: minLength(10)
+            },           
+            estado: {
+                required
+            },           
+            utilizador_codigo: {
+                required
+            },           
+            tempo_acao: {
+                required
+            }        
         },
-        created(){
-            
+        created(){   
             let id = this.$route.params.id;
 
             let self = this               
@@ -477,6 +747,7 @@
             .then(function (response) {
                 if(response.status==200){
                     self.idActividade = response.data.id,
+                    self.codigo = response.data.codigo,
                     self.selectedTipo = response.data.tipo,
                     self.selectedOrigem = response.data.origem, 
                     self.titulo = response.data.titulo,  
@@ -502,7 +773,8 @@
         mounted(){
             this.pegaTipos();
             this.pegaOrigens();
-            this.pegaUtilizador();
+            this.pegaUtilizador(); 
+            this.pegaAccoesTarefa();
         },
         methods: { 
             pegaTipos: async function(){
@@ -625,20 +897,6 @@
                 if (this.$v.$invalid) {
                     this.submitStatus = 'ERROR'
                 } else {                
-                    //alert(this.idActividade);
-                    //alert(this.pegaTipoID(this.selectedTipo));
-                    //alert(this.titulo.toUpperCase()); 
-                    //alert(this.pegaOrigemID(this.selectedOrigem));                 
-                    //alert(this.dado_origem);
-                    //alert(this.setTempoSegundo(this.tempo));
-                    //alert(this.departamento_origem);
-                    //alert(this.selectedSolicitante);
-                    //alert(this.data_solicitacaoEdit.replace("T"," "));
-                    //alert(this.departamento_destino);
-                    //alert(this.selectedResponsavel);
-                    //alert(this.data_execucaoEdit.replace("T"," "));
-                    //alert(this.descricao);
-                    
                     let self = this          
                     this.$axios.post('auth/editarTarefa',{
                         'id': this.idActividade,
@@ -682,14 +940,106 @@
                 
             },
 
-            //Metodo de troca de username para escolher foto
-            onChangeSolicitante(event) {
-                this.fotoSolicitante = event.target.value+'.jpg';
+            //limpar dados do formulario acção
+            limparFormAccao(){
+                this.data_operacao = null;
+                this.descricao_accao = null;
+                this.utilizador_pergunta = null;
+                this.estado = null;
+                this.utilizador_codigo = null;
+                this.tempo_acao = null;
+                //this.tipo_accao:2,  
+                this.avanco = 0;
+
+                this.$nextTick(() => { this.$v.$reset(); });   
             },
 
-            onChangeResponsavel(event) {
-                this.fotoResponsavel = event.target.value+'.jpg';
-            }       
+            //Registar acção de uma actividade
+            registarAccao: async function(e){
+                this.$v.$touch()
+                if (this.$v.$invalid) {
+                    this.submitStatus = 'ERROR'
+                } else {
+                    let self = this          
+                    this.$axios.post('auth/registarOperacao',{
+                        'tarefa_id': this.idActividade,
+                        'codigo': this.codigo,
+                        'id_origem': this.id_origem,
+                        'acOrigemDado':this.acOrigemDado,
+                        'data_operacao': this.data_operacao.replace("T", " "),                        
+                        'tempo_acao': this.tempo_acao,
+                        'utilizador_codigo': this.utilizador_codigo,
+                        'estado': this.estado,
+                        'avanco': this.avanco,
+                        'utilizador_pergunta': this.utilizador_pergunta,
+                        'descricao_accao': this.descricao_accao,
+                    })
+                    .then(function (response) {
+                        if(response.status==200){
+                            self.limparFormAccao();
+                            $('#modalCloseAccao').click();  
+                            self.pegaAccoesTarefa();                        
+                            Swal.fire({
+                                text: "Acção registada com sucesso.",
+                                icon: 'success',
+                                confirmButtonText: 'Fechar'
+                            })
+                            //location.reload();
+                                                                    
+                        }else{
+                            //alert("LITTLE ERROR ");
+                        }
+                    })
+                    .catch(function (error) {
+                        $('#modalCloseAccao').click();    
+                        Swal.fire({
+                            text: "Erro ao registar Acção.",
+                            icon: 'error',
+                            confirmButtonText: 'Fechar'
+                        })
+                    });
+                }              
+            },
+
+            //Listar as acções registadas a uma tarefa
+            pegaAccoesTarefa: async function(){
+                let self = this               
+                this.$axios.get('auth/pegaAccoes/'+this.id_tarefa)
+                .then(function (response) {
+                    if(response.status==200){
+                        self.accoes = response.data;                                                                                 
+                    }
+                })
+                .catch(function (error) {
+                    alert("Erro ao carregar dados da acção");
+                });
+            },
+
+            //Metodo que activa utilizador pergunta, caso o estado for solicitar suporte
+            onChangeEstado(event) {
+                if(event.target.value=='ACCO'){
+                    this.showAvanco = 0;
+                    this.avanco = 100;
+                } else
+                    this.showAvanco = 1;
+
+                if(event.target.value=='CUSS'||event.target.value=='CURS')
+                    this.tipo_accao = 1;
+                else
+                    this.tipo_accao = 0;
+            }
         }
     }
 </script>
+<style>
+.slider {
+  width: 100%;
+  
+}
+.slider-value{
+    color:#21FB92;
+    font-size:18px;
+    font-weight:bold;
+    margin-left: 120px;
+}
+</style> 

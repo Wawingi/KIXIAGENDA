@@ -9,32 +9,11 @@
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Actividades</a></li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Minhas Actividades</h4>
+                    <h4 class="page-title">Actividades Atrasadas</h4>
                 </div>
             </div>
         </div>
-        <!-- start page title -->
-
         <!--Inicio do conteudo-->
-        <br /><br />
-
-        <!--Modal inclusão-->
-        <ModalActividade/>  
-        <!---->    
-        <div class="row float-right">
-            <div class="col-lg-12">
-                <button
-                    type="button"
-                    class="btn btn-rounded btn-sm btn-warning waves-effect waves-light"
-                    data-backdrop="static"
-                    data-keyboard="false"
-                    data-toggle="modal"
-                    data-target="#modalNovaActividade">
-                    <i class="mdi mdi-plus-circle mr-1"></i>Nova Actividade
-                </button>
-            </div>
-        </div>
-  
         <br /><br />
         <div class="row">
             <div class="col-12">
@@ -46,7 +25,7 @@
                                 <th>Objecto de Actividade</th>
                                 <th>Solicitante</th>
                                 <th>Data da Solicitação</th>
-                                <th>Data da Execução</th>
+                                <th>Data Prevista</th>
                             </tr>
                         </thead>
                         <tbody>                          
@@ -64,8 +43,8 @@
                                 </td>
                                 <td v-else width="20%">
                                     <div class="progress mb-1 progress-xl">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                                            Actividade para Hoje
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                            {{tarefa.data_prevista}}
                                         </div>
                                     </div>
                                 </td>                              
@@ -79,12 +58,7 @@
     </div>
 </template>
 <script>
-    import ModalActividade from "../components/ModalActividade.vue";
-  
     export default {
-        components: {
-            ModalActividade
-        },
         data(){
             return{
                 tarefas: []
@@ -104,7 +78,7 @@
             },
             pegaTarefas: async function(){
                 let self = this               
-                this.$axios.get('auth/pegaTarefas')
+                this.$axios.get('auth/pegaTarefasAtrasadas')
                 .then(function (response) {
                     if(response.status==200){
                         self.tarefas = response.data;                             

@@ -32,6 +32,16 @@ const routes = [
                 component:() => import('./views/MinhasActividades.vue')
             },
             {
+                path:'actividadesAtrasadas',
+                name:'actividadesAtrasadas',
+                component:() => import('./views/ActividadesAtrasadas.vue')
+            },
+            {
+                path:'actividadesAgendadas',
+                name:'actividadesAgendadas',
+                component:() => import('./views/ActividadesAgendadas.vue')
+            },
+            {
                 path:'verActividade/:id',
                 name:'verActividade',
                 component:() => import('./views/VerActividade.vue')

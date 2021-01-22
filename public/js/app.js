@@ -2051,8 +2051,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -2252,7 +2250,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     alert("Error ");
                   }
                 })["catch"](function (error) {
-                  alert("Erro ao carregar dados");
+                  //self.$router.push({name:'/'})  
+                  alert('Error');
                 });
 
               case 2:
@@ -2279,7 +2278,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 self = this;
                 this.$axios.get('auth/logout').then(function (response) {
                   if (response.status == 200) {
-                    alert("LOGOUT COM SUCESSO");
                     self.$router.push({
                       name: 'login'
                     });
@@ -2318,6 +2316,104 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2327,7 +2423,85 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  created: function created() {//document.querySelector("body").style.backgroundColor = "#f5f6f8";
+  data: function data() {
+    return {
+      tarefas: [],
+      qtdTarefasConcluidas: 0,
+      qtdTarefasAtrasadas: 0,
+      qtdTarefasAgendadas: 0
+    };
+  },
+  created: function created() {
+    this.pegaTarefas(), this.contTarefas();
+  },
+  methods: {
+    carregaTabela: function carregaTabela() {
+      this.$nextTick(function () {
+        $('#paginationTarefa').DataTable();
+      });
+    },
+    pegaTarefas: function () {
+      var _pegaTarefas = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var self;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                self = this;
+                this.$axios.get('auth/pegaGeralTarefas').then(function (response) {
+                  if (response.status == 200) {
+                    self.tarefas = response.data;
+                    self.$nextTick(function () {
+                      $('#paginationTarefa').DataTable();
+                    });
+                  }
+                })["catch"](function (error) {//alert("Erro ao carregar dados");
+                });
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function pegaTarefas() {
+        return _pegaTarefas.apply(this, arguments);
+      }
+
+      return pegaTarefas;
+    }(),
+    contTarefas: function () {
+      var _contTarefas = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var self;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                self = this;
+                this.$axios.get('auth/contActividades').then(function (response) {
+                  if (response.status == 200) {
+                    //alert(response.data.qtdTarefasConcluidas),
+                    self.qtdTarefasConcluidas = response.data.qtdTarefasConcluidas, self.qtdTarefasAtrasadas = response.data.qtdTarefasAtrasadas, self.qtdTarefasAgendadas = response.data.qtdTarefasAgendadas;
+                  }
+                })["catch"](function (error) {//alert("Erro ao carregar dados");
+                });
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function contTarefas() {
+        return _contTarefas.apply(this, arguments);
+      }
+
+      return contTarefas;
+    }()
   }
 });
 
@@ -2485,7 +2659,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 } else {
                   self = _this;
 
-                  _this.$axios.post('auth/login', {
+                  _this.$axios.post('login', {
                     'username': _this.username,
                     'senha': _this.senha
                   }).then(function (response) {
@@ -21702,15 +21876,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("router-view"),
-      _vm._v(" "),
-      _c("FlashMessage", { attrs: { position: "right top" } })
-    ],
-    1
-  )
+  return _c("div", [_c("router-view")], 1)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -21953,12 +22119,18 @@ var render = function() {
                 _c(
                   "li",
                   [
-                    _c("router-link", { attrs: { to: "#", exact: "" } }, [
-                      _c("i", { staticClass: "fas fa-history" }),
-                      _vm._v(
-                        " Actividades Agendadas\n                                "
-                      )
-                    ])
+                    _c(
+                      "router-link",
+                      {
+                        attrs: { to: "/home/actividadesAgendadas", exact: "" }
+                      },
+                      [
+                        _c("i", { staticClass: "fas fa-history" }),
+                        _vm._v(
+                          " Actividades Agendadas\n                                "
+                        )
+                      ]
+                    )
                   ],
                   1
                 ),
@@ -21966,12 +22138,18 @@ var render = function() {
                 _c(
                   "li",
                   [
-                    _c("router-link", { attrs: { to: "#", exact: "" } }, [
-                      _c("i", { staticClass: "fas fa-clock" }),
-                      _vm._v(
-                        " Actividades Atrasadas\n                                "
-                      )
-                    ])
+                    _c(
+                      "router-link",
+                      {
+                        attrs: { to: "/home/actividadesAtrasadas", exact: "" }
+                      },
+                      [
+                        _c("i", { staticClass: "fas fa-clock" }),
+                        _vm._v(
+                          " Actividades Atrasadas\n                                "
+                        )
+                      ]
+                    )
                   ],
                   1
                 )
@@ -22076,16 +22254,249 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container-fluid" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("div", { staticClass: "row text-center mb-2" }, [
+      _c("div", { staticClass: "col-md-6 col-xl-3" }, [
+        _c("div", { staticClass: "card-box" }, [
+          _c("i", { staticClass: "fas fa-undo-alt font-26" }),
+          _vm._v(" "),
+          _c("h3", { staticClass: "text-primary" }, [
+            _vm._v(
+              _vm._s(
+                _vm.qtdTarefasConcluidas +
+                  _vm.qtdTarefasAtrasadas +
+                  _vm.qtdTarefasAgendadas
+              )
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "p",
+            { staticClass: "text-uppercase mb-1 font-13 font-weight-medium" },
+            [_vm._v("Total Actividades")]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6 col-xl-3" }, [
+        _c("div", { staticClass: "card-box" }, [
+          _c("i", { staticClass: "fas fa-clipboard-check font-26" }),
+          _vm._v(" "),
+          _c("h3", { staticClass: "text-success" }, [
+            _vm._v(_vm._s(_vm.qtdTarefasConcluidas))
+          ]),
+          _vm._v(" "),
+          _c(
+            "p",
+            { staticClass: "text-uppercase mb-1 font-13 font-weight-medium" },
+            [_vm._v("Actividades Concluídas")]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6 col-xl-3" }, [
+        _c("div", { staticClass: "card-box" }, [
+          _c("i", { staticClass: "fas fa-clipboard-list font-26" }),
+          _vm._v(" "),
+          _c("h3", { staticClass: "text-danger" }, [
+            _vm._v(_vm._s(_vm.qtdTarefasAtrasadas))
+          ]),
+          _vm._v(" "),
+          _c(
+            "p",
+            { staticClass: "text-uppercase mb-1 font-13 font-weight-medium" },
+            [_vm._v("Actividades Atrasadas")]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6 col-xl-3" }, [
+        _c("div", { staticClass: "card-box" }, [
+          _c("i", { staticClass: "fas fa-file-alt font-26" }),
+          _vm._v(" "),
+          _c("h3", { staticClass: "text-warning" }, [
+            _vm._v(_vm._s(_vm.qtdTarefasAgendadas))
+          ]),
+          _vm._v(" "),
+          _c(
+            "p",
+            { staticClass: "text-uppercase mb-1 font-13 font-weight-medium" },
+            [_vm._v("Actividades Reagendadas")]
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
     _c("div", { staticClass: "row" }, [
-      _vm._v(
-        "\n            WELCOME PRINCIPAL\n            " +
-          _vm._s(this.$root.authUser) +
-          "\n    "
-      )
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "card-box" }, [
+          _c(
+            "table",
+            {
+              staticClass: "table table-sm table-bordeless",
+              attrs: { id: "paginationTarefa", cellspacing: "0", width: "100%" }
+            },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.tarefas, function(tarefa) {
+                  return _c(
+                    "tr",
+                    {
+                      staticClass: "tabelaClicked",
+                      attrs: { title: "Clique aqui para abrir actividade" },
+                      on: {
+                        click: function($event) {
+                          return _vm.selectRow(tarefa.id)
+                        }
+                      }
+                    },
+                    [
+                      _c("td", [
+                        _c("img", {
+                          staticClass: "rounded-circle",
+                          staticStyle: { border: "solid #6c757d 1px" },
+                          attrs: {
+                            src: "/images/users/" + tarefa.responsavel + ".jpg",
+                            alt: "user-image",
+                            width: "45px",
+                            height: "45px"
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(tarefa.codigo))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(tarefa.titulo))]),
+                      _vm._v(" "),
+                      _c("td", { attrs: { width: "20%" } }, [
+                        _vm._v(_vm._s(tarefa.data_solicitacao))
+                      ]),
+                      _vm._v(" "),
+                      tarefa.avanco == 100
+                        ? _c("td", { attrs: { width: "10%" } }, [
+                            _c(
+                              "div",
+                              { staticClass: "progress mb-1 progress-xl" },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "progress-bar bg-success",
+                                    staticStyle: { width: "100%" },
+                                    attrs: {
+                                      role: "progressbar",
+                                      "aria-valuenow": "50",
+                                      "aria-valuemin": "0",
+                                      "aria-valuemax": "100"
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(tarefa.data_cumprimento) +
+                                        "\n                                    "
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ])
+                        : _c("td", { attrs: { width: "20%" } }, [
+                            _vm._m(2, true)
+                          ])
+                    ]
+                  )
+                }),
+                0
+              )
+            ]
+          )
+        ])
+      ])
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "page-title-box" }, [
+          _c("div", { staticClass: "page-title-right" }, [
+            _c("ol", { staticClass: "breadcrumb m-0" }, [
+              _c("li", { staticClass: "breadcrumb-item" }, [
+                _c("a", { attrs: { href: "javascript: void(0);" } }, [
+                  _vm._v("KIXIAGENDA")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "breadcrumb-item" }, [
+                _c("a", { attrs: { href: "javascript: void(0);" } }, [
+                  _vm._v("Todas Actividades")
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("h4", { staticClass: "page-title" }, [
+            _vm._v("Listar Actividades")
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { attrs: { id: "cabecatabela" } }, [
+      _c("tr", [
+        _c("th", [_vm._v("Responsável")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Código")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Objecto de Actividade")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Data da Solicitação")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Data da Execução")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "progress mb-1 progress-xl" }, [
+      _c(
+        "div",
+        {
+          staticClass: "progress-bar bg-warning",
+          staticStyle: { width: "100%" },
+          attrs: {
+            role: "progressbar",
+            "aria-valuenow": "50",
+            "aria-valuemin": "0",
+            "aria-valuemax": "100"
+          }
+        },
+        [
+          _vm._v(
+            "\n                                        Actividade não Concluída\n                                    "
+          )
+        ]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -39762,19 +40173,31 @@ var routes = [{
     path: 'assessores',
     name: 'assessores',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./views/AssessoresConta.vue */ "./resources/js/views/AssessoresConta.vue"));
+      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./views/AssessoresConta.vue */ "./resources/js/views/AssessoresConta.vue"));
     }
   }, {
     path: 'meuPerfil',
     name: 'meuPerfil',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./views/Perfil.vue */ "./resources/js/views/Perfil.vue"));
+      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./views/Perfil.vue */ "./resources/js/views/Perfil.vue"));
     }
   }, {
     path: 'minhasActividades',
     name: 'minhasActividades',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./views/MinhasActividades.vue */ "./resources/js/views/MinhasActividades.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ./views/MinhasActividades.vue */ "./resources/js/views/MinhasActividades.vue"));
+    }
+  }, {
+    path: 'actividadesAtrasadas',
+    name: 'actividadesAtrasadas',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./views/ActividadesAtrasadas.vue */ "./resources/js/views/ActividadesAtrasadas.vue"));
+    }
+  }, {
+    path: 'actividadesAgendadas',
+    name: 'actividadesAgendadas',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./views/ActividadesAgendadas.vue */ "./resources/js/views/ActividadesAgendadas.vue"));
     }
   }, {
     path: 'verActividade/:id',

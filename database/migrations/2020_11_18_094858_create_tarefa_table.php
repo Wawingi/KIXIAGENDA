@@ -18,7 +18,8 @@ class CreateTarefaTable extends Migration
             $table->string('departamento_origem',50);
             $table->string('departamento_destino',50);
             $table->string('solicitante',15);
-            $table->string('responsanvel',15);
+            $table->string('responsavel',15);
+            $table->string('codigo',8);
             $table->string('ut_registo',15);
             $table->string('titulo',100);
             $table->longText('descricao');

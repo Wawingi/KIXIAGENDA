@@ -29,15 +29,16 @@
     <link href="{{ asset('css/estilo.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('css/datatables2.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://unpkg.com/vue-range-component@1.0.3/dist/vue-range-slider.min.css">
 </head>
 <body>
     <div id="app"></div>
 
-    <!-- App js -->
+    <!-- App js -->   
+    <script src="{{ asset('js/jquery-3.4.1.js') }}"></script>
     <script src="{{ asset('js/additional-methods.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('js/datatables2.min.js') }}" defer></script>
-    <script src="{{ asset('js/jquery-3.4.1.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/app.min.js') }}"></script>
      <!-- Vendor js -->

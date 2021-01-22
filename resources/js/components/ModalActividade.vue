@@ -277,8 +277,7 @@
                 tempo:'',
                 departamento_origem:'',
                 departamento_destino:'',
-                submitStatus: null
-                
+                submitStatus: null 
             };       
         },  
         validations: {
@@ -446,10 +445,11 @@
                     .catch(function (error) {
                         self.limaparCampos();
                         $('#modalClose').click();
-                        self.flashMessage.error({  
-                            message: 'Erro ao registar actividade.',
-                            time: 2500
-                        });
+                         Swal.fire({
+                            text: "Erro ao registar actividade.",
+                            icon: 'error',
+                            confirmButtonText: 'Fechar'
+                        })
                     });
                 }
                 

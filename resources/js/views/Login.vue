@@ -86,7 +86,7 @@
                     this.submitStatus = 'ERROR'
                 } else {                    
                     let self = this               
-                    this.$axios.post('auth/login',{
+                    this.$axios.post('login',{
                         'username': this.username,
                         'senha': this.senha
                     })

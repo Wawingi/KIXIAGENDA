@@ -119,12 +119,12 @@
                                     </router-link>
                                 </li>
                                 <li>
-                                    <router-link to="#" exact>
+                                    <router-link to="/home/actividadesAgendadas" exact>
                                         <i class="fas fa-history"></i> Actividades Agendadas
                                     </router-link>
                                 </li>
                                 <li>
-                                    <router-link to="#" exact>
+                                    <router-link to="/home/actividadesAtrasadas" exact>
                                         <i class="fas fa-clock"></i> Actividades Atrasadas
                                     </router-link>
                                 </li>
@@ -173,7 +173,8 @@
                     }
                 })
                 .catch(function (error) {
-                    alert("Erro ao carregar dados");
+                    //self.$router.push({name:'/'})  
+                    alert('Error');             
                 });
             },
 
@@ -182,7 +183,6 @@
                 this.$axios.get('auth/logout')
                 .then(function (response) {
                     if(response.status==200){
-                        alert("LOGOUT COM SUCESSO");
                         self.$router.push({name:'login'})                        
                     }else{
                         alert("LITTLE ERROR ");

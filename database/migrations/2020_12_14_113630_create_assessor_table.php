@@ -17,6 +17,7 @@ class CreateAssessorTable extends Migration
             $table->id();
             $table->string('nome');
             $table->string('agencia');
+            $table->string('username',10);
             $table->integer('contacto');
             $table->timestamps();
         });

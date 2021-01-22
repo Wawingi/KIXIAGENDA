@@ -1,6 +1,19 @@
 <template>
     <div class="container-fluid">
-        <br>
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">KIXIAGENDA</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Ver Assessores de Conta</a></li>
+                        </ol>
+                    </div>
+                    <h4 class="page-title">Assessores de Conta</h4>
+                </div>
+            </div>
+        </div>
+        <br><br>
         <div class="row">
             <div class="col-12">
                 <div class="card-box">
@@ -17,11 +30,12 @@
                             <tr v-for="assessor in assessores" class="tabelaClicked">
                                 <td>
                                     <img
-                                    :src="'/images/users/'+assessor.username+'.jpg'"
-                                    alt="user-image"
-                                    width="70px"
-                                    height="70px"
-                                    class="rounded-circle"/>
+                                        :src="'/images/users/'+assessor.username+'.jpg'"
+                                        alt="user-image"
+                                        width="50px"
+                                        height="50px"
+                                        class="rounded-circle"
+                                        style="border:solid #6c757d 1px"/>
                                 </td>
                                 <td><br>{{assessor.nome}}</td>
                                 <td><br>{{assessor.agencia}}</td>

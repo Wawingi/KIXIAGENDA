@@ -526,9 +526,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   })["catch"](function (error) {
                     self.limaparCampos();
                     $('#modalClose').click();
-                    self.flashMessage.error({
-                      message: 'Erro ao registar actividade.',
-                      time: 2500
+                    Swal.fire({
+                      text: "Erro ao registar actividade.",
+                      icon: 'error',
+                      confirmButtonText: 'Fechar'
                     });
                   });
                 }
