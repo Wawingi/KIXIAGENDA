@@ -27,7 +27,7 @@
                                     <div class="form-group mb-3">
                                         <label for="password">Senha</label>         
                                         <input class="form-control" type="password" v-model="$v.senha.$model" :class="{'is-invalid':$v.senha.$error, 'is-valid':!$v.senha.$invalid}" placeholder="Informe a senha">                                                                                   
-                                         <div class="invalid-feedback">
+                                        <div class="invalid-feedback">
                                             <span v-if="!$v.senha.required">A senha deve ser fornecido</span>
                                             <span v-if="!$v.senha.minLength">Senha muito curta</span>
                                         </div>
@@ -39,9 +39,6 @@
 
                                 </form>
                                 <br>
-                                <div class="text-center">
-                                    <router-link to="/dashboard" class="mt-3">Recuperar a Senha</router-link>
-                                </div>
                             </div>        
                         </div>
                     </div> 
@@ -58,7 +55,8 @@
     import { required, minLength, maxLength } from 'vuelidate/lib/validators'
     export default{  
         created(){
-                document.querySelector('body').style.backgroundColor = '#709f89';
+            //document.querySelector('body').style.background = `url(${'images/fundo.jpg'})`;
+             document.querySelector("body").style.backgroundColor = "#1abc9c";
         }, 
         name:'Login',  
         data(){
@@ -75,8 +73,7 @@
                 maxLength: maxLength(9)
             },
             senha: { 
-                required,       
-                minLength: minLength(4),
+                required                     
             }
         },
         methods: {
@@ -92,7 +89,7 @@
                     })
                     .then(function (response) {
                         if(response.status==200){
-                            self.$router.push({name:'dashboard'})                        
+                            self.$router.push({name:'dashboard'});                     
                         }else{
                             alert("LITTLE ERROR ");
                         }

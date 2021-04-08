@@ -19,6 +19,8 @@ class CreateAssessorTable extends Migration
             $table->string('agencia');
             $table->string('username',10);
             $table->integer('contacto');
+            $table->integer('estado_fecho');
+            $table->string('area');
             $table->timestamps();
         });
     }

@@ -15,8 +15,11 @@ class CreateTarefaTable extends Migration
     {
         Schema::create('tarefa', function (Blueprint $table) {
             $table->uuid('id');
+            $table->string('versao_sistema',6);
             $table->string('departamento_origem',50);
             $table->string('departamento_destino',50);
+            $table->smallInteger('id_dpto_origem');     
+            $table->smallInteger('id_dpto_destino');     
             $table->string('solicitante',15);
             $table->string('responsavel',15);
             $table->string('codigo',8);

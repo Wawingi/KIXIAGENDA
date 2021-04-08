@@ -63,7 +63,7 @@
                             <tr title='Clique aqui para abrir actividade' v-for="tarefa in tarefas" class="tabelaClicked" @click="selectRow(tarefa.id)">
                                 <td>
                                 <img
-                                    :src="'/images/users/'+tarefa.responsavel+'.jpg'"
+                                    :src="'images/users/'+tarefa.responsavel+'.jpg'"
                                     alt="user-image"
                                     width="45px"
                                     height="45px"
@@ -115,6 +115,9 @@
                 this.$nextTick(() => {
                     $('#paginationTarefa').DataTable();
                 });
+            },
+            selectRow(id){      
+                this.$router.push({name:'verActividade',params:{id:id}})   
             },
             pegaTarefas: async function(){
                 let self = this               

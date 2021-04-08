@@ -29,7 +29,6 @@
     <link href="{{ asset('css/estilo.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('css/datatables2.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://unpkg.com/vue-range-component@1.0.3/dist/vue-range-slider.min.css">
 </head>
 <body>
     <div id="app"></div>

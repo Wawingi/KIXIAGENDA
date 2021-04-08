@@ -26,7 +26,7 @@
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="name">Tipo de Actividade</label>
-                                        <select v-model.trim="$v.selectedTipo.$model" :class="{'is-invalid':$v.selectedTipo.$error, 'is-valid':!$v.selectedTipo.$invalid}" class="custom-select custom-select-sm">
+                                        <select @change="onChangeTipo($event)"  v-model.trim="$v.selectedTipo.$model" :class="{'is-invalid':$v.selectedTipo.$error, 'is-valid':!$v.selectedTipo.$invalid}" class="custom-select custom-select-sm">
                                             <option disabled selected :value="''">Selecione o tipo</option>
                                             <option v-for="tipo in tipos" v-bind:key="tipo.id" v-bind:value="tipo.id">{{tipo.tipo}}</option>
                                         </select>
@@ -47,7 +47,7 @@
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="name">Tipo Origem</label>
-                                        <select v-model.trim="$v.selectedOrigem.$model" :class="{'is-invalid':$v.selectedOrigem.$error, 'is-valid':!$v.selectedOrigem.$invalid}" class="custom-select custom-select-sm">
+                                        <select @change="onChangeOrigem($event)" v-model.trim="$v.selectedOrigem.$model" :class="{'is-invalid':$v.selectedOrigem.$error, 'is-valid':!$v.selectedOrigem.$invalid}" class="custom-select custom-select-sm">
                                             <option disabled selected :value="''">Selecione a origem</option>
                                             <option v-for="origem in origens" v-bind:key="origem.id" v-bind:value="origem.id">{{origem.titulo}}</option>
                                         </select>
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="name">Dado Origem</label>
+                                        <label for="name">Dado Origem<span style="color:red;font-size:12px"> [{{motivo}}]</span></label>
                                         <input v-model.trim="$v.dado_origem.$model" :class="{'is-invalid':$v.dado_origem.$error, 'is-valid':!$v.dado_origem.$invalid}" type="text" class="form-control form-control-sm corInput" placeholder="Informe o dado de contacto">
                                         <div class="invalid-feedback">
                                             <span v-if="!$v.dado_origem.required">O Dado de origem deve ser fornecido</span>
@@ -72,6 +72,22 @@
                                             <option value='10'>0:10</option>
                                             <option value='15'>0:15</option>
                                             <option value='20'>0:20</option>
+                                            <option value="30">0:30</option>
+                                            <option value="40">0:40</option>
+                                            <option value="50">0:50</option>
+                                            <option value="60">1:00</option>
+                                            <option value="90">1:30</option>
+                                            <option value="120">2:00</option>
+                                            <option value="150">2:30</option>
+                                            <option value="180">3:00</option>
+                                            <option value="210">3:30</option>
+                                            <option value="240">4:00</option>
+                                            <option value="270">4:30</option>
+                                            <option value="300">5:00</option>
+                                            <option value="330">5:30</option>
+                                            <option value="360">6:00</option>
+                                            <option value="390">6:30</option>
+                                            <option value="420">7:00</option>
                                         </select>
                                     </div>
                                 </div>
@@ -85,42 +101,42 @@
                                                     <div class="col-12">
                                                         <select v-model.trim="$v.departamento_origem.$model" :class="{'is-invalid':$v.departamento_origem.$error, 'is-valid':!$v.departamento_origem.$invalid}" class="custom-select custom-select-sm ">
                                                             <option selected disabled :value="''">Escolha a origem</option>
-                                                            <option value="Contabilidade & Finanças"> 01 SEDE | Contabilidade & Finanças</option>
-                                                            <option value="Administração & Marketing">01 SEDE | Administração & Marketing</option>
-                                                            <option value="Auditoria Interna">01 SEDE | Auditoria Interna</option>
-                                                            <option value="Operações">01 SEDE | Operações</option>
-                                                            <option value="Presidente do Comitê Executivo">01 SEDE | Presidente do Comitê Executivo</option>
-                                                            <option value="Recursos Humanos">01 SEDE | Recursos Humanos</option>
-                                                            <option value="Sistemas & Organização">01 SEDE | Sistemas & Organização</option>
-                                                            <option value="Cadeia Produtiva - Zango">01 SEDE | Cadeia Produtiva - Zango</option>
-                                                            <option value="Operações">01 SEDE | Operações</option>
-                                                            <option value="Operações">02 HUAMBO | Operações</option>
-                                                            <option value="Operações">03 MABOR | Operações</option>
-                                                            <option value="Operações">04 HOJI-YA-HENDA | Operações</option>
-                                                            <option value="Operações">05 MORRO BENTO | Operações</option>
-                                                            <option value="Operações">06 VIANA | Operações</option>
-                                                            <option value="Operações">07 KILAMBA KIAXI | Operações</option>
-                                                            <option value="Operações">08 BENGUELA | Operações</option>
-                                                            <option value="Operações">09 CABINDA | Operações</option>
-                                                            <option value="Operações">10 LUBANGO | Operações</option>
-                                                            <option value="Operações">11 NAMIBE | Operações</option>
-                                                            <option value="Operações">12 KUITO | Operações</option>
-                                                            <option value="Operações">13 UIGE | Operações</option>
-                                                            <option value="Operações">15 LOBITO | Operações</option>
-                                                            <option value="Operações">16 MALANGE | Operações</option>
-                                                            <option value="Operações">18 SUMBE | Operações</option>
-                                                            <option value="Operações">19 ZANGO | Operações</option>
-                                                            <option value="Operações">21 BENFICA | Operações</option>
-                                                            <option value="Operações">22 PANGUILA | Operações</option>
-                                                            <option value="Sub-Direcção de Pequenas Empresas">26 BOA VIDA | Sub-Direcção de Pequenas Empresas</option>
-                                                            <option value="DPP-Benguela">99 DDP | DPP-Benguela</option>
-                                                            <option value="DPP-Kuito">99 DDP | DPP-Kuito</option>
-                                                            <option value="DPP-Lobito">99 DDP | DPP-Lobito</option>
-                                                            <option value="DPP-Marginal">99 DDP | DPP-Marginal</option>
-                                                            <option value="DPP-Namibe">99 DDP | DPP-Namibe</option>
-                                                            <option value="DPP-Soyo">99 DDP | DPP-Soyo</option>
-                                                            <option value="DPP-Uige">99 DDP | DPP-Uige</option>
-                                                            <option value="DPP-Zango">99 DDP | DPP-Zango</option>
+                                                            <option value="1-Contabilidade & Finanças"> 01 SEDE | Contabilidade & Finanças</option>
+                                                            <option value="1-Administração & Marketing">01 SEDE | Administração & Marketing</option>
+                                                            <option value="1-Auditoria Interna">01 SEDE | Auditoria Interna</option>
+                                                            <option value="1-Operações">01 SEDE | Operações</option>
+                                                            <option value="1-Presidente do Comitê Executivo">01 SEDE | Presidente do Comitê Executivo</option>
+                                                            <option value="1-Recursos Humanos">01 SEDE | Recursos Humanos</option>
+                                                            <option value="1-Sistemas & Organização">01 SEDE | Sistemas & Organização</option>
+                                                            <option value="1-Cadeia Produtiva - Zango">01 SEDE | Cadeia Produtiva - Zango</option>
+                                                            <option value="1-Operações">01 SEDE | Operações</option>
+                                                            <option value="2-Operações">02 HUAMBO | Operações</option>
+                                                            <option value="3-Operações">03 MABOR | Operações</option>
+                                                            <option value="4-Operações">04 HOJI-YA-HENDA | Operações</option>
+                                                            <option value="5-Operações">05 MORRO BENTO | Operações</option>
+                                                            <option value="6-Operações">06 VIANA | Operações</option>
+                                                            <option value="7-Operações">07 KILAMBA KIAXI | Operações</option>
+                                                            <option value="8-Operações">08 BENGUELA | Operações</option>
+                                                            <option value="9-Operações">09 CABINDA | Operações</option>
+                                                            <option value="10-Operações">10 LUBANGO | Operações</option>
+                                                            <option value="11-Operações">11 NAMIBE | Operações</option>
+                                                            <option value="12-Operações">12 KUITO | Operações</option>
+                                                            <option value="13-Operações">13 UIGE | Operações</option>
+                                                            <option value="15-Operações">15 LOBITO | Operações</option>
+                                                            <option value="16-Operações">16 MALANGE | Operações</option>
+                                                            <option value="18-Operações">18 SUMBE | Operações</option>
+                                                            <option value="19-Operações">19 ZANGO | Operações</option>
+                                                            <option value="21-Operações">21 BENFICA | Operações</option>
+                                                            <option value="22-Operações">22 PANGUILA | Operações</option>
+                                                            <option value="26-Sub-Direcção de Pequenas Empresas">26 BOA VIDA | Sub-Direcção de Pequenas Empresas</option>
+                                                            <option value="99-DPP-Benguela">99 DDP | DPP-Benguela</option>
+                                                            <option value="99-DPP-Kuito">99 DDP | DPP-Kuito</option>
+                                                            <option value="99-DPP-Lobito">99 DDP | DPP-Lobito</option>
+                                                            <option value="99-DPP-Marginal">99 DDP | DPP-Marginal</option>
+                                                            <option value="99-DPP-Namibe">99 DDP | DPP-Namibe</option>
+                                                            <option value="99-DPP-Soyo">99 DDP | DPP-Soyo</option>
+                                                            <option value="99-DPP-Uige">99 DDP | DPP-Uige</option>
+                                                            <option value="99-DPP-Zango">99 DDP | DPP-Zango</option>
                                                         </select>
                                                     </div><br><br>
                                                     <div class="col-5">
@@ -142,7 +158,7 @@
                                             <div class="col-md-4">
                                                 <img
                                                     style="border:solid #d0d5dc 1px"
-                                                    :src="'/images/users/'+fotoSolicitante"
+                                                    :src="'images/users/'+fotoSolicitante"
                                                     alt="user-image"
                                                     width="112px"
                                                     height="112px"
@@ -160,43 +176,43 @@
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <select v-model.trim="$v.departamento_destino.$model" :class="{'is-invalid':$v.departamento_destino.$error, 'is-valid':!$v.departamento_destino.$invalid}" class="custom-select custom-select-sm">
-                                                            <option selected disabled :value="''">Escolha o destino</option>
-                                                            <option value="Contabilidade & Finanças"> 01 SEDE | Contabilidade & Finanças</option>
-                                                            <option value="Administração & Marketing">01 SEDE | Administração & Marketing</option>
-                                                            <option value="Auditoria Interna">01 SEDE | Auditoria Interna</option>
-                                                            <option value="Operações">01 SEDE | Operações</option>
-                                                            <option value="Presidente do Comitê Executivo">01 SEDE | Presidente do Comitê Executivo</option>
-                                                            <option value="Recursos Humanos">01 SEDE | Recursos Humanos</option>
-                                                            <option value="Sistemas & Organização">01 SEDE | Sistemas & Organização</option>
-                                                            <option value="Cadeia Produtiva - Zango">01 SEDE | Cadeia Produtiva - Zango</option>
-                                                            <option value="Operações">01 SEDE | Operações</option>
-                                                            <option value="Operações">02 HUAMBO | Operações</option>
-                                                            <option value="Operações">03 MABOR | Operações</option>
-                                                            <option value="Operações">04 HOJI-YA-HENDA | Operações</option>
-                                                            <option value="Operações">05 MORRO BENTO | Operações</option>
-                                                            <option value="Operações">06 VIANA | Operações</option>
-                                                            <option value="Operações">07 KILAMBA KIAXI | Operações</option>
-                                                            <option value="Operações">08 BENGUELA | Operações</option>
-                                                            <option value="Operações">09 CABINDA | Operações</option>
-                                                            <option value="Operações">10 LUBANGO | Operações</option>
-                                                            <option value="Operações">11 NAMIBE | Operações</option>
-                                                            <option value="Operações">12 KUITO | Operações</option>
-                                                            <option value="Operações">13 UIGE | Operações</option>
-                                                            <option value="Operações">15 LOBITO | Operações</option>
-                                                            <option value="Operações">16 MALANGE | Operações</option>
-                                                            <option value="Operações">18 SUMBE | Operações</option>
-                                                            <option value="Operações">19 ZANGO | Operações</option>
-                                                            <option value="Operações">21 BENFICA | Operações</option>
-                                                            <option value="Operações">22 PANGUILA | Operações</option>
-                                                            <option value="Sub-Direcção de Pequenas Empresas">26 BOA VIDA | Sub-Direcção de Pequenas Empresas</option>
-                                                            <option value="DPP-Benguela">99 DDP | DPP-Benguela</option>
-                                                            <option value="DPP-Kuito">99 DDP | DPP-Kuito</option>
-                                                            <option value="DPP-Lobito">99 DDP | DPP-Lobito</option>
-                                                            <option value="DPP-Marginal">99 DDP | DPP-Marginal</option>
-                                                            <option value="DPP-Namibe">99 DDP | DPP-Namibe</option>
-                                                            <option value="DPP-Soyo">99 DDP | DPP-Soyo</option>
-                                                            <option value="DPP-Uige">99 DDP | DPP-Uige</option>
-                                                            <option value="DPP-Zango">99 DDP | DPP-Zango</option>
+                                                            <option selected disabled :value="''">Escolha a origem</option>
+                                                            <option value="1-Contabilidade & Finanças"> 01 SEDE | Contabilidade & Finanças</option>
+                                                            <option value="1-Administração & Marketing">01 SEDE | Administração & Marketing</option>
+                                                            <option value="1-Auditoria Interna">01 SEDE | Auditoria Interna</option>
+                                                            <option value="1-Operações">01 SEDE | Operações</option>
+                                                            <option value="1-Presidente do Comitê Executivo">01 SEDE | Presidente do Comitê Executivo</option>
+                                                            <option value="1-Recursos Humanos">01 SEDE | Recursos Humanos</option>
+                                                            <option value="1-Sistemas & Organização">01 SEDE | Sistemas & Organização</option>
+                                                            <option value="1-Cadeia Produtiva - Zango">01 SEDE | Cadeia Produtiva - Zango</option>
+                                                            <option value="1-Operações">01 SEDE | Operações</option>
+                                                            <option value="2-Operações">02 HUAMBO | Operações</option>
+                                                            <option value="3-Operações">03 MABOR | Operações</option>
+                                                            <option value="4-Operações">04 HOJI-YA-HENDA | Operações</option>
+                                                            <option value="5-Operações">05 MORRO BENTO | Operações</option>
+                                                            <option value="6-Operações">06 VIANA | Operações</option>
+                                                            <option value="7-Operações">07 KILAMBA KIAXI | Operações</option>
+                                                            <option value="8-Operações">08 BENGUELA | Operações</option>
+                                                            <option value="9-Operações">09 CABINDA | Operações</option>
+                                                            <option value="10-Operações">10 LUBANGO | Operações</option>
+                                                            <option value="11-Operações">11 NAMIBE | Operações</option>
+                                                            <option value="12-Operações">12 KUITO | Operações</option>
+                                                            <option value="13-Operações">13 UIGE | Operações</option>
+                                                            <option value="15-Operações">15 LOBITO | Operações</option>
+                                                            <option value="16-Operações">16 MALANGE | Operações</option>
+                                                            <option value="18-Operações">18 SUMBE | Operações</option>
+                                                            <option value="19-Operações">19 ZANGO | Operações</option>
+                                                            <option value="21-Operações">21 BENFICA | Operações</option>
+                                                            <option value="22-Operações">22 PANGUILA | Operações</option>
+                                                            <option value="26-Sub-Direcção de Pequenas Empresas">26 BOA VIDA | Sub-Direcção de Pequenas Empresas</option>
+                                                            <option value="99-DPP-Benguela">99 DDP | DPP-Benguela</option>
+                                                            <option value="99-DPP-Kuito">99 DDP | DPP-Kuito</option>
+                                                            <option value="99-DPP-Lobito">99 DDP | DPP-Lobito</option>
+                                                            <option value="99-DPP-Marginal">99 DDP | DPP-Marginal</option>
+                                                            <option value="99-DPP-Namibe">99 DDP | DPP-Namibe</option>
+                                                            <option value="99-DPP-Soyo">99 DDP | DPP-Soyo</option>
+                                                            <option value="99-DPP-Uige">99 DDP | DPP-Uige</option>
+                                                            <option value="99-DPP-Zango">99 DDP | DPP-Zango</option>
                                                         </select>
                                                     </div><br><br>
                                                     <div class="col-5">
@@ -218,7 +234,7 @@
                                             <div class="col-md-4">
                                                 <img
                                                     style="border:solid #d0d5dc 1px"
-                                                    :src="'/images/users/'+fotoResponsavel"
+                                                    :src="'images/users/'+fotoResponsavel"
                                                     alt="user-image"
                                                     width="114px"
                                                     height="114px"
@@ -271,6 +287,7 @@
                 fotoResponsavel: 'default.jpg',
                 titulo:'',
                 dado_origem:'',
+                motivo:'',
                 descricao:'',
                 data_execucao:'',
                 data_solicitacao:'',
@@ -342,9 +359,10 @@
                     //alert("Erro ao carregar dados do perfil");
                 });
             },
-            pegaOrigens: async function(){
+            pegaOrigens: async function(id_tipo){
+                 
                 let self = this               
-                this.$axios.get('auth/pegaOrigens')
+                this.$axios.get('auth/pegaOrigens/'+id_tipo)
                 .then(function (response) {
                     if(response.status==200){
                         self.origens = response.data;             
@@ -455,15 +473,83 @@
                 
             },
 
+            onChangeTipo(event) {
+                this.pegaOrigens(event.target.value);
+            },  
+
+            onChangeOrigem(event){
+                let self = this;          
+                let origem = event.target.value;
+                this.origens.forEach(function(item){
+                   if(item.id==origem){
+                       self.motivo=item.dado;
+                   }
+                });
+            },  
+
+            //Pega foto utilizador
+            pegaFotoUtilizador(username){             
+                let self = this               
+                return this.$axios.get('auth/pegaFoto/'+username)
+                .then(function (response) {
+                    if(response.status==200){           
+                        console.log('FOTO: '+response.data);
+                        return response.data;                                                           
+                    }
+                })
+                .catch(function (error) {
+                    //alert("Erro ao carregar dados do perfil");
+                });                                
+            },
+
             //Metodo de troca de username para escolher foto
             onChangeSolicitante(event) {
                 //alert(event.target.value+'.jpg');
-                this.fotoSolicitante = event.target.value+'.jpg';
+                if(this.fotoResponsavel == event.target.value+'.jpg'){
+                    this.selectedSolicitante='';
+                    this.fotoSolicitante = 'default.jpg';
+                     Swal.fire({
+                        text: "O Solicitante deve ser diferente do responsável.",
+                        icon: 'error',
+                        confirmButtonText: 'Fechar'
+                    })
+                }else{
+                    let self = this               
+                    this.$axios.get('auth/pegaFoto/'+event.target.value)
+                    .then(function (response) {
+                        if(response.status==200){           
+                            console.log('FOTO: '+response.data);   
+                            self.fotoSolicitante = response.data;                                                   
+                        }
+                    })
+                    .catch(function (error) {
+                        //alert("Erro ao carregar dados do perfil");
+                    });       
+                }
             },
-
+                
             onChangeResponsavel(event) {
-                //alert(event.target.value+'.jpg');
-                this.fotoResponsavel = event.target.value+'.jpg';
+                if(this.fotoSolicitante==event.target.value+'.jpg'){
+                    this.selectedResponsavel='';
+                    this.fotoResponsavel = 'default.jpg';
+                    Swal.fire({
+                        text: "O Responsável deve ser diferente do solicitante.",
+                        icon: 'error',
+                        confirmButtonText: 'Fechar'
+                    })
+                } else {          
+                    let self = this               
+                    this.$axios.get('auth/pegaFoto/'+event.target.value)
+                    .then(function (response) {
+                        if(response.status==200){           
+                            console.log('FOTO: '+response.data);   
+                            self.fotoResponsavel = response.data;                                                      
+                        }
+                    })
+                    .catch(function (error) {
+                        //alert("Erro ao carregar dados do perfil");
+                    });       
+                }
             }            
         }
     }

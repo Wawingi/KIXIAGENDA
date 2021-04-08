@@ -3,6 +3,16 @@ import Router from 'vue-router';
 import Dashboard from './views/Dashboard.vue';
 import Home from './views/Home.vue';
 import Login from './views/Login.vue';
+import Perfil from './views/Perfil.vue';
+
+import MinhasActividades from './views/MinhasActividades.vue';
+import ActividadesAtrasadas from './views/ActividadesAtrasadas.vue';
+import ActividadesAgendadas from './views/ActividadesAgendadas.vue';
+import VerActividade from './views/VerActividade.vue';
+
+
+import Assessores from './views/AssessoresConta.vue';
+import Fecho from './views/FechoDiario.vue';
 Vue.use(Router);
 
 const routes = [
@@ -17,35 +27,40 @@ const routes = [
                 component:() => import('./views/Dashboard.vue')
             },
             {
-                path:'assessores',
-                name:'assessores',
-                component:() => import('./views/AssessoresConta.vue')
-            },
-            {
                 path:'meuPerfil',
                 name:'meuPerfil',
-                component:() => import('./views/Perfil.vue')
+                component:Perfil
             },
             {
                 path:'minhasActividades',
                 name:'minhasActividades',
-                component:() => import('./views/MinhasActividades.vue')
+                component:MinhasActividades
             },
             {
                 path:'actividadesAtrasadas',
                 name:'actividadesAtrasadas',
-                component:() => import('./views/ActividadesAtrasadas.vue')
+                component:ActividadesAtrasadas
             },
             {
                 path:'actividadesAgendadas',
                 name:'actividadesAgendadas',
-                component:() => import('./views/ActividadesAgendadas.vue')
+                component:ActividadesAgendadas
             },
             {
                 path:'verActividade/:id',
                 name:'verActividade',
-                component:() => import('./views/VerActividade.vue')
+                component:VerActividade
             },
+            {
+                path:'assessores',
+                name:'assessores',
+                component:Assessores
+            },
+            {
+                path:'fechoDiario',
+                name:'fechoDiario',
+                component:Fecho
+            }
         ]
     },
     {

@@ -20,7 +20,7 @@ export default {
     },
     created() {
         document.querySelector("body").style.backgroundColor = "#f5f6f8";
-    }
+    },
 };
 
 </script>

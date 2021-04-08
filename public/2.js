@@ -876,10 +876,87 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }(),
     //Pega tempo de segundos para formato visual
     setTempoVisual: function setTempoVisual(tempo) {
-      if (tempo == 300) return '0:05';
-      if (tempo == 600) return '0:10';
-      if (tempo == 900) return '0:15';
-      if (tempo == 1200) return '0:20';
+      switch (tempo) {
+        case 300:
+          return '0:05';
+          break;
+
+        case 600:
+          return '0:10';
+          break;
+
+        case 900:
+          return '0:15';
+          break;
+
+        case 1200:
+          return '0:20';
+          break;
+
+        case 1800:
+          return '0:30';
+          break;
+
+        case 2400:
+          return '0:40';
+          break;
+
+        case 3000:
+          return '0:50';
+          break;
+
+        case 3600:
+          return '1:00';
+          break;
+
+        case 5400:
+          return '1:30';
+          break;
+
+        case 7200:
+          return '2:00';
+          break;
+
+        case 9000:
+          return '2:30';
+          break;
+
+        case 10800:
+          return '3:00';
+          break;
+
+        case 12600:
+          return '3:30';
+          break;
+
+        case 14400:
+          return '4:00';
+          break;
+
+        case 16200:
+          return '4:30';
+          break;
+
+        case 18000:
+          return '5:00';
+          break;
+
+        case 19800:
+          return '5:30';
+          break;
+
+        case 21600:
+          return '6:00';
+          break;
+
+        case 23400:
+          return '6:30';
+          break;
+
+        case 25200:
+          return '7:00';
+          break;
+      }
     },
     //Pega tempo de visual para segundos
     setTempoSegundo: function setTempoSegundo(tempo) {

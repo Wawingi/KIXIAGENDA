@@ -16,8 +16,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('logout', 'UtilizadorController@logout');
         Route::get('pegaUtilizador', 'UtilizadorController@pegaUtilizador');
         Route::get('pegaUtilizadores', 'UtilizadorController@pegaUtilizadores');
+        Route::get('pegaFoto/{username}', 'UtilizadorController@pegaFoto');
+
         Route::get('pegaTipos', 'TipoController@pegaTipos');
-        Route::get('pegaOrigens', 'OrigemController@pegaOrigens');
+        Route::get('pegaOrigens/{idTipo}', 'OrigemController@pegaOrigens');
 
         Route::post('registarTarefa', 'TarefaController@registarTarefa');
         Route::get('pegaTarefas', 'TarefaController@pegaTarefas');
@@ -27,16 +29,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('contActividades', 'TarefaController@contActividades');
         Route::get('verActividade/{id}', 'TarefaController@verActividade');
         Route::post('editarTarefa', 'TarefaController@editarTarefa');
+        Route::post('registarOperacao', 'TarefaController@registarOperacaoTarefa');
+        Route::get('registarOperacao', 'TarefaController@registarOperacaoTarefa');
+        Route::get('pegaAccoes/{idtarefa}','TarefaController@pegaAccoes');
+        Route::get('generateCodigo','TarefaController@generateCodigo');
 
         Route::get('pegaAssessores', 'AssessorController@pegaAssessores');
 
-        Route::post('registarOperacao', 'TarefaController@registarOperacaoTarefa');
-        Route::get('registarOperacao', 'TarefaController@registarOperacaoTarefa');
-
-        Route::get('pegaAccoes/{idtarefa}','TarefaController@pegaAccoes');
-
-        Route::get('generateCodigo','TarefaController@generateCodigo');
-    
+        Route::post('registarFecho', 'FechoController@registarFecho');
+        Route::get('pegaFechos', 'FechoController@pegaFechos'); 
     });
 });
 

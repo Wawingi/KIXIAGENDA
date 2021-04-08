@@ -15,22 +15,37 @@ class TarefaController extends Controller
 
     public function registarTarefa(Request $request){
         $tarefa = new Tarefa;  
+        $tarefa->versao_sistema = 'KAW100';
         $tarefa->id_tipo = $request->selectedTipo;
         $tarefa->titulo = $request->titulo;
         $tarefa->id_origem = $request->selectedOrigem;
         $tarefa->origem_dado = $request->dado_origem;
         $tarefa->tempo = $request->tempo * 60; //tempo * 60
-        $tarefa->departamento_origem = $request->departamento_origem;
+        //Fatiar o departamento origem
+        $dpto_origem = explode("-",$request->departamento_origem);
+        $tarefa->departamento_origem = $dpto_origem[1];
+        $tarefa->id_dpto_origem = $dpto_origem[0];
+
+        //Fatiar o departamento destino
+        $dpto_destino = explode("-",$request->departamento_destino);
+        $tarefa->departamento_destino = $dpto_destino[1]; 
+        $tarefa->id_dpto_destino = $dpto_destino[0]; 
+        
         $tarefa->solicitante = $request->selectedSolicitante;
         $tarefa->data_solicitacao = $request->data_solicitacao;
-        $tarefa->departamento_destino = $request->departamento_destino;
         $tarefa->responsavel = $request->selectedResponsavel;
         $tarefa->data_prevista = $request->data_execucao;
         $tarefa->ut_registo = Auth::user()->username;
-        $tarefa->descricao = $request->descricao;
-        $tarefa->avanco = 00;       
+        $tarefa->descricao = $request->descricao;     
         $tarefa->data_reactivacao = null;
-        $tarefa->data_cumprimento = null;
+        //VerificAR SE é actividade feita
+        if($request->selectedTipo=='INACFE'){
+            $tarefa->data_cumprimento = date('Y-m-d H:i:s');
+            $tarefa->avanco = 100;
+        }else{ 
+            $tarefa->data_cumprimento = null;
+            $tarefa->avanco = 00;    
+        }
         $tarefa->data_envio = $request->data_solicitacao;
         $tarefa->codigo = Tarefa::generateCodigo(strtoupper($request->selectedSolicitante),strtoupper($request->selectedResponsavel));
         
@@ -200,8 +215,8 @@ class TarefaController extends Controller
 
     public function getTarefasAPI(){
         $tarefas = DB::table('tarefa')
-                ->join('tipo', 'tipo.id', '=', 'tarefa.id_tipo')
-                ->select('tarefa.id','tarefa.codigo','tarefa.titulo','tarefa.solicitante','tarefa.responsavel','tarefa.updated_at')
+                //->join('tipo', 'tipo.id', '=', 'tarefa.id_tipo')
+                //->select('tarefa.id','tarefa.codigo','tarefa.titulo','tarefa.solicitante','tarefa.responsavel','tarefa.updated_at')
                 ->where(DB::raw('DATE(tarefa.updated_at)'),'=',date('Y-m-d'))
                 ->orderBy('tarefa.created_at','DESC')
                 ->get()->toJson(JSON_PRETTY_PRINT);

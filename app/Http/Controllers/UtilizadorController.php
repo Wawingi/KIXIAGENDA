@@ -7,23 +7,29 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+Use Exception;
 
 class UtilizadorController extends Controller
 {
-    public function registarUtilizador(){
-        $user = new User;
-        $user->username = 'dion.andr';
-        $user->name = 'Dionisio André';
-        $user->departamento = 'Sistemas & Organização';
-        $user->email = 'dionisio.andre@kixicredito.com';
-        //$user->password = Hash::make('123456');
-        $user->password = MD5('123456');
-        $user->estado = 1;
-        $user->tipo = 2;
-        $user->foto = 'dion.andr'.'.jpg';
+    public function registarUtilizador(Request $request){
+        try{
+            $user = new User;
+            $user->username = $request->UtCodigo;
+            $user->name = $request->name;
+            $user->departamento = $request->departamento;
+            $user->email = $request->CorreioI;
+            $user->password = $request->UtSenha;
+            $user->estado = 1;
+            $user->tipo = 2;
+            $user->foto = $request->Imagen;
 
-        if($user->save()){
-            dd('AQUI');
+            if($user->save()){
+                return response()->json(200);
+            }else{
+                return response()->json(401);
+            }
+        } catch (Exception $ex) {
+            return $ex->getMessage();
         }
     }
 
@@ -34,7 +40,7 @@ class UtilizadorController extends Controller
             return response()->json(['error'=>'Erro ao logar'],401);
         }*/
         $user = User::where('username', $request->username)
-                  ->where('password',md5($request->senha))
+                  ->where('password',sha1($request->senha))
                   ->first();
         Auth::login($user);
         if (is_object($user))
@@ -58,7 +64,12 @@ class UtilizadorController extends Controller
     }
 
     public function pegaUtilizadores(){
-        $utilizadores = DB::table('users')->select('id','username')->get();
+        $utilizadores = DB::table('users')->select('id','username','foto')->orderBy('username', 'asc')->get();
+        return response()->json($utilizadores,200);
+    }
+
+    public function pegaFoto($username){
+        $utilizadores = DB::table('users')->select('foto')->where('username',$username)->value('foto');
         return response()->json($utilizadores,200);
     }
 }

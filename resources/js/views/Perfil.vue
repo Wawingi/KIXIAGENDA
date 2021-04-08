@@ -12,7 +12,7 @@
                         <div class="col-5">
                             <img    
                                 style="border:solid #6c757d 1px"                       
-                                :src="'/images/users/'+foto"
+                                :src="'images/users/'+foto"
                                 alt="user-image"
                                 class="rounded-circle"
                                 width="180px"

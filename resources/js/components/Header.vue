@@ -26,7 +26,7 @@
                             aria-expanded="false"
                         >
                             <img
-                                :src="'/images/users/'+fotoPerfil"
+                                :src="'images/users/'+fotoPerfil"
                                 alt="user-image"
                                 class="rounded-circle"
                             />
@@ -133,6 +133,11 @@
                         <li class="has-submenu">
                             <router-link to="/home/assessores" exact>
                                 <i class="far fa-user-circle"></i>Ver Assessores de Conta
+                            </router-link>
+                        </li>
+                        <li class="has-submenu">
+                            <router-link to="/home/fechoDiario" exact>
+                                <i class="fas fa-server"></i>Fecho Diário
                             </router-link>
                         </li>
                         

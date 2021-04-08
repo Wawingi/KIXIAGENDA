@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 class AssessorController extends Controller
 {
     public function pegaAssessores(){
-        $assessores = DB::table('assessor')->select('nome','agencia','contacto','username')->get();
+        $assessores = DB::table('assessor')->select('nome','agencia','contacto','username','area')->get();
         return response()->json($assessores,200);
     }
 }

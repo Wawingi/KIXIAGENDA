@@ -29,6 +29,7 @@ class Tarefa extends Model
      */
     protected $guarded = [];
 
+    //Gerar codigo da actividade
     public static function generateCodigo($solicitante,$responsavel){
         //Pegar o prefixo do username do solicitante
         $p1 = $solicitante[0];

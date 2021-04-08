@@ -23,6 +23,7 @@
                                 <th></th>
                                 <th>Nome</th>
                                 <th>Agência(s)</th>
+                                <th>Área</th>
                                 <th>Contacto</th>
                             </tr>
                         </thead>
@@ -30,7 +31,7 @@
                             <tr v-for="assessor in assessores" class="tabelaClicked">
                                 <td>
                                     <img
-                                        :src="'/images/users/'+assessor.username+'.jpg'"
+                                        :src="'images/users/'+assessor.username+'.jpg'"
                                         alt="user-image"
                                         width="50px"
                                         height="50px"
@@ -39,6 +40,7 @@
                                 </td>
                                 <td><br>{{assessor.nome}}</td>
                                 <td><br>{{assessor.agencia}}</td>
+                                <td><br>{{assessor.area}}</td>
                                 <td><br>{{assessor.contacto}}</td>
                             </tr>
                         </tbody>
