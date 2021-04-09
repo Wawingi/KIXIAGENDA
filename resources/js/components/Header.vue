@@ -1,4 +1,5 @@
 <template>
+
     <header id="topnav">
         <!-- Topbar Start -->
         <div class="navbar-custom corPadrao">
@@ -15,7 +16,7 @@
                         </a>
                         <!-- End mobile menu toggle-->
                     </li>
-
+     
                     <li class="dropdown notification-list">
                         <a
                             class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light"
@@ -95,7 +96,7 @@
             </div>
         </div>
         <!-- end Topbar -->
-
+       
         <!-- menu -->
         <div class="topbar-menu">
             <div class="container-fluid">
@@ -105,6 +106,15 @@
                         <li class="has-submenu">
                             <router-link to="/home" exact>
                                 <i class="remixicon-home-4-fill"></i>Inicio
+                            </router-link>
+                        </li>
+                        <li class="has-submenu">
+                            <router-link    
+                                to="#" exact 
+                                data-keyboard="false"
+                                data-toggle="modal"
+                                data-target="#modalNovaActividade">
+                                <i class=" fas fa-plus-circle"></i>Registar Actividade
                             </router-link>
                         </li>
                         <li class="has-submenu">
@@ -154,7 +164,7 @@
         <!-- end menu -->
     </header>
 </template>
-<script>
+<script>   
     export default{    
         data(){
             return{
@@ -198,5 +208,5 @@
                 });
             }
         }
-    }
+    };
 </script>

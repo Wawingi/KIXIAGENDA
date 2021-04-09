@@ -16,11 +16,13 @@
         <!-- start page title -->
 
         <!--Inicio do conteudo-->
-        <br /><br />
+        <br/><br/>
 
         <!--Modal inclusão-->
         <ModalActividade/>  
         <!---->    
+
+        <!--
         <div class="row float-right">
             <div class="col-lg-12">
                 <button
@@ -33,8 +35,8 @@
                     <i class="mdi mdi-plus-circle mr-1"></i>Nova Actividade
                 </button>
             </div>
-        </div>
-  
+        </div>-->
+                   
         <br /><br />
         <div class="row">
             <div class="col-12">
@@ -79,11 +81,11 @@
     </div>
 </template>
 <script>
-    import ModalActividade from "../components/ModalActividade.vue";
+    //import ModalActividade from "../components/ModalActividade.vue";
   
     export default {
         components: {
-            ModalActividade
+            //ModalActividade
         },
         data(){
             return{

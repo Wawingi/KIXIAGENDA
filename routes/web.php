@@ -20,6 +20,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('pegaTipos', 'TipoController@pegaTipos');
         Route::get('pegaOrigens/{idTipo}', 'OrigemController@pegaOrigens');
+        Route::get('pegaOrigensAll', 'OrigemController@pegaOrigensAPI');
 
         Route::post('registarTarefa', 'TarefaController@registarTarefa');
         Route::get('pegaTarefas', 'TarefaController@pegaTarefas');

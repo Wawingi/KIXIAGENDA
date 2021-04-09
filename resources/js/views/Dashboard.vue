@@ -20,28 +20,34 @@
                 <div class="card-box">
                     <i class="fas fa-undo-alt font-26"></i>
                     <h3 class="text-primary">{{qtdTarefasConcluidas+qtdTarefasAtrasadas+qtdTarefasAgendadas}}</h3>
-                    <p class="text-uppercase mb-1 font-13 font-weight-medium">Total Actividades</p>
+                    <p class=" mb-1 font-13 font-weight-medium">Total Actividades</p>
                 </div>
             </div>
             <div class="col-md-6 col-xl-3">
                 <div class="card-box">
                     <i class="fas fa-clipboard-check font-26"></i>
                     <h3 class="text-success">{{qtdTarefasConcluidas}}</h3>
-                    <p class="text-uppercase mb-1 font-13 font-weight-medium">Actividades Concluídas</p>
+                    <router-link to="/home/minhasActividades" exact>
+                        Actividades Regularizadasss
+                    </router-link>
                 </div>
             </div>
             <div class="col-md-6 col-xl-3">
                 <div class="card-box">
                     <i class="fas fa-clipboard-list font-26"></i>
                     <h3 class="text-danger">{{qtdTarefasAtrasadas}}</h3>
-                    <p class="text-uppercase mb-1 font-13 font-weight-medium">Actividades Atrasadas</p>
+                    <router-link to="/home/actividadesAtrasadas" exact>
+                        Actividades Atrasadas
+                    </router-link>
                 </div>
             </div>
             <div class="col-md-6 col-xl-3">
                 <div class="card-box">
                     <i class="fas fa-file-alt font-26"></i>
                     <h3 class="text-warning">{{qtdTarefasAgendadas}}</h3>
-                    <p class="text-uppercase mb-1 font-13 font-weight-medium">Actividades Reagendadas</p>
+                    <router-link to="/home/actividadesAgendadas" exact>
+                        Actividades Agendadas
+                    </router-link>                   
                 </div>
             </div>            
         </div>
@@ -131,7 +137,7 @@
                     }
                 })
                 .catch(function (error) {
-                    //alert("Erro ao carregar dados");
+                    location.reload();
                 });
             },
             contTarefas: async function(){

@@ -792,7 +792,7 @@
             },
             pegaOrigens: async function(){
                 let self = this               
-                this.$axios.get('auth/pegaOrigens')
+                this.$axios.get('auth/pegaOrigensAll')
                 .then(function (response) {
                     if(response.status==200){
                         self.origens = response.data;             
@@ -996,6 +996,7 @@
                             Swal.fire({
                                 text: "Acção registada com sucesso.",
                                 icon: 'success',
+                                timer: 1500,
                                 confirmButtonText: 'Fechar'
                             })
                             //location.reload();
@@ -1046,14 +1047,14 @@
     }
 </script>
 <style>
-.slider {
-  width: 100%;
-  
-}
-.slider-value{
-    color:#21FB92;
-    font-size:18px;
-    font-weight:bold;
-    margin-left: 120px;
-}
+    .slider {
+    width: 100%;
+    
+    }
+    .slider-value{
+        color:#21FB92;
+        font-size:18px;
+        font-weight:bold;
+        margin-left: 120px;
+    }
 </style> 
