@@ -2514,6 +2514,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       fotoResponsavel: 'default.jpg',
       titulo: '',
       dado_origem: '',
+      novo_dado_origem: '',
       motivo: '',
       descricao: '',
       data_execucao: '',
@@ -2693,7 +2694,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return pegaTarefas;
     }(),
-    limaparCampos: function limaparCampos() {
+    limparCampos: function limparCampos() {
       var _this = this;
 
       this.selectedTipo = null;
@@ -2709,56 +2710,123 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     registarTarefa: function () {
       var _registarTarefa = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(e) {
-        var self;
+        var email, self;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
                 this.$v.$touch();
 
-                if (this.$v.$invalid) {
-                  this.submitStatus = 'ERROR';
-                } else {
-                  //this.$v.$reset();
-                  self = this;
-                  this.$axios.post('auth/registarTarefa', {
-                    'selectedTipo': this.selectedTipo,
-                    'titulo': this.titulo.toUpperCase(),
-                    'selectedOrigem': this.selectedOrigem,
-                    'dado_origem': this.dado_origem,
-                    'tempo': this.tempo,
-                    'departamento_origem': this.departamento_origem,
-                    'selectedSolicitante': this.selectedSolicitante,
-                    'data_solicitacao': this.data_solicitacao.replace("T", " "),
-                    'departamento_destino': this.departamento_destino,
-                    'selectedResponsavel': this.selectedResponsavel,
-                    'data_execucao': this.data_execucao.replace("T", " "),
-                    'descricao': this.descricao
-                  }).then(function (response) {
-                    if (response.status == 200) {
-                      //e.target.reset(); //also clean input
-                      self.limaparCampos();
-                      $('#modalClose').click();
-                      Swal.fire({
-                        text: "Actividade registada com sucesso.",
-                        icon: 'success',
-                        confirmButtonText: 'Fechar'
-                      }), location.reload();
-                    } else {
-                      alert("LITTLE ERROR ");
-                    }
-                  })["catch"](function (error) {
-                    self.limaparCampos();
-                    $('#modalClose').click();
-                    Swal.fire({
-                      text: "Erro ao registar actividade.",
-                      icon: 'error',
-                      confirmButtonText: 'Fechar'
-                    });
-                  });
+                if (!this.$v.$invalid) {
+                  _context5.next = 5;
+                  break;
                 }
 
-              case 2:
+                this.submitStatus = 'ERROR';
+                _context5.next = 27;
+                break;
+
+              case 5:
+                if (!(this.selectedOrigem == 'LITE')) {
+                  _context5.next = 14;
+                  break;
+                }
+
+                if (!(!isNaN(this.dado_origem) && this.dado_origem.length == 9)) {
+                  _context5.next = 10;
+                  break;
+                }
+
+                this.novo_dado_origem = this.dado_origem;
+                _context5.next = 12;
+                break;
+
+              case 10:
+                Swal.fire({
+                  text: "Verifique o contacto telefónico.",
+                  icon: 'error',
+                  confirmButtonText: 'Fechar'
+                });
+                return _context5.abrupt("return");
+
+              case 12:
+                _context5.next = 25;
+                break;
+
+              case 14:
+                if (!(this.selectedOrigem == 'COEL')) {
+                  _context5.next = 24;
+                  break;
+                }
+
+                email = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+                if (!email.test(this.dado_origem)) {
+                  _context5.next = 20;
+                  break;
+                }
+
+                this.novo_dado_origem = this.dado_origem;
+                _context5.next = 22;
+                break;
+
+              case 20:
+                Swal.fire({
+                  text: "Verifique o email fornecido.",
+                  icon: 'error',
+                  confirmButtonText: 'Fechar'
+                });
+                return _context5.abrupt("return");
+
+              case 22:
+                _context5.next = 25;
+                break;
+
+              case 24:
+                this.novo_dado_origem = this.dado_origem;
+
+              case 25:
+                self = this;
+                this.$axios.post('auth/registarTarefa', {
+                  'selectedTipo': this.selectedTipo,
+                  'titulo': this.titulo.toUpperCase(),
+                  'selectedOrigem': this.selectedOrigem,
+                  'dado_origem': this.novo_dado_origem,
+                  'tempo': this.tempo,
+                  'departamento_origem': this.departamento_origem,
+                  'selectedSolicitante': this.selectedSolicitante,
+                  'data_solicitacao': this.data_solicitacao.replace("T", " "),
+                  'departamento_destino': this.departamento_destino,
+                  'selectedResponsavel': this.selectedResponsavel,
+                  'data_execucao': this.data_execucao.replace("T", " "),
+                  'descricao': this.descricao
+                }).then(function (response) {
+                  if (response.status == 200) {
+                    //e.target.reset(); //also clean input
+                    self.limparCampos();
+                    $('#modalClose').click();
+                    Swal.fire({
+                      text: "Actividade registada com sucesso.",
+                      icon: 'success',
+                      confirmButtonText: 'Fechar'
+                    }), //location.reload();
+                    self.$router.push({
+                      name: 'dashboard'
+                    });
+                  } else {
+                    alert("LITTLE ERROR ");
+                  }
+                })["catch"](function (error) {
+                  self.limparCampos();
+                  $('#modalClose').click();
+                  Swal.fire({
+                    text: "Erro ao registar actividade.",
+                    icon: 'error',
+                    confirmButtonText: 'Fechar'
+                  });
+                });
+
+              case 27:
               case "end":
                 return _context5.stop();
             }
@@ -2797,8 +2865,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //Metodo de troca de username para escolher foto
     onChangeSolicitante: function onChangeSolicitante(event) {
-      //alert(event.target.value+'.jpg');
-      if (this.fotoResponsavel == event.target.value + '.jpg') {
+      if (this.selectedResponsavel == event.target.value) {
         this.selectedSolicitante = '';
         this.fotoSolicitante = 'default.jpg';
         Swal.fire({
@@ -2810,15 +2877,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         var self = this;
         this.$axios.get('auth/pegaFoto/' + event.target.value).then(function (response) {
           if (response.status == 200) {
-            console.log('FOTO: ' + response.data);
-            self.fotoSolicitante = response.data;
+            if (response.data == 0) self.fotoSolicitante = 'default.jpg';else self.fotoSolicitante = response.data;
           }
         })["catch"](function (error) {//alert("Erro ao carregar dados do perfil");
         });
       }
     },
     onChangeResponsavel: function onChangeResponsavel(event) {
-      if (this.fotoSolicitante == event.target.value + '.jpg') {
+      if (this.selectedSolicitante == event.target.value) {
         this.selectedResponsavel = '';
         this.fotoResponsavel = 'default.jpg';
         Swal.fire({
@@ -2830,8 +2896,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         var self = this;
         this.$axios.get('auth/pegaFoto/' + event.target.value).then(function (response) {
           if (response.status == 200) {
-            console.log('FOTO: ' + response.data);
-            self.fotoResponsavel = response.data;
+            if (response.data == 0) self.fotoResponsavel = 'default.jpg';else self.fotoResponsavel = response.data;
           }
         })["catch"](function (error) {//alert("Erro ao carregar dados do perfil");
         });
@@ -3563,6 +3628,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3605,7 +3682,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 self = this;
-                this.$axios.get('auth/pegaUtilizadores').then(function (response) {
+                this.$axios.get('auth/pegaUtilizadoresDSO').then(function (response) {
                   if (response.status == 200) {
                     self.utilizadores = response.data;
                     console.log(response.data);
@@ -4827,6 +4904,182 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4875,7 +5128,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       showAvanco: 1,
       submitStatus: null,
       accoes: [],
-      id_tarefa: this.$route.params.id
+      id_tarefa: this.$route.params.id,
+      //Chamada da Modal
+      is_modal_visible: false,
+      avanco_modal: '',
+      data_operacao_modal: '',
+      tempo_acao_modal: '',
+      descricao_accao_modal: '',
+      estado_modal: '',
+      responsavel_modal: ''
     };
   },
   validations: {
@@ -4950,17 +5211,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   created: function created() {
-    var id = this.$route.params.id;
-    var self = this;
-    this.$axios.get('auth/verActividade/' + id).then(function (response) {
-      if (response.status == 200) {
-        self.idActividade = response.data.id, self.codigo = response.data.codigo, self.selectedTipo = response.data.tipo, self.selectedOrigem = response.data.origem, self.titulo = response.data.titulo, self.dado_origem = response.data.origem_dado, self.tempo = self.setTempoVisual(response.data.tempo), self.departamento_origem = response.data.departamento_origem, self.departamento_destino = response.data.departamento_destino, self.data_solicitacao = self.pegaFormatedDataTime(response.data.data_solicitacao), self.data_prevista = self.pegaFormatedDataTime(response.data.data_prevista), //self.isNullData(self.pegaFormatedDataTime(response.data.data_cumprimento)),
-        self.fotoSolicitante = response.data.solicitante + '.jpg', self.fotoResponsavel = response.data.responsavel + '.jpg', self.selectedSolicitante = response.data.solicitante, self.selectedResponsavel = response.data.responsavel, self.descricao = response.data.descricao, self.data_solicitacaoEdit = response.data.data_solicitacao.replace(" ", "T");
-        self.data_previstaEdit = response.data.data_prevista.replace(" ", "T");
-      }
-    })["catch"](function (error) {
-      alert("Erro ao ver actividade");
-    });
+    this.pegaActividade();
   },
   mounted: function mounted() {
     this.pegaTipos();
@@ -4969,23 +5220,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.pegaAccoesTarefa();
   },
   methods: {
-    pegaTipos: function () {
-      var _pegaTipos = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var self;
+    pegaActividade: function () {
+      var _pegaActividade = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var id, self;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                //Get tarefa dados
+                id = this.$route.params.id;
                 self = this;
-                this.$axios.get('auth/pegaTipos').then(function (response) {
+                this.$axios.get('auth/verActividade/' + id).then(function (response) {
                   if (response.status == 200) {
-                    self.tipos = response.data;
-                    console.log(response.data);
+                    self.idActividade = response.data.id, self.codigo = response.data.codigo, self.selectedTipo = response.data.tipo, self.selectedOrigem = response.data.origem, self.titulo = response.data.titulo, self.dado_origem = response.data.origem_dado, self.tempo = self.setTempoVisual(response.data.tempo), self.departamento_origem = response.data.departamento_origem, self.departamento_destino = response.data.departamento_destino, self.data_solicitacao = self.pegaFormatedDataTime(response.data.data_solicitacao), self.data_prevista = self.pegaFormatedDataTime(response.data.data_prevista), //self.isNullData(self.pegaFormatedDataTime(response.data.data_cumprimento)),  
+                    self.selectedSolicitante = response.data.solicitante, self.selectedResponsavel = response.data.responsavel, self.descricao = response.data.descricao, self.data_solicitacaoEdit = response.data.data_solicitacao.replace(" ", "T");
+                    self.data_previstaEdit = response.data.data_prevista.replace(" ", "T");
+                    self.pegaFotoSolicitante(response.data.solicitante, 1); //tipo 1: solicitante, tipo 2: responsavel
+
+                    self.pegaFotoSolicitante(response.data.responsavel, 2);
                   }
-                })["catch"](function (error) {//alert("Erro ao carregar dados do perfil");
+                })["catch"](function (error) {
+                  alert("Erro ao ver actividade");
                 });
 
-              case 2:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -4993,23 +5251,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, this);
       }));
 
-      function pegaTipos() {
-        return _pegaTipos.apply(this, arguments);
+      function pegaActividade() {
+        return _pegaActividade.apply(this, arguments);
       }
 
-      return pegaTipos;
+      return pegaActividade;
     }(),
-    pegaOrigens: function () {
-      var _pegaOrigens = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+    pegaFotoSolicitante: function pegaFotoSolicitante(solicitante, tipo) {
+      var self = this;
+      this.$axios.get('auth/pegaFoto/' + solicitante).then(function (response) {
+        if (response.status == 200) {
+          //console.log("RR:"+tipo);
+          if (tipo == 1) self.fotoSolicitante = response.data;else self.fotoResponsavel = response.data;
+        }
+      })["catch"](function (error) {
+        alert("Erro ao pegar foto");
+      });
+    },
+    pegaTipos: function () {
+      var _pegaTipos = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var self;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 self = this;
-                this.$axios.get('auth/pegaOrigensAll').then(function (response) {
+                this.$axios.get('auth/pegaTipos').then(function (response) {
                   if (response.status == 200) {
-                    self.origens = response.data;
+                    self.tipos = response.data;
                     console.log(response.data);
                   }
                 })["catch"](function (error) {//alert("Erro ao carregar dados do perfil");
@@ -5023,27 +5292,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2, this);
       }));
 
-      function pegaOrigens() {
-        return _pegaOrigens.apply(this, arguments);
+      function pegaTipos() {
+        return _pegaTipos.apply(this, arguments);
       }
 
-      return pegaOrigens;
+      return pegaTipos;
     }(),
-    pegaUtilizador: function () {
-      var _pegaUtilizador = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+    pegaOrigens: function () {
+      var _pegaOrigens = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         var self;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 self = this;
-                this.$axios.get('auth/pegaUtilizadores').then(function (response) {
+                this.$axios.get('auth/pegaOrigensAll').then(function (response) {
                   if (response.status == 200) {
-                    self.utilizadores = response.data;
+                    self.origens = response.data;
                     console.log(response.data);
-                  } else {}
-                })["catch"](function (error) {
-                  alert("Erro ao carregar dados do perfil");
+                  }
+                })["catch"](function (error) {//alert("Erro ao carregar dados do perfil");
                 });
 
               case 2:
@@ -5052,6 +5320,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee3, this);
+      }));
+
+      function pegaOrigens() {
+        return _pegaOrigens.apply(this, arguments);
+      }
+
+      return pegaOrigens;
+    }(),
+    pegaUtilizador: function () {
+      var _pegaUtilizador = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var self;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                self = this;
+                this.$axios.get('auth/pegaUtilizadores').then(function (response) {
+                  if (response.status == 200) {
+                    self.utilizadores = response.data;
+                  } else {}
+                })["catch"](function (error) {
+                  alert("Erro ao carregar dados do perfil");
+                });
+
+              case 2:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
       }));
 
       function pegaUtilizador() {
@@ -5153,7 +5451,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //Pega data hora no formato DD/MM/YYYY
     pegaFormatedDataTime: function pegaFormatedDataTime(data) {
-      return moment__WEBPACK_IMPORTED_MODULE_2___default()(String(data)).format('DD/MM/YYYY hh:mm');
+      return moment__WEBPACK_IMPORTED_MODULE_2___default()(String(data)).format('DD/MM/YYYY HH:mm');
     },
     //Pega data hora no formato YYYY/MM/DD
     pegaNormalDataTime: function pegaNormalDataTime(data) {
@@ -5182,6 +5480,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
       return idTipo;
     },
+    selectRow: function selectRow(accao) {
+      this.avanco_modal = accao.avanco;
+      this.data_operacao_modal = this.pegaFormatedDataTime(accao.created_at);
+      this.tempo_acao_modal = accao.tempo_acao;
+      this.descricao_accao_modal = accao.descricao;
+      this.estado_modal = accao.estado;
+      this.responsavel_modal = accao.name;
+      this.is_modal_visible = true;
+      this.$nextTick(function () {
+        $('#modalRelatorioAccao').modal('show');
+      });
+    },
     //Pega id da Origem
     pegaOrigemID: function pegaOrigemID(origemLido) {
       var idOrigem;
@@ -5194,11 +5504,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return idOrigem;
     },
     editarTarefa: function () {
-      var _editarTarefa = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(e) {
+      var _editarTarefa = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(e) {
         var self;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
                 this.$v.$touch();
 
@@ -5242,10 +5552,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4, this);
+        }, _callee5, this);
       }));
 
       function editarTarefa(_x) {
@@ -5272,11 +5582,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //Registar acção de uma actividade
     registarAccao: function () {
-      var _registarAccao = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(e) {
+      var _registarAccao = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(e) {
         var self;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
                 this.$v.$touch();
 
@@ -5321,10 +5631,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
               case "end":
-                return _context5.stop();
+                return _context6.stop();
             }
           }
-        }, _callee5, this);
+        }, _callee6, this);
       }));
 
       function registarAccao(_x2) {
@@ -5335,11 +5645,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }(),
     //Listar as acções registadas a uma tarefa
     pegaAccoesTarefa: function () {
-      var _pegaAccoesTarefa = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+      var _pegaAccoesTarefa = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
         var self;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
           while (1) {
-            switch (_context6.prev = _context6.next) {
+            switch (_context7.prev = _context7.next) {
               case 0:
                 self = this;
                 this.$axios.get('auth/pegaAccoes/' + this.id_tarefa).then(function (response) {
@@ -5352,10 +5662,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
               case "end":
-                return _context6.stop();
+                return _context7.stop();
             }
           }
-        }, _callee6, this);
+        }, _callee7, this);
       }));
 
       function pegaAccoesTarefa() {
@@ -46838,7 +47148,7 @@ var staticRenderFns = [
               staticStyle: { color: "#fff" }
             },
             [
-              _vm._v("\n                2020 © Kixi Agenda by "),
+              _vm._v("\n                2020 © KixiAgenda v1.0.0 by "),
               _c("b", [_vm._v("KIXICRÉDITO ")])
             ]
           )
@@ -49431,7 +49741,7 @@ var render = function() {
                           staticClass: "rounded-circle",
                           staticStyle: { border: "solid #6c757d 1px" },
                           attrs: {
-                            src: "images/users/" + tarefa.responsavel + ".jpg",
+                            src: "images/users/" + tarefa.foto,
                             alt: "user-image",
                             width: "45px",
                             height: "45px"
@@ -49924,7 +50234,7 @@ var staticRenderFns = [
           },
           [
             _c("i", { staticClass: "mdi mdi-plus-circle mr-1" }),
-            _vm._v("Marcar Funcionário Para Fecho")
+            _vm._v("Marcar Funcionário Para Fecho Seguinte")
           ]
         ),
         _vm._v(" "),
@@ -50586,6 +50896,555 @@ var render = function() {
       {
         staticClass: "modal fade",
         attrs: {
+          id: "modalRelatorioActividade",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalScrollableTitle",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-scrollable modal-lg",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-body" }, [
+                _c(
+                  "div",
+                  { staticClass: "row", staticStyle: { background: "none" } },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-11",
+                        staticStyle: { background: "none" }
+                      },
+                      [
+                        _c(
+                          "table",
+                          {
+                            staticClass: "tabela-relatorio",
+                            staticStyle: { "margin-left": "30px" }
+                          },
+                          [
+                            _c("tr", [
+                              _c(
+                                "td",
+                                {
+                                  staticStyle: {
+                                    "text-align": "center",
+                                    color: "#111",
+                                    "font-weight": "bold",
+                                    background: "#f5e78e"
+                                  }
+                                },
+                                [_vm._v(_vm._s(_vm.codigo))]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                {
+                                  staticClass: "cor-azulE",
+                                  attrs: { colspan: "5" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                        [Registo de Actividade]"
+                                  ),
+                                  _c("br"),
+                                  _vm._v(
+                                    " \n                                        " +
+                                      _vm._s(_vm.selectedTipo) +
+                                      " : " +
+                                      _vm._s(_vm.titulo) +
+                                      "\n                                    "
+                                  )
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("td", { staticClass: "cor-azulE" }, [
+                                _vm._v("ORIGEM: ")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                {
+                                  staticClass: "cor-azulC",
+                                  attrs: { colspan: "5" }
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(_vm.selectedOrigem) +
+                                      " : " +
+                                      _vm._s(_vm.dado_origem)
+                                  )
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("td", { staticClass: "cor-azulE" }, [
+                                _vm._v("DE: ")
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "cor-azulC" }, [
+                                _vm._v(_vm._s(_vm.departamento_origem))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c("img", {
+                                  staticStyle: { border: "solid #d0d5dc 1px" },
+                                  attrs: {
+                                    src: "images/users/" + _vm.fotoSolicitante,
+                                    alt: "user-image",
+                                    width: "60px",
+                                    height: "60px"
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                {
+                                  staticClass: "cor-azulE",
+                                  attrs: { width: "15%" }
+                                },
+                                [_vm._v("PARA:")]
+                              ),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "cor-azulC" }, [
+                                _vm._v(_vm._s(_vm.departamento_destino))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c("img", {
+                                  staticStyle: { border: "solid #d0d5dc 1px" },
+                                  attrs: {
+                                    src: "images/users/" + _vm.fotoResponsavel,
+                                    alt: "user-image",
+                                    width: "60px",
+                                    height: "60px"
+                                  }
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _vm._m(1),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("td", { staticClass: "cor-azulE" }, [
+                                _vm._v("Data de solicitação: ")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                {
+                                  staticClass: "cor-azulC",
+                                  attrs: { colspan: "5" }
+                                },
+                                [_vm._v(_vm._s(_vm.data_solicitacao))]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("td", { staticClass: "cor-azulE" }, [
+                                _vm._v("Data Prevista de Execução: ")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                {
+                                  staticClass: "cor-azulC",
+                                  attrs: { colspan: "2" }
+                                },
+                                [_vm._v(_vm._s(_vm.data_prevista))]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                {
+                                  staticClass: "cor-azulE",
+                                  attrs: { colspan: "2" }
+                                },
+                                [_vm._v("Tempo de Registo: ")]
+                              ),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "cor-azulC" }, [
+                                _vm._v(_vm._s(_vm.tempo))
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _vm._m(2),
+                            _vm._v(" "),
+                            _vm._m(3),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("td", { attrs: { colspan: "6" } }, [
+                                _c("br"),
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(_vm.descricao) +
+                                    " \n                                    "
+                                ),
+                                _c("br"),
+                                _c("br")
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _vm._m(4)
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _vm.is_modal_visible
+      ? _c(
+          "div",
+          {
+            staticClass: "modal fade modalRelatorioAccao",
+            attrs: {
+              id: "modalRelatorioAccao",
+              tabindex: "-1",
+              role: "dialog",
+              "aria-labelledby": "exampleModalScrollableTitle",
+              "aria-hidden": "true"
+            }
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass: "modal-dialog modal-dialog-scrollable modal-lg",
+                attrs: { role: "document" }
+              },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "row",
+                        staticStyle: { background: "none" }
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "col-11",
+                            staticStyle: { background: "none" }
+                          },
+                          [
+                            _c(
+                              "table",
+                              {
+                                staticClass: "tabela-relatorio",
+                                staticStyle: { "margin-left": "30px" }
+                              },
+                              [
+                                _c("tr", [
+                                  _c(
+                                    "td",
+                                    {
+                                      staticStyle: {
+                                        "text-align": "center",
+                                        color: "#111",
+                                        "font-weight": "bold",
+                                        background: "#f5e78e"
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                        " +
+                                          _vm._s(_vm.codigo)
+                                      ),
+                                      _c("br"),
+                                      _vm._v(
+                                        "\n                                        (" +
+                                          _vm._s(_vm.avanco_modal) +
+                                          "%)\n                                    "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "cor-verdeE",
+                                      attrs: { colspan: "4" }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                        [Registo de Acção]"
+                                      ),
+                                      _c("br"),
+                                      _vm._v(
+                                        " \n                                        " +
+                                          _vm._s(_vm.selectedTipo) +
+                                          " : " +
+                                          _vm._s(_vm.titulo) +
+                                          "\n                                    "
+                                      )
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "cor-verdeE",
+                                      attrs: { colspan: "5" }
+                                    },
+                                    [
+                                      _c("br"),
+                                      _vm._v(_vm._s(_vm.descricao)),
+                                      _c("br"),
+                                      _c("br")
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("td", { staticClass: "cor-verdeE" }, [
+                                    _vm._v("Origem: ")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "cor-verdeC",
+                                      attrs: { colspan: "4" }
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(_vm.selectedOrigem) +
+                                          " : " +
+                                          _vm._s(_vm.dado_origem)
+                                      )
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("td", { staticClass: "cor-verdeE" }, [
+                                    _vm._v("Responsável: ")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "cor-verdeC",
+                                      attrs: { colspan: "4" }
+                                    },
+                                    [_vm._v(_vm._s(_vm.responsavel_modal))]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("td", { staticClass: "cor-verdeE" }, [
+                                    _vm._v("Data:")
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm.estado == "ACRG"
+                                    ? _c(
+                                        "td",
+                                        {
+                                          staticStyle: {
+                                            background: "#66f2b3",
+                                            color: "#111"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            _vm._s(_vm.data_operacao_modal)
+                                          )
+                                        ]
+                                      )
+                                    : _c("td", { staticClass: "cor-verdeC" }, [
+                                        _vm._v(_vm._s(_vm.data_operacao_modal))
+                                      ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "cor-verdeE",
+                                      attrs: { colspan: "2" }
+                                    },
+                                    [_vm._v("Tempo da acção: ")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "cor-verdeC" }, [
+                                    _vm._v(_vm._s(_vm.tempo_acao_modal))
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _vm._m(5),
+                                _vm._v(" "),
+                                _vm._m(6),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("td", { attrs: { colspan: "6" } }, [
+                                    _c("br"),
+                                    _vm._v(
+                                      "\n                                    " +
+                                        _vm._s(_vm.descricao_accao_modal) +
+                                        "\n                                    "
+                                    ),
+                                    _c("br"),
+                                    _c("br")
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _vm.estado_modal == "ACRG"
+                                    ? _c(
+                                        "td",
+                                        {
+                                          staticStyle: {
+                                            background: "#66f2b3",
+                                            color: "#111",
+                                            "text-align": "center"
+                                          },
+                                          attrs: { colspan: "5" }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                        Actividade Reagendada\n                                    "
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.estado_modal == "ACCO"
+                                    ? _c(
+                                        "td",
+                                        {
+                                          staticStyle: {
+                                            background: "#f5e78e",
+                                            color: "#111",
+                                            "text-align": "center"
+                                          },
+                                          attrs: { colspan: "5" }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                        Actividade Concluída\n                                    "
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.estado_modal == "ACCU"
+                                    ? _c(
+                                        "td",
+                                        {
+                                          staticStyle: {
+                                            background: "#f5e78e",
+                                            color: "#111",
+                                            "text-align": "center"
+                                          },
+                                          attrs: { colspan: "5" }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                        Actividade em Curso\n                                    "
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.estado_modal == "ACRT"
+                                    ? _c(
+                                        "td",
+                                        {
+                                          staticStyle: {
+                                            background: "#f5e78e",
+                                            color: "#111",
+                                            "text-align": "center"
+                                          },
+                                          attrs: { colspan: "5" }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                        Actividade Reativada\n                                    "
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.estado_modal == "CUSS"
+                                    ? _c(
+                                        "td",
+                                        {
+                                          staticStyle: {
+                                            background: "#f5e78e",
+                                            color: "#111",
+                                            "text-align": "center"
+                                          },
+                                          attrs: { colspan: "5" }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                        Em Curso Solic. Suporte\n                                    "
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.estado_modal == "CURS"
+                                    ? _c(
+                                        "td",
+                                        {
+                                          staticStyle: {
+                                            background: "#f5e78e",
+                                            color: "#111",
+                                            "text-align": "center"
+                                          },
+                                          attrs: { colspan: "5" }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                        Em Curso Resp. Suporte\n                                    "
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ]),
+                                _vm._v(" "),
+                                _vm._m(7)
+                              ]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
           id: "modalNovaAccao",
           tabindex: "-1",
           role: "dialog",
@@ -50602,7 +51461,7 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
+              _vm._m(8),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -51201,7 +52060,7 @@ var render = function() {
                               1
                             )
                           ])
-                        : _c("div", { staticClass: "col-3" }, [_vm._m(2)])
+                        : _c("div", { staticClass: "col-3" }, [_vm._m(9)])
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "row" }, [
@@ -51269,7 +52128,7 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _vm._m(3)
+                    _vm._m(10)
                   ]
                 )
               ])
@@ -51282,7 +52141,7 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-12" }, [
         _c("div", { staticClass: "card-box" }, [
-          _vm._m(4),
+          _vm._m(11),
           _vm._v(" "),
           _c("div", { staticClass: "tab-content" }, [
             _c(
@@ -51294,6 +52153,8 @@ var render = function() {
               [
                 _vm.visualizar
                   ? _c("div", { attrs: { id: "VerActividade" } }, [
+                      _vm._m(12),
+                      _vm._v(" "),
                       _c("hr", {
                         staticStyle: {
                           height: "1px",
@@ -51837,7 +52698,7 @@ var render = function() {
               "div",
               { staticClass: "tab-pane fade", attrs: { id: "accao" } },
               [
-                _vm._m(5),
+                _vm._m(13),
                 _vm._v(" "),
                 _c("hr", {
                   staticStyle: { height: "1px", "background-color": "#d3d6d5" }
@@ -51850,7 +52711,7 @@ var render = function() {
                     attrs: { cellspacing: "0", width: "100%" }
                   },
                   [
-                    _vm._m(6),
+                    _vm._m(14),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -51859,7 +52720,12 @@ var render = function() {
                           "tr",
                           {
                             staticClass: "tabelaClicked",
-                            attrs: { title: "Clique aqui para Editar acção" }
+                            attrs: { title: "Clique aqui para Editar acção" },
+                            on: {
+                              click: function($event) {
+                                return _vm.selectRow(accao)
+                              }
+                            }
                           },
                           [
                             _c("td", [_vm._v(_vm._s(accao.created_at))]),
@@ -51984,6 +52850,108 @@ var staticRenderFns = [
           _c("h4", { staticClass: "page-title" }, [_vm._v("Ver Actividade")])
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [_c("td", { attrs: { colspan: "6" } }, [_c("br")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [_c("td", { attrs: { colspan: "6" } }, [_c("br")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c(
+        "td",
+        {
+          staticClass: "cor-azulE",
+          staticStyle: { "text-align": "center" },
+          attrs: { colspan: "6" }
+        },
+        [_vm._v("Descrição ")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c(
+        "td",
+        {
+          staticStyle: {
+            background: "#e35959",
+            color: "#fff",
+            "text-align": "center"
+          },
+          attrs: { colspan: "6" }
+        },
+        [
+          _c("br"),
+          _vm._v(
+            "\n                                    Sistema KixiAgenda v1.0.1-2021\n                                    "
+          ),
+          _c("br"),
+          _c("br")
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [_c("td", { attrs: { colspan: "5" } }, [_c("br")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c(
+        "td",
+        {
+          staticClass: "cor-verdeE",
+          staticStyle: { "text-align": "center" },
+          attrs: { width: "40%", colspan: "5" }
+        },
+        [_vm._v("Descrição ")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c(
+        "td",
+        {
+          staticStyle: {
+            background: "#e35959",
+            color: "#fff",
+            "text-align": "center"
+          },
+          attrs: { colspan: "6" }
+        },
+        [
+          _c("br"),
+          _vm._v(
+            "\n                                    Sistema KixiAgenda v1.0.1-2021\n                                    "
+          ),
+          _c("br"),
+          _c("br")
+        ]
+      )
     ])
   },
   function() {
@@ -52132,6 +53100,33 @@ var staticRenderFns = [
             )
           ])
         ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c(
+          "button",
+          {
+            staticClass:
+              "btn btn-sm btn-rounded btn-primary waves-effect waves-light",
+            attrs: {
+              type: "submit",
+              "data-toggle": "modal",
+              "data-target": "#modalRelatorioActividade"
+            }
+          },
+          [
+            _c("i", { staticClass: "far fa-eye mr-1" }),
+            _vm._v(
+              "Relatório da Actividade\n                                    "
+            )
+          ]
+        )
       ])
     ])
   },
@@ -69954,14 +70949,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************************!*\
   !*** ./resources/js/components/ModalActividade.vue ***!
   \*****************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ModalActividade_vue_vue_type_template_id_3d32d43a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModalActividade.vue?vue&type=template&id=3d32d43a& */ "./resources/js/components/ModalActividade.vue?vue&type=template&id=3d32d43a&");
 /* harmony import */ var _ModalActividade_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ModalActividade.vue?vue&type=script&lang=js& */ "./resources/js/components/ModalActividade.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _ModalActividade_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _ModalActividade_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -69991,7 +70987,7 @@ component.options.__file = "resources/js/components/ModalActividade.vue"
 /*!******************************************************************************!*\
   !*** ./resources/js/components/ModalActividade.vue?vue&type=script&lang=js& ***!
   \******************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

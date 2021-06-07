@@ -69,7 +69,7 @@
                             <tr title='Clique aqui para abrir actividade' v-for="tarefa in tarefas" class="tabelaClicked" @click="selectRow(tarefa.id)">
                                 <td>
                                 <img
-                                    :src="'images/users/'+tarefa.responsavel+'.jpg'"
+                                    :src="'images/users/'+tarefa.foto"
                                     alt="user-image"
                                     width="45px"
                                     height="45px"

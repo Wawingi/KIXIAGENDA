@@ -29,25 +29,94 @@ class Tarefa extends Model
      */
     protected $guarded = [];
 
+    public static function getLetra($intevalo_data){
+        //dd($intevalo_data);
+        //$intevalo_data=88;
+        $letra=null;
+        if($intevalo_data>=0 And $intevalo_data<=99){
+            switch($intevalo_data){
+                case $intevalo_data>0 && $intevalo_data<=9:
+                    $letra=$intevalo_data;break;
+                case $intevalo_data==10||$intevalo_data==36||$intevalo_data==62||$intevalo_data==88:  
+                    $letra="A";break; 
+                case $intevalo_data==11||$intevalo_data==37||$intevalo_data==63||$intevalo_data==89:
+                    $letra="B";break;
+                case $intevalo_data==12||$intevalo_data==38||$intevalo_data==64||$intevalo_data==90:
+                    $letra="C";break; 
+                case $intevalo_data==13||$intevalo_data==39||$intevalo_data==65||$intevalo_data==91:
+                    $letra="D";break; 
+                case $intevalo_data==14||$intevalo_data==40||$intevalo_data==66||$intevalo_data==92:
+                    $letra="E";break; 
+                case $intevalo_data==15||$intevalo_data==41||$intevalo_data==67||$intevalo_data==93:
+                    $letra="F";break; 
+                case $intevalo_data==16||$intevalo_data==42||$intevalo_data==68||$intevalo_data==94:
+                    $letra="G";break; 
+                case $intevalo_data==17||$intevalo_data==43||$intevalo_data==69||$intevalo_data==95:
+                    $letra="H";break; 
+                case $intevalo_data==18||$intevalo_data==44||$intevalo_data==70||$intevalo_data==96:
+                    $letra="I";break; 
+                case $intevalo_data==19||$intevalo_data==45||$intevalo_data==71||$intevalo_data==97:
+                    $letra="J";break; 
+                case $intevalo_data==20||$intevalo_data==46||$intevalo_data==72||$intevalo_data==98:
+                    $letra="K";break; 
+                case $intevalo_data==21||$intevalo_data==47||$intevalo_data==73||$intevalo_data==99:
+                    $letra="L";break; 
+                case $intevalo_data==22||$intevalo_data==48||$intevalo_data==74:
+                    $letra="M";break; 
+                case $intevalo_data==23||$intevalo_data==49||$intevalo_data==75:
+                    $letra="N";break; 
+                case $intevalo_data==24||$intevalo_data==50||$intevalo_data==76:
+                    $letra="O";break; 
+                case $intevalo_data==25||$intevalo_data==51||$intevalo_data==77:
+                    $letra="P";break; 
+                case $intevalo_data==26||$intevalo_data==52||$intevalo_data==78:
+                    $letra="Q";break; 
+                case $intevalo_data==27||$intevalo_data==53||$intevalo_data==79:
+                    $letra="R";break; 
+                case $intevalo_data==28||$intevalo_data==54||$intevalo_data==80:
+                    $letra="S";break; 
+                case $intevalo_data==29||$intevalo_data==55||$intevalo_data==81:
+                    $letra="T";break; 
+                case $intevalo_data==30||$intevalo_data==56||$intevalo_data==82:
+                    $letra="U";break; 
+                case $intevalo_data==31||$intevalo_data==57||$intevalo_data==83:
+                    $letra="V";break; 
+                case $intevalo_data==32||$intevalo_data==58||$intevalo_data==84:
+                    $letra="W";break; 
+                case $intevalo_data==33||$intevalo_data==59||$intevalo_data==85:
+                    $letra="X";break; 
+                case $intevalo_data==34||$intevalo_data==60||$intevalo_data==86:
+                    $letra="Y";break; 
+                case $intevalo_data==35||$intevalo_data==61||$intevalo_data==87:
+                    $letra="Z";break; 
+            }
+            return $letra;
+        }else{
+            return $letra="";
+        }
+    }
+
     //Gerar codigo da actividade
-    public static function generateCodigo($solicitante,$responsavel){
-        //Pegar o prefixo do username do solicitante
-        $p1 = $solicitante[0];
+    public static function generateCodigo($responsavel){
+        $ano_actual = date("Y");
+        $ano_anterior = $ano_actual-1;
+        $data_inicio = strtotime($ano_anterior."-12-31");
+        $data_final = strtotime(date('Y-m-d'));
         
+        $intevalo_data=($data_final - $data_inicio)/60/60/24;
+
+        $p1=Tarefa::getLetra($ano_actual % 2000).Tarefa::getLetra(floor($intevalo_data/10)).$intevalo_data%10;
+        
+        $intervalo_minuto = (date('H')*60)+date('i'); //Hora em minutos
+
+        $p2=Tarefa::getLetra(floor($intervalo_minuto/100)).$intervalo_minuto%100;
+
         //Pegar os prefixos dos username do responsavel
-        $p3 = $responsavel[0].$responsavel[5];
+        $nome = explode(".",$responsavel);
+        $p3 = strtoupper($nome[0][0].$nome[1][0]);
 
-        //Pegar dia actual
-        $dia = date('d');
+        $codigoActividade=$p1.$p2.$p3;
 
-        $time = explode(":",date('H:i:s'));
-        $time1 = $time[0]; 
-        $middle = $solicitante[6];
-        $time3 = $time[2];
-        
-        $time = $time1[1].$middle.$time3[1];
-
-        $codigoActividade = $p1.$dia.$time.$p3; 
         return $codigoActividade;
     }
 
@@ -58,13 +127,14 @@ class Tarefa extends Model
                 ->where('tarefa.responsavel','=',Auth::user()->username)  
                 ->whereNotNull('tarefa.data_cumprimento')                    
                 ->where(DB::raw('DATE(tarefa.data_prevista)'),'<=',$now);
+                //->orderBy('tarefa.created_at','DESC');
                 
         $seg = DB::table('tarefa')
                 ->join('tipo', 'tipo.id', '=', 'tarefa.id_tipo')
                 ->select('tarefa.id','tarefa.codigo','tarefa.titulo','tarefa.responsavel','tarefa.solicitante','tarefa.data_prevista','tarefa.data_solicitacao','tarefa.data_cumprimento','tarefa.avanco','tipo.tipo')
                 ->where('tarefa.responsavel','=',Auth::user()->username)                
                 ->where(DB::raw('DATE(tarefa.data_prevista)'),'=',$now)
-                ->orderBy('tarefa.created_at','DESC')
+                //->orderBy('tarefa.created_at','ASC')
                 ->union($prim)
                 ->get();           
                 
@@ -94,5 +164,4 @@ class Tarefa extends Model
                 ->orderBy('tarefa.created_at','DESC')
                 ->get();             
     }
-
 }

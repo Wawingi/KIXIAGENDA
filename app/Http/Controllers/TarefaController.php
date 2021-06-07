@@ -6,12 +6,17 @@ use Illuminate\Http\Request;
 use App\Model\Tarefa;
 use App\Model\TarefaOperacao;
 use App\Model\Estatistica;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Cache;
+//Use Exception;
 
 class TarefaController extends Controller
 {
+    public function generateCodigo(){
+        dd(Tarefa::generateCodigo('wawi.anto'));    
+    }
 
     public function registarTarefa(Request $request){
         $tarefa = new Tarefa;  
@@ -47,8 +52,9 @@ class TarefaController extends Controller
             $tarefa->avanco = 00;    
         }
         $tarefa->data_envio = $request->data_solicitacao;
-        $tarefa->codigo = Tarefa::generateCodigo(strtoupper($request->selectedSolicitante),strtoupper($request->selectedResponsavel));
-        
+        $tarefa->codigo = Tarefa::generateCodigo($request->selectedResponsavel);
+        $tarefa->id_user = Auth::user()->id;
+
         if($tarefa->save()){
            
         }
@@ -62,10 +68,10 @@ class TarefaController extends Controller
     public function pegaGeralTarefas(){
         //$expiration = 10; //Segundos
         //$key = 'tarefa_';
-
         $tarefas = DB::table('tarefa')
                 ->join('tipo', 'tipo.id', '=', 'tarefa.id_tipo')
-                ->select('tarefa.id','tarefa.codigo','tarefa.titulo','tarefa.responsavel','tarefa.data_solicitacao','tarefa.data_cumprimento','tarefa.avanco','tipo.tipo')
+                ->join('users','users.id','=','tarefa.id_user')
+                ->select('tarefa.id','tarefa.codigo','tarefa.titulo','tarefa.responsavel','tarefa.data_solicitacao','tarefa.data_cumprimento','tarefa.avanco','tipo.tipo','users.foto')
                 ->orderBy('tarefa.created_at','DESC')
                 ->get();
         return response()->json($tarefas,200);        
@@ -183,11 +189,13 @@ class TarefaController extends Controller
         return $accoes;
     }
 
-
     //Listar as acções de uma tarefa
     public function pegaAccoes($idtarefa){
         $accoes = DB::table('tarefa_operacao')
-                ->where('id','=',$idtarefa)
+                ->join('tarefa', 'tarefa_operacao.id', '=', 'tarefa.id')
+                ->join('users', 'users.id', '=', 'tarefa.id_user')
+                ->select('tarefa_operacao.created_at','tarefa_operacao.descricao','tarefa_operacao.utilizador_codigo','tarefa_operacao.utilizador_pergunta','tarefa_operacao.estado','tarefa_operacao.avanco','tarefa_operacao.tempo_acao','users.name')
+                ->where('tarefa.id','=',$idtarefa)
                 ->get();
         
         $accoes = $this->secondToHour($accoes);
@@ -232,6 +240,46 @@ class TarefaController extends Controller
                 ->get();
         //$operacoes = $this->siglaToEstado($operacoes)->toJSON();
         return response($operacoes, 200);
+    }
+
+    //Registar as tarefas antigas não concluídas no Kixiagenda web
+    public function sincronizarTarefas(Request $request){
+        try{
+            $tarefa = new Tarefa;
+            $tarefa->departamento_origem = $request->departamento_origem;
+            $tarefa->departamento_destino = $request->departamento_destino;
+            $tarefa->solicitante = $request->solicitante;
+            $tarefa->responsavel = $request->responsavel;
+            $tarefa->ut_registo = $request->ut_registo;
+            $tarefa->titulo = $request->titulo;
+            $tarefa->descricao = $request->descricao;
+            $tarefa->avanco = $request->avanco;
+            $tarefa->tempo = $request->tempo;
+            $tarefa->id_tipo = $request->id_tipo;
+            $tarefa->id_origem = $request->id_origem;
+            $tarefa->origem_dado = $request->origem_dado;
+            $tarefa->data_solicitacao = $request->data_solicitacao;
+            $tarefa->data_prevista = $request->data_prevista;
+            $tarefa->data_reactivacao = $request->data_reactivacao;
+            $tarefa->data_cumprimento = $request->data_cumprimento;
+            $tarefa->data_envio = $request->data_envio;
+            $tarefa->codigo = $request->codigo;
+            $tarefa->id_dpto_origem = $request->id_dpto_origem;
+            $tarefa->id_dpto_destino = $request->id_dpto_destino;
+            $tarefa->versao_sistema = $request->versao_sistema;
+            $tarefa->id_user = $request->id_user;
+            $tarefa->created_at = $request->created_at;
+            $tarefa->updated_at = $request->updated_at;
+
+                
+            if($tarefa->save()){
+                return response()->json(200);
+            }else{
+                return response()->json(401);
+            }
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
     }
 
 }

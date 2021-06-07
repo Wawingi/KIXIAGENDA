@@ -61,3 +61,35 @@
     color:#f5f6f8;
     background-color:rgb(211, 214, 213);
 }
+
+.tabela-relatorio{
+    border: 1px solid #d1cece;
+}
+
+.tabela-relatorio > tr{
+    border: 1px solid #d1cece;
+}
+
+.tabela-relatorio > tr > td{
+    border: 1px solid #d1cece;
+}
+
+.cor-azulE{
+    background: #295380;
+    color: #fff;
+}
+
+.cor-azulC{
+    background: #e0efff;
+    color: #111;
+}
+
+.cor-verdeE{
+    background: #0d661c;
+    color: #fff;
+}
+
+.cor-verdeC{
+    background: #afe6cb;
+    color:#111111
+}

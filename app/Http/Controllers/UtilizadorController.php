@@ -68,8 +68,20 @@ class UtilizadorController extends Controller
         return response()->json($utilizadores,200);
     }
 
+    public function pegaUtilizadoresDSO(){
+        $utilizadores = DB::table('users')
+                        ->select('id','username')
+                        ->where('departamento','Sistemas & Organização')
+                        ->orderBy('username', 'asc')
+                        ->get();
+        return response()->json($utilizadores,200);
+    }
+
     public function pegaFoto($username){
         $utilizadores = DB::table('users')->select('foto')->where('username',$username)->value('foto');
+        if(is_null($utilizadores))
+            $utilizadores=0;
+
         return response()->json($utilizadores,200);
     }
 }

@@ -28,3 +28,4 @@ Route::post('registarUtilizadorAPI', 'UtilizadorController@registarUtilizador');
 Route::post('registarTipoAPI', 'TipoController@registarTipo');
 Route::post('registarOrigemAPI', 'OrigemController@registarOrigem');
 Route::post('registarTipoOrigem', 'TipoController@registarTipoOrigem');
+Route::post('sincronizarTarefas', 'TarefaController@sincronizarTarefas');

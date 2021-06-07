@@ -30,6 +30,7 @@ class FechoController extends Controller
                 ->get();
         
         foreach($fechos as $f){
+            $f->created_at=date('d-m-Y H:i:s',strtotime($f->created_at));
             if($f->periodo==1)
                 $f->periodo='Manhã';
             else

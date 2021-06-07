@@ -7,7 +7,7 @@ Route::get('/', function () {
 });
 Route::post('login', 'UtilizadorController@logar');
 
-Route::middleware(['auth'])->group(function () {
+//Route::middleware(['auth'])->group(function () {
     Route::prefix('auth')->group(function(){
         Route::get('registarUtilizador', 'UtilizadorController@registarUtilizador');
         
@@ -16,6 +16,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('logout', 'UtilizadorController@logout');
         Route::get('pegaUtilizador', 'UtilizadorController@pegaUtilizador');
         Route::get('pegaUtilizadores', 'UtilizadorController@pegaUtilizadores');
+        Route::get('pegaUtilizadoresDSO', 'UtilizadorController@pegaUtilizadoresDSO');
         Route::get('pegaFoto/{username}', 'UtilizadorController@pegaFoto');
 
         Route::get('pegaTipos', 'TipoController@pegaTipos');
@@ -29,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('pegaTarefasAgendadas', 'TarefaController@pegaTarefasAgendadas');
         Route::get('contActividades', 'TarefaController@contActividades');
         Route::get('verActividade/{id}', 'TarefaController@verActividade');
+
         Route::post('editarTarefa', 'TarefaController@editarTarefa');
         Route::post('registarOperacao', 'TarefaController@registarOperacaoTarefa');
         Route::get('registarOperacao', 'TarefaController@registarOperacaoTarefa');
@@ -40,5 +42,4 @@ Route::middleware(['auth'])->group(function () {
         Route::post('registarFecho', 'FechoController@registarFecho');
         Route::get('pegaFechos', 'FechoController@pegaFechos'); 
     });
-});
-
+//});

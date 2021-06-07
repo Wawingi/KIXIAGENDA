@@ -14,7 +14,178 @@
                 </div>
             </div>
         </div>
-        <br />  
+        <br />
+
+        <!-- Modal Relatório actividade -->
+        <div class="modal fade" id="modalRelatorioActividade" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                <div class="modal-content">
+                    
+                    <div class="modal-body">    
+                        <div class="row" style="background:none">               
+                            <div class="col-11" style="background:none">               
+                                <table style="margin-left:30px" class="tabela-relatorio">
+                                    <tr>
+                                        <td style="text-align:center;color:#111;font-weight:bold;background:#f5e78e">{{codigo}}</td>
+                                        <td class="cor-azulE" colspan="5">
+                                            [Registo de Actividade]<br> 
+                                            {{selectedTipo}} : {{titulo}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cor-azulE">ORIGEM: </td>
+                                        <td class="cor-azulC" colspan="5">{{selectedOrigem}} : {{dado_origem}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cor-azulE">DE: </td>
+                                        <td class="cor-azulC">{{departamento_origem}}</td>
+                                        <td>
+                                            <img
+                                                style="border:solid #d0d5dc 1px"
+                                                :src="'images/users/'+fotoSolicitante"
+                                                alt="user-image"
+                                                width="60px"
+                                                height="60px"/>
+                                        </td>
+                                        <td width="15%" class="cor-azulE">PARA:</td>
+                                        <td class="cor-azulC">{{departamento_destino}}</td>
+                                        <td>
+                                            <img
+                                                style="border:solid #d0d5dc 1px"
+                                                :src="'images/users/'+fotoResponsavel"
+                                                alt="user-image"
+                                                width="60px"
+                                                height="60px"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6"><br></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cor-azulE">Data de solicitação: </td>
+                                        <td class="cor-azulC" colspan="5">{{data_solicitacao}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cor-azulE">Data Prevista de Execução: </td>
+                                        <td class="cor-azulC" colspan="2">{{data_prevista}}</td>
+                                        <td class="cor-azulE" colspan="2">Tempo de Registo: </td>
+                                        <td class="cor-azulC">{{tempo}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6"><br></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cor-azulE" style="text-align:center" colspan="6">Descrição </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6">
+                                        <br>
+                                        {{descricao}} 
+                                        <br><br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background:#e35959;color:#fff;text-align:center" colspan="6">
+                                        <br>
+                                        Sistema KixiAgenda v1.0.1-2021
+                                        <br><br>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div> 
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fim Modal Relatório actividade-->  
+
+
+        <!-- Modal Relatório acção -->
+        <div class="modal fade modalRelatorioAccao" v-if="is_modal_visible" id="modalRelatorioAccao" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                <div class="modal-content">
+                    
+                    <div class="modal-body">    
+                        <div class="row" style="background:none">               
+                            <div class="col-11" style="background:none">               
+                                <table style="margin-left:30px" class="tabela-relatorio">
+                                    <tr>
+                                        <td style="text-align:center;color:#111;font-weight:bold;background:#f5e78e">
+                                            {{codigo}}<br>
+                                            ({{avanco_modal}}%)
+                                        </td>
+                                        <td class="cor-verdeE" colspan="4">
+                                            [Registo de Acção]<br> 
+                                            {{selectedTipo}} : {{titulo}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cor-verdeE" colspan="5"><br>{{descricao}}<br><br></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cor-verdeE">Origem: </td>
+                                        <td class="cor-verdeC" colspan="4">{{selectedOrigem}} : {{dado_origem}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cor-verdeE">Responsável: </td>
+                                        <td class="cor-verdeC" colspan="4">{{responsavel_modal}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cor-verdeE">Data:</td>
+                                        <td v-if="estado=='ACRG'" style="background:#66f2b3;color:#111">{{data_operacao_modal}}</td>
+                                        <td v-else class="cor-verdeC">{{data_operacao_modal}}</td>
+                                        <td class="cor-verdeE" colspan="2">Tempo da acção: </td>
+                                        <td class="cor-verdeC">{{tempo_acao_modal}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5"><br></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%"  class="cor-verdeE" style="text-align:center" colspan="5">Descrição </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6">
+                                        <br>
+                                        {{descricao_accao_modal}}
+                                        <br><br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td v-if="estado_modal=='ACRG'" style="background:#66f2b3;color:#111;text-align:center" colspan="5">
+                                            Actividade Reagendada
+                                        </td>
+                                        <td v-if="estado_modal=='ACCO'" style="background:#f5e78e;color:#111;text-align:center" colspan="5">
+                                            Actividade Concluída
+                                        </td>
+                                        <td v-if="estado_modal=='ACCU'" style="background:#f5e78e;color:#111;text-align:center" colspan="5">
+                                            Actividade em Curso
+                                        </td>
+                                        <td v-if="estado_modal=='ACRT'" style="background:#f5e78e;color:#111;text-align:center" colspan="5">
+                                            Actividade Reativada
+                                        </td>
+                                        <td v-if="estado_modal=='CUSS'" style="background:#f5e78e;color:#111;text-align:center" colspan="5">
+                                            Em Curso Solic. Suporte
+                                        </td>
+                                        <td v-if="estado_modal=='CURS'" style="background:#f5e78e;color:#111;text-align:center" colspan="5">
+                                            Em Curso Resp. Suporte
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background:#e35959;color:#fff;text-align:center" colspan="6">
+                                        <br>
+                                        Sistema KixiAgenda v1.0.1-2021
+                                        <br><br>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div> 
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fim Modal Relatório acção--> 
 
         <!-- Modal Acção -->
         <div class="modal fade" id="modalNovaAccao" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"aria-hidden="true">
@@ -184,15 +355,20 @@
                     </div>
                                      
                     <div class="tab-content">
+                        <!--Aba da visualização da actividade-->
                         <div class="tab-pane fade show active" id="dados">
                             <div id="VerActividade" v-if="visualizar">
-                                <!--<div class="row">
+                                <div class="row">
                                     <div class="col-12">
-                                        <button id="app" v-on:click="visualizar = !visualizar" style="float: right" type="button" class="btn btn-sm btn-rounded btn-success waves-effect waves-light">
-                                            <i class="far fa-edit mr-1"></i>Modificar Actividade
+                                        <button 
+                                            type="submit" 
+                                            class="btn btn-sm btn-rounded btn-primary waves-effect waves-light" 
+                                            data-toggle="modal"
+                                            data-target="#modalRelatorioActividade">
+                                            <i class="far fa-eye mr-1"></i>Relatório da Actividade
                                         </button>
                                     </div>
-                                </div>-->
+                                </div>
                                 <hr style="height:1px;background-color:#d3d6d5">
                         
                                 <div class="row">
@@ -544,10 +720,10 @@
                             </div>-->
                         </div>
 
+                        <!--Aba da acção da actividade-->
                         <div class="tab-pane fade" id="accao">
                             <div class="row">
-                                <div class="col-8">
-                                    
+                                <div class="col-8">         
                                 </div>
                                 <div class="col-4">                                            
                                     <button 
@@ -577,7 +753,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>                          
-                                    <tr v-for="accao in accoes" class="tabelaClicked" title='Clique aqui para Editar acção'>
+                                    <tr v-for="accao in accoes" class="tabelaClicked" @click="selectRow(accao)" title='Clique aqui para Editar acção'>
                                         <td>{{accao.created_at}}</td>
                                         <td>{{accao.descricao}}</td>
                                         <td>{{accao.utilizador_codigo}}</td>
@@ -665,7 +841,15 @@
                 showAvanco:1,
                 submitStatus: null,
                 accoes: [],
-                id_tarefa: this.$route.params.id
+                id_tarefa: this.$route.params.id,
+                //Chamada da Modal
+                is_modal_visible: false,
+                avanco_modal:'',
+                data_operacao_modal:'',
+                tempo_acao_modal:'',
+                descricao_accao_modal:'',
+                estado_modal:'',
+                responsavel_modal:''
             };       
         },
         validations: {
@@ -740,36 +924,10 @@
             }        
         },
         created(){   
-            let id = this.$route.params.id;
-
-            let self = this               
-            this.$axios.get('auth/verActividade/' + id)
-            .then(function (response) {
-                if(response.status==200){
-                    self.idActividade = response.data.id,
-                    self.codigo = response.data.codigo,
-                    self.selectedTipo = response.data.tipo,
-                    self.selectedOrigem = response.data.origem, 
-                    self.titulo = response.data.titulo,  
-                    self.dado_origem = response.data.origem_dado, 
-                    self.tempo = self.setTempoVisual(response.data.tempo), 
-                    self.departamento_origem = response.data.departamento_origem,
-                    self.departamento_destino = response.data.departamento_destino,
-                    self.data_solicitacao = self.pegaFormatedDataTime(response.data.data_solicitacao),
-                    self.data_prevista = self.pegaFormatedDataTime(response.data.data_prevista),//self.isNullData(self.pegaFormatedDataTime(response.data.data_cumprimento)),
-                    self.fotoSolicitante = response.data.solicitante+'.jpg',  
-                    self.fotoResponsavel = response.data.responsavel+'.jpg',   
-                    self.selectedSolicitante = response.data.solicitante,
-                    self.selectedResponsavel = response.data.responsavel,
-                    self.descricao = response.data.descricao,   
-                    self.data_solicitacaoEdit = response.data.data_solicitacao.replace(" ", "T");                                                                                             
-                    self.data_previstaEdit = response.data.data_prevista.replace(" ", "T");                                                                                                
-                }
-            })
-            .catch(function (error) {
-                alert("Erro ao ver actividade");
-            });
+            this.pegaActividade();
+            
         },
+
         mounted(){
             this.pegaTipos();
             this.pegaOrigens();
@@ -777,6 +935,56 @@
             this.pegaAccoesTarefa();
         },
         methods: { 
+            pegaActividade: async function(){
+                //Get tarefa dados
+                let id = this.$route.params.id;
+
+                let self = this               
+                this.$axios.get('auth/verActividade/' + id)
+                .then(function (response) {
+                    if(response.status==200){
+                        self.idActividade = response.data.id,
+                        self.codigo = response.data.codigo,
+                        self.selectedTipo = response.data.tipo,
+                        self.selectedOrigem = response.data.origem, 
+                        self.titulo = response.data.titulo,  
+                        self.dado_origem = response.data.origem_dado, 
+                        self.tempo = self.setTempoVisual(response.data.tempo), 
+                        self.departamento_origem = response.data.departamento_origem,
+                        self.departamento_destino = response.data.departamento_destino,
+                        self.data_solicitacao = self.pegaFormatedDataTime(response.data.data_solicitacao),
+                        self.data_prevista = self.pegaFormatedDataTime(response.data.data_prevista),//self.isNullData(self.pegaFormatedDataTime(response.data.data_cumprimento)),  
+                        self.selectedSolicitante = response.data.solicitante,
+                        self.selectedResponsavel = response.data.responsavel,
+                        self.descricao = response.data.descricao,   
+                        self.data_solicitacaoEdit = response.data.data_solicitacao.replace(" ", "T");                                                                                             
+                        self.data_previstaEdit = response.data.data_prevista.replace(" ", "T");    
+
+                        self.pegaFotoSolicitante(response.data.solicitante,1);  //tipo 1: solicitante, tipo 2: responsavel
+                        self.pegaFotoSolicitante(response.data.responsavel,2);                                                                                         
+                    }
+                })
+                .catch(function (error) {
+                    alert("Erro ao ver actividade");
+                });
+            },
+            pegaFotoSolicitante(solicitante,tipo){
+                let self = this               
+                this.$axios.get('auth/pegaFoto/'+solicitante)
+                .then(function (response) {
+                    if(response.status==200){           
+                        //console.log("RR:"+tipo);
+                        if(tipo==1)   
+                            self.fotoSolicitante = response.data;
+                        else
+                            self.fotoResponsavel = response.data;                                                
+                    }
+                })
+                .catch(function (error) {
+                    alert("Erro ao pegar foto");
+                });      
+            },
+            
             pegaTipos: async function(){
                 let self = this               
                 this.$axios.get('auth/pegaTipos')
@@ -808,8 +1016,7 @@
                 this.$axios.get('auth/pegaUtilizadores')
                 .then(function (response) {
                     if(response.status==200){
-                        self.utilizadores = response.data;
-                        console.log(response.data);                  
+                        self.utilizadores = response.data;              
                     }else{
  
                     }
@@ -856,7 +1063,7 @@
             },
             //Pega data hora no formato DD/MM/YYYY
             pegaFormatedDataTime(data){              
-                return moment(String(data)).format('DD/MM/YYYY hh:mm');
+                return moment(String(data)).format('DD/MM/YYYY HH:mm');
             },
             //Pega data hora no formato YYYY/MM/DD
             pegaNormalDataTime(data){              
@@ -895,6 +1102,21 @@
                 });
                 return idTipo;                
             },
+
+            selectRow(accao){  
+                this.avanco_modal = accao.avanco;
+                this.data_operacao_modal = this.pegaFormatedDataTime(accao.created_at);
+                this.tempo_acao_modal = accao.tempo_acao;
+                this.descricao_accao_modal = accao.descricao;
+                this.estado_modal = accao.estado;
+                this.responsavel_modal = accao.name;
+
+                this.is_modal_visible = true;
+                this.$nextTick(() => {
+                    $('#modalRelatorioAccao').modal('show');
+                });          
+            },
+
             //Pega id da Origem
             pegaOrigemID(origemLido){
                 var idOrigem;

@@ -19,7 +19,7 @@
             <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
                 <div class="modal-content">
                 <div id="cabeca-modal" class="modal-header">
-                        <h4 class="modal-title" id="exampleModalScrollableTitle"><i class="mdi mdi-plus-circle mr-1"></i>Marcar Funcionário Para Fecho</h4>
+                        <h4 class="modal-title" id="exampleModalScrollableTitle"><i class="mdi mdi-plus-circle mr-1"></i>Marcar Funcionário Para Fecho Seguinte</h4>
                         <button style="margin-top:-20px" id="modalCloseAccao" type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -65,6 +65,18 @@
             </div>
         </div>
         <!-- Fim Modal fecho -->
+        <!--
+        <button 
+            style="float: right;margin:5px" 
+            type="submit" 
+            class="btn btn-sm btn-rounded btn-success waves-effect waves-light" 
+            data-backdrop="static"
+            data-keyboard="false"
+            data-toggle="modal"
+            data-target="#modalFecho">
+            <i class="mdi mdi-plus-circle mr-1"></i>Registar Fecho
+        </button>
+        -->
 
         <!--Inicio do conteudo-->
         <br><br>
@@ -138,7 +150,7 @@
             },
             pegaUtilizador: async function(){
                 let self = this               
-                this.$axios.get('auth/pegaUtilizadores')
+                this.$axios.get('auth/pegaUtilizadoresDSO')
                 .then(function (response) {
                     if(response.status==200){
                         self.utilizadores = response.data;

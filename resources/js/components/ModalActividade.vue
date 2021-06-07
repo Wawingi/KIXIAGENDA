@@ -287,6 +287,7 @@
                 fotoResponsavel: 'default.jpg',
                 titulo:'',
                 dado_origem:'',
+                novo_dado_origem:'',
                 motivo:'',
                 descricao:'',
                 data_execucao:'',
@@ -402,7 +403,7 @@
                 });
             },
 
-            limaparCampos(){
+            limparCampos(){
                 this.selectedTipo = null;
                 this.titulo = null;
                 this.selectedOrigem = null;
@@ -423,17 +424,44 @@
 
             registarTarefa: async function(e){
                 this.$v.$touch()
-                if (this.$v.$invalid) {
+                if (this.$v.$invalid) {               
                     this.submitStatus = 'ERROR'
-                } else { 
-                    
+                } else {                  
                     //this.$v.$reset();
+                    //Validar o numero telefonico
+                    if(this.selectedOrigem=='LITE'){
+                        if(!isNaN(this.dado_origem)&&this.dado_origem.length==9){
+                            this.novo_dado_origem=this.dado_origem;
+                        }else{
+                            Swal.fire({
+                                text: "Verifique o contacto telefónico.",
+                                icon: 'error',
+                                confirmButtonText: 'Fechar'
+                            });
+                            return;
+                        }
+                    }else if(this.selectedOrigem=='COEL'){
+                        const email = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                        if(email.test(this.dado_origem)){
+                            this.novo_dado_origem=this.dado_origem;
+                        }else{
+                            Swal.fire({
+                                text: "Verifique o email fornecido.",
+                                icon: 'error',
+                                confirmButtonText: 'Fechar'
+                            });
+                            return;
+                        }
+                    }else{
+                        this.novo_dado_origem=this.dado_origem;
+                    }
+
                     let self = this          
                     this.$axios.post('auth/registarTarefa',{
                         'selectedTipo': this.selectedTipo,                        
                         'titulo': this.titulo.toUpperCase(),
                         'selectedOrigem': this.selectedOrigem,
-                        'dado_origem': this.dado_origem,
+                        'dado_origem': this.novo_dado_origem,
                         'tempo': this.tempo,
                         'departamento_origem': this.departamento_origem,
                         'selectedSolicitante': this.selectedSolicitante,
@@ -446,7 +474,7 @@
                     .then(function (response) {
                         if(response.status==200){  
                             //e.target.reset(); //also clean input
-                            self.limaparCampos();
+                            self.limparCampos();
                             $('#modalClose').click();
                           
                             Swal.fire({
@@ -454,14 +482,14 @@
                                 icon: 'success',
                                 confirmButtonText: 'Fechar'
                             }),
-                            location.reload();
-                                                                    
+                            //location.reload();
+                            self.$router.push({name:'dashboard'});                                                                            
                         }else{
                             alert("LITTLE ERROR ");
                         }
                     })
                     .catch(function (error) {
-                        self.limaparCampos();
+                        self.limparCampos();
                         $('#modalClose').click();
                          Swal.fire({
                             text: "Erro ao registar actividade.",
@@ -504,8 +532,7 @@
 
             //Metodo de troca de username para escolher foto
             onChangeSolicitante(event) {
-                //alert(event.target.value+'.jpg');
-                if(this.fotoResponsavel == event.target.value+'.jpg'){
+                if(this.selectedResponsavel == event.target.value){
                     this.selectedSolicitante='';
                     this.fotoSolicitante = 'default.jpg';
                      Swal.fire({
@@ -517,9 +544,11 @@
                     let self = this               
                     this.$axios.get('auth/pegaFoto/'+event.target.value)
                     .then(function (response) {
-                        if(response.status==200){           
-                            console.log('FOTO: '+response.data);   
-                            self.fotoSolicitante = response.data;                                                   
+                        if(response.status==200){  
+                            if(response.data==0)          
+                                self.fotoSolicitante = 'default.jpg';  
+                            else
+                                self.fotoSolicitante = response.data;                                                                          
                         }
                     })
                     .catch(function (error) {
@@ -529,7 +558,7 @@
             },
                 
             onChangeResponsavel(event) {
-                if(this.fotoSolicitante==event.target.value+'.jpg'){
+                if(this.selectedSolicitante == event.target.value){
                     this.selectedResponsavel='';
                     this.fotoResponsavel = 'default.jpg';
                     Swal.fire({
@@ -541,9 +570,11 @@
                     let self = this               
                     this.$axios.get('auth/pegaFoto/'+event.target.value)
                     .then(function (response) {
-                        if(response.status==200){           
-                            console.log('FOTO: '+response.data);   
-                            self.fotoResponsavel = response.data;                                                      
+                        if(response.status==200){  
+                            if(response.data==0)          
+                                self.fotoResponsavel = 'default.jpg';  
+                            else          
+                                self.fotoResponsavel = response.data;                                                      
                         }
                     })
                     .catch(function (error) {
