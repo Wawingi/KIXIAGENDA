@@ -1,10 +1,6 @@
 <template>
-    <div    class="modal fade"
-            id="modalNovaActividade"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="exampleModalScrollableTitle"
-            aria-hidden="true">
+    <div class="row">
+        <div class="modal fade" id="modalNovaActividade" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
                 <div class="modal-content">
                    <div id="cabeca-modal" class="modal-header">
@@ -264,10 +260,93 @@
                                     <i class="mdi mdi-content-save mr-1"></i>Registar
                                 </button>
                             </div>
-                        </form>                       
+                        </form>                    
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Modal Relatório actividade -->
+        <div class="modal fade"  v-if="is_modal2_visible" id="modalRelatorioActividade2" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                <div class="modal-content">  
+                    <div class="modal-body">    
+                        <div class="row" style="background:none">               
+                            <div class="col-11" style="background:none">               
+                                <table style="margin-left:30px" class="tabela-relatorio">
+                                    <tr>
+                                        <td style="text-align:center;color:#111;font-weight:bold;background:#f5e78e">{{codigo}}</td>
+                                        <td class="cor-azulE" colspan="5">
+                                            [Registo de Actividade]<br> 
+                                            {{selectedTipo}} : {{titulo}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cor-azulE">ORIGEM: </td>
+                                        <td class="cor-azulC" colspan="5">{{selectedOrigem}} : {{dado_origem}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cor-azulE">DE: </td>
+                                        <td class="cor-azulC">{{departamento_origem}}</td>
+                                        <td>
+                                            <img
+                                                style="border:solid #d0d5dc 1px"
+                                                :src="'images/users/'+fotoSolicitante"
+                                                alt="user-image"
+                                                width="60px"
+                                                height="60px"/>
+                                        </td>
+                                        <td width="15%" class="cor-azulE">PARA:</td>
+                                        <td class="cor-azulC">{{departamento_destino}}</td>
+                                        <td>
+                                            <img
+                                                style="border:solid #d0d5dc 1px"
+                                                :src="'images/users/'+fotoResponsavel"
+                                                alt="user-image"
+                                                width="60px"
+                                                height="60px"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6"><br></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cor-azulE">Data de solicitação: </td>
+                                        <td class="cor-azulC" colspan="5">{{data_solicitacao}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cor-azulE">Data Prevista de Execução: </td>
+                                        <td class="cor-azulC" colspan="2">{{data_prevista}}</td>
+                                        <td class="cor-azulE" colspan="2">Tempo de Registo: </td>
+                                        <td class="cor-azulC">{{tempo}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6"><br></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cor-azulE" style="text-align:center" colspan="6">Descrição </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6">
+                                        <br>
+                                        {{descricao}}
+                                        <br><br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background:#e35959;color:#fff;text-align:center" colspan="6">
+                                        <br>
+                                        Sistema KixiAgenda v1.0.1-2021
+                                        <br><br>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div> 
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -295,7 +374,15 @@
                 tempo:'',
                 departamento_origem:'',
                 departamento_destino:'',
-                submitStatus: null 
+                submitStatus: null,
+                is_modal2_visible: false, 
+                avanco_modal:'',
+                data_operacao_modal:'',
+                tempo_acao_modal:'',
+                descricao_accao_modal:'',
+                estado_modal:'',
+                responsavel_modal:'',
+                codigo:'',
             };       
         },  
         validations: {
@@ -402,7 +489,6 @@
                     //alert("Erro ao carregar dados do perfil");
                 });
             },
-
             limparCampos(){
                 this.selectedTipo = null;
                 this.titulo = null;
@@ -420,6 +506,79 @@
                 this.fotoResponsavel = 'default.jpg';
 
                 this.$nextTick(() => { this.$v.$reset(); });   
+            },
+            chamaRelatorioActividade(id_tarefa){
+                this.is_modal2_visible = true;
+                this.$nextTick(() => {
+                    $('#modalRelatorioActividade2').modal('show');
+                }); 
+
+                let self = this               
+                this.$axios.get('auth/verActividade/' + id_tarefa)
+                .then(function (response) {
+                    if(response.status==200){
+                        self.codigo = response.data.codigo,
+                        self.selectedTipo = response.data.tipo,
+                        self.titulo = response.data.titulo,
+                        self.selectedOrigem = response.data.origem, 
+                        self.dado_origem = response.data.origem_dado,
+                        self.departamento_origem = response.data.departamento_origem,
+                        self.departamento_destino = response.data.departamento_destino,
+                        self.data_solicitacao = response.data.data_solicitacao,
+                        self.data_prevista = response.data.data_prevista,
+                        self.tempo = self.setTempoVisual(response.data.tempo), 
+                        self.descricao = response.data.descricao,
+
+                        self.pegaFoto(response.data.solicitante,1);  //tipo 1: solicitante, tipo 2: responsavel
+                        self.pegaFoto(response.data.responsavel,2);                                                                                                          
+                    }
+                })
+                .catch(function (error) {
+                    alert("Erro ao ver actividade");
+                });               
+                
+            },   
+
+            //Pega tempo de segundos para formato visual
+            setTempoVisual(tempo){
+                switch(tempo){
+                    case 300: return '0:05';break;
+                    case 600: return '0:10';break;
+                    case 900: return '0:15'; break;                  
+                    case 1200: return '0:20'; break;                  
+                    case 1800: return '0:30'; break;                  
+                    case 2400: return '0:40'; break;                  
+                    case 3000: return '0:50'; break;                  
+                    case 3600: return '1:00'; break;                  
+                    case 5400: return '1:30'; break;                  
+                    case 7200: return '2:00'; break;
+                    case 9000: return '2:30'; break;
+                    case 10800: return '3:00'; break;
+                    case 12600: return '3:30'; break;
+                    case 14400: return '4:00'; break;
+                    case 16200: return '4:30'; break;
+                    case 18000: return '5:00'; break;
+                    case 19800: return '5:30'; break;
+                    case 21600: return '6:00'; break;
+                    case 23400: return '6:30'; break;
+                    case 25200: return '7:00'; break;                    
+                }
+            },
+
+            pegaFoto(solicitante,tipo){
+                let self = this               
+                this.$axios.get('auth/pegaFoto/'+solicitante)
+                .then(function (response) {
+                    if(response.status==200){           
+                        if(tipo==1)   
+                            self.fotoSolicitante = response.data;
+                        else
+                            self.fotoResponsavel = response.data;                                                
+                    }
+                })
+                .catch(function (error) {
+                    alert("Erro ao pegar foto");
+                });      
             },
 
             registarTarefa: async function(e){
@@ -480,10 +639,12 @@
                             Swal.fire({
                                 text: "Actividade registada com sucesso.",
                                 icon: 'success',
-                                confirmButtonText: 'Fechar'
+                                confirmButtonText: 'Fechar',
+                                timer:1000
                             }),
-                            //location.reload();
-                            self.$router.push({name:'dashboard'});                                                                            
+
+                            self.$router.push({name:'verActividade',params:{id:response.data}});  
+                            self.chamaRelatorioActividade(response.data);                                                                                                     
                         }else{
                             alert("LITTLE ERROR ");
                         }
@@ -498,7 +659,6 @@
                         })
                     });
                 }
-                
             },
 
             onChangeTipo(event) {

@@ -56,7 +56,10 @@ class TarefaController extends Controller
         $tarefa->id_user = Auth::user()->id;
 
         if($tarefa->save()){
-           
+            $id_actividade=DB::table('tarefa')
+            ->where('codigo','=',$tarefa->codigo)                
+            ->value('id'); 
+            return response()->json($id_actividade,200);            
         }
     }
 

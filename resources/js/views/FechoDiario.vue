@@ -116,17 +116,19 @@
         <!-- FIm do conteudo -->
     </div>
 </template>
-<script>
-    import { required, minLength, maxLength } from 'vuelidate/lib/validators'
-  
-    export default {
+<script>   
+    import { required, minLength, maxLength } from 'vuelidate/lib/validators';
+    
+    export default {       
         data(){
             return{
                 fechos: [],
                 utilizadores: [], 
                 utilizador_codigo:'',
                 periodo:'',
-                data_fecho:''
+                data_fecho:'',
+                isLoading: false,
+                fullPage: true
             };       
         },  
         validations: {
@@ -144,10 +146,9 @@
             this.pegaUtilizador(),
             this.pegaFechos()            
         },
-        methods: {   
-            selectRow(id){      
-                this.$router.push({name:'verActividade',params:{id:id}})   
-            },
+        methods: {  
+            
+
             pegaUtilizador: async function(){
                 let self = this               
                 this.$axios.get('auth/pegaUtilizadoresDSO')

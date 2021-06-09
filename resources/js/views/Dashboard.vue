@@ -58,7 +58,6 @@
                     <table id="paginationTarefa" class="table table-sm table-bordeless" cellspacing="0" width="100%">
                         <thead id="cabecatabela">
                             <tr>
-                                <th>Responsável</th>
                                 <th>Código</th>
                                 <th>Objecto de Actividade</th>                                
                                 <th>Data da Solicitação</th>
@@ -66,17 +65,7 @@
                             </tr>
                         </thead>
                         <tbody>                          
-                            <tr title='Clique aqui para abrir actividade' v-for="tarefa in tarefas" class="tabelaClicked" @click="selectRow(tarefa.id)">
-                                <td>
-                                <img
-                                    :src="'images/users/'+tarefa.foto"
-                                    alt="user-image"
-                                    width="45px"
-                                    height="45px"
-                                    class="rounded-circle"
-                                    style="border:solid #6c757d 1px"/>
-                                </td>
-                                
+                            <tr title='Clique aqui para abrir actividade' v-for="tarefa in tarefas" class="tabelaClicked" @click="selectRow(tarefa.id)">           
                                 <td>{{tarefa.codigo}}</td> 
                                 <td>{{tarefa.titulo}}</td>                               
                                 <td width="20%">{{ tarefa.data_solicitacao }}</td>

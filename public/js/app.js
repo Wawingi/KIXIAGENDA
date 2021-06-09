@@ -98,17 +98,6 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/
 
 /***/ }),
 
-/***/ "./node_modules/@smartweb/vue-flash-message/build/vue-flash-msg.common.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/@smartweb/vue-flash-message/build/vue-flash-msg.common.js ***!
-  \********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports=function(t){var e={};function s(n){if(e[n])return e[n].exports;var a=e[n]={i:n,l:!1,exports:{}};return t[n].call(a.exports,a,a.exports,s),a.l=!0,a.exports}return s.m=t,s.c=e,s.d=function(t,e,n){s.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:n})},s.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},s.t=function(t,e){if(1&e&&(t=s(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var n=Object.create(null);if(s.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var a in t)s.d(n,a,function(e){return t[e]}.bind(null,a));return n},s.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return s.d(e,"a",e),e},s.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},s.p="",s(s.s="fb15")}({1582:function(t,e,s){"use strict";var n=s("adc3");s.n(n).a},"185a":function(t,e,s){"use strict";var n={},a=(s("88b1"),s("2877")),r=Object(a.a)(n,(function(){var t=this,e=t.$createElement,s=t._self._c||e;return s("transition-group",{attrs:{tag:"div",name:t.positionClass}},t._l(t.messages,(function(e){return s("VueMessageBlock",{key:e.id+"-fm",attrs:{messageObj:e,positionString:t.position}})})),1)}),[],!1,null,null,null);e.a=r.exports},2350:function(t,e){function s(t,e){var s=t[1]||"",n=t[3];if(!n)return s;if(e&&"function"==typeof btoa){var a=function(t){return"/*# sourceMappingURL=data:application/json;charset=utf-8;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(t))))+" */"}(n),r=n.sources.map((function(t){return"/*# sourceURL="+n.sourceRoot+t+" */"}));return[s].concat(r).concat([a]).join("\n")}return[s].join("\n")}t.exports=function(t){var e=[];return e.toString=function(){return this.map((function(e){var n=s(e,t);return e[2]?"@media "+e[2]+"{"+n+"}":n})).join("")},e.i=function(t,s){"string"==typeof t&&(t=[[null,t,""]]);for(var n={},a=0;a<this.length;a++){var r=this[a][0];"number"==typeof r&&(n[r]=!0)}for(a=0;a<t.length;a++){var o=t[a];"number"==typeof o[0]&&n[o[0]]||(s&&!o[2]?o[2]=s:s&&(o[2]="("+o[2]+") and ("+s+")"),e.push(o))}},e}},"278c":function(t,e,s){var n=s("c135"),a=s("9b42"),r=s("c240");t.exports=function(t,e){return n(t)||a(t,e)||r()}},2877:function(t,e,s){"use strict";function n(t,e,s,n,a,r,o,i){var f,l="function"==typeof t?t.options:t;if(e&&(l.render=e,l.staticRenderFns=s,l._compiled=!0),n&&(l.functional=!0),r&&(l._scopeId="data-v-"+r),o?(f=function(t){(t=t||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||"undefined"==typeof __VUE_SSR_CONTEXT__||(t=__VUE_SSR_CONTEXT__),a&&a.call(this,t),t&&t._registeredComponents&&t._registeredComponents.add(o)},l._ssrRegister=f):a&&(f=i?function(){a.call(this,this.$root.$options.shadowRoot)}:a),f)if(l.functional){l._injectStyles=f;var c=l.render;l.render=function(t,e){return f.call(e),c(t,e)}}else{var u=l.beforeCreate;l.beforeCreate=u?[].concat(u,f):[f]}return{exports:t,options:l}}s.d(e,"a",(function(){return n}))},"2af9":function(t,e,s){"use strict";(function(t){s.d(e,"a",(function(){return l}));var n=s("3a16"),a=s("8c8b"),r=s("bcd4"),o=s("185a"),i=s("2f86"),f={name:"flashMessage",tag:"FlashMessage",time:8e3,strategy:"single"};function l(t){var e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:{};if(!l.installed){l.installed=!0,e=Object.assign(f,e);var s=new t(Object(n.a)(e));t.prototype[e.name]=s;var c=Object.assign(o.a,Object(a.a)(e)),u=Object.assign(i.a,Object(r.a)(e));t.component(e.tag,c),t.component("VueMessageBlock",u)}}var c={install:l},u=null;"undefined"==typeof window?void 0!==t&&(u=t.Vue):u=window.Vue,u&&u.use(c)}).call(this,s("c8ba"))},"2f86":function(t,e,s){"use strict";var n={},a=(s("1582"),s("2877")),r=Object(a.a)(n,(function(){var t=this,e=t.$createElement,s=t._self._c||e;return s("div",{class:[t.classObj.status,t.classObj.basic,this.messageObj.clickable?"":"_vue-flash-msg-body_unclickabe",t.positionClass,t.messageObj.blockClass],style:t.positionStyleObj,on:{click:t.clickHandler}},[t.messageObj.componentName?s(t.messageObj.componentName,{tag:"component",attrs:{messageId:t.messageObj.id}}):t.messageObj.html?s("div",{class:["_vue-flash-msg-wrapper",t.messageObj.wrapperClass],domProps:{innerHTML:t._s(t.messageObj.html)}}):s("div",{class:["_vue-flash-msg-wrapper",t.messageObj.wrapperClass]},[t.messageObj.icon?s("div",{class:["_vue-flash-msg-body__icon",t.messageObj.iconClass]},[s("img",{attrs:{src:t.messageObj.icon,alt:"",loading:"lazy"},on:{load:t.imageLoadedHandler}})]):t._e(),s("div",{class:["_vue-flash-msg-body__content",t.messageObj.contentClass]},[s("p",{staticClass:"_vue-flash-msg-body__title",attrs:{role:"heading"}},[t._v("\n\t\t\t\t"+t._s(t.messageObj.title)+"\n\t\t\t")]),s("p",{staticClass:"_vue-flash-msg-body__text"},[t._v("\n\t\t\t\t"+t._s(t.messageObj.message)+"\n\t\t\t")])])])],1)}),[],!1,null,null,null);e.a=r.exports},3664:function(t,e,s){var n=s("d857");"string"==typeof n&&(n=[[t.i,n,""]]),n.locals&&(t.exports=n.locals),(0,s("499e").default)("0d52856b",n,!0,{sourceMap:!1,shadowMode:!1})},"3a16":function(t,e,s){"use strict";s.d(e,"a",(function(){return a}));var n=["error","success","warning","info"];function a(t){var e={data:function(){return{messages:[],nextMessageId:1,strategy:t.strategy,timeoutId:void 0,currentHeight:0}},methods:{$_vueFlashMessage_setDimensions:function(t){var e=this,s=t.height,n=t.id,a=t.img;0<this.messages.length?this.currentHeight+=s:this.currentHeight=0,0>s&&"number"==typeof n?setTimeout((function(){e.$emit("changePosition",{height:Math.abs(s),id:n})}),500):this.$emit("changePosition",{height:s,id:n,img:a})},setStrategy:function(t){return!!/^(single)|(multiple)$/i.test(t)&&(this.strategy=t,!0)},show:function(e){var s=this,n=1<arguments.length&&void 0!==arguments[1]?arguments[1]:{},a={id:this.nextMessageId++,time:e.time||t.time,status:"default",message:"",icon:"",clickable:!0};return a=Object.assign(a,e,n),"single"===this.strategy&&0<this.messages.length?(clearTimeout(this.timeoutId),this.messages=[],this.timeoutId=setTimeout((function(){!(0<s.messages.length)||(s.messages=[]),s.messages.push(a)}),600)):this.messages.push(a),a.id},deleteMessage:function(t){this.messages=this.messages.filter((function(e){return e.id!==t}))}},created:function(){this.$on("deleteMessage",this.deleteMessage),this.$on("destroy",this.$_vueFlashMessage_setDimensions),this.$on("imageLoaded",this.$_vueFlashMessage_setDimensions)}},s=!0,a=!1,r=void 0;try{for(var o,i=function(){var t=o.value;e.methods[t]=function(e,s){return this.show(Object.assign(e,{status:t}),s)}},f=n[Symbol.iterator]();!(s=(o=f.next()).done);s=!0)i()}catch(t){a=!0,r=t}finally{try{s||null==f.return||f.return()}finally{if(a)throw r}}return e}},"499e":function(t,e,s){"use strict";function n(t,e){for(var s=[],n={},a=0;a<e.length;a++){var r=e[a],o=r[0],i={id:t+":"+a,css:r[1],media:r[2],sourceMap:r[3]};n[o]?n[o].parts.push(i):s.push(n[o]={id:o,parts:[i]})}return s}s.r(e),s.d(e,"default",(function(){return h}));var a="undefined"!=typeof document;if("undefined"!=typeof DEBUG&&DEBUG&&!a)throw new Error("vue-style-loader cannot be used in a non-browser environment. Use { target: 'node' } in your Webpack config to indicate a server-rendering environment.");var r={},o=a&&(document.head||document.getElementsByTagName("head")[0]),i=null,f=0,l=!1,c=function(){},u=null,m="data-vue-ssr-id",d="undefined"!=typeof navigator&&/msie [6-9]\b/.test(navigator.userAgent.toLowerCase());function h(t,e,s,a){l=s,u=a||{};var o=n(t,e);return g(o),function(e){for(var s=[],a=0;a<o.length;a++){var i=o[a],f=r[i.id];f.refs--,s.push(f)}for(e?g(o=n(t,e)):o=[],a=0;a<s.length;a++)if(0===(f=s[a]).refs){for(var l=0;l<f.parts.length;l++)f.parts[l]();delete r[f.id]}}}function g(t){for(var e=0;e<t.length;e++){var s=t[e],n=r[s.id];if(n){n.refs++;for(var a=0;a<n.parts.length;a++)n.parts[a](s.parts[a]);for(;a<s.parts.length;a++)n.parts.push(b(s.parts[a]));n.parts.length>s.parts.length&&(n.parts.length=s.parts.length)}else{var o=[];for(a=0;a<s.parts.length;a++)o.push(b(s.parts[a]));r[s.id]={id:s.id,refs:1,parts:o}}}}function p(){var t=document.createElement("style");return t.type="text/css",o.appendChild(t),t}function b(t){var e,s,n=document.querySelector("style["+m+'~="'+t.id+'"]');if(n){if(l)return c;n.parentNode.removeChild(n)}if(d){var a=f++;n=i||(i=p()),e=y.bind(null,n,a,!1),s=y.bind(null,n,a,!0)}else n=p(),e=_.bind(null,n),s=function(){n.parentNode.removeChild(n)};return e(t),function(n){if(n){if(n.css===t.css&&n.media===t.media&&n.sourceMap===t.sourceMap)return;e(t=n)}else s()}}var v=function(){var t=[];return function(e,s){return t[e]=s,t.filter(Boolean).join("\n")}}();function y(t,e,s,n){var a=s?"":n.css;if(t.styleSheet)t.styleSheet.cssText=v(e,a);else{var r=document.createTextNode(a),o=t.childNodes;o[e]&&t.removeChild(o[e]),o.length?t.insertBefore(r,o[e]):t.appendChild(r)}}function _(t,e){var s=e.css,n=e.media,a=e.sourceMap;if(n&&t.setAttribute("media",n),u.ssrId&&t.setAttribute(m,e.id),a&&(s+="\n/*# sourceURL="+a.sources[0]+" */",s+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(a))))+" */"),t.styleSheet)t.styleSheet.cssText=s;else{for(;t.firstChild;)t.removeChild(t.firstChild);t.appendChild(document.createTextNode(s))}}},"88b1":function(t,e,s){"use strict";var n=s("3664");s.n(n).a},"8c8b":function(t,e,s){"use strict";s.d(e,"a",(function(){return r}));var n=s("278c"),a=s.n(n);function r(t){return{props:{position:{type:String,default:"right bottom",validator:function(t){return t.split(" ").every((function(t){return 0<=["top","left","right","bottom"].indexOf(t)}))}}},computed:{strategy:function(){return this[t.name].strategy},messages:function(){return this[t.name].messages},positionClass:function(){var t=this.position.split(" "),e=a()(t,2),s=e[0],n=e[1];return"_vue-flash-msg-container_".concat(s,"-").concat(n)}}}}},"9b42":function(t,e){t.exports=function(t,e){if(Symbol.iterator in Object(t)||"[object Arguments]"===Object.prototype.toString.call(t)){var s=[],n=!0,a=!1,r=void 0;try{for(var o,i=t[Symbol.iterator]();!(n=(o=i.next()).done)&&(s.push(o.value),!e||s.length!==e);n=!0);}catch(t){a=!0,r=t}finally{try{n||null==i.return||i.return()}finally{if(a)throw r}}return s}}},adc3:function(t,e,s){var n=s("da8d");"string"==typeof n&&(n=[[t.i,n,""]]),n.locals&&(t.exports=n.locals),(0,s("499e").default)("786f93e1",n,!0,{sourceMap:!1,shadowMode:!1})},bcd4:function(t,e,s){"use strict";s.d(e,"a",(function(){return r}));var n=s("278c"),a=s.n(n);function r(t){return{props:{messageObj:{type:Object},positionString:{type:String,default:"right bottom"}},data:function(){return{timeoutId:void 0,yAxis:0,heightWithoutImage:0}},computed:{isCustom:function(){return"number"==typeof this.messageObj.x&&"number"==typeof this.messageObj.y},classObj:function(){return{status:"_vue-flash-msg-body_".concat(this.messageObj.status),basic:"_vue-flash-msg-body"}},positionClass:function(){var t=this.positionString.split(" "),e=a()(t,2),s=e[0],n=e[1];return"_vue-flash-msg-_".concat(s,"-").concat(n)},positionStyleObj:function(){var t={},e=this.positionString.split(" "),s=a()(e,2),n=s[0],r=s[1];return this.isCustom?(t[n]="".concat(this.messageObj.x,"px"),t[r]="".concat(this.messageObj.y,"px"),t):(t[r]="".concat(this.yAxis,"px"),t)}},methods:{clearData:function(){var e=!(0<arguments.length&&void 0!==arguments[0])||arguments[0];this.timeoutId&&e&&clearTimeout(this.timeoutId),this[t.name].$emit("deleteMessage",this.messageObj.id)},clickHandler:function(){this.messageObj.clickable&&this.clearData()},changePositionHandler:function(t){var e=t.height,s=t.id,n=t.img;this.messageObj.id>s&&!n?this.yAxis-=e:this.messageObj.id>s&&n&&(this.yAxis+=e)},imageLoadedHandler:function(){if(!this.isCustom){var e=this.$el.offsetHeight-this.heightWithoutImage;this[t.name].$emit("imageLoaded",{height:e,id:this.messageObj.id,img:!0})}},invokeCallback:function(t){this.messageObj[t]&&"function"==typeof this.messageObj[t]&&this.messageObj[t]()}},created:function(){this.messageObj.time&&(this.timeoutId=setTimeout(this.clearData.bind(this,!1),this.messageObj.time)),this[t.name].$on("changePosition",this.changePositionHandler)},mounted:function(){this.heightWithoutImage=this.$el.offsetHeight,this.yAxis=this[t.name].currentHeight+20,this.isCustom||this[t.name].$_vueFlashMessage_setDimensions({height:this.$el.offsetHeight+20}),this.invokeCallback("mounted")},beforeDestroy:function(){this.$off("changePosition",this.changePositionHandler),this.isCustom||this[t.name].$emit("destroy",{height:-(this.$el.offsetHeight+20),id:this.messageObj.id})},destroyed:function(){this.invokeCallback("destroyed")}}}},c135:function(t,e){t.exports=function(t){if(Array.isArray(t))return t}},c240:function(t,e){t.exports=function(){throw new TypeError("Invalid attempt to destructure non-iterable instance")}},c8ba:function(t,e){var s;s=function(){return this}();try{s=s||new Function("return this")()}catch(t){"object"==typeof window&&(s=window)}t.exports=s},d857:function(t,e,s){(t.exports=s("2350")(!1)).push([t.i,"._vue-flash-msg-container_left-bottom-enter-active,._vue-flash-msg-container_right-bottom-enter-active{-webkit-animation:fromBottom .5s forwards;animation:fromBottom .5s forwards}._vue-flash-msg-container_left-top-enter-active,._vue-flash-msg-container_right-top-enter-active{-webkit-animation:fromTop .5s forwards;animation:fromTop .5s forwards}._vue-flash-msg-container_right-bottom-leave-active,._vue-flash-msg-container_right-top-leave-active{-webkit-transform-origin:center center;transform-origin:center center;-webkit-animation:toRight .8s forwards;animation:toRight .8s forwards}._vue-flash-msg-container_left-bottom-leave-active,._vue-flash-msg-container_left-top-leave-active{-webkit-transform-origin:center center;transform-origin:center center;-webkit-animation:toLeft .8s forwards;animation:toLeft .8s forwards}.flash-message-move{-webkit-transition:-webkit-transform .2s;transition:-webkit-transform .2s;transition:transform .2s;transition:transform .2s,-webkit-transform .2s}@-webkit-keyframes fromBottom{0%{-webkit-transform:translateY(240px);transform:translateY(240px);opacity:0}70%{-webkit-transform:translateY(-20px);transform:translateY(-20px);opacity:.8}to{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}}@keyframes fromBottom{0%{-webkit-transform:translateY(240px);transform:translateY(240px);opacity:0}70%{-webkit-transform:translateY(-20px);transform:translateY(-20px);opacity:.8}to{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}}@-webkit-keyframes fromTop{0%{-webkit-transform:translateY(-240px);transform:translateY(-240px);opacity:0}70%{-webkit-transform:translateY(20px);transform:translateY(20px);opacity:.8}to{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}}@keyframes fromTop{0%{-webkit-transform:translateY(-240px);transform:translateY(-240px);opacity:0}70%{-webkit-transform:translateY(20px);transform:translateY(20px);opacity:.8}to{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}}@-webkit-keyframes toRight{0%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}30%{-webkit-transform:translateX(-20px);transform:translateX(-20px);opacity:.8}70%{-webkit-transform:translateX(240px);transform:translateX(240px);opacity:0}to{-webkit-transform:translateX(240px);transform:translateX(240px);opacity:0}}@keyframes toRight{0%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}30%{-webkit-transform:translateX(-20px);transform:translateX(-20px);opacity:.8}70%{-webkit-transform:translateX(240px);transform:translateX(240px);opacity:0}to{-webkit-transform:translateX(240px);transform:translateX(240px);opacity:0}}@-webkit-keyframes toLeft{0%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}30%{-webkit-transform:translateX(20px);transform:translateX(20px);opacity:.8}70%{-webkit-transform:translateX(-240px);transform:translateX(-240px);opacity:0}to{-webkit-transform:translateX(-240px);transform:translateX(-240px);opacity:0}}@keyframes toLeft{0%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}30%{-webkit-transform:translateX(20px);transform:translateX(20px);opacity:.8}70%{-webkit-transform:translateX(-240px);transform:translateX(-240px);opacity:0}to{-webkit-transform:translateX(-240px);transform:translateX(-240px);opacity:0}}",""])},da8d:function(t,e,s){(t.exports=s("2350")(!1)).push([t.i,"._vue-flash-msg-body{position:fixed;width:35%;border-radius:5px;-webkit-box-shadow:0 2px 6px rgba(0,0,0,.2);box-shadow:0 2px 6px rgba(0,0,0,.2);background-color:#fff;color:#fff;text-align:left;cursor:pointer;overflow:hidden;-webkit-transition:all .3s ease-in;transition:all .3s ease-in}._vue-flash-msg-body._vue-flash-msg-body_unclickabe{cursor:auto}._vue-flash-msg-body._vue-flash-msg-_right-bottom,._vue-flash-msg-body._vue-flash-msg-_right-top{right:20px}._vue-flash-msg-body._vue-flash-msg-_left-bottom,._vue-flash-msg-body._vue-flash-msg-_left-top{left:20px}._vue-flash-msg-body ._vue-flash-msg-wrapper{display:-webkit-box;display:-ms-flexbox;display:flex;width:100%}._vue-flash-msg-body ._vue-flash-msg-body__icon{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;max-width:20%;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding:10px;background-color:#fff;overflow:hidden}._vue-flash-msg-body ._vue-flash-msg-body__icon img{width:80%;height:auto}._vue-flash-msg-body ._vue-flash-msg-body__content{padding-left:20px}._vue-flash-msg-body._vue-flash-msg-body_default{color:#000}._vue-flash-msg-body._vue-flash-msg-body_success{border:1px solid #01947a;background-color:rgba(1,148,122,.68)}._vue-flash-msg-body._vue-flash-msg-body_success:hover{background-color:#01947a}._vue-flash-msg-body._vue-flash-msg-body_success ._vue-flash-msg-body__content{border-left:5px solid #01947a}._vue-flash-msg-body._vue-flash-msg-body_info{border:1px solid #1087c2;background-color:rgba(16,135,194,.68)}._vue-flash-msg-body._vue-flash-msg-body_info:hover{background-color:#1087c2}._vue-flash-msg-body._vue-flash-msg-body_info ._vue-flash-msg-body__content{border-left:5px solid #1087c2}._vue-flash-msg-body._vue-flash-msg-body_error{border:1px solid #f12222;background-color:rgba(241,34,34,.68)}._vue-flash-msg-body._vue-flash-msg-body_error:hover{background-color:#f12222}._vue-flash-msg-body._vue-flash-msg-body_error ._vue-flash-msg-body__content{border-left:5px solid #f12222}._vue-flash-msg-body._vue-flash-msg-body_warning{border:1px solid #f18b22;background-color:rgba(241,139,34,.68)}._vue-flash-msg-body._vue-flash-msg-body_warning:hover{background-color:#f18b22}._vue-flash-msg-body._vue-flash-msg-body_warning ._vue-flash-msg-body__content{border-left:5px solid #f18b22}@media (min-width:1024px) and (max-width:1200px){._vue-flash-msg-body{width:60%}._vue-flash-msg-body ._vue-flash-msg-body__content{padding:15px}}@media (min-width:320px) and (max-width:1023px){._vue-flash-msg-body{font-size:.9em;width:90%}._vue-flash-msg-body._vue-flash-msg-_right-bottom,._vue-flash-msg-body._vue-flash-msg-_right-top{right:5%}._vue-flash-msg-body._vue-flash-msg-_left-bottom,._vue-flash-msg-body._vue-flash-msg-_left-top{left:5%}._vue-flash-msg-body ._vue-flash-msg-body__content{padding:10px}}",""])},f6fd:function(t,e){!function(t){var e="currentScript",s=t.getElementsByTagName("script");e in t||Object.defineProperty(t,e,{get:function(){try{throw new Error}catch(n){var t,e=(/.*at [^\(]*\((.*):.+:.+\)$/gi.exec(n.stack)||[!1])[1];for(t in s)if(s[t].src==e||"interactive"==s[t].readyState)return s[t];return null}}})}(document)},fb15:function(t,e,s){"use strict";var n;s.r(e),"undefined"!=typeof window&&(s("f6fd"),(n=window.document.currentScript)&&(n=n.src.match(/(.+\/)[^/]+\.js(\?.*)?$/))&&(s.p=n[1]));var a=s("2af9");e.default=a.a}});
-
-/***/ }),
-
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -2498,6 +2487,85 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2522,7 +2590,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       tempo: '',
       departamento_origem: '',
       departamento_destino: '',
-      submitStatus: null
+      submitStatus: null,
+      is_modal2_visible: false,
+      avanco_modal: '',
+      data_operacao_modal: '',
+      tempo_acao_modal: '',
+      descricao_accao_modal: '',
+      estado_modal: '',
+      responsavel_modal: '',
+      codigo: ''
     };
   },
   validations: {
@@ -2708,6 +2784,116 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this.$v.$reset();
       });
     },
+    chamaRelatorioActividade: function chamaRelatorioActividade(id_tarefa) {
+      this.is_modal2_visible = true;
+      this.$nextTick(function () {
+        $('#modalRelatorioActividade2').modal('show');
+      });
+      var self = this;
+      this.$axios.get('auth/verActividade/' + id_tarefa).then(function (response) {
+        if (response.status == 200) {
+          self.codigo = response.data.codigo, self.selectedTipo = response.data.tipo, self.titulo = response.data.titulo, self.selectedOrigem = response.data.origem, self.dado_origem = response.data.origem_dado, self.departamento_origem = response.data.departamento_origem, self.departamento_destino = response.data.departamento_destino, self.data_solicitacao = response.data.data_solicitacao, self.data_prevista = response.data.data_prevista, self.tempo = self.setTempoVisual(response.data.tempo), self.descricao = response.data.descricao, self.pegaFoto(response.data.solicitante, 1); //tipo 1: solicitante, tipo 2: responsavel
+
+          self.pegaFoto(response.data.responsavel, 2);
+        }
+      })["catch"](function (error) {
+        alert("Erro ao ver actividade");
+      });
+    },
+    //Pega tempo de segundos para formato visual
+    setTempoVisual: function setTempoVisual(tempo) {
+      switch (tempo) {
+        case 300:
+          return '0:05';
+          break;
+
+        case 600:
+          return '0:10';
+          break;
+
+        case 900:
+          return '0:15';
+          break;
+
+        case 1200:
+          return '0:20';
+          break;
+
+        case 1800:
+          return '0:30';
+          break;
+
+        case 2400:
+          return '0:40';
+          break;
+
+        case 3000:
+          return '0:50';
+          break;
+
+        case 3600:
+          return '1:00';
+          break;
+
+        case 5400:
+          return '1:30';
+          break;
+
+        case 7200:
+          return '2:00';
+          break;
+
+        case 9000:
+          return '2:30';
+          break;
+
+        case 10800:
+          return '3:00';
+          break;
+
+        case 12600:
+          return '3:30';
+          break;
+
+        case 14400:
+          return '4:00';
+          break;
+
+        case 16200:
+          return '4:30';
+          break;
+
+        case 18000:
+          return '5:00';
+          break;
+
+        case 19800:
+          return '5:30';
+          break;
+
+        case 21600:
+          return '6:00';
+          break;
+
+        case 23400:
+          return '6:30';
+          break;
+
+        case 25200:
+          return '7:00';
+          break;
+      }
+    },
+    pegaFoto: function pegaFoto(solicitante, tipo) {
+      var self = this;
+      this.$axios.get('auth/pegaFoto/' + solicitante).then(function (response) {
+        if (response.status == 200) {
+          if (tipo == 1) self.fotoSolicitante = response.data;else self.fotoResponsavel = response.data;
+        }
+      })["catch"](function (error) {
+        alert("Erro ao pegar foto");
+      });
+    },
     registarTarefa: function () {
       var _registarTarefa = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(e) {
         var email, self;
@@ -2808,11 +2994,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     Swal.fire({
                       text: "Actividade registada com sucesso.",
                       icon: 'success',
-                      confirmButtonText: 'Fechar'
-                    }), //location.reload();
-                    self.$router.push({
-                      name: 'dashboard'
+                      confirmButtonText: 'Fechar',
+                      timer: 1000
+                    }), self.$router.push({
+                      name: 'verActividade',
+                      params: {
+                        id: response.data
+                      }
                     });
+                    self.chamaRelatorioActividade(response.data);
                   } else {
                     alert("LITTLE ERROR ");
                   }
@@ -3398,17 +3588,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3648,7 +3827,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       utilizadores: [],
       utilizador_codigo: '',
       periodo: '',
-      data_fecho: ''
+      data_fecho: '',
+      isLoading: false,
+      fullPage: true
     };
   },
   validations: {
@@ -3666,14 +3847,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.pegaUtilizador(), this.pegaFechos();
   },
   methods: {
-    selectRow: function selectRow(id) {
-      this.$router.push({
-        name: 'verActividade',
-        params: {
-          id: id
-        }
-      });
-    },
     pegaUtilizador: function () {
       var _pegaUtilizador = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var self;
@@ -5261,7 +5434,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var self = this;
       this.$axios.get('auth/pegaFoto/' + solicitante).then(function (response) {
         if (response.status == 200) {
-          //console.log("RR:"+tipo);
           if (tipo == 1) self.fotoSolicitante = response.data;else self.fotoResponsavel = response.data;
         }
       })["catch"](function (error) {
@@ -47524,293 +47696,1526 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "modal fade",
-      attrs: {
-        id: "modalNovaActividade",
-        tabindex: "-1",
-        role: "dialog",
-        "aria-labelledby": "exampleModalScrollableTitle",
-        "aria-hidden": "true"
-      }
-    },
-    [
-      _c(
-        "div",
-        {
-          staticClass: "modal-dialog modal-dialog-scrollable modal-xl",
-          attrs: { role: "document" }
-        },
-        [
-          _c("div", { staticClass: "modal-content" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-body" }, [
-              _c(
-                "form",
-                {
-                  ref: "formTarefa",
-                  on: {
-                    submit: function($event) {
-                      $event.preventDefault()
-                      return _vm.registarTarefa($event)
+  return _c("div", { staticClass: "row" }, [
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "modalNovaActividade",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalScrollableTitle",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-scrollable modal-xl",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c(
+                  "form",
+                  {
+                    ref: "formTarefa",
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.registarTarefa($event)
+                      }
                     }
-                  }
-                },
-                [
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-4" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Tipo de Actividade")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model.trim",
-                                value: _vm.$v.selectedTipo.$model,
-                                expression: "$v.selectedTipo.$model",
-                                modifiers: { trim: true }
-                              }
-                            ],
-                            staticClass: "custom-select custom-select-sm",
-                            class: {
-                              "is-invalid": _vm.$v.selectedTipo.$error,
-                              "is-valid": !_vm.$v.selectedTipo.$invalid
-                            },
-                            on: {
-                              change: [
-                                function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.$set(
-                                    _vm.$v.selectedTipo,
-                                    "$model",
-                                    $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  )
-                                },
-                                function($event) {
-                                  return _vm.onChangeTipo($event)
-                                }
-                              ]
-                            }
-                          },
-                          [
-                            _c(
-                              "option",
-                              {
-                                attrs: { disabled: "", selected: "" },
-                                domProps: { value: "" }
-                              },
-                              [_vm._v("Selecione o tipo")]
-                            ),
-                            _vm._v(" "),
-                            _vm._l(_vm.tipos, function(tipo) {
-                              return _c(
-                                "option",
-                                { key: tipo.id, domProps: { value: tipo.id } },
-                                [_vm._v(_vm._s(tipo.tipo))]
-                              )
-                            })
-                          ],
-                          2
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-8" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Objecto da Actividade")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model.trim",
-                              value: _vm.$v.titulo.$model,
-                              expression: "$v.titulo.$model",
-                              modifiers: { trim: true }
-                            }
-                          ],
-                          staticClass: "form-control form-control-sm corInput",
-                          class: {
-                            "is-invalid": _vm.$v.titulo.$error,
-                            "is-valid": !_vm.$v.titulo.$invalid
-                          },
-                          attrs: {
-                            type: "text",
-                            placeholder: "informe objecto da actividade"
-                          },
-                          domProps: { value: _vm.$v.titulo.$model },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.$v.titulo,
-                                "$model",
-                                $event.target.value.trim()
-                              )
-                            },
-                            blur: function($event) {
-                              return _vm.$forceUpdate()
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "invalid-feedback" }, [
-                          !_vm.$v.titulo.required
-                            ? _c("span", [
-                                _vm._v("O Título deve ser fornecido")
-                              ])
-                            : _vm._e(),
+                  },
+                  [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-4" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { attrs: { for: "name" } }, [
+                            _vm._v("Tipo de Actividade")
+                          ]),
                           _vm._v(" "),
-                          !_vm.$v.titulo.minLength
-                            ? _c("span", [
-                                _vm._v(
-                                  "O Título deve possuír um tamanho maior que 5 dígitos"
-                                )
-                              ])
-                            : _vm._e()
-                        ])
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-4" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Tipo Origem")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model.trim",
-                                value: _vm.$v.selectedOrigem.$model,
-                                expression: "$v.selectedOrigem.$model",
-                                modifiers: { trim: true }
-                              }
-                            ],
-                            staticClass: "custom-select custom-select-sm",
-                            class: {
-                              "is-invalid": _vm.$v.selectedOrigem.$error,
-                              "is-valid": !_vm.$v.selectedOrigem.$invalid
-                            },
-                            on: {
-                              change: [
-                                function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.$set(
-                                    _vm.$v.selectedOrigem,
-                                    "$model",
-                                    $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  )
-                                },
-                                function($event) {
-                                  return _vm.onChangeOrigem($event)
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model.trim",
+                                  value: _vm.$v.selectedTipo.$model,
+                                  expression: "$v.selectedTipo.$model",
+                                  modifiers: { trim: true }
                                 }
-                              ]
-                            }
-                          },
-                          [
-                            _c(
-                              "option",
-                              {
-                                attrs: { disabled: "", selected: "" },
-                                domProps: { value: "" }
+                              ],
+                              staticClass: "custom-select custom-select-sm",
+                              class: {
+                                "is-invalid": _vm.$v.selectedTipo.$error,
+                                "is-valid": !_vm.$v.selectedTipo.$invalid
                               },
-                              [_vm._v("Selecione a origem")]
-                            ),
-                            _vm._v(" "),
-                            _vm._l(_vm.origens, function(origem) {
-                              return _c(
+                              on: {
+                                change: [
+                                  function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.$v.selectedTipo,
+                                      "$model",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  },
+                                  function($event) {
+                                    return _vm.onChangeTipo($event)
+                                  }
+                                ]
+                              }
+                            },
+                            [
+                              _c(
                                 "option",
                                 {
-                                  key: origem.id,
-                                  domProps: { value: origem.id }
+                                  attrs: { disabled: "", selected: "" },
+                                  domProps: { value: "" }
                                 },
-                                [_vm._v(_vm._s(origem.titulo))]
-                              )
-                            })
-                          ],
-                          2
-                        )
+                                [_vm._v("Selecione o tipo")]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.tipos, function(tipo) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: tipo.id,
+                                    domProps: { value: tipo.id }
+                                  },
+                                  [_vm._v(_vm._s(tipo.tipo))]
+                                )
+                              })
+                            ],
+                            2
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-8" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { attrs: { for: "name" } }, [
+                            _vm._v("Objecto da Actividade")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model.trim",
+                                value: _vm.$v.titulo.$model,
+                                expression: "$v.titulo.$model",
+                                modifiers: { trim: true }
+                              }
+                            ],
+                            staticClass:
+                              "form-control form-control-sm corInput",
+                            class: {
+                              "is-invalid": _vm.$v.titulo.$error,
+                              "is-valid": !_vm.$v.titulo.$invalid
+                            },
+                            attrs: {
+                              type: "text",
+                              placeholder: "informe objecto da actividade"
+                            },
+                            domProps: { value: _vm.$v.titulo.$model },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.$v.titulo,
+                                  "$model",
+                                  $event.target.value.trim()
+                                )
+                              },
+                              blur: function($event) {
+                                return _vm.$forceUpdate()
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "invalid-feedback" }, [
+                            !_vm.$v.titulo.required
+                              ? _c("span", [
+                                  _vm._v("O Título deve ser fornecido")
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            !_vm.$v.titulo.minLength
+                              ? _c("span", [
+                                  _vm._v(
+                                    "O Título deve possuír um tamanho maior que 5 dígitos"
+                                  )
+                                ])
+                              : _vm._e()
+                          ])
+                        ])
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-6" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Dado Origem"),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-4" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { attrs: { for: "name" } }, [
+                            _vm._v("Tipo Origem")
+                          ]),
+                          _vm._v(" "),
                           _c(
-                            "span",
+                            "select",
                             {
-                              staticStyle: { color: "red", "font-size": "12px" }
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model.trim",
+                                  value: _vm.$v.selectedOrigem.$model,
+                                  expression: "$v.selectedOrigem.$model",
+                                  modifiers: { trim: true }
+                                }
+                              ],
+                              staticClass: "custom-select custom-select-sm",
+                              class: {
+                                "is-invalid": _vm.$v.selectedOrigem.$error,
+                                "is-valid": !_vm.$v.selectedOrigem.$invalid
+                              },
+                              on: {
+                                change: [
+                                  function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.$v.selectedOrigem,
+                                      "$model",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  },
+                                  function($event) {
+                                    return _vm.onChangeOrigem($event)
+                                  }
+                                ]
+                              }
                             },
-                            [_vm._v(" [" + _vm._s(_vm.motivo) + "]")]
+                            [
+                              _c(
+                                "option",
+                                {
+                                  attrs: { disabled: "", selected: "" },
+                                  domProps: { value: "" }
+                                },
+                                [_vm._v("Selecione a origem")]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.origens, function(origem) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: origem.id,
+                                    domProps: { value: origem.id }
+                                  },
+                                  [_vm._v(_vm._s(origem.titulo))]
+                                )
+                              })
+                            ],
+                            2
                           )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-6" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { attrs: { for: "name" } }, [
+                            _vm._v("Dado Origem"),
+                            _c(
+                              "span",
+                              {
+                                staticStyle: {
+                                  color: "red",
+                                  "font-size": "12px"
+                                }
+                              },
+                              [_vm._v(" [" + _vm._s(_vm.motivo) + "]")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model.trim",
+                                value: _vm.$v.dado_origem.$model,
+                                expression: "$v.dado_origem.$model",
+                                modifiers: { trim: true }
+                              }
+                            ],
+                            staticClass:
+                              "form-control form-control-sm corInput",
+                            class: {
+                              "is-invalid": _vm.$v.dado_origem.$error,
+                              "is-valid": !_vm.$v.dado_origem.$invalid
+                            },
+                            attrs: {
+                              type: "text",
+                              placeholder: "Informe o dado de contacto"
+                            },
+                            domProps: { value: _vm.$v.dado_origem.$model },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.$v.dado_origem,
+                                  "$model",
+                                  $event.target.value.trim()
+                                )
+                              },
+                              blur: function($event) {
+                                return _vm.$forceUpdate()
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "invalid-feedback" }, [
+                            !_vm.$v.dado_origem.required
+                              ? _c("span", [
+                                  _vm._v("O Dado de origem deve ser fornecido")
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            !_vm.$v.dado_origem.minLength
+                              ? _c("span", [
+                                  _vm._v(
+                                    "O Dado de origem deve possuír um tamanho maior que 5 dígitos"
+                                  )
+                                ])
+                              : _vm._e()
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-2" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { attrs: { for: "name" } }, [
+                            _vm._v("Tempo de Registo")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model.trim",
+                                  value: _vm.$v.tempo.$model,
+                                  expression: "$v.tempo.$model",
+                                  modifiers: { trim: true }
+                                }
+                              ],
+                              staticClass: "custom-select custom-select-sm",
+                              class: {
+                                "is-invalid": _vm.$v.tempo.$error,
+                                "is-valid": !_vm.$v.tempo.$invalid
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.$v.tempo,
+                                    "$model",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "option",
+                                {
+                                  attrs: { selected: "", disabled: "" },
+                                  domProps: { value: "" }
+                                },
+                                [_vm._v("Escolha o tempo")]
+                              ),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "5" } }, [
+                                _vm._v("0:05")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "10" } }, [
+                                _vm._v("0:10")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "15" } }, [
+                                _vm._v("0:15")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "20" } }, [
+                                _vm._v("0:20")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "30" } }, [
+                                _vm._v("0:30")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "40" } }, [
+                                _vm._v("0:40")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "50" } }, [
+                                _vm._v("0:50")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "60" } }, [
+                                _vm._v("1:00")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "90" } }, [
+                                _vm._v("1:30")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "120" } }, [
+                                _vm._v("2:00")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "150" } }, [
+                                _vm._v("2:30")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "180" } }, [
+                                _vm._v("3:00")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "210" } }, [
+                                _vm._v("3:30")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "240" } }, [
+                                _vm._v("4:00")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "270" } }, [
+                                _vm._v("4:30")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "300" } }, [
+                                _vm._v("5:00")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "330" } }, [
+                                _vm._v("5:30")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "360" } }, [
+                                _vm._v("6:00")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "390" } }, [
+                                _vm._v("6:30")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "420" } }, [
+                                _vm._v("7:00")
+                              ])
+                            ]
+                          )
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-6" }, [
+                        _c("fieldset", { staticClass: "border p-2" }, [
+                          _c(
+                            "legend",
+                            {
+                              staticClass: "w-auto",
+                              staticStyle: { "font-size": "16px" }
+                            },
+                            [_vm._v("DE: ")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-row" }, [
+                            _c("div", { staticClass: "col-md-8" }, [
+                              _c("div", { staticClass: "row" }, [
+                                _c("div", { staticClass: "col-12" }, [
+                                  _c(
+                                    "select",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model.trim",
+                                          value:
+                                            _vm.$v.departamento_origem.$model,
+                                          expression:
+                                            "$v.departamento_origem.$model",
+                                          modifiers: { trim: true }
+                                        }
+                                      ],
+                                      staticClass:
+                                        "custom-select custom-select-sm ",
+                                      class: {
+                                        "is-invalid":
+                                          _vm.$v.departamento_origem.$error,
+                                        "is-valid": !_vm.$v.departamento_origem
+                                          .$invalid
+                                      },
+                                      on: {
+                                        change: function($event) {
+                                          var $$selectedVal = Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function(o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function(o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                          _vm.$set(
+                                            _vm.$v.departamento_origem,
+                                            "$model",
+                                            $event.target.multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: { selected: "", disabled: "" },
+                                          domProps: { value: "" }
+                                        },
+                                        [_vm._v("Escolha a origem")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: {
+                                            value: "1-Contabilidade & Finanças"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            " 01 SEDE | Contabilidade & Finanças"
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: {
+                                            value: "1-Administração & Marketing"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "01 SEDE | Administração & Marketing"
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: {
+                                            value: "1-Auditoria Interna"
+                                          }
+                                        },
+                                        [_vm._v("01 SEDE | Auditoria Interna")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "1-Operações" } },
+                                        [_vm._v("01 SEDE | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: {
+                                            value:
+                                              "1-Presidente do Comitê Executivo"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "01 SEDE | Presidente do Comitê Executivo"
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: { value: "1-Recursos Humanos" }
+                                        },
+                                        [_vm._v("01 SEDE | Recursos Humanos")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: {
+                                            value: "1-Sistemas & Organização"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "01 SEDE | Sistemas & Organização"
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: {
+                                            value: "1-Cadeia Produtiva - Zango"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "01 SEDE | Cadeia Produtiva - Zango"
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "1-Operações" } },
+                                        [_vm._v("01 SEDE | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "2-Operações" } },
+                                        [_vm._v("02 HUAMBO | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "3-Operações" } },
+                                        [_vm._v("03 MABOR | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "4-Operações" } },
+                                        [_vm._v("04 HOJI-YA-HENDA | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "5-Operações" } },
+                                        [_vm._v("05 MORRO BENTO | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "6-Operações" } },
+                                        [_vm._v("06 VIANA | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "7-Operações" } },
+                                        [_vm._v("07 KILAMBA KIAXI | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "8-Operações" } },
+                                        [_vm._v("08 BENGUELA | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "9-Operações" } },
+                                        [_vm._v("09 CABINDA | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "10-Operações" } },
+                                        [_vm._v("10 LUBANGO | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "11-Operações" } },
+                                        [_vm._v("11 NAMIBE | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "12-Operações" } },
+                                        [_vm._v("12 KUITO | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "13-Operações" } },
+                                        [_vm._v("13 UIGE | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "15-Operações" } },
+                                        [_vm._v("15 LOBITO | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "16-Operações" } },
+                                        [_vm._v("16 MALANGE | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "18-Operações" } },
+                                        [_vm._v("18 SUMBE | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "19-Operações" } },
+                                        [_vm._v("19 ZANGO | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "21-Operações" } },
+                                        [_vm._v("21 BENFICA | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "22-Operações" } },
+                                        [_vm._v("22 PANGUILA | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: {
+                                            value:
+                                              "26-Sub-Direcção de Pequenas Empresas"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "26 BOA VIDA | Sub-Direcção de Pequenas Empresas"
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "99-DPP-Benguela" } },
+                                        [_vm._v("99 DDP | DPP-Benguela")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "99-DPP-Kuito" } },
+                                        [_vm._v("99 DDP | DPP-Kuito")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "99-DPP-Lobito" } },
+                                        [_vm._v("99 DDP | DPP-Lobito")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "99-DPP-Marginal" } },
+                                        [_vm._v("99 DDP | DPP-Marginal")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "99-DPP-Namibe" } },
+                                        [_vm._v("99 DDP | DPP-Namibe")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "99-DPP-Soyo" } },
+                                        [_vm._v("99 DDP | DPP-Soyo")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "99-DPP-Uige" } },
+                                        [_vm._v("99 DDP | DPP-Uige")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "99-DPP-Zango" } },
+                                        [_vm._v("99 DDP | DPP-Zango")]
+                                      )
+                                    ]
+                                  )
+                                ]),
+                                _c("br"),
+                                _c("br"),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-5" }, [
+                                  _c("label", { attrs: { for: "name" } }, [
+                                    _vm._v("Solicitante")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "select",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model.trim",
+                                          value:
+                                            _vm.$v.selectedSolicitante.$model,
+                                          expression:
+                                            "$v.selectedSolicitante.$model",
+                                          modifiers: { trim: true }
+                                        }
+                                      ],
+                                      staticClass:
+                                        "custom-select custom-select-sm",
+                                      class: {
+                                        "is-invalid":
+                                          _vm.$v.selectedSolicitante.$error,
+                                        "is-valid": !_vm.$v.selectedSolicitante
+                                          .$invalid
+                                      },
+                                      on: {
+                                        change: [
+                                          function($event) {
+                                            var $$selectedVal = Array.prototype.filter
+                                              .call(
+                                                $event.target.options,
+                                                function(o) {
+                                                  return o.selected
+                                                }
+                                              )
+                                              .map(function(o) {
+                                                var val =
+                                                  "_value" in o
+                                                    ? o._value
+                                                    : o.value
+                                                return val
+                                              })
+                                            _vm.$set(
+                                              _vm.$v.selectedSolicitante,
+                                              "$model",
+                                              $event.target.multiple
+                                                ? $$selectedVal
+                                                : $$selectedVal[0]
+                                            )
+                                          },
+                                          function($event) {
+                                            return _vm.onChangeSolicitante(
+                                              $event
+                                            )
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: { disabled: "", selected: "" },
+                                          domProps: { value: "" }
+                                        },
+                                        [_vm._v("Solicitante")]
+                                      ),
+                                      _vm._v(" "),
+                                      _vm._l(_vm.utilizadores, function(
+                                        utilizador
+                                      ) {
+                                        return _c(
+                                          "option",
+                                          {
+                                            key: utilizador.id,
+                                            domProps: {
+                                              value: utilizador.username
+                                            }
+                                          },
+                                          [_vm._v(_vm._s(utilizador.username))]
+                                        )
+                                      })
+                                    ],
+                                    2
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-7" }, [
+                                  _c("label", { attrs: { for: "name" } }, [
+                                    _vm._v("Data Solicitação")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model.trim",
+                                        value: _vm.$v.data_solicitacao.$model,
+                                        expression:
+                                          "$v.data_solicitacao.$model",
+                                        modifiers: { trim: true }
+                                      }
+                                    ],
+                                    staticClass: "form-control form-control-sm",
+                                    class: {
+                                      "is-invalid":
+                                        _vm.$v.data_solicitacao.$error,
+                                      "is-valid": !_vm.$v.data_solicitacao
+                                        .$invalid
+                                    },
+                                    attrs: { type: "datetime-local" },
+                                    domProps: {
+                                      value: _vm.$v.data_solicitacao.$model
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.$v.data_solicitacao,
+                                          "$model",
+                                          $event.target.value.trim()
+                                        )
+                                      },
+                                      blur: function($event) {
+                                        return _vm.$forceUpdate()
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "invalid-feedback" },
+                                    [
+                                      !_vm.$v.data_solicitacao.required
+                                        ? _c("span", [
+                                            _vm._v("A data deve ser fornecida")
+                                          ])
+                                        : _vm._e()
+                                    ]
+                                  )
+                                ])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-4" }, [
+                              _c("img", {
+                                staticClass: "rounded-circle",
+                                staticStyle: { border: "solid #d0d5dc 1px" },
+                                attrs: {
+                                  src: "images/users/" + _vm.fotoSolicitante,
+                                  alt: "user-image",
+                                  width: "112px",
+                                  height: "112px"
+                                }
+                              })
+                            ])
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-6" }, [
+                        _c("fieldset", { staticClass: "border p-2" }, [
+                          _c(
+                            "legend",
+                            {
+                              staticClass: "w-auto",
+                              staticStyle: { "font-size": "16px" }
+                            },
+                            [_vm._v("PARA: ")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-row" }, [
+                            _c("div", { staticClass: "col-md-8" }, [
+                              _c("div", { staticClass: "row" }, [
+                                _c("div", { staticClass: "col-12" }, [
+                                  _c(
+                                    "select",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model.trim",
+                                          value:
+                                            _vm.$v.departamento_destino.$model,
+                                          expression:
+                                            "$v.departamento_destino.$model",
+                                          modifiers: { trim: true }
+                                        }
+                                      ],
+                                      staticClass:
+                                        "custom-select custom-select-sm",
+                                      class: {
+                                        "is-invalid":
+                                          _vm.$v.departamento_destino.$error,
+                                        "is-valid": !_vm.$v.departamento_destino
+                                          .$invalid
+                                      },
+                                      on: {
+                                        change: function($event) {
+                                          var $$selectedVal = Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function(o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function(o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                          _vm.$set(
+                                            _vm.$v.departamento_destino,
+                                            "$model",
+                                            $event.target.multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: { selected: "", disabled: "" },
+                                          domProps: { value: "" }
+                                        },
+                                        [_vm._v("Escolha a origem")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: {
+                                            value: "1-Contabilidade & Finanças"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            " 01 SEDE | Contabilidade & Finanças"
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: {
+                                            value: "1-Administração & Marketing"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "01 SEDE | Administração & Marketing"
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: {
+                                            value: "1-Auditoria Interna"
+                                          }
+                                        },
+                                        [_vm._v("01 SEDE | Auditoria Interna")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "1-Operações" } },
+                                        [_vm._v("01 SEDE | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: {
+                                            value:
+                                              "1-Presidente do Comitê Executivo"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "01 SEDE | Presidente do Comitê Executivo"
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: { value: "1-Recursos Humanos" }
+                                        },
+                                        [_vm._v("01 SEDE | Recursos Humanos")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: {
+                                            value: "1-Sistemas & Organização"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "01 SEDE | Sistemas & Organização"
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: {
+                                            value: "1-Cadeia Produtiva - Zango"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "01 SEDE | Cadeia Produtiva - Zango"
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "1-Operações" } },
+                                        [_vm._v("01 SEDE | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "2-Operações" } },
+                                        [_vm._v("02 HUAMBO | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "3-Operações" } },
+                                        [_vm._v("03 MABOR | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "4-Operações" } },
+                                        [_vm._v("04 HOJI-YA-HENDA | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "5-Operações" } },
+                                        [_vm._v("05 MORRO BENTO | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "6-Operações" } },
+                                        [_vm._v("06 VIANA | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "7-Operações" } },
+                                        [_vm._v("07 KILAMBA KIAXI | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "8-Operações" } },
+                                        [_vm._v("08 BENGUELA | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "9-Operações" } },
+                                        [_vm._v("09 CABINDA | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "10-Operações" } },
+                                        [_vm._v("10 LUBANGO | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "11-Operações" } },
+                                        [_vm._v("11 NAMIBE | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "12-Operações" } },
+                                        [_vm._v("12 KUITO | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "13-Operações" } },
+                                        [_vm._v("13 UIGE | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "15-Operações" } },
+                                        [_vm._v("15 LOBITO | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "16-Operações" } },
+                                        [_vm._v("16 MALANGE | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "18-Operações" } },
+                                        [_vm._v("18 SUMBE | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "19-Operações" } },
+                                        [_vm._v("19 ZANGO | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "21-Operações" } },
+                                        [_vm._v("21 BENFICA | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "22-Operações" } },
+                                        [_vm._v("22 PANGUILA | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: {
+                                            value:
+                                              "26-Sub-Direcção de Pequenas Empresas"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "26 BOA VIDA | Sub-Direcção de Pequenas Empresas"
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "99-DPP-Benguela" } },
+                                        [_vm._v("99 DDP | DPP-Benguela")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "99-DPP-Kuito" } },
+                                        [_vm._v("99 DDP | DPP-Kuito")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "99-DPP-Lobito" } },
+                                        [_vm._v("99 DDP | DPP-Lobito")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "99-DPP-Marginal" } },
+                                        [_vm._v("99 DDP | DPP-Marginal")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "99-DPP-Namibe" } },
+                                        [_vm._v("99 DDP | DPP-Namibe")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "99-DPP-Soyo" } },
+                                        [_vm._v("99 DDP | DPP-Soyo")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "99-DPP-Uige" } },
+                                        [_vm._v("99 DDP | DPP-Uige")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "99-DPP-Zango" } },
+                                        [_vm._v("99 DDP | DPP-Zango")]
+                                      )
+                                    ]
+                                  )
+                                ]),
+                                _c("br"),
+                                _c("br"),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-5" }, [
+                                  _c("label", { attrs: { for: "name" } }, [
+                                    _vm._v("Responsável")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "select",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model.trim",
+                                          value:
+                                            _vm.$v.selectedResponsavel.$model,
+                                          expression:
+                                            "$v.selectedResponsavel.$model",
+                                          modifiers: { trim: true }
+                                        }
+                                      ],
+                                      staticClass:
+                                        "custom-select custom-select-sm",
+                                      class: {
+                                        "is-invalid":
+                                          _vm.$v.selectedResponsavel.$error,
+                                        "is-valid": !_vm.$v.selectedResponsavel
+                                          .$invalid
+                                      },
+                                      on: {
+                                        change: [
+                                          function($event) {
+                                            var $$selectedVal = Array.prototype.filter
+                                              .call(
+                                                $event.target.options,
+                                                function(o) {
+                                                  return o.selected
+                                                }
+                                              )
+                                              .map(function(o) {
+                                                var val =
+                                                  "_value" in o
+                                                    ? o._value
+                                                    : o.value
+                                                return val
+                                              })
+                                            _vm.$set(
+                                              _vm.$v.selectedResponsavel,
+                                              "$model",
+                                              $event.target.multiple
+                                                ? $$selectedVal
+                                                : $$selectedVal[0]
+                                            )
+                                          },
+                                          function($event) {
+                                            return _vm.onChangeResponsavel(
+                                              $event
+                                            )
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: { disabled: "", selected: "" },
+                                          domProps: { value: "" }
+                                        },
+                                        [_vm._v("Responsável")]
+                                      ),
+                                      _vm._v(" "),
+                                      _vm._l(_vm.utilizadores, function(
+                                        utilizador
+                                      ) {
+                                        return _c(
+                                          "option",
+                                          {
+                                            key: utilizador.id,
+                                            domProps: {
+                                              value: utilizador.username
+                                            }
+                                          },
+                                          [_vm._v(_vm._s(utilizador.username))]
+                                        )
+                                      })
+                                    ],
+                                    2
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-7" }, [
+                                  _c("label", { attrs: { for: "name" } }, [
+                                    _vm._v("Data Execução")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model.trim",
+                                        value: _vm.$v.data_execucao.$model,
+                                        expression: "$v.data_execucao.$model",
+                                        modifiers: { trim: true }
+                                      }
+                                    ],
+                                    staticClass: "form-control form-control-sm",
+                                    class: {
+                                      "is-invalid": _vm.$v.data_execucao.$error,
+                                      "is-valid": !_vm.$v.data_execucao.$invalid
+                                    },
+                                    attrs: { type: "datetime-local" },
+                                    domProps: {
+                                      value: _vm.$v.data_execucao.$model
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.$v.data_execucao,
+                                          "$model",
+                                          $event.target.value.trim()
+                                        )
+                                      },
+                                      blur: function($event) {
+                                        return _vm.$forceUpdate()
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "invalid-feedback" },
+                                    [
+                                      !_vm.$v.data_execucao.required
+                                        ? _c("span", [
+                                            _vm._v("A data deve ser fornecida")
+                                          ])
+                                        : _vm._e()
+                                    ]
+                                  )
+                                ])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-4" }, [
+                              _c("img", {
+                                staticClass: "rounded-circle foto",
+                                staticStyle: { border: "solid #d0d5dc 1px" },
+                                attrs: {
+                                  src: "images/users/" + _vm.fotoResponsavel,
+                                  alt: "user-image",
+                                  width: "114px",
+                                  height: "114px"
+                                }
+                              })
+                            ])
+                          ])
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-12" }, [
+                        _c("label", { attrs: { for: "name" } }, [
+                          _vm._v("Descrição")
                         ]),
                         _vm._v(" "),
-                        _c("input", {
+                        _c("textarea", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model.trim",
-                              value: _vm.$v.dado_origem.$model,
-                              expression: "$v.dado_origem.$model",
+                              value: _vm.$v.descricao.$model,
+                              expression: "$v.descricao.$model",
                               modifiers: { trim: true }
                             }
                           ],
                           staticClass: "form-control form-control-sm corInput",
                           class: {
-                            "is-invalid": _vm.$v.dado_origem.$error,
-                            "is-valid": !_vm.$v.dado_origem.$invalid
+                            "is-invalid": _vm.$v.descricao.$error,
+                            "is-valid": !_vm.$v.descricao.$invalid
                           },
-                          attrs: {
-                            type: "text",
-                            placeholder: "Informe o dado de contacto"
-                          },
-                          domProps: { value: _vm.$v.dado_origem.$model },
+                          attrs: { rows: "5" },
+                          domProps: { value: _vm.$v.descricao.$model },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
                               _vm.$set(
-                                _vm.$v.dado_origem,
+                                _vm.$v.descricao,
                                 "$model",
                                 $event.target.value.trim()
                               )
@@ -47822,16 +49227,16 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("div", { staticClass: "invalid-feedback" }, [
-                          !_vm.$v.dado_origem.required
+                          !_vm.$v.descricao.required
                             ? _c("span", [
-                                _vm._v("O Dado de origem deve ser fornecido")
+                                _vm._v("A descricao deve ser fornecida")
                               ])
                             : _vm._e(),
                           _vm._v(" "),
-                          !_vm.$v.dado_origem.minLength
+                          !_vm.$v.descricao.minLength
                             ? _c("span", [
                                 _vm._v(
-                                  "O Dado de origem deve possuír um tamanho maior que 5 dígitos"
+                                  "A descricao deve possuír um tamanho maior"
                                 )
                               ])
                             : _vm._e()
@@ -47839,1222 +49244,254 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-2" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Tempo de Registo")
-                        ]),
-                        _vm._v(" "),
+                    _c("hr", {
+                      staticStyle: {
+                        height: "1px",
+                        "background-color": "#c9d4ce"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(1)
+                  ]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _vm.is_modal2_visible
+      ? _c(
+          "div",
+          {
+            staticClass: "modal fade",
+            attrs: {
+              id: "modalRelatorioActividade2",
+              tabindex: "-1",
+              role: "dialog",
+              "aria-labelledby": "exampleModalScrollableTitle",
+              "aria-hidden": "true"
+            }
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass: "modal-dialog modal-dialog-scrollable modal-lg",
+                attrs: { role: "document" }
+              },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "row",
+                        staticStyle: { background: "none" }
+                      },
+                      [
                         _c(
-                          "select",
+                          "div",
                           {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model.trim",
-                                value: _vm.$v.tempo.$model,
-                                expression: "$v.tempo.$model",
-                                modifiers: { trim: true }
-                              }
-                            ],
-                            staticClass: "custom-select custom-select-sm",
-                            class: {
-                              "is-invalid": _vm.$v.tempo.$error,
-                              "is-valid": !_vm.$v.tempo.$invalid
-                            },
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.$set(
-                                  _vm.$v.tempo,
-                                  "$model",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                )
-                              }
-                            }
+                            staticClass: "col-11",
+                            staticStyle: { background: "none" }
                           },
                           [
                             _c(
-                              "option",
+                              "table",
                               {
-                                attrs: { selected: "", disabled: "" },
-                                domProps: { value: "" }
+                                staticClass: "tabela-relatorio",
+                                staticStyle: { "margin-left": "30px" }
                               },
-                              [_vm._v("Escolha o tempo")]
-                            ),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "5" } }, [
-                              _vm._v("0:05")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "10" } }, [
-                              _vm._v("0:10")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "15" } }, [
-                              _vm._v("0:15")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "20" } }, [
-                              _vm._v("0:20")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "30" } }, [
-                              _vm._v("0:30")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "40" } }, [
-                              _vm._v("0:40")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "50" } }, [
-                              _vm._v("0:50")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "60" } }, [
-                              _vm._v("1:00")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "90" } }, [
-                              _vm._v("1:30")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "120" } }, [
-                              _vm._v("2:00")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "150" } }, [
-                              _vm._v("2:30")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "180" } }, [
-                              _vm._v("3:00")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "210" } }, [
-                              _vm._v("3:30")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "240" } }, [
-                              _vm._v("4:00")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "270" } }, [
-                              _vm._v("4:30")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "300" } }, [
-                              _vm._v("5:00")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "330" } }, [
-                              _vm._v("5:30")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "360" } }, [
-                              _vm._v("6:00")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "390" } }, [
-                              _vm._v("6:30")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "420" } }, [
-                              _vm._v("7:00")
-                            ])
+                              [
+                                _c("tr", [
+                                  _c(
+                                    "td",
+                                    {
+                                      staticStyle: {
+                                        "text-align": "center",
+                                        color: "#111",
+                                        "font-weight": "bold",
+                                        background: "#f5e78e"
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.codigo))]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "cor-azulE",
+                                      attrs: { colspan: "5" }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                        [Registo de Actividade]"
+                                      ),
+                                      _c("br"),
+                                      _vm._v(
+                                        " \n                                        " +
+                                          _vm._s(_vm.selectedTipo) +
+                                          " : " +
+                                          _vm._s(_vm.titulo) +
+                                          "\n                                    "
+                                      )
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("td", { staticClass: "cor-azulE" }, [
+                                    _vm._v("ORIGEM: ")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "cor-azulC",
+                                      attrs: { colspan: "5" }
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(_vm.selectedOrigem) +
+                                          " : " +
+                                          _vm._s(_vm.dado_origem)
+                                      )
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("td", { staticClass: "cor-azulE" }, [
+                                    _vm._v("DE: ")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "cor-azulC" }, [
+                                    _vm._v(_vm._s(_vm.departamento_origem))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c("img", {
+                                      staticStyle: {
+                                        border: "solid #d0d5dc 1px"
+                                      },
+                                      attrs: {
+                                        src:
+                                          "images/users/" + _vm.fotoSolicitante,
+                                        alt: "user-image",
+                                        width: "60px",
+                                        height: "60px"
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "cor-azulE",
+                                      attrs: { width: "15%" }
+                                    },
+                                    [_vm._v("PARA:")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "cor-azulC" }, [
+                                    _vm._v(_vm._s(_vm.departamento_destino))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c("img", {
+                                      staticStyle: {
+                                        border: "solid #d0d5dc 1px"
+                                      },
+                                      attrs: {
+                                        src:
+                                          "images/users/" + _vm.fotoResponsavel,
+                                        alt: "user-image",
+                                        width: "60px",
+                                        height: "60px"
+                                      }
+                                    })
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _vm._m(2),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("td", { staticClass: "cor-azulE" }, [
+                                    _vm._v("Data de solicitação: ")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "cor-azulC",
+                                      attrs: { colspan: "5" }
+                                    },
+                                    [_vm._v(_vm._s(_vm.data_solicitacao))]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("td", { staticClass: "cor-azulE" }, [
+                                    _vm._v("Data Prevista de Execução: ")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "cor-azulC",
+                                      attrs: { colspan: "2" }
+                                    },
+                                    [_vm._v(_vm._s(_vm.data_prevista))]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "cor-azulE",
+                                      attrs: { colspan: "2" }
+                                    },
+                                    [_vm._v("Tempo de Registo: ")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "cor-azulC" }, [
+                                    _vm._v(_vm._s(_vm.tempo))
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _vm._m(3),
+                                _vm._v(" "),
+                                _vm._m(4),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("td", { attrs: { colspan: "6" } }, [
+                                    _c("br"),
+                                    _vm._v(
+                                      "\n                                    " +
+                                        _vm._s(_vm.descricao) +
+                                        "\n                                    "
+                                    ),
+                                    _c("br"),
+                                    _c("br")
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _vm._m(5)
+                              ]
+                            )
                           ]
                         )
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-6" }, [
-                      _c("fieldset", { staticClass: "border p-2" }, [
-                        _c(
-                          "legend",
-                          {
-                            staticClass: "w-auto",
-                            staticStyle: { "font-size": "16px" }
-                          },
-                          [_vm._v("DE: ")]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-row" }, [
-                          _c("div", { staticClass: "col-md-8" }, [
-                            _c("div", { staticClass: "row" }, [
-                              _c("div", { staticClass: "col-12" }, [
-                                _c(
-                                  "select",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model.trim",
-                                        value:
-                                          _vm.$v.departamento_origem.$model,
-                                        expression:
-                                          "$v.departamento_origem.$model",
-                                        modifiers: { trim: true }
-                                      }
-                                    ],
-                                    staticClass:
-                                      "custom-select custom-select-sm ",
-                                    class: {
-                                      "is-invalid":
-                                        _vm.$v.departamento_origem.$error,
-                                      "is-valid": !_vm.$v.departamento_origem
-                                        .$invalid
-                                    },
-                                    on: {
-                                      change: function($event) {
-                                        var $$selectedVal = Array.prototype.filter
-                                          .call($event.target.options, function(
-                                            o
-                                          ) {
-                                            return o.selected
-                                          })
-                                          .map(function(o) {
-                                            var val =
-                                              "_value" in o ? o._value : o.value
-                                            return val
-                                          })
-                                        _vm.$set(
-                                          _vm.$v.departamento_origem,
-                                          "$model",
-                                          $event.target.multiple
-                                            ? $$selectedVal
-                                            : $$selectedVal[0]
-                                        )
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c(
-                                      "option",
-                                      {
-                                        attrs: { selected: "", disabled: "" },
-                                        domProps: { value: "" }
-                                      },
-                                      [_vm._v("Escolha a origem")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      {
-                                        attrs: {
-                                          value: "1-Contabilidade & Finanças"
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          " 01 SEDE | Contabilidade & Finanças"
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      {
-                                        attrs: {
-                                          value: "1-Administração & Marketing"
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "01 SEDE | Administração & Marketing"
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      {
-                                        attrs: { value: "1-Auditoria Interna" }
-                                      },
-                                      [_vm._v("01 SEDE | Auditoria Interna")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "1-Operações" } },
-                                      [_vm._v("01 SEDE | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      {
-                                        attrs: {
-                                          value:
-                                            "1-Presidente do Comitê Executivo"
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "01 SEDE | Presidente do Comitê Executivo"
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      {
-                                        attrs: { value: "1-Recursos Humanos" }
-                                      },
-                                      [_vm._v("01 SEDE | Recursos Humanos")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      {
-                                        attrs: {
-                                          value: "1-Sistemas & Organização"
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "01 SEDE | Sistemas & Organização"
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      {
-                                        attrs: {
-                                          value: "1-Cadeia Produtiva - Zango"
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "01 SEDE | Cadeia Produtiva - Zango"
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "1-Operações" } },
-                                      [_vm._v("01 SEDE | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "2-Operações" } },
-                                      [_vm._v("02 HUAMBO | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "3-Operações" } },
-                                      [_vm._v("03 MABOR | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "4-Operações" } },
-                                      [_vm._v("04 HOJI-YA-HENDA | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "5-Operações" } },
-                                      [_vm._v("05 MORRO BENTO | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "6-Operações" } },
-                                      [_vm._v("06 VIANA | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "7-Operações" } },
-                                      [_vm._v("07 KILAMBA KIAXI | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "8-Operações" } },
-                                      [_vm._v("08 BENGUELA | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "9-Operações" } },
-                                      [_vm._v("09 CABINDA | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "10-Operações" } },
-                                      [_vm._v("10 LUBANGO | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "11-Operações" } },
-                                      [_vm._v("11 NAMIBE | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "12-Operações" } },
-                                      [_vm._v("12 KUITO | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "13-Operações" } },
-                                      [_vm._v("13 UIGE | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "15-Operações" } },
-                                      [_vm._v("15 LOBITO | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "16-Operações" } },
-                                      [_vm._v("16 MALANGE | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "18-Operações" } },
-                                      [_vm._v("18 SUMBE | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "19-Operações" } },
-                                      [_vm._v("19 ZANGO | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "21-Operações" } },
-                                      [_vm._v("21 BENFICA | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "22-Operações" } },
-                                      [_vm._v("22 PANGUILA | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      {
-                                        attrs: {
-                                          value:
-                                            "26-Sub-Direcção de Pequenas Empresas"
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "26 BOA VIDA | Sub-Direcção de Pequenas Empresas"
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "99-DPP-Benguela" } },
-                                      [_vm._v("99 DDP | DPP-Benguela")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "99-DPP-Kuito" } },
-                                      [_vm._v("99 DDP | DPP-Kuito")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "99-DPP-Lobito" } },
-                                      [_vm._v("99 DDP | DPP-Lobito")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "99-DPP-Marginal" } },
-                                      [_vm._v("99 DDP | DPP-Marginal")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "99-DPP-Namibe" } },
-                                      [_vm._v("99 DDP | DPP-Namibe")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "99-DPP-Soyo" } },
-                                      [_vm._v("99 DDP | DPP-Soyo")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "99-DPP-Uige" } },
-                                      [_vm._v("99 DDP | DPP-Uige")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "99-DPP-Zango" } },
-                                      [_vm._v("99 DDP | DPP-Zango")]
-                                    )
-                                  ]
-                                )
-                              ]),
-                              _c("br"),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-5" }, [
-                                _c("label", { attrs: { for: "name" } }, [
-                                  _vm._v("Solicitante")
-                                ]),
-                                _vm._v(" "),
-                                _c(
-                                  "select",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model.trim",
-                                        value:
-                                          _vm.$v.selectedSolicitante.$model,
-                                        expression:
-                                          "$v.selectedSolicitante.$model",
-                                        modifiers: { trim: true }
-                                      }
-                                    ],
-                                    staticClass:
-                                      "custom-select custom-select-sm",
-                                    class: {
-                                      "is-invalid":
-                                        _vm.$v.selectedSolicitante.$error,
-                                      "is-valid": !_vm.$v.selectedSolicitante
-                                        .$invalid
-                                    },
-                                    on: {
-                                      change: [
-                                        function($event) {
-                                          var $$selectedVal = Array.prototype.filter
-                                            .call(
-                                              $event.target.options,
-                                              function(o) {
-                                                return o.selected
-                                              }
-                                            )
-                                            .map(function(o) {
-                                              var val =
-                                                "_value" in o
-                                                  ? o._value
-                                                  : o.value
-                                              return val
-                                            })
-                                          _vm.$set(
-                                            _vm.$v.selectedSolicitante,
-                                            "$model",
-                                            $event.target.multiple
-                                              ? $$selectedVal
-                                              : $$selectedVal[0]
-                                          )
-                                        },
-                                        function($event) {
-                                          return _vm.onChangeSolicitante($event)
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  [
-                                    _c(
-                                      "option",
-                                      {
-                                        attrs: { disabled: "", selected: "" },
-                                        domProps: { value: "" }
-                                      },
-                                      [_vm._v("Solicitante")]
-                                    ),
-                                    _vm._v(" "),
-                                    _vm._l(_vm.utilizadores, function(
-                                      utilizador
-                                    ) {
-                                      return _c(
-                                        "option",
-                                        {
-                                          key: utilizador.id,
-                                          domProps: {
-                                            value: utilizador.username
-                                          }
-                                        },
-                                        [_vm._v(_vm._s(utilizador.username))]
-                                      )
-                                    })
-                                  ],
-                                  2
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-7" }, [
-                                _c("label", { attrs: { for: "name" } }, [
-                                  _vm._v("Data Solicitação")
-                                ]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model.trim",
-                                      value: _vm.$v.data_solicitacao.$model,
-                                      expression: "$v.data_solicitacao.$model",
-                                      modifiers: { trim: true }
-                                    }
-                                  ],
-                                  staticClass: "form-control form-control-sm",
-                                  class: {
-                                    "is-invalid":
-                                      _vm.$v.data_solicitacao.$error,
-                                    "is-valid": !_vm.$v.data_solicitacao
-                                      .$invalid
-                                  },
-                                  attrs: { type: "datetime-local" },
-                                  domProps: {
-                                    value: _vm.$v.data_solicitacao.$model
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        _vm.$v.data_solicitacao,
-                                        "$model",
-                                        $event.target.value.trim()
-                                      )
-                                    },
-                                    blur: function($event) {
-                                      return _vm.$forceUpdate()
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "invalid-feedback" }, [
-                                  !_vm.$v.data_solicitacao.required
-                                    ? _c("span", [
-                                        _vm._v("A data deve ser fornecida")
-                                      ])
-                                    : _vm._e()
-                                ])
-                              ])
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "col-md-4" }, [
-                            _c("img", {
-                              staticClass: "rounded-circle",
-                              staticStyle: { border: "solid #d0d5dc 1px" },
-                              attrs: {
-                                src: "images/users/" + _vm.fotoSolicitante,
-                                alt: "user-image",
-                                width: "112px",
-                                height: "112px"
-                              }
-                            })
-                          ])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-6" }, [
-                      _c("fieldset", { staticClass: "border p-2" }, [
-                        _c(
-                          "legend",
-                          {
-                            staticClass: "w-auto",
-                            staticStyle: { "font-size": "16px" }
-                          },
-                          [_vm._v("PARA: ")]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-row" }, [
-                          _c("div", { staticClass: "col-md-8" }, [
-                            _c("div", { staticClass: "row" }, [
-                              _c("div", { staticClass: "col-12" }, [
-                                _c(
-                                  "select",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model.trim",
-                                        value:
-                                          _vm.$v.departamento_destino.$model,
-                                        expression:
-                                          "$v.departamento_destino.$model",
-                                        modifiers: { trim: true }
-                                      }
-                                    ],
-                                    staticClass:
-                                      "custom-select custom-select-sm",
-                                    class: {
-                                      "is-invalid":
-                                        _vm.$v.departamento_destino.$error,
-                                      "is-valid": !_vm.$v.departamento_destino
-                                        .$invalid
-                                    },
-                                    on: {
-                                      change: function($event) {
-                                        var $$selectedVal = Array.prototype.filter
-                                          .call($event.target.options, function(
-                                            o
-                                          ) {
-                                            return o.selected
-                                          })
-                                          .map(function(o) {
-                                            var val =
-                                              "_value" in o ? o._value : o.value
-                                            return val
-                                          })
-                                        _vm.$set(
-                                          _vm.$v.departamento_destino,
-                                          "$model",
-                                          $event.target.multiple
-                                            ? $$selectedVal
-                                            : $$selectedVal[0]
-                                        )
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c(
-                                      "option",
-                                      {
-                                        attrs: { selected: "", disabled: "" },
-                                        domProps: { value: "" }
-                                      },
-                                      [_vm._v("Escolha a origem")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      {
-                                        attrs: {
-                                          value: "1-Contabilidade & Finanças"
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          " 01 SEDE | Contabilidade & Finanças"
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      {
-                                        attrs: {
-                                          value: "1-Administração & Marketing"
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "01 SEDE | Administração & Marketing"
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      {
-                                        attrs: { value: "1-Auditoria Interna" }
-                                      },
-                                      [_vm._v("01 SEDE | Auditoria Interna")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "1-Operações" } },
-                                      [_vm._v("01 SEDE | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      {
-                                        attrs: {
-                                          value:
-                                            "1-Presidente do Comitê Executivo"
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "01 SEDE | Presidente do Comitê Executivo"
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      {
-                                        attrs: { value: "1-Recursos Humanos" }
-                                      },
-                                      [_vm._v("01 SEDE | Recursos Humanos")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      {
-                                        attrs: {
-                                          value: "1-Sistemas & Organização"
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "01 SEDE | Sistemas & Organização"
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      {
-                                        attrs: {
-                                          value: "1-Cadeia Produtiva - Zango"
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "01 SEDE | Cadeia Produtiva - Zango"
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "1-Operações" } },
-                                      [_vm._v("01 SEDE | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "2-Operações" } },
-                                      [_vm._v("02 HUAMBO | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "3-Operações" } },
-                                      [_vm._v("03 MABOR | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "4-Operações" } },
-                                      [_vm._v("04 HOJI-YA-HENDA | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "5-Operações" } },
-                                      [_vm._v("05 MORRO BENTO | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "6-Operações" } },
-                                      [_vm._v("06 VIANA | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "7-Operações" } },
-                                      [_vm._v("07 KILAMBA KIAXI | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "8-Operações" } },
-                                      [_vm._v("08 BENGUELA | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "9-Operações" } },
-                                      [_vm._v("09 CABINDA | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "10-Operações" } },
-                                      [_vm._v("10 LUBANGO | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "11-Operações" } },
-                                      [_vm._v("11 NAMIBE | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "12-Operações" } },
-                                      [_vm._v("12 KUITO | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "13-Operações" } },
-                                      [_vm._v("13 UIGE | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "15-Operações" } },
-                                      [_vm._v("15 LOBITO | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "16-Operações" } },
-                                      [_vm._v("16 MALANGE | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "18-Operações" } },
-                                      [_vm._v("18 SUMBE | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "19-Operações" } },
-                                      [_vm._v("19 ZANGO | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "21-Operações" } },
-                                      [_vm._v("21 BENFICA | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "22-Operações" } },
-                                      [_vm._v("22 PANGUILA | Operações")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      {
-                                        attrs: {
-                                          value:
-                                            "26-Sub-Direcção de Pequenas Empresas"
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "26 BOA VIDA | Sub-Direcção de Pequenas Empresas"
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "99-DPP-Benguela" } },
-                                      [_vm._v("99 DDP | DPP-Benguela")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "99-DPP-Kuito" } },
-                                      [_vm._v("99 DDP | DPP-Kuito")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "99-DPP-Lobito" } },
-                                      [_vm._v("99 DDP | DPP-Lobito")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "99-DPP-Marginal" } },
-                                      [_vm._v("99 DDP | DPP-Marginal")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "99-DPP-Namibe" } },
-                                      [_vm._v("99 DDP | DPP-Namibe")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "99-DPP-Soyo" } },
-                                      [_vm._v("99 DDP | DPP-Soyo")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "99-DPP-Uige" } },
-                                      [_vm._v("99 DDP | DPP-Uige")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "99-DPP-Zango" } },
-                                      [_vm._v("99 DDP | DPP-Zango")]
-                                    )
-                                  ]
-                                )
-                              ]),
-                              _c("br"),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-5" }, [
-                                _c("label", { attrs: { for: "name" } }, [
-                                  _vm._v("Responsável")
-                                ]),
-                                _vm._v(" "),
-                                _c(
-                                  "select",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model.trim",
-                                        value:
-                                          _vm.$v.selectedResponsavel.$model,
-                                        expression:
-                                          "$v.selectedResponsavel.$model",
-                                        modifiers: { trim: true }
-                                      }
-                                    ],
-                                    staticClass:
-                                      "custom-select custom-select-sm",
-                                    class: {
-                                      "is-invalid":
-                                        _vm.$v.selectedResponsavel.$error,
-                                      "is-valid": !_vm.$v.selectedResponsavel
-                                        .$invalid
-                                    },
-                                    on: {
-                                      change: [
-                                        function($event) {
-                                          var $$selectedVal = Array.prototype.filter
-                                            .call(
-                                              $event.target.options,
-                                              function(o) {
-                                                return o.selected
-                                              }
-                                            )
-                                            .map(function(o) {
-                                              var val =
-                                                "_value" in o
-                                                  ? o._value
-                                                  : o.value
-                                              return val
-                                            })
-                                          _vm.$set(
-                                            _vm.$v.selectedResponsavel,
-                                            "$model",
-                                            $event.target.multiple
-                                              ? $$selectedVal
-                                              : $$selectedVal[0]
-                                          )
-                                        },
-                                        function($event) {
-                                          return _vm.onChangeResponsavel($event)
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  [
-                                    _c(
-                                      "option",
-                                      {
-                                        attrs: { disabled: "", selected: "" },
-                                        domProps: { value: "" }
-                                      },
-                                      [_vm._v("Responsável")]
-                                    ),
-                                    _vm._v(" "),
-                                    _vm._l(_vm.utilizadores, function(
-                                      utilizador
-                                    ) {
-                                      return _c(
-                                        "option",
-                                        {
-                                          key: utilizador.id,
-                                          domProps: {
-                                            value: utilizador.username
-                                          }
-                                        },
-                                        [_vm._v(_vm._s(utilizador.username))]
-                                      )
-                                    })
-                                  ],
-                                  2
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-7" }, [
-                                _c("label", { attrs: { for: "name" } }, [
-                                  _vm._v("Data Execução")
-                                ]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model.trim",
-                                      value: _vm.$v.data_execucao.$model,
-                                      expression: "$v.data_execucao.$model",
-                                      modifiers: { trim: true }
-                                    }
-                                  ],
-                                  staticClass: "form-control form-control-sm",
-                                  class: {
-                                    "is-invalid": _vm.$v.data_execucao.$error,
-                                    "is-valid": !_vm.$v.data_execucao.$invalid
-                                  },
-                                  attrs: { type: "datetime-local" },
-                                  domProps: {
-                                    value: _vm.$v.data_execucao.$model
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        _vm.$v.data_execucao,
-                                        "$model",
-                                        $event.target.value.trim()
-                                      )
-                                    },
-                                    blur: function($event) {
-                                      return _vm.$forceUpdate()
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "invalid-feedback" }, [
-                                  !_vm.$v.data_execucao.required
-                                    ? _c("span", [
-                                        _vm._v("A data deve ser fornecida")
-                                      ])
-                                    : _vm._e()
-                                ])
-                              ])
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "col-md-4" }, [
-                            _c("img", {
-                              staticClass: "rounded-circle foto",
-                              staticStyle: { border: "solid #d0d5dc 1px" },
-                              attrs: {
-                                src: "images/users/" + _vm.fotoResponsavel,
-                                alt: "user-image",
-                                width: "114px",
-                                height: "114px"
-                              }
-                            })
-                          ])
-                        ])
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-12" }, [
-                      _c("label", { attrs: { for: "name" } }, [
-                        _vm._v("Descrição")
-                      ]),
-                      _vm._v(" "),
-                      _c("textarea", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model.trim",
-                            value: _vm.$v.descricao.$model,
-                            expression: "$v.descricao.$model",
-                            modifiers: { trim: true }
-                          }
-                        ],
-                        staticClass: "form-control form-control-sm corInput",
-                        class: {
-                          "is-invalid": _vm.$v.descricao.$error,
-                          "is-valid": !_vm.$v.descricao.$invalid
-                        },
-                        attrs: { rows: "5" },
-                        domProps: { value: _vm.$v.descricao.$model },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.$v.descricao,
-                              "$model",
-                              $event.target.value.trim()
-                            )
-                          },
-                          blur: function($event) {
-                            return _vm.$forceUpdate()
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "invalid-feedback" }, [
-                        !_vm.$v.descricao.required
-                          ? _c("span", [
-                              _vm._v("A descricao deve ser fornecida")
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        !_vm.$v.descricao.minLength
-                          ? _c("span", [
-                              _vm._v(
-                                "A descricao deve possuír um tamanho maior"
-                              )
-                            ])
-                          : _vm._e()
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr", {
-                    staticStyle: {
-                      height: "1px",
-                      "background-color": "#c9d4ce"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm._m(1)
-                ]
-              )
-            ])
-          ])
-        ]
-      )
-    ]
-  )
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
+      : _vm._e()
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -49120,6 +49557,60 @@ var staticRenderFns = [
         [
           _c("i", { staticClass: "mdi mdi-content-save mr-1" }),
           _vm._v("Registar\n                            ")
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [_c("td", { attrs: { colspan: "6" } }, [_c("br")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [_c("td", { attrs: { colspan: "6" } }, [_c("br")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c(
+        "td",
+        {
+          staticClass: "cor-azulE",
+          staticStyle: { "text-align": "center" },
+          attrs: { colspan: "6" }
+        },
+        [_vm._v("Descrição ")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c(
+        "td",
+        {
+          staticStyle: {
+            background: "#e35959",
+            color: "#fff",
+            "text-align": "center"
+          },
+          attrs: { colspan: "6" }
+        },
+        [
+          _c("br"),
+          _vm._v(
+            "\n                                    Sistema KixiAgenda v1.0.1-2021\n                                    "
+          ),
+          _c("br"),
+          _c("br")
         ]
       )
     ])
@@ -49736,19 +50227,6 @@ var render = function() {
                       }
                     },
                     [
-                      _c("td", [
-                        _c("img", {
-                          staticClass: "rounded-circle",
-                          staticStyle: { border: "solid #6c757d 1px" },
-                          attrs: {
-                            src: "images/users/" + tarefa.foto,
-                            alt: "user-image",
-                            width: "45px",
-                            height: "45px"
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(tarefa.codigo))]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(tarefa.titulo))]),
@@ -49838,8 +50316,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", { attrs: { id: "cabecatabela" } }, [
       _c("tr", [
-        _c("th", [_vm._v("Responsável")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Código")]),
         _vm._v(" "),
         _c("th", [_vm._v("Objecto de Actividade")]),
@@ -70801,16 +71277,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuelidate */ "./node_modules/vuelidate/lib/index.js");
 /* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vuelidate__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _smartweb_vue_flash_message__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @smartweb/vue-flash-message */ "./node_modules/@smartweb/vue-flash-message/build/vue-flash-msg.common.js");
-/* harmony import */ var _smartweb_vue_flash_message__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_smartweb_vue_flash_message__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
 
 
 
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(_smartweb_vue_flash_message__WEBPACK_IMPORTED_MODULE_6___default.a);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuelidate__WEBPACK_IMPORTED_MODULE_5___default.a);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$axios = axios__WEBPACK_IMPORTED_MODULE_4___default.a;
 new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
@@ -70949,15 +71421,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************************!*\
   !*** ./resources/js/components/ModalActividade.vue ***!
   \*****************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ModalActividade_vue_vue_type_template_id_3d32d43a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModalActividade.vue?vue&type=template&id=3d32d43a& */ "./resources/js/components/ModalActividade.vue?vue&type=template&id=3d32d43a&");
 /* harmony import */ var _ModalActividade_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ModalActividade.vue?vue&type=script&lang=js& */ "./resources/js/components/ModalActividade.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _ModalActividade_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _ModalActividade_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -70987,7 +71458,7 @@ component.options.__file = "resources/js/components/ModalActividade.vue"
 /*!******************************************************************************!*\
   !*** ./resources/js/components/ModalActividade.vue?vue&type=script&lang=js& ***!
   \******************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

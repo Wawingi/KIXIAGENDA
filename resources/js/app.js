@@ -7,11 +7,7 @@ import 'bootstrap'
 import axios from 'axios'
 import Vuelidate from 'vuelidate'
 
-import FlashMessage from '@smartweb/vue-flash-message';
-
-Vue.use(FlashMessage);
 Vue.use(Vuelidate);
-
 Vue.prototype.$axios = axios
 
 new Vue({

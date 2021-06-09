@@ -924,8 +924,7 @@
             }        
         },
         created(){   
-            this.pegaActividade();
-            
+            this.pegaActividade();   
         },
 
         mounted(){
@@ -973,7 +972,6 @@
                 this.$axios.get('auth/pegaFoto/'+solicitante)
                 .then(function (response) {
                     if(response.status==200){           
-                        //console.log("RR:"+tipo);
                         if(tipo==1)   
                             self.fotoSolicitante = response.data;
                         else

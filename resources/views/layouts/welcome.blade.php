@@ -42,7 +42,7 @@
     <script src="{{ asset('js/datatables2.min.js') }}" defer></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/app.min.js') }}"></script>
-     <!-- Vendor js -->
-     <!--<script src="{{ asset('js/vendor.min.js') }}"></script>-->
+    
+    <!--<script src="{{ asset('js/vendor.min.js') }}"></script>-->
 </body>
 </html>
