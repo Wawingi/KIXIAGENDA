@@ -3588,14 +3588,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       tarefas: [],
       qtdTarefasConcluidas: 0,
       qtdTarefasAtrasadas: 0,
-      qtdTarefasAgendadas: 0
+      qtdTarefasAgendadas: 0,
+      visible: false,
+      fullPage: true
     };
+  },
+  components: {
+    Loading: VueLoading
   },
   created: function created() {
     this.pegaTarefas(), this.contTarefas();
@@ -3621,6 +3628,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                this.visible = true;
                 self = this;
                 this.$axios.get('auth/pegaGeralTarefas').then(function (response) {
                   if (response.status == 200) {
@@ -3628,12 +3636,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     self.$nextTick(function () {
                       $('#paginationTarefa').DataTable();
                     });
+                    self.visible = false;
                   }
                 })["catch"](function (error) {
                   location.reload();
                 });
 
-              case 2:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -3819,6 +3828,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3828,9 +3838,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       utilizador_codigo: '',
       periodo: '',
       data_fecho: '',
-      isLoading: false,
-      fullPage: true
+      visible: false,
+      fullPage: true,
+      anim: 'Spinner'
     };
+  },
+  components: {
+    Loading: VueLoading
   },
   validations: {
     utilizador_codigo: {
@@ -3951,15 +3965,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
+                this.visible = true;
                 self = this;
                 this.$axios.get('auth/pegaFechos').then(function (response) {
                   if (response.status == 200) {
                     self.fechos = response.data;
+                    self.visible = false;
                   }
                 })["catch"](function (error) {//alert("Erro ao carregar dados");
                 });
 
-              case 2:
+              case 3:
               case "end":
                 return _context3.stop();
             }
@@ -50098,186 +50114,209 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container-fluid" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("br"),
-    _vm._v(" "),
-    _c("div", { staticClass: "row text-center mb-2" }, [
-      _c("div", { staticClass: "col-md-6 col-xl-3" }, [
-        _c("div", { staticClass: "card-box" }, [
-          _c("i", { staticClass: "fas fa-undo-alt font-26" }),
-          _vm._v(" "),
-          _c("h3", { staticClass: "text-primary" }, [
-            _vm._v(
-              _vm._s(
-                _vm.qtdTarefasConcluidas +
-                  _vm.qtdTarefasAtrasadas +
-                  _vm.qtdTarefasAgendadas
+  return _c(
+    "div",
+    { staticClass: "container-fluid" },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("loading", {
+        attrs: {
+          animation: _vm.anim,
+          active: _vm.visible,
+          "can-cancel": true,
+          "is-full-page": _vm.fullPage
+        },
+        on: {
+          "update:active": function($event) {
+            _vm.visible = $event
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "row text-center mb-2" }, [
+        _c("div", { staticClass: "col-md-6 col-xl-3" }, [
+          _c("div", { staticClass: "card-box" }, [
+            _c("i", { staticClass: "fas fa-undo-alt font-26" }),
+            _vm._v(" "),
+            _c("h3", { staticClass: "text-primary" }, [
+              _vm._v(
+                _vm._s(
+                  _vm.qtdTarefasConcluidas +
+                    _vm.qtdTarefasAtrasadas +
+                    _vm.qtdTarefasAgendadas
+                )
               )
-            )
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: " mb-1 font-13 font-weight-medium" }, [
-            _vm._v("Total Actividades")
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: " mb-1 font-13 font-weight-medium" }, [
+              _vm._v("Total Actividades")
+            ])
           ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6 col-xl-3" }, [
-        _c(
-          "div",
-          { staticClass: "card-box" },
-          [
-            _c("i", { staticClass: "fas fa-clipboard-check font-26" }),
-            _vm._v(" "),
-            _c("h3", { staticClass: "text-success" }, [
-              _vm._v(_vm._s(_vm.qtdTarefasConcluidas))
-            ]),
-            _vm._v(" "),
-            _c(
-              "router-link",
-              { attrs: { to: "/home/minhasActividades", exact: "" } },
-              [
-                _vm._v(
-                  "\n                    Actividades Regularizadasss\n                "
-                )
-              ]
-            )
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6 col-xl-3" }, [
-        _c(
-          "div",
-          { staticClass: "card-box" },
-          [
-            _c("i", { staticClass: "fas fa-clipboard-list font-26" }),
-            _vm._v(" "),
-            _c("h3", { staticClass: "text-danger" }, [
-              _vm._v(_vm._s(_vm.qtdTarefasAtrasadas))
-            ]),
-            _vm._v(" "),
-            _c(
-              "router-link",
-              { attrs: { to: "/home/actividadesAtrasadas", exact: "" } },
-              [
-                _vm._v(
-                  "\n                    Actividades Atrasadas\n                "
-                )
-              ]
-            )
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6 col-xl-3" }, [
-        _c(
-          "div",
-          { staticClass: "card-box" },
-          [
-            _c("i", { staticClass: "fas fa-file-alt font-26" }),
-            _vm._v(" "),
-            _c("h3", { staticClass: "text-warning" }, [
-              _vm._v(_vm._s(_vm.qtdTarefasAgendadas))
-            ]),
-            _vm._v(" "),
-            _c(
-              "router-link",
-              { attrs: { to: "/home/actividadesAgendadas", exact: "" } },
-              [
-                _vm._v(
-                  "\n                    Actividades Agendadas\n                "
-                )
-              ]
-            )
-          ],
-          1
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12" }, [
-        _c("div", { staticClass: "card-box" }, [
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6 col-xl-3" }, [
           _c(
-            "table",
-            {
-              staticClass: "table table-sm table-bordeless",
-              attrs: { id: "paginationTarefa", cellspacing: "0", width: "100%" }
-            },
+            "div",
+            { staticClass: "card-box" },
             [
-              _vm._m(1),
+              _c("i", { staticClass: "fas fa-clipboard-check font-26" }),
+              _vm._v(" "),
+              _c("h3", { staticClass: "text-success" }, [
+                _vm._v(_vm._s(_vm.qtdTarefasConcluidas))
+              ]),
               _vm._v(" "),
               _c(
-                "tbody",
-                _vm._l(_vm.tarefas, function(tarefa) {
-                  return _c(
-                    "tr",
-                    {
-                      staticClass: "tabelaClicked",
-                      attrs: { title: "Clique aqui para abrir actividade" },
-                      on: {
-                        click: function($event) {
-                          return _vm.selectRow(tarefa.id)
-                        }
-                      }
-                    },
-                    [
-                      _c("td", [_vm._v(_vm._s(tarefa.codigo))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(tarefa.titulo))]),
-                      _vm._v(" "),
-                      _c("td", { attrs: { width: "20%" } }, [
-                        _vm._v(_vm._s(tarefa.data_solicitacao))
-                      ]),
-                      _vm._v(" "),
-                      tarefa.avanco == 100
-                        ? _c("td", { attrs: { width: "10%" } }, [
-                            _c(
-                              "div",
-                              { staticClass: "progress mb-1 progress-xl" },
-                              [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass: "progress-bar bg-success",
-                                    staticStyle: { width: "100%" },
-                                    attrs: {
-                                      role: "progressbar",
-                                      "aria-valuenow": "50",
-                                      "aria-valuemin": "0",
-                                      "aria-valuemax": "100"
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                        " +
-                                        _vm._s(tarefa.data_cumprimento) +
-                                        "\n                                    "
-                                    )
-                                  ]
-                                )
-                              ]
-                            )
-                          ])
-                        : _c("td", { attrs: { width: "20%" } }, [
-                            _vm._m(2, true)
-                          ])
-                    ]
+                "router-link",
+                { attrs: { to: "/home/minhasActividades", exact: "" } },
+                [
+                  _vm._v(
+                    "\n                    Actividades Regularizadasss\n                "
                   )
-                }),
-                0
+                ]
               )
-            ]
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6 col-xl-3" }, [
+          _c(
+            "div",
+            { staticClass: "card-box" },
+            [
+              _c("i", { staticClass: "fas fa-clipboard-list font-26" }),
+              _vm._v(" "),
+              _c("h3", { staticClass: "text-danger" }, [
+                _vm._v(_vm._s(_vm.qtdTarefasAtrasadas))
+              ]),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                { attrs: { to: "/home/actividadesAtrasadas", exact: "" } },
+                [
+                  _vm._v(
+                    "\n                    Actividades Atrasadas\n                "
+                  )
+                ]
+              )
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6 col-xl-3" }, [
+          _c(
+            "div",
+            { staticClass: "card-box" },
+            [
+              _c("i", { staticClass: "fas fa-file-alt font-26" }),
+              _vm._v(" "),
+              _c("h3", { staticClass: "text-warning" }, [
+                _vm._v(_vm._s(_vm.qtdTarefasAgendadas))
+              ]),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                { attrs: { to: "/home/actividadesAgendadas", exact: "" } },
+                [
+                  _vm._v(
+                    "\n                    Actividades Agendadas\n                "
+                  )
+                ]
+              )
+            ],
+            1
           )
         ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12" }, [
+          _c("div", { staticClass: "card-box" }, [
+            _c(
+              "table",
+              {
+                staticClass: "table table-sm table-bordeless",
+                attrs: {
+                  id: "paginationTarefa",
+                  cellspacing: "0",
+                  width: "100%"
+                }
+              },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.tarefas, function(tarefa) {
+                    return _c(
+                      "tr",
+                      {
+                        staticClass: "tabelaClicked",
+                        attrs: { title: "Clique aqui para abrir actividade" },
+                        on: {
+                          click: function($event) {
+                            return _vm.selectRow(tarefa.id)
+                          }
+                        }
+                      },
+                      [
+                        _c("td", [_vm._v(_vm._s(tarefa.codigo))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(tarefa.titulo))]),
+                        _vm._v(" "),
+                        _c("td", { attrs: { width: "20%" } }, [
+                          _vm._v(_vm._s(tarefa.data_solicitacao))
+                        ]),
+                        _vm._v(" "),
+                        tarefa.avanco == 100
+                          ? _c("td", { attrs: { width: "10%" } }, [
+                              _c(
+                                "div",
+                                { staticClass: "progress mb-1 progress-xl" },
+                                [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "progress-bar bg-success",
+                                      staticStyle: { width: "100%" },
+                                      attrs: {
+                                        role: "progressbar",
+                                        "aria-valuenow": "50",
+                                        "aria-valuemin": "0",
+                                        "aria-valuemax": "100"
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                        " +
+                                          _vm._s(tarefa.data_cumprimento) +
+                                          "\n                                    "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            ])
+                          : _c("td", { attrs: { width: "20%" } }, [
+                              _vm._m(2, true)
+                            ])
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ]
+            )
+          ])
+        ])
       ])
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -50373,295 +50412,320 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container-fluid" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "modalFecho",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalScrollableTitle",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "modal-dialog modal-dialog-scrollable modal-lg",
-            attrs: { role: "document" }
-          },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c(
-                  "form",
-                  {
-                    on: {
-                      submit: function($event) {
-                        $event.preventDefault()
-                        return _vm.registarFecho($event)
+  return _c(
+    "div",
+    { staticClass: "container-fluid" },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "modalFecho",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-labelledby": "exampleModalScrollableTitle",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "modal-dialog modal-dialog-scrollable modal-lg",
+              attrs: { role: "document" }
+            },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body" }, [
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.registarFecho($event)
+                        }
                       }
-                    }
-                  },
-                  [
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-4" }, [
-                        _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Utilizador")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model.trim",
-                                value: _vm.$v.utilizador_codigo.$model,
-                                expression: "$v.utilizador_codigo.$model",
-                                modifiers: { trim: true }
-                              }
-                            ],
-                            staticClass: "custom-select custom-select-sm",
-                            class: {
-                              "is-invalid": _vm.$v.utilizador_codigo.$error,
-                              "is-valid": !_vm.$v.utilizador_codigo.$invalid
-                            },
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.$set(
-                                  _vm.$v.utilizador_codigo,
-                                  "$model",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                )
-                              }
-                            }
-                          },
-                          [
-                            _c(
-                              "option",
-                              {
-                                attrs: { disabled: "", selected: "" },
-                                domProps: { value: "" }
+                    },
+                    [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-4" }, [
+                          _c("label", { attrs: { for: "name" } }, [
+                            _vm._v("Utilizador")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model.trim",
+                                  value: _vm.$v.utilizador_codigo.$model,
+                                  expression: "$v.utilizador_codigo.$model",
+                                  modifiers: { trim: true }
+                                }
+                              ],
+                              staticClass: "custom-select custom-select-sm",
+                              class: {
+                                "is-invalid": _vm.$v.utilizador_codigo.$error,
+                                "is-valid": !_vm.$v.utilizador_codigo.$invalid
                               },
-                              [_vm._v("Escolha o utilizador")]
-                            ),
-                            _vm._v(" "),
-                            _vm._l(_vm.utilizadores, function(utilizador) {
-                              return _c(
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.$v.utilizador_codigo,
+                                    "$model",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c(
                                 "option",
                                 {
-                                  key: utilizador.id,
-                                  domProps: { value: utilizador.id }
+                                  attrs: { disabled: "", selected: "" },
+                                  domProps: { value: "" }
                                 },
-                                [_vm._v(_vm._s(utilizador.username))]
-                              )
-                            })
-                          ],
-                          2
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-4" }, [
-                        _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Periodo")
+                                [_vm._v("Escolha o utilizador")]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.utilizadores, function(utilizador) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: utilizador.id,
+                                    domProps: { value: utilizador.id }
+                                  },
+                                  [_vm._v(_vm._s(utilizador.username))]
+                                )
+                              })
+                            ],
+                            2
+                          )
                         ]),
                         _vm._v(" "),
-                        _c(
-                          "select",
-                          {
+                        _c("div", { staticClass: "col-4" }, [
+                          _c("label", { attrs: { for: "name" } }, [
+                            _vm._v("Periodo")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model.trim",
+                                  value: _vm.$v.periodo.$model,
+                                  expression: "$v.periodo.$model",
+                                  modifiers: { trim: true }
+                                }
+                              ],
+                              staticClass: "custom-select custom-select-sm",
+                              class: {
+                                "is-invalid": _vm.$v.periodo.$error,
+                                "is-valid": !_vm.$v.periodo.$invalid
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.$v.periodo,
+                                    "$model",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "option",
+                                {
+                                  attrs: { selected: "", disabled: "" },
+                                  domProps: { value: "" }
+                                },
+                                [_vm._v("Escolha o periodo")]
+                              ),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "1" } }, [
+                                _vm._v("Manha")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "2" } }, [
+                                _vm._v("Tarde")
+                              ])
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-4" }, [
+                          _c("label", { attrs: { for: "name" } }, [
+                            _vm._v("Data da Realização")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
                             directives: [
                               {
                                 name: "model",
                                 rawName: "v-model.trim",
-                                value: _vm.$v.periodo.$model,
-                                expression: "$v.periodo.$model",
+                                value: _vm.$v.data_fecho.$model,
+                                expression: "$v.data_fecho.$model",
                                 modifiers: { trim: true }
                               }
                             ],
-                            staticClass: "custom-select custom-select-sm",
+                            staticClass: "form-control form-control-sm",
                             class: {
-                              "is-invalid": _vm.$v.periodo.$error,
-                              "is-valid": !_vm.$v.periodo.$invalid
+                              "is-invalid": _vm.$v.data_fecho.$error,
+                              "is-valid": !_vm.$v.data_fecho.$invalid
                             },
+                            attrs: { type: "datetime-local" },
+                            domProps: { value: _vm.$v.data_fecho.$model },
                             on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
                                 _vm.$set(
-                                  _vm.$v.periodo,
+                                  _vm.$v.data_fecho,
                                   "$model",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
+                                  $event.target.value.trim()
                                 )
+                              },
+                              blur: function($event) {
+                                return _vm.$forceUpdate()
                               }
                             }
-                          },
-                          [
-                            _c(
-                              "option",
-                              {
-                                attrs: { selected: "", disabled: "" },
-                                domProps: { value: "" }
-                              },
-                              [_vm._v("Escolha o periodo")]
-                            ),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "1" } }, [
-                              _vm._v("Manha")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "2" } }, [
-                              _vm._v("Tarde")
-                            ])
-                          ]
-                        )
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "invalid-feedback" }, [
+                            !_vm.$v.data_fecho.required
+                              ? _c("span", [
+                                  _vm._v("A data deve ser fornecida")
+                                ])
+                              : _vm._e()
+                          ])
+                        ])
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-4" }, [
-                        _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Data da Realização")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model.trim",
-                              value: _vm.$v.data_fecho.$model,
-                              expression: "$v.data_fecho.$model",
-                              modifiers: { trim: true }
-                            }
-                          ],
-                          staticClass: "form-control form-control-sm",
-                          class: {
-                            "is-invalid": _vm.$v.data_fecho.$error,
-                            "is-valid": !_vm.$v.data_fecho.$invalid
-                          },
-                          attrs: { type: "datetime-local" },
-                          domProps: { value: _vm.$v.data_fecho.$model },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.$v.data_fecho,
-                                "$model",
-                                $event.target.value.trim()
-                              )
-                            },
-                            blur: function($event) {
-                              return _vm.$forceUpdate()
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "invalid-feedback" }, [
-                          !_vm.$v.data_fecho.required
-                            ? _c("span", [_vm._v("A data deve ser fornecida")])
-                            : _vm._e()
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("hr", {
-                      staticStyle: {
-                        height: "1px",
-                        "background-color": "#c9d4ce"
-                      }
+                      _c("hr", {
+                        staticStyle: {
+                          height: "1px",
+                          "background-color": "#c9d4ce"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm._m(2)
+                    ]
+                  )
+                ])
+              ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("loading", {
+        attrs: {
+          animation: _vm.anim,
+          active: _vm.visible,
+          "can-cancel": true,
+          "is-full-page": _vm.fullPage
+        },
+        on: {
+          "update:active": function($event) {
+            _vm.visible = $event
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("br"),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12" }, [
+          _c(
+            "div",
+            { staticClass: "card-box" },
+            [
+              _c("marquee", [
+                _c("h3", { staticStyle: { color: "red" } }, [
+                  _vm._v("UTILIZADOR PARA O FECHO")
+                ])
+              ]),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "table",
+                {
+                  staticClass: "table table-sm table-bordeless",
+                  attrs: {
+                    id: "paginationTarefa",
+                    cellspacing: "0",
+                    width: "100%"
+                  }
+                },
+                [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.fechos, function(fecho) {
+                      return _c(
+                        "tr",
+                        {
+                          attrs: { title: "Clique aqui para abrir actividade" }
+                        },
+                        [
+                          _c("td", [_vm._v(_vm._s(fecho.name))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(fecho.periodo))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(fecho.created_at))]),
+                          _vm._v(" "),
+                          _vm._m(4, true)
+                        ]
+                      )
                     }),
-                    _vm._v(" "),
-                    _vm._m(2)
-                  ]
-                )
-              ])
-            ])
-          ]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c("br"),
-    _c("br"),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12" }, [
-        _c(
-          "div",
-          { staticClass: "card-box" },
-          [
-            _c("marquee", [
-              _c("h3", { staticStyle: { color: "red" } }, [
-                _vm._v("UTILIZADOR PARA O FECHO")
-              ])
-            ]),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "table",
-              {
-                staticClass: "table table-sm table-bordeless",
-                attrs: {
-                  id: "paginationTarefa",
-                  cellspacing: "0",
-                  width: "100%"
-                }
-              },
-              [
-                _vm._m(3),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.fechos, function(fecho) {
-                    return _c(
-                      "tr",
-                      { attrs: { title: "Clique aqui para abrir actividade" } },
-                      [
-                        _c("td", [_vm._v(_vm._s(fecho.name))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(fecho.periodo))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(fecho.created_at))]),
-                        _vm._v(" "),
-                        _vm._m(4, true)
-                      ]
-                    )
-                  }),
-                  0
-                )
-              ]
-            )
-          ],
-          1
-        )
+                    0
+                  )
+                ]
+              )
+            ],
+            1
+          )
+        ])
       ])
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {

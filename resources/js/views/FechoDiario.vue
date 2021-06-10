@@ -77,6 +77,7 @@
             <i class="mdi mdi-plus-circle mr-1"></i>Registar Fecho
         </button>
         -->
+        <loading :animation="anim" :active.sync="visible" :can-cancel="true" :is-full-page="fullPage"/>  
 
         <!--Inicio do conteudo-->
         <br><br>
@@ -118,7 +119,7 @@
 </template>
 <script>   
     import { required, minLength, maxLength } from 'vuelidate/lib/validators';
-    
+
     export default {       
         data(){
             return{
@@ -127,10 +128,14 @@
                 utilizador_codigo:'',
                 periodo:'',
                 data_fecho:'',
-                isLoading: false,
-                fullPage: true
+                visible: false,
+                fullPage: true,
+                anim:'Spinner'
             };       
         },  
+        components: {
+            Loading: VueLoading
+        },
         validations: {
             utilizador_codigo: {
                 required
@@ -147,8 +152,6 @@
             this.pegaFechos()            
         },
         methods: {  
-            
-
             pegaUtilizador: async function(){
                 let self = this               
                 this.$axios.get('auth/pegaUtilizadoresDSO')
@@ -210,11 +213,13 @@
                 }              
             },
             pegaFechos: async function(){
-                let self = this               
+                this.visible = true;
+                let self = this;               
                 this.$axios.get('auth/pegaFechos')
                 .then(function (response) {
                     if(response.status==200){
-                        self.fechos = response.data;                                                                              
+                        self.fechos = response.data;   
+                        self.visible = false;                                                                           
                     }
                 })
                 .catch(function (error) {

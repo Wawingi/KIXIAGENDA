@@ -29,6 +29,8 @@
     <link href="{{ asset('css/estilo.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('css/datatables2.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@2/dist/vue-loading.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue-loading-overlay@2"></script>
 </head>
 <body>
     <div id="app"></div>

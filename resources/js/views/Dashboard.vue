@@ -15,6 +15,8 @@
         </div>
         <br>
 
+        <loading :animation="anim" :active.sync="visible" :can-cancel="true" :is-full-page="fullPage"/>  
+
         <div class="row text-center mb-2">
             <div class="col-md-6 col-xl-3">
                 <div class="card-box">
@@ -98,9 +100,14 @@
                 tarefas: [],
                 qtdTarefasConcluidas: 0,
                 qtdTarefasAtrasadas: 0,
-                qtdTarefasAgendadas: 0
+                qtdTarefasAgendadas: 0,
+                visible: false,
+                fullPage: true
             };       
         },  
+        components: {
+            Loading: VueLoading
+        },
         created(){
             this.pegaTarefas(),
             this.contTarefas()
@@ -115,14 +122,16 @@
                 this.$router.push({name:'verActividade',params:{id:id}})   
             },
             pegaTarefas: async function(){
-                let self = this               
+                this.visible = true;
+                let self = this;               
                 this.$axios.get('auth/pegaGeralTarefas')
                 .then(function (response) {
                     if(response.status==200){
                         self.tarefas = response.data;                             
                         self.$nextTick(() => {
                             $('#paginationTarefa').DataTable();
-                        });                                                      
+                        });
+                        self.visible = false;                                                      
                     }
                 })
                 .catch(function (error) {

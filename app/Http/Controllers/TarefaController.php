@@ -27,14 +27,24 @@ class TarefaController extends Controller
         $tarefa->origem_dado = $request->dado_origem;
         $tarefa->tempo = $request->tempo * 60; //tempo * 60
         //Fatiar o departamento origem
-        $dpto_origem = explode("-",$request->departamento_origem);
-        $tarefa->departamento_origem = $dpto_origem[1];
-        $tarefa->id_dpto_origem = $dpto_origem[0];
+        $dpto_origem = explode("-",$request->departamento_origem);   
+        if($dpto_origem[0]==99){
+            $tarefa->departamento_origem = $dpto_origem[1].'-'.$dpto_origem[2];
+            $tarefa->id_dpto_origem = $dpto_origem[0];
+        }else{
+            $tarefa->departamento_origem = $dpto_origem[1];
+            $tarefa->id_dpto_origem = $dpto_origem[0];
+        }
 
         //Fatiar o departamento destino
         $dpto_destino = explode("-",$request->departamento_destino);
-        $tarefa->departamento_destino = $dpto_destino[1]; 
-        $tarefa->id_dpto_destino = $dpto_destino[0]; 
+        if($dpto_destino[0]==99){
+            $tarefa->departamento_destino = $dpto_destino[1].'-'.$dpto_destino[2]; 
+            $tarefa->id_dpto_destino = $dpto_destino[0]; 
+        }else{
+            $tarefa->departamento_destino = $dpto_destino[1]; 
+            $tarefa->id_dpto_destino = $dpto_destino[0]; 
+        }
         
         $tarefa->solicitante = $request->selectedSolicitante;
         $tarefa->data_solicitacao = $request->data_solicitacao;
