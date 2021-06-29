@@ -17,8 +17,8 @@
         <br />
 
         <!-- Modal Relatório actividade -->
-        <div class="modal fade" id="modalRelatorioActividade" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal fade" id="modalRelatorioActividade" tabindex="-1" aria-labelledby="fullScreenModalLabel" aria-modal="true" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg">
                 <div class="modal-content">
                     
                     <div class="modal-body">    
@@ -26,7 +26,7 @@
                             <div class="col-11" style="background:none">               
                                 <table style="margin-left:30px" class="tabela-relatorio">
                                     <tr>
-                                        <td style="text-align:center;color:#111;font-weight:bold;background:#f5e78e">{{codigo}}</td>
+                                        <td style="text-align:center;color:#111;font-weight:bold">{{codigo}}</td>
                                         <td class="cor-azulE" colspan="5">
                                             [Registo de Actividade]<br> 
                                             {{selectedTipo}} : {{titulo}}
@@ -85,10 +85,8 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="background:#e35959;color:#fff;text-align:center" colspan="6">
-                                        <br>
-                                        Sistema KixiAgenda v1.0.1-2021
-                                        <br><br>
+                                        <td style="background:#f5f5f5;color:#797a7a;text-align:center" colspan="6">
+                                            Sistema KixiAgenda v1.0.1-2021
                                         </td>
                                     </tr>
                                 </table>
@@ -191,7 +189,7 @@
         <div class="modal fade" id="modalNovaAccao" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
                 <div class="modal-content">
-                <div id="cabeca-modal" class="modal-header">
+                    <div id="cabeca-modal" class="modal-header">
                         <h4 class="modal-title" id="exampleModalScrollableTitle"><i class="mdi mdi-plus-circle mr-1"></i>Registar Acção</h4>
                         <button style="margin-top:-20px" id="modalCloseAccao" type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -237,7 +235,7 @@
                                 <div class="col-3">
                                     <label for="name">Utilizador</label>
                                     <select v-model.trim="$v.utilizador_codigo.$model" :class="{'is-invalid':$v.utilizador_codigo.$error, 'is-valid':!$v.utilizador_codigo.$invalid}" class="custom-select custom-select-sm">
-                                        <option disabled selected :value="''">Escolha o utilizador</option>
+                                        <option disabled selected >{{utilizador_codigo}}</option>
                                         <option v-for="utilizador in utilizadores" v-bind:key="utilizador.id" v-bind:value="utilizador.username">{{utilizador.username}}</option>
                                     </select>
                                 </div>
@@ -270,7 +268,7 @@
                                         <option value="ACCO">Actividade Concluída</option>
                                         <option value="ACCU">Actividade em Curso</option>
                                         <option value="ACRG">Actividade Reagendada</option>
-                                        <option value="ACRT">Actividade Reativada</option>
+                                        <option value="ACRE">Actividade Reativada</option>
                                         <option value="CUSS">Em Curso(Solicitar Suporte)</option>
                                         <option value="CURS">Em Curso(Responder Suporte)</option>
                                     </select>
@@ -360,13 +358,9 @@
                             <div id="VerActividade" v-if="visualizar">
                                 <div class="row">
                                     <div class="col-12">
-                                        <button 
-                                            type="submit" 
-                                            class="btn btn-sm btn-rounded btn-primary waves-effect waves-light" 
-                                            data-toggle="modal"
-                                            data-target="#modalRelatorioActividade">
+                                        <a :href="urlTarefa" target="_blank" class="btn btn-sm btn-rounded btn-primary waves-effect waves-light">
                                             <i class="far fa-eye mr-1"></i>Relatório da Actividade
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                                 <hr style="height:1px;background-color:#d3d6d5">
@@ -739,7 +733,6 @@
                                 </div>
                             </div>
                             <hr style="height:1px;background-color:#d3d6d5">
-
                             <table class="table table-sm table-bordeless" cellspacing="0" width="100%">
                                 <thead id="cabecatabela">
                                     <tr>
@@ -753,7 +746,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>                          
-                                    <tr v-for="accao in accoes" class="tabelaClicked" @click="selectRow(accao)" title='Clique aqui para Editar acção'>
+                                    <tr v-for="accao in accoes" @click="selectRow(accao)" class="tabelaClicked" title='Clique aqui para ver acção'>
                                         <td>{{accao.created_at}}</td>
                                         <td>{{accao.descricao}}</td>
                                         <td>{{accao.utilizador_codigo}}</td>
@@ -849,7 +842,8 @@
                 tempo_acao_modal:'',
                 descricao_accao_modal:'',
                 estado_modal:'',
-                responsavel_modal:''
+                responsavel_modal:'',
+                urlTarefa: ''
             };       
         },
         validations: {
@@ -923,7 +917,7 @@
                 required
             }        
         },
-        created(){   
+        created(){           
             this.pegaActividade();   
         },
 
@@ -931,9 +925,25 @@
             this.pegaTipos();
             this.pegaOrigens();
             this.pegaUtilizador(); 
+            this.pegaUtilizadorLogado(); 
             this.pegaAccoesTarefa();
+            
         },
         methods: { 
+            pegaUtilizadorLogado: async function(){
+                let self = this               
+                this.$axios.get('auth/pegaUtilizador')
+                .then(function (response) {
+                    if(response.status==200){
+                        self.utilizador_codigo = response.data.username;                                    
+                    }else{
+                      
+                    }
+                })
+                .catch(function (error) {
+                           
+                });
+            },
             pegaActividade: async function(){
                 //Get tarefa dados
                 let id = this.$route.params.id;
@@ -957,7 +967,8 @@
                         self.selectedResponsavel = response.data.responsavel,
                         self.descricao = response.data.descricao,   
                         self.data_solicitacaoEdit = response.data.data_solicitacao.replace(" ", "T");                                                                                             
-                        self.data_previstaEdit = response.data.data_prevista.replace(" ", "T");    
+                        self.data_previstaEdit = response.data.data_prevista.replace(" ", "T");  
+                        self.urlTarefa = 'auth/gerarTarefaPdf/'+self.codigo;  
 
                         self.pegaFotoSolicitante(response.data.solicitante,1);  //tipo 1: solicitante, tipo 2: responsavel
                         self.pegaFotoSolicitante(response.data.responsavel,2);                                                                                         
@@ -972,10 +983,19 @@
                 this.$axios.get('auth/pegaFoto/'+solicitante)
                 .then(function (response) {
                     if(response.status==200){           
-                        if(tipo==1)   
-                            self.fotoSolicitante = response.data;
-                        else
-                            self.fotoResponsavel = response.data;                                                
+                        if(tipo==1){   
+                            if(response.data==0){
+                                self.fotoSolicitante = 'default.jpg';
+                            }else{
+                                self.fotoSolicitante = response.data;
+                            }
+                        } else if(tipo==2){
+                            if(response.data==0){
+                                self.fotoResponsavel = 'default.jpg';
+                            }else{
+                                self.fotoResponsavel = response.data;
+                            }
+                        }                                                
                     }
                 })
                 .catch(function (error) {
@@ -1101,18 +1121,10 @@
                 return idTipo;                
             },
 
-            selectRow(accao){  
-                this.avanco_modal = accao.avanco;
-                this.data_operacao_modal = this.pegaFormatedDataTime(accao.created_at);
-                this.tempo_acao_modal = accao.tempo_acao;
-                this.descricao_accao_modal = accao.descricao;
-                this.estado_modal = accao.estado;
-                this.responsavel_modal = accao.name;
-
-                this.is_modal_visible = true;
-                this.$nextTick(() => {
-                    $('#modalRelatorioAccao').modal('show');
-                });          
+            selectRow(accao){ 
+                var urlAccao='auth/gerarAccaoPdf/'+accao.codigo+'/'+accao.created_at;
+                
+                window.open(urlAccao, '_blank');        
             },
 
             //Pega id da Origem
@@ -1182,7 +1194,7 @@
                 this.estado = null;
                 this.utilizador_codigo = null;
                 this.tempo_acao = null;
-                //this.tipo_accao:2,  
+                this.acOrigemDado = null; 
                 this.avanco = 0;
 
                 this.$nextTick(() => { this.$v.$reset(); });   
@@ -1194,6 +1206,15 @@
                 if (this.$v.$invalid) {
                     this.submitStatus = 'ERROR'
                 } else {
+                    if(moment(this.data_operacao)<moment() && this.estado=='ACRG'){
+                        Swal.fire({
+                                text: "A data da operação deve ser superior.",
+                                icon: 'error',
+                                confirmButtonText: 'Fechar'
+                        });
+                        return;
+                    }
+                   
                     let self = this          
                     this.$axios.post('auth/registarOperacao',{
                         'tarefa_id': this.idActividade,
@@ -1212,6 +1233,7 @@
                         if(response.status==200){
                             self.limparFormAccao();
                             $('#modalCloseAccao').click();  
+
                             self.pegaAccoesTarefa();                        
                             Swal.fire({
                                 text: "Acção registada com sucesso.",
@@ -1219,10 +1241,14 @@
                                 timer: 1500,
                                 confirmButtonText: 'Fechar'
                             })
-                            //location.reload();
-                                                                    
-                        }else{
-                            //alert("LITTLE ERROR ");
+                            location.reload();                                        
+                        }
+                        if(response.status==201){
+                             Swal.fire({
+                                text: response.data,
+                                icon: 'error',
+                                confirmButtonText: 'Fechar'
+                            })
                         }
                     })
                     .catch(function (error) {
@@ -1262,6 +1288,11 @@
                     this.tipo_accao = 1;
                 else
                     this.tipo_accao = 0;
+            },
+
+            //Função para ver relatorio actividade
+            verPdfActividade: async function(){
+                this.$axios.get('auth/gerarTarefaPdf/');
             }
         }
     }

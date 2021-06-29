@@ -96,6 +96,14 @@ class Tarefa extends Model
         }
     }
 
+    //Retornar objecto actividade
+    public static function objectoActividade($codigo_actividade){
+        return DB::table('tarefa')
+                    ->select('id','codigo','avanco','versao_sistema','id_tipo','data_cumprimento')                
+                    ->where('codigo',$codigo_actividade)
+                    ->first(); 
+    }
+
     //Gerar codigo da actividade
     public static function generateCodigo($responsavel){
         $ano_actual = date("Y");
@@ -118,6 +126,24 @@ class Tarefa extends Model
         $codigoActividade=$p1.$p2.$p3;
 
         return $codigoActividade;
+    }
+
+    public static function getGeralTarefas(){
+        return DB::table('tarefa')
+                ->join('tipo', 'tipo.id', '=', 'tarefa.id_tipo')
+                ->join('users','users.id','=','tarefa.id_user')
+                ->select('tarefa.id','tarefa.codigo','tarefa.titulo','tarefa.responsavel','tarefa.data_solicitacao','tarefa.data_cumprimento','tarefa.avanco','tipo.tipo','users.foto') 
+                ->where(DB::raw('DATE(tarefa.created_at)'),'=',date('Y-m-d'))
+                ->orWhere('tarefa.avanco','<',100)
+                ->orderBy('tarefa.created_at','DESC')
+                ->get();      
+    }
+
+    public static function getAllTarefas(){
+        $tarefas = DB::table('tarefa')
+                    ->select('tarefa.id','tarefa.departamento_origem','tarefa.departamento_destino','tarefa.solicitante','tarefa.responsavel')                
+                    ->get()->toArray();            
+        return $tarefas;
     }
 
     public static function getMinhasTarefas($now){
@@ -163,5 +189,24 @@ class Tarefa extends Model
                 ->where('tarefa.responsavel','=',Auth::user()->username)
                 ->orderBy('tarefa.created_at','DESC')
                 ->get();             
+    }
+
+    //Pega tarefa por id
+    public static function getTarefaById($tarefa_id){
+        return DB::table('tarefa')
+                ->join('tipo', 'tipo.id', '=', 'tarefa.id_tipo')
+                ->join('origem','origem.id','=','tarefa.id_origem')
+                ->select('tarefa.id','tarefa.codigo','tarefa.titulo','tarefa.origem_dado','tarefa.tempo','tarefa.solicitante','tarefa.responsavel','tarefa.data_solicitacao','tarefa.data_prevista','tarefa.departamento_origem','tarefa.departamento_destino','tarefa.descricao','tipo.tipo','origem.titulo as origem')
+                ->where('tarefa.id','=',$tarefa_id)
+                ->first();
+    }
+    //Pega tarefa por Codigo
+    public static function getTarefaByCodigo($tarefa_id){
+        return DB::table('tarefa')
+                ->join('tipo', 'tipo.id', '=', 'tarefa.id_tipo')
+                ->join('origem','origem.id','=','tarefa.id_origem')
+                ->select('tarefa.id','tarefa.codigo','tarefa.titulo','tarefa.origem_dado','tarefa.tempo','tarefa.solicitante','tarefa.responsavel','tarefa.data_solicitacao','tarefa.data_prevista','tarefa.departamento_origem','tarefa.departamento_destino','tarefa.descricao','tipo.tipo','origem.titulo as origem')
+                ->where('tarefa.codigo','=',$tarefa_id)
+                ->first();
     }
 }

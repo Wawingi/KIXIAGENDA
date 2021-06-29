@@ -18,37 +18,48 @@
         <loading :animation="anim" :active.sync="visible" :can-cancel="true" :is-full-page="fullPage"/>  
 
         <div class="row text-center mb-2">
-            <div class="col-md-6 col-xl-3">
+            <div class="col-md-4 col-xl-2">
                 <div class="card-box">
                     <i class="fas fa-undo-alt font-26"></i>
-                    <h3 class="text-primary">{{qtdTarefasConcluidas+qtdTarefasAtrasadas+qtdTarefasAgendadas}}</h3>
-                    <p class=" mb-1 font-13 font-weight-medium">Total Actividades</p>
+                    <h3 class="text-primary">{{qtdTarefasTotal}}</h3>
+                     <router-link to="#" exact>
+                        Total Actividades
+                    </router-link>
                 </div>
             </div>
             <div class="col-md-6 col-xl-3">
                 <div class="card-box">
                     <i class="fas fa-clipboard-check font-26"></i>
                     <h3 class="text-success">{{qtdTarefasConcluidas}}</h3>
-                    <router-link to="/home/minhasActividades" exact>
-                        Actividades Regularizadasss
-                    </router-link>
-                </div>
-            </div>
-            <div class="col-md-6 col-xl-3">
-                <div class="card-box">
-                    <i class="fas fa-clipboard-list font-26"></i>
-                    <h3 class="text-danger">{{qtdTarefasAtrasadas}}</h3>
-                    <router-link to="/home/actividadesAtrasadas" exact>
-                        Actividades Atrasadas
+                    <router-link to="#" exact>
+                        Regularizadas
                     </router-link>
                 </div>
             </div>
             <div class="col-md-6 col-xl-3">
                 <div class="card-box">
                     <i class="fas fa-file-alt font-26"></i>
-                    <h3 class="text-warning">{{qtdTarefasAgendadas}}</h3>
-                    <router-link to="/home/actividadesAgendadas" exact>
-                        Actividades Agendadas
+                    <h3 class="text-warning">{{qtdTarefasNaoConcluidas}}</h3>
+                    <router-link to="#" exact>
+                        Não Regularizadas
+                    </router-link>                   
+                </div>
+            </div>         
+            <div class="col-md-4 col-xl-2">
+                <div class="card-box">
+                    <i class="fas fa-clipboard-list font-26"></i>
+                    <h3 class="text-danger">{{qtdTarefasAtrasadas}}</h3>
+                    <router-link to="#" exact>
+                        Atrasadas
+                    </router-link>
+                </div>
+            </div>
+            <div class="col-md-4 col-xl-2">
+                <div class="card-box">
+                    <i class="fas fa-file-alt font-26"></i>
+                    <h3 class="text-success">{{qtdAccoes}}</h3>
+                    <router-link to="#" exact>
+                        Acções
                     </router-link>                   
                 </div>
             </div>            
@@ -98,9 +109,11 @@
         data(){
             return{
                 tarefas: [],
-                qtdTarefasConcluidas: 0,
-                qtdTarefasAtrasadas: 0,
-                qtdTarefasAgendadas: 0,
+                qtdTarefasTotal:'',
+                qtdTarefasConcluidas:'',
+                qtdTarefasNaoConcluidas:'',
+                qtdTarefasAtrasadas:'',
+                qtdAccoes:'',
                 visible: false,
                 fullPage: true
             };       
@@ -143,7 +156,12 @@
                 this.$axios.get('auth/contActividades')
                 .then(function (response) {
                     if(response.status==200){
-                        //alert(response.data.qtdTarefasConcluidas),
+                        self.qtdTarefasTotal = response.data.qtdTarefasTotal,
+                        self.qtdTarefasConcluidas = response.data.qtdTarefasConcluidas,
+                        self.qtdTarefasNaoConcluidas = response.data.qtdTarefasNaoConcluidas,
+                        self.qtdTarefasAtrasadas = response.data.qtdTarefasAtrasadas,
+                        self.qtdAccoes = response.data.qtdAccoes,
+
                         self.qtdTarefasConcluidas = response.data.qtdTarefasConcluidas,                                                   
                         self.qtdTarefasAtrasadas = response.data.qtdTarefasAtrasadas,                                                   
                         self.qtdTarefasAgendadas = response.data.qtdTarefasAgendadas                                                  

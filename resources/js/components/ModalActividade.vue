@@ -104,8 +104,6 @@
                                                             <option value="1-Presidente do Comitê Executivo">01 SEDE | Presidente do Comitê Executivo</option>
                                                             <option value="1-Recursos Humanos">01 SEDE | Recursos Humanos</option>
                                                             <option value="1-Sistemas & Organização">01 SEDE | Sistemas & Organização</option>
-                                                            <option value="1-Cadeia Produtiva - Zango">01 SEDE | Cadeia Produtiva - Zango</option>
-                                                            <option value="1-Operações">01 SEDE | Operações</option>
                                                             <option value="2-Operações">02 HUAMBO | Operações</option>
                                                             <option value="3-Operações">03 MABOR | Operações</option>
                                                             <option value="4-Operações">04 HOJI-YA-HENDA | Operações</option>
@@ -180,8 +178,6 @@
                                                             <option value="1-Presidente do Comitê Executivo">01 SEDE | Presidente do Comitê Executivo</option>
                                                             <option value="1-Recursos Humanos">01 SEDE | Recursos Humanos</option>
                                                             <option value="1-Sistemas & Organização">01 SEDE | Sistemas & Organização</option>
-                                                            <option value="1-Cadeia Produtiva - Zango">01 SEDE | Cadeia Produtiva - Zango</option>
-                                                            <option value="1-Operações">01 SEDE | Operações</option>
                                                             <option value="2-Operações">02 HUAMBO | Operações</option>
                                                             <option value="3-Operações">03 MABOR | Operações</option>
                                                             <option value="4-Operações">04 HOJI-YA-HENDA | Operações</option>
@@ -350,6 +346,7 @@
     </div>
 </template>
 <script>
+    import moment from 'moment';
     import { required, minLength, maxLength } from 'vuelidate/lib/validators'
     export default{    
         data(){
@@ -507,36 +504,10 @@
 
                 this.$nextTick(() => { this.$v.$reset(); });   
             },
-            chamaRelatorioActividade(id_tarefa){
-                this.is_modal2_visible = true;
-                this.$nextTick(() => {
-                    $('#modalRelatorioActividade2').modal('show');
-                }); 
-
-                let self = this               
-                this.$axios.get('auth/verActividade/' + id_tarefa)
-                .then(function (response) {
-                    if(response.status==200){
-                        self.codigo = response.data.codigo,
-                        self.selectedTipo = response.data.tipo,
-                        self.titulo = response.data.titulo,
-                        self.selectedOrigem = response.data.origem, 
-                        self.dado_origem = response.data.origem_dado,
-                        self.departamento_origem = response.data.departamento_origem,
-                        self.departamento_destino = response.data.departamento_destino,
-                        self.data_solicitacao = response.data.data_solicitacao,
-                        self.data_prevista = response.data.data_prevista,
-                        self.tempo = self.setTempoVisual(response.data.tempo), 
-                        self.descricao = response.data.descricao,
-
-                        self.pegaFoto(response.data.solicitante,1);  //tipo 1: solicitante, tipo 2: responsavel
-                        self.pegaFoto(response.data.responsavel,2);                                                                                                          
-                    }
-                })
-                .catch(function (error) {
-                    alert("Erro ao ver actividade");
-                });               
+            chamaRelatorioActividade(codigo_tarefa){
+                var urlTarefa='auth/gerarTarefaPdf/'+codigo_tarefa; 
                 
+                window.open(urlTarefa, '_blank');    
             },   
 
             //Pega tempo de segundos para formato visual
@@ -586,8 +557,6 @@
                 if (this.$v.$invalid) {               
                     this.submitStatus = 'ERROR'
                 } else {                  
-                    //this.$v.$reset();
-                    //Validar o numero telefonico
                     if(this.selectedOrigem=='LITE'){
                         if(!isNaN(this.dado_origem)&&this.dado_origem.length==9){
                             this.novo_dado_origem=this.dado_origem;
@@ -615,6 +584,15 @@
                         this.novo_dado_origem=this.dado_origem;
                     }
 
+                    if(moment(this.data_solicitacao)>moment(this.data_execucao)){
+                        Swal.fire({
+                                text: "A data de solicitação não pode ser maior que a data de execução.",
+                                icon: 'error',
+                                confirmButtonText: 'Fechar'
+                        });
+                        return;
+                    }
+
                     let self = this          
                     this.$axios.post('auth/registarTarefa',{
                         'selectedTipo': this.selectedTipo,                        
@@ -632,7 +610,7 @@
                     })
                     .then(function (response) {
                         if(response.status==200){  
-                            //e.target.reset(); //also clean input
+                            e.target.reset(); //also clean input
                             self.limparCampos();
                             $('#modalClose').click();
                           
@@ -643,7 +621,7 @@
                                 timer:1000
                             }),
 
-                            self.$router.push({name:'verActividade',params:{id:response.data}});  
+                            //self.$router.push({name:'verActividade',params:{id:response.data}});  
                             self.chamaRelatorioActividade(response.data);                                                                                                     
                         }else{
                             alert("LITTLE ERROR ");

@@ -62,4 +62,10 @@ class User extends Authenticatable
         ->where('username','=',$username)                
         ->value('id');         
     }
+
+    public static function getPessoa($username){
+        return DB::table('users')
+        ->where('username','=',$username)                
+        ->first();         
+    }
 }

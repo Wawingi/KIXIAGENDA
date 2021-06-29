@@ -7,7 +7,7 @@ Route::get('/', function () {
 });
 Route::post('login', 'UtilizadorController@logar');
 
-//Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::prefix('auth')->group(function(){
         Route::get('registarUtilizador', 'UtilizadorController@registarUtilizador');
         
@@ -37,9 +37,16 @@ Route::post('login', 'UtilizadorController@logar');
         Route::get('pegaAccoes/{idtarefa}','TarefaController@pegaAccoes');
         Route::get('generateCodigo','TarefaController@generateCodigo');
 
+        Route::get('exportarTarefaCSV','TarefaController@exportarTarefaCSV');
+
+        Route::get('gerarTarefaPdf/{codigo}','TarefaController@gerarTarefaPdf');
+        Route::get('gerarAccaoPdf/{codigo}/{data}','TarefaController@gerarAccaoPdf');
+
         Route::get('pegaAssessores', 'AssessorController@pegaAssessores');
 
         Route::post('registarFecho', 'FechoController@registarFecho');
         Route::get('pegaFechos', 'FechoController@pegaFechos'); 
+
+
     });
-//});
+});

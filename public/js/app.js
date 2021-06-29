@@ -2207,8 +2207,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2562,10 +2564,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2603,43 +2602,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   validations: {
     titulo: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
-      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(5)
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"],
+      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["minLength"])(5)
     },
     dado_origem: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
-      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(5)
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"],
+      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["minLength"])(5)
     },
     descricao: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
-      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(10)
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"],
+      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["minLength"])(10)
     },
     data_execucao: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"]
     },
     data_solicitacao: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"]
     },
     selectedSolicitante: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"]
     },
     selectedResponsavel: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"]
     },
     selectedTipo: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"]
     },
     selectedOrigem: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"]
     },
     tempo: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"]
     },
     departamento_origem: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"]
     },
     departamento_destino: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"]
     }
   },
   mounted: function mounted() {
@@ -2784,21 +2783,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this.$v.$reset();
       });
     },
-    chamaRelatorioActividade: function chamaRelatorioActividade(id_tarefa) {
-      this.is_modal2_visible = true;
-      this.$nextTick(function () {
-        $('#modalRelatorioActividade2').modal('show');
-      });
-      var self = this;
-      this.$axios.get('auth/verActividade/' + id_tarefa).then(function (response) {
-        if (response.status == 200) {
-          self.codigo = response.data.codigo, self.selectedTipo = response.data.tipo, self.titulo = response.data.titulo, self.selectedOrigem = response.data.origem, self.dado_origem = response.data.origem_dado, self.departamento_origem = response.data.departamento_origem, self.departamento_destino = response.data.departamento_destino, self.data_solicitacao = response.data.data_solicitacao, self.data_prevista = response.data.data_prevista, self.tempo = self.setTempoVisual(response.data.tempo), self.descricao = response.data.descricao, self.pegaFoto(response.data.solicitante, 1); //tipo 1: solicitante, tipo 2: responsavel
-
-          self.pegaFoto(response.data.responsavel, 2);
-        }
-      })["catch"](function (error) {
-        alert("Erro ao ver actividade");
-      });
+    chamaRelatorioActividade: function chamaRelatorioActividade(codigo_tarefa) {
+      var urlTarefa = 'auth/gerarTarefaPdf/' + codigo_tarefa;
+      window.open(urlTarefa, '_blank');
     },
     //Pega tempo de segundos para formato visual
     setTempoVisual: function setTempoVisual(tempo) {
@@ -2909,7 +2896,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 this.submitStatus = 'ERROR';
-                _context5.next = 27;
+                _context5.next = 30;
                 break;
 
               case 5:
@@ -2972,6 +2959,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.novo_dado_origem = this.dado_origem;
 
               case 25:
+                if (!(moment__WEBPACK_IMPORTED_MODULE_1___default()(this.data_solicitacao) > moment__WEBPACK_IMPORTED_MODULE_1___default()(this.data_execucao))) {
+                  _context5.next = 28;
+                  break;
+                }
+
+                Swal.fire({
+                  text: "A data de solicitação não pode ser maior que a data de execução.",
+                  icon: 'error',
+                  confirmButtonText: 'Fechar'
+                });
+                return _context5.abrupt("return");
+
+              case 28:
                 self = this;
                 this.$axios.post('auth/registarTarefa', {
                   'selectedTipo': this.selectedTipo,
@@ -2988,7 +2988,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   'descricao': this.descricao
                 }).then(function (response) {
                   if (response.status == 200) {
-                    //e.target.reset(); //also clean input
+                    e.target.reset(); //also clean input
+
                     self.limparCampos();
                     $('#modalClose').click();
                     Swal.fire({
@@ -2996,12 +2997,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       icon: 'success',
                       confirmButtonText: 'Fechar',
                       timer: 1000
-                    }), self.$router.push({
-                      name: 'verActividade',
-                      params: {
-                        id: response.data
-                      }
-                    });
+                    }), //self.$router.push({name:'verActividade',params:{id:response.data}});  
                     self.chamaRelatorioActividade(response.data);
                   } else {
                     alert("LITTLE ERROR ");
@@ -3016,7 +3012,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 });
 
-              case 27:
+              case 30:
               case "end":
                 return _context5.stop();
             }
@@ -3590,13 +3586,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       tarefas: [],
-      qtdTarefasConcluidas: 0,
-      qtdTarefasAtrasadas: 0,
-      qtdTarefasAgendadas: 0,
+      qtdTarefasTotal: '',
+      qtdTarefasConcluidas: '',
+      qtdTarefasNaoConcluidas: '',
+      qtdTarefasAtrasadas: '',
+      qtdAccoes: '',
       visible: false,
       fullPage: true
     };
@@ -3666,8 +3675,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 self = this;
                 this.$axios.get('auth/contActividades').then(function (response) {
                   if (response.status == 200) {
-                    //alert(response.data.qtdTarefasConcluidas),
-                    self.qtdTarefasConcluidas = response.data.qtdTarefasConcluidas, self.qtdTarefasAtrasadas = response.data.qtdTarefasAtrasadas, self.qtdTarefasAgendadas = response.data.qtdTarefasAgendadas;
+                    self.qtdTarefasTotal = response.data.qtdTarefasTotal, self.qtdTarefasConcluidas = response.data.qtdTarefasConcluidas, self.qtdTarefasNaoConcluidas = response.data.qtdTarefasNaoConcluidas, self.qtdTarefasAtrasadas = response.data.qtdTarefasAtrasadas, self.qtdAccoes = response.data.qtdAccoes, self.qtdTarefasConcluidas = response.data.qtdTarefasConcluidas, self.qtdTarefasAtrasadas = response.data.qtdTarefasAtrasadas, self.qtdTarefasAgendadas = response.data.qtdTarefasAgendadas;
                   }
                 })["catch"](function (error) {//alert("Erro ao carregar dados");
                 });
@@ -5262,13 +5270,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -5325,7 +5326,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       tempo_acao_modal: '',
       descricao_accao_modal: '',
       estado_modal: '',
-      responsavel_modal: ''
+      responsavel_modal: '',
+      urlTarefa: ''
     };
   },
   validations: {
@@ -5406,15 +5408,44 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.pegaTipos();
     this.pegaOrigens();
     this.pegaUtilizador();
+    this.pegaUtilizadorLogado();
     this.pegaAccoesTarefa();
   },
   methods: {
-    pegaActividade: function () {
-      var _pegaActividade = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var id, self;
+    pegaUtilizadorLogado: function () {
+      var _pegaUtilizadorLogado = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var self;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
+              case 0:
+                self = this;
+                this.$axios.get('auth/pegaUtilizador').then(function (response) {
+                  if (response.status == 200) {
+                    self.utilizador_codigo = response.data.username;
+                  } else {}
+                })["catch"](function (error) {});
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function pegaUtilizadorLogado() {
+        return _pegaUtilizadorLogado.apply(this, arguments);
+      }
+
+      return pegaUtilizadorLogado;
+    }(),
+    pegaActividade: function () {
+      var _pegaActividade = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var id, self;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 //Get tarefa dados
                 id = this.$route.params.id;
@@ -5424,6 +5455,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     self.idActividade = response.data.id, self.codigo = response.data.codigo, self.selectedTipo = response.data.tipo, self.selectedOrigem = response.data.origem, self.titulo = response.data.titulo, self.dado_origem = response.data.origem_dado, self.tempo = self.setTempoVisual(response.data.tempo), self.departamento_origem = response.data.departamento_origem, self.departamento_destino = response.data.departamento_destino, self.data_solicitacao = self.pegaFormatedDataTime(response.data.data_solicitacao), self.data_prevista = self.pegaFormatedDataTime(response.data.data_prevista), //self.isNullData(self.pegaFormatedDataTime(response.data.data_cumprimento)),  
                     self.selectedSolicitante = response.data.solicitante, self.selectedResponsavel = response.data.responsavel, self.descricao = response.data.descricao, self.data_solicitacaoEdit = response.data.data_solicitacao.replace(" ", "T");
                     self.data_previstaEdit = response.data.data_prevista.replace(" ", "T");
+                    self.urlTarefa = 'auth/gerarTarefaPdf/' + self.codigo;
                     self.pegaFotoSolicitante(response.data.solicitante, 1); //tipo 1: solicitante, tipo 2: responsavel
 
                     self.pegaFotoSolicitante(response.data.responsavel, 2);
@@ -5434,10 +5466,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 3:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee, this);
+        }, _callee2, this);
       }));
 
       function pegaActividade() {
@@ -5450,53 +5482,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var self = this;
       this.$axios.get('auth/pegaFoto/' + solicitante).then(function (response) {
         if (response.status == 200) {
-          if (tipo == 1) self.fotoSolicitante = response.data;else self.fotoResponsavel = response.data;
+          if (tipo == 1) {
+            if (response.data == 0) {
+              self.fotoSolicitante = 'default.jpg';
+            } else {
+              self.fotoSolicitante = response.data;
+            }
+          } else if (tipo == 2) {
+            if (response.data == 0) {
+              self.fotoResponsavel = 'default.jpg';
+            } else {
+              self.fotoResponsavel = response.data;
+            }
+          }
         }
       })["catch"](function (error) {
         alert("Erro ao pegar foto");
       });
     },
     pegaTipos: function () {
-      var _pegaTipos = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var self;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                self = this;
-                this.$axios.get('auth/pegaTipos').then(function (response) {
-                  if (response.status == 200) {
-                    self.tipos = response.data;
-                    console.log(response.data);
-                  }
-                })["catch"](function (error) {//alert("Erro ao carregar dados do perfil");
-                });
-
-              case 2:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
-      }));
-
-      function pegaTipos() {
-        return _pegaTipos.apply(this, arguments);
-      }
-
-      return pegaTipos;
-    }(),
-    pegaOrigens: function () {
-      var _pegaOrigens = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      var _pegaTipos = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         var self;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 self = this;
-                this.$axios.get('auth/pegaOrigensAll').then(function (response) {
+                this.$axios.get('auth/pegaTipos').then(function (response) {
                   if (response.status == 200) {
-                    self.origens = response.data;
+                    self.tipos = response.data;
                     console.log(response.data);
                   }
                 })["catch"](function (error) {//alert("Erro ao carregar dados do perfil");
@@ -5510,6 +5524,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3, this);
       }));
 
+      function pegaTipos() {
+        return _pegaTipos.apply(this, arguments);
+      }
+
+      return pegaTipos;
+    }(),
+    pegaOrigens: function () {
+      var _pegaOrigens = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var self;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                self = this;
+                this.$axios.get('auth/pegaOrigensAll').then(function (response) {
+                  if (response.status == 200) {
+                    self.origens = response.data;
+                    console.log(response.data);
+                  }
+                })["catch"](function (error) {//alert("Erro ao carregar dados do perfil");
+                });
+
+              case 2:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
       function pegaOrigens() {
         return _pegaOrigens.apply(this, arguments);
       }
@@ -5517,11 +5561,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return pegaOrigens;
     }(),
     pegaUtilizador: function () {
-      var _pegaUtilizador = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      var _pegaUtilizador = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
         var self;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
                 self = this;
                 this.$axios.get('auth/pegaUtilizadores').then(function (response) {
@@ -5534,10 +5578,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4, this);
+        }, _callee5, this);
       }));
 
       function pegaUtilizador() {
@@ -5669,16 +5713,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return idTipo;
     },
     selectRow: function selectRow(accao) {
-      this.avanco_modal = accao.avanco;
-      this.data_operacao_modal = this.pegaFormatedDataTime(accao.created_at);
-      this.tempo_acao_modal = accao.tempo_acao;
-      this.descricao_accao_modal = accao.descricao;
-      this.estado_modal = accao.estado;
-      this.responsavel_modal = accao.name;
-      this.is_modal_visible = true;
-      this.$nextTick(function () {
-        $('#modalRelatorioAccao').modal('show');
-      });
+      var urlAccao = 'auth/gerarAccaoPdf/' + accao.codigo + '/' + accao.created_at;
+      window.open(urlAccao, '_blank');
     },
     //Pega id da Origem
     pegaOrigemID: function pegaOrigemID(origemLido) {
@@ -5692,11 +5728,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return idOrigem;
     },
     editarTarefa: function () {
-      var _editarTarefa = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(e) {
+      var _editarTarefa = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(e) {
         var self;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
                 this.$v.$touch();
 
@@ -5740,10 +5776,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
               case "end":
-                return _context5.stop();
+                return _context6.stop();
             }
           }
-        }, _callee5, this);
+        }, _callee6, this);
       }));
 
       function editarTarefa(_x) {
@@ -5761,8 +5797,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.utilizador_pergunta = null;
       this.estado = null;
       this.utilizador_codigo = null;
-      this.tempo_acao = null; //this.tipo_accao:2,  
-
+      this.tempo_acao = null;
+      this.acOrigemDado = null;
       this.avanco = 0;
       this.$nextTick(function () {
         _this.$v.$reset();
@@ -5770,59 +5806,86 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //Registar acção de uma actividade
     registarAccao: function () {
-      var _registarAccao = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(e) {
+      var _registarAccao = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(e) {
         var self;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
           while (1) {
-            switch (_context6.prev = _context6.next) {
+            switch (_context7.prev = _context7.next) {
               case 0:
                 this.$v.$touch();
 
-                if (this.$v.$invalid) {
-                  this.submitStatus = 'ERROR';
-                } else {
-                  self = this;
-                  this.$axios.post('auth/registarOperacao', {
-                    'tarefa_id': this.idActividade,
-                    'codigo': this.codigo,
-                    'id_origem': this.id_origem,
-                    'acOrigemDado': this.acOrigemDado,
-                    'data_operacao': this.data_operacao.replace("T", " "),
-                    'tempo_acao': this.tempo_acao,
-                    'utilizador_codigo': this.utilizador_codigo,
-                    'estado': this.estado,
-                    'avanco': this.avanco,
-                    'utilizador_pergunta': this.utilizador_pergunta,
-                    'descricao_accao': this.descricao_accao
-                  }).then(function (response) {
-                    if (response.status == 200) {
-                      self.limparFormAccao();
-                      $('#modalCloseAccao').click();
-                      self.pegaAccoesTarefa();
-                      Swal.fire({
-                        text: "Acção registada com sucesso.",
-                        icon: 'success',
-                        timer: 1500,
-                        confirmButtonText: 'Fechar'
-                      }); //location.reload();
-                    } else {//alert("LITTLE ERROR ");
-                      }
-                  })["catch"](function (error) {
+                if (!this.$v.$invalid) {
+                  _context7.next = 5;
+                  break;
+                }
+
+                this.submitStatus = 'ERROR';
+                _context7.next = 10;
+                break;
+
+              case 5:
+                if (!(moment__WEBPACK_IMPORTED_MODULE_2___default()(this.data_operacao) < moment__WEBPACK_IMPORTED_MODULE_2___default()() && this.estado == 'ACRG')) {
+                  _context7.next = 8;
+                  break;
+                }
+
+                Swal.fire({
+                  text: "A data da operação deve ser superior.",
+                  icon: 'error',
+                  confirmButtonText: 'Fechar'
+                });
+                return _context7.abrupt("return");
+
+              case 8:
+                self = this;
+                this.$axios.post('auth/registarOperacao', {
+                  'tarefa_id': this.idActividade,
+                  'codigo': this.codigo,
+                  'id_origem': this.id_origem,
+                  'acOrigemDado': this.acOrigemDado,
+                  'data_operacao': this.data_operacao.replace("T", " "),
+                  'tempo_acao': this.tempo_acao,
+                  'utilizador_codigo': this.utilizador_codigo,
+                  'estado': this.estado,
+                  'avanco': this.avanco,
+                  'utilizador_pergunta': this.utilizador_pergunta,
+                  'descricao_accao': this.descricao_accao
+                }).then(function (response) {
+                  if (response.status == 200) {
+                    self.limparFormAccao();
                     $('#modalCloseAccao').click();
+                    self.pegaAccoesTarefa();
                     Swal.fire({
-                      text: "Erro ao registar Acção.",
+                      text: "Acção registada com sucesso.",
+                      icon: 'success',
+                      timer: 1500,
+                      confirmButtonText: 'Fechar'
+                    });
+                    location.reload();
+                  }
+
+                  if (response.status == 201) {
+                    Swal.fire({
+                      text: response.data,
                       icon: 'error',
                       confirmButtonText: 'Fechar'
                     });
+                  }
+                })["catch"](function (error) {
+                  $('#modalCloseAccao').click();
+                  Swal.fire({
+                    text: "Erro ao registar Acção.",
+                    icon: 'error',
+                    confirmButtonText: 'Fechar'
                   });
-                }
+                });
 
-              case 2:
+              case 10:
               case "end":
-                return _context6.stop();
+                return _context7.stop();
             }
           }
-        }, _callee6, this);
+        }, _callee7, this);
       }));
 
       function registarAccao(_x2) {
@@ -5833,11 +5896,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }(),
     //Listar as acções registadas a uma tarefa
     pegaAccoesTarefa: function () {
-      var _pegaAccoesTarefa = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
+      var _pegaAccoesTarefa = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8() {
         var self;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
           while (1) {
-            switch (_context7.prev = _context7.next) {
+            switch (_context8.prev = _context8.next) {
               case 0:
                 self = this;
                 this.$axios.get('auth/pegaAccoes/' + this.id_tarefa).then(function (response) {
@@ -5850,10 +5913,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
               case "end":
-                return _context7.stop();
+                return _context8.stop();
             }
           }
-        }, _callee7, this);
+        }, _callee8, this);
       }));
 
       function pegaAccoesTarefa() {
@@ -5870,7 +5933,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       } else this.showAvanco = 1;
 
       if (event.target.value == 'CUSS' || event.target.value == 'CURS') this.tipo_accao = 1;else this.tipo_accao = 0;
-    }
+    },
+    //Função para ver relatorio actividade
+    verPdfActividade: function () {
+      var _verPdfActividade = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
+          while (1) {
+            switch (_context9.prev = _context9.next) {
+              case 0:
+                this.$axios.get('auth/gerarTarefaPdf/');
+
+              case 1:
+              case "end":
+                return _context9.stop();
+            }
+          }
+        }, _callee9, this);
+      }));
+
+      function verPdfActividade() {
+        return _verPdfActividade.apply(this, arguments);
+      }
+
+      return verPdfActividade;
+    }()
   }
 });
 
@@ -48332,26 +48418,6 @@ var render = function() {
                                       _vm._v(" "),
                                       _c(
                                         "option",
-                                        {
-                                          attrs: {
-                                            value: "1-Cadeia Produtiva - Zango"
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "01 SEDE | Cadeia Produtiva - Zango"
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "1-Operações" } },
-                                        [_vm._v("01 SEDE | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
                                         { attrs: { value: "2-Operações" } },
                                         [_vm._v("02 HUAMBO | Operações")]
                                       ),
@@ -48842,26 +48908,6 @@ var render = function() {
                                             "01 SEDE | Sistemas & Organização"
                                           )
                                         ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: {
-                                            value: "1-Cadeia Produtiva - Zango"
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "01 SEDE | Cadeia Produtiva - Zango"
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "1-Operações" } },
-                                        [_vm._v("01 SEDE | Operações")]
                                       ),
                                       _vm._v(" "),
                                       _c(
@@ -50137,24 +50183,25 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("div", { staticClass: "row text-center mb-2" }, [
-        _c("div", { staticClass: "col-md-6 col-xl-3" }, [
-          _c("div", { staticClass: "card-box" }, [
-            _c("i", { staticClass: "fas fa-undo-alt font-26" }),
-            _vm._v(" "),
-            _c("h3", { staticClass: "text-primary" }, [
-              _vm._v(
-                _vm._s(
-                  _vm.qtdTarefasConcluidas +
-                    _vm.qtdTarefasAtrasadas +
-                    _vm.qtdTarefasAgendadas
+        _c("div", { staticClass: "col-md-4 col-xl-2" }, [
+          _c(
+            "div",
+            { staticClass: "card-box" },
+            [
+              _c("i", { staticClass: "fas fa-undo-alt font-26" }),
+              _vm._v(" "),
+              _c("h3", { staticClass: "text-primary" }, [
+                _vm._v(_vm._s(_vm.qtdTarefasTotal))
+              ]),
+              _vm._v(" "),
+              _c("router-link", { attrs: { to: "#", exact: "" } }, [
+                _vm._v(
+                  "\n                    Total Actividades\n                "
                 )
-              )
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: " mb-1 font-13 font-weight-medium" }, [
-              _vm._v("Total Actividades")
-            ])
-          ])
+              ])
+            ],
+            1
+          )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-6 col-xl-3" }, [
@@ -50168,40 +50215,9 @@ var render = function() {
                 _vm._v(_vm._s(_vm.qtdTarefasConcluidas))
               ]),
               _vm._v(" "),
-              _c(
-                "router-link",
-                { attrs: { to: "/home/minhasActividades", exact: "" } },
-                [
-                  _vm._v(
-                    "\n                    Actividades Regularizadasss\n                "
-                  )
-                ]
-              )
-            ],
-            1
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6 col-xl-3" }, [
-          _c(
-            "div",
-            { staticClass: "card-box" },
-            [
-              _c("i", { staticClass: "fas fa-clipboard-list font-26" }),
-              _vm._v(" "),
-              _c("h3", { staticClass: "text-danger" }, [
-                _vm._v(_vm._s(_vm.qtdTarefasAtrasadas))
-              ]),
-              _vm._v(" "),
-              _c(
-                "router-link",
-                { attrs: { to: "/home/actividadesAtrasadas", exact: "" } },
-                [
-                  _vm._v(
-                    "\n                    Actividades Atrasadas\n                "
-                  )
-                ]
-              )
+              _c("router-link", { attrs: { to: "#", exact: "" } }, [
+                _vm._v("\n                    Regularizadas\n                ")
+              ])
             ],
             1
           )
@@ -50215,18 +50231,52 @@ var render = function() {
               _c("i", { staticClass: "fas fa-file-alt font-26" }),
               _vm._v(" "),
               _c("h3", { staticClass: "text-warning" }, [
-                _vm._v(_vm._s(_vm.qtdTarefasAgendadas))
+                _vm._v(_vm._s(_vm.qtdTarefasNaoConcluidas))
               ]),
               _vm._v(" "),
-              _c(
-                "router-link",
-                { attrs: { to: "/home/actividadesAgendadas", exact: "" } },
-                [
-                  _vm._v(
-                    "\n                    Actividades Agendadas\n                "
-                  )
-                ]
-              )
+              _c("router-link", { attrs: { to: "#", exact: "" } }, [
+                _vm._v(
+                  "\n                    Não Regularizadas\n                "
+                )
+              ])
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-4 col-xl-2" }, [
+          _c(
+            "div",
+            { staticClass: "card-box" },
+            [
+              _c("i", { staticClass: "fas fa-clipboard-list font-26" }),
+              _vm._v(" "),
+              _c("h3", { staticClass: "text-danger" }, [
+                _vm._v(_vm._s(_vm.qtdTarefasAtrasadas))
+              ]),
+              _vm._v(" "),
+              _c("router-link", { attrs: { to: "#", exact: "" } }, [
+                _vm._v("\n                    Atrasadas\n                ")
+              ])
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-4 col-xl-2" }, [
+          _c(
+            "div",
+            { staticClass: "card-box" },
+            [
+              _c("i", { staticClass: "fas fa-file-alt font-26" }),
+              _vm._v(" "),
+              _c("h3", { staticClass: "text-success" }, [
+                _vm._v(_vm._s(_vm.qtdAccoes))
+              ]),
+              _vm._v(" "),
+              _c("router-link", { attrs: { to: "#", exact: "" } }, [
+                _vm._v("\n                    Acções\n                ")
+              ])
             ],
             1
           )
@@ -51438,18 +51488,16 @@ var render = function() {
         attrs: {
           id: "modalRelatorioActividade",
           tabindex: "-1",
+          "aria-labelledby": "fullScreenModalLabel",
+          "aria-modal": "true",
           role: "dialog",
-          "aria-labelledby": "exampleModalScrollableTitle",
           "aria-hidden": "true"
         }
       },
       [
         _c(
           "div",
-          {
-            staticClass: "modal-dialog modal-dialog-scrollable modal-lg",
-            attrs: { role: "document" }
-          },
+          { staticClass: "modal-dialog modal-dialog-scrollable modal-lg" },
           [
             _c("div", { staticClass: "modal-content" }, [
               _c("div", { staticClass: "modal-body" }, [
@@ -51478,8 +51526,7 @@ var render = function() {
                                   staticStyle: {
                                     "text-align": "center",
                                     color: "#111",
-                                    "font-weight": "bold",
-                                    background: "#f5e78e"
+                                    "font-weight": "bold"
                                   }
                                 },
                                 [_vm._v(_vm._s(_vm.codigo))]
@@ -52268,11 +52315,8 @@ var render = function() {
                           [
                             _c(
                               "option",
-                              {
-                                attrs: { disabled: "", selected: "" },
-                                domProps: { value: "" }
-                              },
-                              [_vm._v("Escolha o utilizador")]
+                              { attrs: { disabled: "", selected: "" } },
+                              [_vm._v(_vm._s(_vm.utilizador_codigo))]
                             ),
                             _vm._v(" "),
                             _vm._l(_vm.utilizadores, function(utilizador) {
@@ -52493,7 +52537,7 @@ var render = function() {
                               _vm._v("Actividade Reagendada")
                             ]),
                             _vm._v(" "),
-                            _c("option", { attrs: { value: "ACRT" } }, [
+                            _c("option", { attrs: { value: "ACRE" } }, [
                               _vm._v("Actividade Reativada")
                             ]),
                             _vm._v(" "),
@@ -52693,7 +52737,24 @@ var render = function() {
               [
                 _vm.visualizar
                   ? _c("div", { attrs: { id: "VerActividade" } }, [
-                      _vm._m(12),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-12" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass:
+                                "btn btn-sm btn-rounded btn-primary waves-effect waves-light",
+                              attrs: { href: _vm.urlTarefa, target: "_blank" }
+                            },
+                            [
+                              _c("i", { staticClass: "far fa-eye mr-1" }),
+                              _vm._v(
+                                "Relatório da Actividade\n                                    "
+                              )
+                            ]
+                          )
+                        ])
+                      ]),
                       _vm._v(" "),
                       _c("hr", {
                         staticStyle: {
@@ -53238,7 +53299,7 @@ var render = function() {
               "div",
               { staticClass: "tab-pane fade", attrs: { id: "accao" } },
               [
-                _vm._m(13),
+                _vm._m(12),
                 _vm._v(" "),
                 _c("hr", {
                   staticStyle: { height: "1px", "background-color": "#d3d6d5" }
@@ -53251,7 +53312,7 @@ var render = function() {
                     attrs: { cellspacing: "0", width: "100%" }
                   },
                   [
-                    _vm._m(14),
+                    _vm._m(13),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -53260,7 +53321,7 @@ var render = function() {
                           "tr",
                           {
                             staticClass: "tabelaClicked",
-                            attrs: { title: "Clique aqui para Editar acção" },
+                            attrs: { title: "Clique aqui para ver acção" },
                             on: {
                               click: function($event) {
                                 return _vm.selectRow(accao)
@@ -53429,19 +53490,16 @@ var staticRenderFns = [
         "td",
         {
           staticStyle: {
-            background: "#e35959",
-            color: "#fff",
+            background: "#f5f5f5",
+            color: "#797a7a",
             "text-align": "center"
           },
           attrs: { colspan: "6" }
         },
         [
-          _c("br"),
           _vm._v(
-            "\n                                    Sistema KixiAgenda v1.0.1-2021\n                                    "
-          ),
-          _c("br"),
-          _c("br")
+            "\n                                        Sistema KixiAgenda v1.0.1-2021\n                                    "
+          )
         ]
       )
     ])
@@ -53640,33 +53698,6 @@ var staticRenderFns = [
             )
           ])
         ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12" }, [
-        _c(
-          "button",
-          {
-            staticClass:
-              "btn btn-sm btn-rounded btn-primary waves-effect waves-light",
-            attrs: {
-              type: "submit",
-              "data-toggle": "modal",
-              "data-target": "#modalRelatorioActividade"
-            }
-          },
-          [
-            _c("i", { staticClass: "far fa-eye mr-1" }),
-            _vm._v(
-              "Relatório da Actividade\n                                    "
-            )
-          ]
-        )
       ])
     ])
   },
