@@ -473,7 +473,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <label for="name">Descrição</label>
-                                        <textarea v-model.trim="descricao" class="form-control form-control-sm" rows="5" id="InputMostrar"></textarea>
+                                        <textarea v-model.trim="descricao" class="form-control form-control-sm" rows="5" style="background-color:#f7b84b73;font-weight:bold" readonly></textarea>
                                     </div>
                                 </div>                    
                             </div>
@@ -1121,8 +1121,9 @@
                 return idTipo;                
             },
 
-            selectRow(accao){ 
-                var urlAccao='auth/gerarAccaoPdf/'+accao.codigo+'/'+accao.created_at;
+            selectRow(accao){
+                var created_at=moment(String(accao.created_at)).format('YYYY-MM-DD HH:mm:ss');
+                var urlAccao='auth/gerarAccaoPdf/'+accao.codigo+'/'+created_at;
                 
                 window.open(urlAccao, '_blank');        
             },
@@ -1241,6 +1242,9 @@
                                 timer: 1500,
                                 confirmButtonText: 'Fechar'
                             })
+                            
+                            self.selectRow(response.data);
+
                             location.reload();                                        
                         }
                         if(response.status==201){

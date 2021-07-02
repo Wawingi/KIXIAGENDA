@@ -107,15 +107,15 @@
             </tr>
             <tr>
                 <td colspan="8">
-                <br>
-                {{$accao->descricao}}
-                <br><br>
-                @if($accao->estado=='ACRG')
-                    <br>
-                    ==> Esta atividade esta sendo reagendada para o dia: {{$accao->created_at}}
+                    <br><br><br>
+                    {{$accao->descricao}}
                     <br><br>
-                @endif
-                
+                    @if($accao->estado=='ACRG')
+                        <br>
+                        ==> Esta atividade esta sendo reagendada para o dia: {{$accao->created_at}}
+                        <br><br>
+                    @endif
+                    <br><br><br>
                 </td>
             </tr>
             <tr>

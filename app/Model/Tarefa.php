@@ -205,7 +205,7 @@ class Tarefa extends Model
         return DB::table('tarefa')
                 ->join('tipo', 'tipo.id', '=', 'tarefa.id_tipo')
                 ->join('origem','origem.id','=','tarefa.id_origem')
-                ->select('tarefa.id','tarefa.codigo','tarefa.titulo','tarefa.origem_dado','tarefa.tempo','tarefa.solicitante','tarefa.responsavel','tarefa.data_solicitacao','tarefa.data_prevista','tarefa.departamento_origem','tarefa.departamento_destino','tarefa.descricao','tipo.tipo','origem.titulo as origem')
+                ->select('tarefa.id','tarefa.codigo','tarefa.titulo','tarefa.origem_dado','tarefa.tempo','tarefa.solicitante','tarefa.responsavel','tarefa.data_solicitacao','tarefa.data_prevista','tarefa.departamento_origem','tarefa.departamento_destino','tarefa.descricao','tarefa.avanco','tipo.tipo','origem.titulo as origem')
                 ->where('tarefa.codigo','=',$tarefa_id)
                 ->first();
     }

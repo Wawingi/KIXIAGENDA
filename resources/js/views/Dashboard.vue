@@ -18,16 +18,16 @@
         <loading :animation="anim" :active.sync="visible" :can-cancel="true" :is-full-page="fullPage"/>  
 
         <div class="row text-center mb-2">
-            <div class="col-md-4 col-xl-2">
+            <div class="col-md-6 col-xl-3">
                 <div class="card-box">
                     <i class="fas fa-undo-alt font-26"></i>
                     <h3 class="text-primary">{{qtdTarefasTotal}}</h3>
                      <router-link to="#" exact>
-                        Total Actividades
+                        Total Actividades Hoje
                     </router-link>
                 </div>
             </div>
-            <div class="col-md-6 col-xl-3">
+            <div class="col-md-4 col-xl-2">
                 <div class="card-box">
                     <i class="fas fa-clipboard-check font-26"></i>
                     <h3 class="text-success">{{qtdTarefasConcluidas}}</h3>

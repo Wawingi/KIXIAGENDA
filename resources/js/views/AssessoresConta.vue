@@ -14,6 +14,9 @@
             </div>
         </div>
         <br><br>
+        
+        <loading :animation="anim" :active.sync="visible" :can-cancel="true" :is-full-page="fullPage"/>  
+
         <div class="row">
             <div class="col-12">
                 <div class="card-box">
@@ -54,22 +57,28 @@
 export default {
     data(){
         return{
-            assessores: []
+            assessores: [],
+            visible: false
         };       
-    },  
+    }, 
+    components: {
+        Loading: VueLoading
+    }, 
     created(){
         this.pegaAssessores()
     },
     methods: {   
         pegaAssessores: async function(){
-            let self = this               
+            this.visible = true;
+            let self = this;               
             this.$axios.get('auth/pegaAssessores')
             .then(function (response) {
                 if(response.status==200){
                     self.assessores = response.data;                             
                     self.$nextTick(() => {
                         $('#paginationTarefa').DataTable();
-                    });                                                      
+                    });   
+                    self.visible = false;                                                      
                 }
             })
             .catch(function (error) {

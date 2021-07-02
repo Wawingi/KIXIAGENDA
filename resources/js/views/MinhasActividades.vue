@@ -22,20 +22,7 @@
         <ModalActividade/>  
         <!---->    
 
-        <!--
-        <div class="row float-right">
-            <div class="col-lg-12">
-                <button
-                    type="button"
-                    class="btn btn-rounded btn-sm btn-warning waves-effect waves-light"
-                    data-backdrop="static"
-                    data-keyboard="false"
-                    data-toggle="modal"
-                    data-target="#modalNovaActividade">
-                    <i class="mdi mdi-plus-circle mr-1"></i>Nova Actividade
-                </button>
-            </div>
-        </div>-->
+        <loading :animation="anim" :active.sync="visible" :can-cancel="true" :is-full-page="fullPage"/>  
                    
         <br /><br />
         <div class="row">
@@ -85,11 +72,12 @@
   
     export default {
         components: {
-            //ModalActividade
+            Loading: VueLoading
         },
         data(){
             return{
-                tarefas: []
+                tarefas: [],
+                visible: false
             };       
         },  
         created(){
@@ -105,14 +93,16 @@
                 this.$router.push({name:'verActividade',params:{id:id}})   
             },
             pegaTarefas: async function(){
-                let self = this               
+                this.visible = true;
+                let self = this;               
                 this.$axios.get('auth/pegaTarefas')
                 .then(function (response) {
                     if(response.status==200){
                         self.tarefas = response.data;                             
                         self.$nextTick(() => {
                             $('#paginationTarefa').DataTable();
-                        });                                                      
+                        }); 
+                        self.visible = false;                                                      
                     }
                 })
                 .catch(function (error) {

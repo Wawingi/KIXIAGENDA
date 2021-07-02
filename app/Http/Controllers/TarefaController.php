@@ -18,54 +18,58 @@ Use Exception;
 class TarefaController extends Controller
 {
     public function registarTarefa(Request $request){
-        $tarefa = new Tarefa;  
-        $tarefa->versao_sistema = 'KAW100';
-        $tarefa->id_tipo = $request->selectedTipo;
-        $tarefa->titulo = $request->titulo;
-        $tarefa->id_origem = $request->selectedOrigem;
-        $tarefa->origem_dado = $request->dado_origem;
-        $tarefa->tempo = $request->tempo * 60; //tempo * 60
-        //Fatiar o departamento origem
-        $dpto_origem = explode("-",$request->departamento_origem);   
-        if($dpto_origem[0]==99||$dpto_origem[0]==26){
-            $tarefa->departamento_origem = $dpto_origem[1].'-'.$dpto_origem[2];
-            $tarefa->id_dpto_origem = $dpto_origem[0];
-        }else{
-            $tarefa->departamento_origem = $dpto_origem[1];
-            $tarefa->id_dpto_origem = $dpto_origem[0];
-        }
+        try{
+            $tarefa = new Tarefa;  
+            $tarefa->versao_sistema = 'KAW100';
+            $tarefa->id_tipo = $request->selectedTipo;
+            $tarefa->titulo = $request->titulo;
+            $tarefa->id_origem = $request->selectedOrigem;
+            $tarefa->origem_dado = $request->dado_origem;
+            $tarefa->tempo = $request->tempo * 60; //tempo * 60
+            //Fatiar o departamento origem
+            $dpto_origem = explode("-",$request->departamento_origem);   
+            if($dpto_origem[0]==99||$dpto_origem[0]==26){
+                $tarefa->departamento_origem = $dpto_origem[1].'-'.$dpto_origem[2];
+                $tarefa->id_dpto_origem = $dpto_origem[0];
+            }else{
+                $tarefa->departamento_origem = $dpto_origem[1];
+                $tarefa->id_dpto_origem = $dpto_origem[0];
+            }
 
-        //Fatiar o departamento destino
-        $dpto_destino = explode("-",$request->departamento_destino);
-        if($dpto_destino[0]==99||$dpto_destino[0]==26){
-            $tarefa->departamento_destino = $dpto_destino[1].'-'.$dpto_destino[2]; 
-            $tarefa->id_dpto_destino = $dpto_destino[0]; 
-        }else{
-            $tarefa->departamento_destino = $dpto_destino[1]; 
-            $tarefa->id_dpto_destino = $dpto_destino[0]; 
-        }
+            //Fatiar o departamento destino
+            $dpto_destino = explode("-",$request->departamento_destino);
+            if($dpto_destino[0]==99||$dpto_destino[0]==26){
+                $tarefa->departamento_destino = $dpto_destino[1].'-'.$dpto_destino[2]; 
+                $tarefa->id_dpto_destino = $dpto_destino[0]; 
+            }else{
+                $tarefa->departamento_destino = $dpto_destino[1]; 
+                $tarefa->id_dpto_destino = $dpto_destino[0]; 
+            }
         
-        $tarefa->solicitante = $request->selectedSolicitante;
-        $tarefa->data_solicitacao = $request->data_solicitacao;
-        $tarefa->responsavel = $request->selectedResponsavel;
-        $tarefa->data_prevista = $request->data_execucao;
-        $tarefa->ut_registo = Auth::user()->username;
-        $tarefa->descricao = $request->descricao;     
-        $tarefa->data_reactivacao = null;
-        //VerificAR SE é actividade feita
-        if($request->selectedTipo=='INACFE'){
-            $tarefa->data_cumprimento = date('Y-m-d H:i:s');
-            $tarefa->avanco = 100;
-        }else{ 
-            $tarefa->data_cumprimento = null;
-            $tarefa->avanco = 00;    
-        }
-        $tarefa->data_envio = date('Y-m-d H:i:s');
-        $tarefa->codigo = Tarefa::generateCodigo($request->selectedResponsavel);
-        $tarefa->id_user = Auth::user()->id;
+            $tarefa->solicitante = $request->selectedSolicitante;
+            $tarefa->data_solicitacao = $request->data_solicitacao;
+            $tarefa->responsavel = $request->selectedResponsavel;
+            $tarefa->data_prevista = $request->data_execucao;
+            $tarefa->ut_registo = Auth::user()->username;
+            $tarefa->descricao = $request->descricao;     
+            $tarefa->data_reactivacao = null;
+            //VerificAR SE é actividade feita
+            if($request->selectedTipo=='INACFE'){
+                $tarefa->data_cumprimento = date('Y-m-d H:i:s');
+                $tarefa->avanco = 100;
+            }else{ 
+                $tarefa->data_cumprimento = null;
+                $tarefa->avanco = 00;    
+            }
+            $tarefa->data_envio = date('Y-m-d H:i:s');
+            $tarefa->codigo = Tarefa::generateCodigo($request->selectedResponsavel);
+            $tarefa->id_user = Auth::user()->id;
 
-        if($tarefa->save()){
-            return response()->json($tarefa->codigo,200);            
+            if($tarefa->save()){
+                return response()->json($tarefa->codigo,200);            
+            }
+        }catch (Exception $e){
+            return response()->json('Verifique a quantidade de texto informada na descrição.',201);
         }
     }
 
@@ -195,6 +199,8 @@ class TarefaController extends Controller
                 $tarefa->data_prevista = $request->data_operacao;
                 $tarefa->save();
             }
+
+            return response()->json($operacao,200); 
         };         
     }
 
@@ -358,9 +364,18 @@ class TarefaController extends Controller
         $solicitante = $solicitantePessoa->name;
         $responsavelPessoa = User::getPessoa($tarefa->responsavel);
         $responsavel = $responsavelPessoa->name;
+   
+        if(is_null($solicitantePessoa->foto)){
+            $imageSolicitante = base64_encode(file_get_contents(public_path('/images/users/default.jpg')));
+        }else{
+            $imageSolicitante = base64_encode(file_get_contents(public_path('/images/users/'.$solicitantePessoa->foto)));
+        }
 
-        $imageSolicitante = base64_encode(file_get_contents(public_path('/images/users/'.$solicitantePessoa->foto)));
-        $imageResponsavel = base64_encode(file_get_contents(public_path('/images/users/'.$responsavelPessoa->foto)));
+        if(is_null($responsavelPessoa->foto)){
+            $imageResponsavel = base64_encode(file_get_contents(public_path('/images/users/default.jpg')));
+        }else{
+            $imageResponsavel = base64_encode(file_get_contents(public_path('/images/users/'.$responsavelPessoa->foto)));
+        }       
 
         return View('layouts.pdfTarefa',compact('tarefa','solicitante','responsavel','imageSolicitante','imageResponsavel'));
 

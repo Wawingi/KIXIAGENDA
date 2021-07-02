@@ -244,6 +244,7 @@
                                     <div class="invalid-feedback">
                                         <span v-if="!$v.descricao.required">A descricao deve ser fornecida</span>
                                         <span v-if="!$v.descricao.minLength">A descricao deve possuír um tamanho maior</span>
+                                        <span v-if="!$v.descricao.maxLength">A descricao excedeu a quantidade permitida</span>
                                     </div>
                                 </div>
                             </div>
@@ -393,7 +394,8 @@
             },
             descricao: { 
                 required,       
-                minLength: minLength(10)
+                minLength: minLength(10),
+                maxLength: maxLength(500)
             },
             data_execucao: { 
                 required     
@@ -609,8 +611,7 @@
                         'descricao': this.descricao,
                     })
                     .then(function (response) {
-                        if(response.status==200){  
-                            e.target.reset(); //also clean input
+                        if(response.status==200){                        
                             self.limparCampos();
                             $('#modalClose').click();
                           
@@ -621,10 +622,17 @@
                                 timer:1000
                             }),
 
-                            //self.$router.push({name:'verActividade',params:{id:response.data}});  
-                            self.chamaRelatorioActividade(response.data);                                                                                                     
-                        }else{
-                            alert("LITTLE ERROR ");
+                            self.$router.push({name:'dashboard'});   
+                            self.chamaRelatorioActividade(response.data); 
+
+                            location.reload();                                                                                                                                      
+                        }
+                        if(response.status==201){
+                            Swal.fire({
+                                text: response.data,
+                                icon: 'error',
+                                confirmButtonText: 'Fechar'
+                            })
                         }
                     })
                     .catch(function (error) {
