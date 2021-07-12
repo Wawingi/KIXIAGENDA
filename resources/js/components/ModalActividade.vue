@@ -92,7 +92,7 @@
                                 <div class="col-6">
                                     <fieldset class="border p-2"><legend style="font-size:16px" class="w-auto">DE: </legend>	
                                         <div class="form-row">
-                                            <div class="col-md-8">
+                                            <div class="col-md-9">
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <select v-model.trim="$v.departamento_origem.$model" :class="{'is-invalid':$v.departamento_origem.$error, 'is-valid':!$v.departamento_origem.$invalid}" class="custom-select custom-select-sm ">
@@ -149,7 +149,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <img
                                                     style="border:solid #d0d5dc 1px"
                                                     :src="'images/users/'+fotoSolicitante"
@@ -166,7 +166,7 @@
                                 <div class="col-6">
                                     <fieldset class="border p-2"><legend style="font-size:16px" class="w-auto">PARA: </legend>	
                                         <div class="form-row">
-                                            <div class="col-md-8">
+                                            <div class="col-md-9">
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <select v-model.trim="$v.departamento_destino.$model" :class="{'is-invalid':$v.departamento_destino.$error, 'is-valid':!$v.departamento_destino.$invalid}" class="custom-select custom-select-sm">
@@ -216,14 +216,14 @@
                                                     </div>
                                                     <div class="col-7">
                                                         <label for="name">Data Execução</label>
-                                                        <input v-model.trim="$v.data_execucao.$model" :class="{'is-invalid':$v.data_execucao.$error, 'is-valid':!$v.data_execucao.$invalid}" type="datetime-local" class="form-control form-control-sm">
+                                                        <input v-model.trim="$v.data_execucao.$model" :class="{'is-invalid':$v.data_execucao.$error, 'is-valid':!$v.data_execucao.$invalid}" type="date" class="form-control form-control-sm">
                                                         <div class="invalid-feedback">
                                                             <span v-if="!$v.data_execucao.required">A data deve ser fornecida</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <img
                                                     style="border:solid #d0d5dc 1px"
                                                     :src="'images/users/'+fotoResponsavel"
@@ -240,10 +240,11 @@
                             <div class="row">
                                 <div class="col-12">
                                     <label for="name">Descrição</label>
-                                    <textarea v-model.trim="$v.descricao.$model" :class="{'is-invalid':$v.descricao.$error, 'is-valid':!$v.descricao.$invalid}" class="form-control form-control-sm corInput" rows="5"></textarea>
+                                    <textarea v-on:keyup="contDescricao" v-model.trim="$v.descricao.$model" :class="{'is-invalid':$v.descricao.$error, 'is-valid':!$v.descricao.$invalid}" class="form-control form-control-sm corInput" rows="5"></textarea>
+                                    <span style="color:red" class="float-right">Quantidade: {{qtdeInformada}} de {{qtdPermitidaDescricao}}</span>
                                     <div class="invalid-feedback">
                                         <span v-if="!$v.descricao.required">A descricao deve ser fornecida</span>
-                                        <span v-if="!$v.descricao.minLength">A descricao deve possuír um tamanho maior</span>
+                                        <span v-if="!$v.descricao.minLength">A descricao deve possuír um tamanho maior não superior a {{qtdPermitidaDescricao}}</span>
                                         <span v-if="!$v.descricao.maxLength">A descricao excedeu a quantidade permitida</span>
                                     </div>
                                 </div>
@@ -381,6 +382,9 @@
                 estado_modal:'',
                 responsavel_modal:'',
                 codigo:'',
+                qtdPermitidaDescricao:515,
+                qtdeInicial:0,
+                qtdeInformada:0
             };       
         },  
         validations: {
@@ -395,7 +399,7 @@
             descricao: { 
                 required,       
                 minLength: minLength(10),
-                maxLength: maxLength(500)
+                maxLength: maxLength(515)
             },
             data_execucao: { 
                 required     
@@ -554,6 +558,10 @@
                 });      
             },
 
+            contDescricao: async function() {
+                this.qtdeInformada = this.qtdeInicial + this.descricao.length;           
+            },
+
             registarTarefa: async function(e){
                 this.$v.$touch()
                 if (this.$v.$invalid) {               
@@ -585,16 +593,40 @@
                     }else{
                         this.novo_dado_origem=this.dado_origem;
                     }
+                    
+                    //A data de execução vêm sem a hora, concatenamos com a hora para que a comparação seja efectuada
+                    this.data_execucao=this.data_execucao+'T23:59';
 
+                    //Verificar a data de solicitação nao ser maior q a de execução
                     if(moment(this.data_solicitacao)>moment(this.data_execucao)){
                         Swal.fire({
-                                text: "A data de solicitação não pode ser maior que a data de execução.",
-                                icon: 'error',
-                                confirmButtonText: 'Fechar'
+                            text: "A data de solicitação não pode ser maior que a data de execução.",
+                            icon: 'error',
+                            confirmButtonText: 'Fechar'
                         });
                         return;
                     }
 
+                    //Verificar a data de solicitação para não ser futura
+                    if((moment(this.data_solicitacao)>moment())){
+                        Swal.fire({
+                            text: "A data de solicitação não pode ser uma data futura.",
+                            icon: 'error',
+                            confirmButtonText: 'Fechar'
+                        });
+                        return;
+                    }
+
+                    //Verificar a data de execução para não ser passada
+                    if((moment(this.data_execucao)<moment())){
+                        Swal.fire({
+                            text: "A data prevista não pode ser uma data passada.",
+                            icon: 'error',
+                            confirmButtonText: 'Fechar'
+                        });
+                        return;
+                    }
+                    
                     let self = this          
                     this.$axios.post('auth/registarTarefa',{
                         'selectedTipo': this.selectedTipo,                        

@@ -110,14 +110,17 @@ class Tarefa extends Model
         $ano_anterior = $ano_actual-1;
         $data_inicio = strtotime($ano_anterior."-12-31");
         $data_final = strtotime(date('Y-m-d'));
-        
+
         $intevalo_data=($data_final - $data_inicio)/60/60/24;
 
         $p1=Tarefa::getLetra($ano_actual % 2000).Tarefa::getLetra(floor($intevalo_data/10)).$intevalo_data%10;
         
         $intervalo_minuto = (date('H')*60)+date('i'); //Hora em minutos
-
-        $p2=Tarefa::getLetra(floor($intervalo_minuto/100)).$intervalo_minuto%100;
+        
+        $p21=Tarefa::getLetra(floor($intervalo_minuto/100));
+        $p22=$intervalo_minuto%100;
+        $p22=$p22>9 ? $p22:'0'.$p22;
+        $p2=$p21.$p22;
 
         //Pegar os prefixos dos username do responsavel
         $nome = explode(".",$responsavel);
@@ -132,7 +135,7 @@ class Tarefa extends Model
         return DB::table('tarefa')
                 ->join('tipo', 'tipo.id', '=', 'tarefa.id_tipo')
                 ->join('users','users.id','=','tarefa.id_user')
-                ->select('tarefa.id','tarefa.codigo','tarefa.titulo','tarefa.responsavel','tarefa.data_solicitacao','tarefa.data_cumprimento','tarefa.avanco','tipo.tipo','users.foto') 
+                ->select('tarefa.id','tarefa.codigo','tarefa.titulo','tarefa.responsavel','tarefa.data_solicitacao','tarefa.data_cumprimento','tarefa.avanco','tarefa.data_prevista','tipo.tipo','users.foto') 
                 ->where(DB::raw('DATE(tarefa.created_at)'),'=',date('Y-m-d'))
                 ->orWhere('tarefa.avanco','<',100)
                 ->orderBy('tarefa.created_at','DESC')

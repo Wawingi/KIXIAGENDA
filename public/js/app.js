@@ -2565,6 +2565,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2598,7 +2599,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       descricao_accao_modal: '',
       estado_modal: '',
       responsavel_modal: '',
-      codigo: ''
+      codigo: '',
+      qtdPermitidaDescricao: 515,
+      qtdeInicial: 0,
+      qtdeInformada: 0
     };
   },
   validations: {
@@ -2613,7 +2617,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     descricao: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"],
       minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["minLength"])(10),
-      maxLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["maxLength"])(500)
+      maxLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["maxLength"])(515)
     },
     data_execucao: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"]
@@ -2883,37 +2887,59 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         alert("Erro ao pegar foto");
       });
     },
-    registarTarefa: function () {
-      var _registarTarefa = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(e) {
-        var email, self;
+    contDescricao: function () {
+      var _contDescricao = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
+                this.qtdeInformada = this.qtdeInicial + this.descricao.length;
+
+              case 1:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this);
+      }));
+
+      function contDescricao() {
+        return _contDescricao.apply(this, arguments);
+      }
+
+      return contDescricao;
+    }(),
+    registarTarefa: function () {
+      var _registarTarefa = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(e) {
+        var email, self;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
                 this.$v.$touch();
 
                 if (!this.$v.$invalid) {
-                  _context5.next = 5;
+                  _context6.next = 5;
                   break;
                 }
 
                 this.submitStatus = 'ERROR';
-                _context5.next = 30;
+                _context6.next = 37;
                 break;
 
               case 5:
                 if (!(this.selectedOrigem == 'LITE')) {
-                  _context5.next = 14;
+                  _context6.next = 14;
                   break;
                 }
 
                 if (!(!isNaN(this.dado_origem) && this.dado_origem.length == 9)) {
-                  _context5.next = 10;
+                  _context6.next = 10;
                   break;
                 }
 
                 this.novo_dado_origem = this.dado_origem;
-                _context5.next = 12;
+                _context6.next = 12;
                 break;
 
               case 10:
@@ -2922,27 +2948,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   icon: 'error',
                   confirmButtonText: 'Fechar'
                 });
-                return _context5.abrupt("return");
+                return _context6.abrupt("return");
 
               case 12:
-                _context5.next = 25;
+                _context6.next = 25;
                 break;
 
               case 14:
                 if (!(this.selectedOrigem == 'COEL')) {
-                  _context5.next = 24;
+                  _context6.next = 24;
                   break;
                 }
 
                 email = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
                 if (!email.test(this.dado_origem)) {
-                  _context5.next = 20;
+                  _context6.next = 20;
                   break;
                 }
 
                 this.novo_dado_origem = this.dado_origem;
-                _context5.next = 22;
+                _context6.next = 22;
                 break;
 
               case 20:
@@ -2951,18 +2977,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   icon: 'error',
                   confirmButtonText: 'Fechar'
                 });
-                return _context5.abrupt("return");
+                return _context6.abrupt("return");
 
               case 22:
-                _context5.next = 25;
+                _context6.next = 25;
                 break;
 
               case 24:
                 this.novo_dado_origem = this.dado_origem;
 
               case 25:
+                //A data de execução vêm sem a hora, concatenamos com a hora para que a comparação seja efectuada
+                this.data_execucao = this.data_execucao + 'T23:59'; //Verificar a data de solicitação nao ser maior q a de execução
+
                 if (!(moment__WEBPACK_IMPORTED_MODULE_1___default()(this.data_solicitacao) > moment__WEBPACK_IMPORTED_MODULE_1___default()(this.data_execucao))) {
-                  _context5.next = 28;
+                  _context6.next = 29;
                   break;
                 }
 
@@ -2971,9 +3000,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   icon: 'error',
                   confirmButtonText: 'Fechar'
                 });
-                return _context5.abrupt("return");
+                return _context6.abrupt("return");
 
-              case 28:
+              case 29:
+                if (!(moment__WEBPACK_IMPORTED_MODULE_1___default()(this.data_solicitacao) > moment__WEBPACK_IMPORTED_MODULE_1___default()())) {
+                  _context6.next = 32;
+                  break;
+                }
+
+                Swal.fire({
+                  text: "A data de solicitação não pode ser uma data futura.",
+                  icon: 'error',
+                  confirmButtonText: 'Fechar'
+                });
+                return _context6.abrupt("return");
+
+              case 32:
+                if (!(moment__WEBPACK_IMPORTED_MODULE_1___default()(this.data_execucao) < moment__WEBPACK_IMPORTED_MODULE_1___default()())) {
+                  _context6.next = 35;
+                  break;
+                }
+
+                Swal.fire({
+                  text: "A data prevista não pode ser uma data passada.",
+                  icon: 'error',
+                  confirmButtonText: 'Fechar'
+                });
+                return _context6.abrupt("return");
+
+              case 35:
                 self = this;
                 this.$axios.post('auth/registarTarefa', {
                   'selectedTipo': this.selectedTipo,
@@ -3021,12 +3076,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 });
 
-              case 30:
+              case 37:
               case "end":
-                return _context5.stop();
+                return _context6.stop();
             }
           }
-        }, _callee5, this);
+        }, _callee6, this);
       }));
 
       function registarTarefa(_x2) {
@@ -3178,7 +3233,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       tarefas: [],
-      visible: false
+      visible: false,
+      fullPage: true
     };
   },
   components: {
@@ -3323,7 +3379,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       tarefas: [],
-      visible: false
+      visible: false,
+      fullPage: true
     };
   },
   components: {
@@ -3461,7 +3518,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       assessores: [],
-      visible: false
+      visible: false,
+      fullPage: true
     };
   },
   components: {
@@ -3521,6 +3579,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3633,6 +3693,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3643,7 +3711,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       qtdTarefasAtrasadas: '',
       qtdAccoes: '',
       visible: false,
-      fullPage: true
+      fullPage: true,
+      now: moment__WEBPACK_IMPORTED_MODULE_1___default()(new Date()).format('YYYY-MM-DD HH:mm:ss')
     };
   },
   components: {
@@ -3883,8 +3952,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       periodo: '',
       data_fecho: '',
       visible: false,
-      fullPage: true,
-      anim: 'Spinner'
+      fullPage: true
     };
   },
   components: {
@@ -4309,10 +4377,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
 //import ModalActividade from "../components/ModalActividade.vue";
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -4321,7 +4385,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       tarefas: [],
-      visible: false
+      visible: false,
+      fullPage: true
     };
   },
   created: function created() {
@@ -5296,6 +5361,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -5353,7 +5420,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       descricao_accao_modal: '',
       estado_modal: '',
       responsavel_modal: '',
-      urlTarefa: ''
+      urlTarefa: '',
+      qtdPermitidaDescricaoAC: 550,
+      qtdeInicialAC: 0,
+      qtdeInformadaAC: 0
     };
   },
   validations: {
@@ -5415,7 +5485,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     descricao_accao: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__["required"],
-      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__["minLength"])(10)
+      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__["minLength"])(10),
+      maxLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__["maxLength"])(550)
     },
     estado: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__["required"]
@@ -5831,28 +5902,64 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this.$v.$reset();
       });
     },
-    //Registar acção de uma actividade
-    registarAccao: function () {
-      var _registarAccao = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(e) {
-        var self;
+    //Contar a quantidade de textos na descrição
+    contDescricao: function () {
+      var _contDescricao = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
+                this.qtdeInformadaAC = this.qtdeInicialAC + this.descricao_accao.length;
+
+              case 1:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7, this);
+      }));
+
+      function contDescricao() {
+        return _contDescricao.apply(this, arguments);
+      }
+
+      return contDescricao;
+    }(),
+    //Registar acção de uma actividade
+    registarAccao: function () {
+      var _registarAccao = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(e) {
+        var self;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
                 this.$v.$touch();
 
                 if (!this.$v.$invalid) {
-                  _context7.next = 5;
+                  _context8.next = 5;
                   break;
                 }
 
                 this.submitStatus = 'ERROR';
-                _context7.next = 10;
+                _context8.next = 16;
                 break;
 
               case 5:
+                if (!(moment__WEBPACK_IMPORTED_MODULE_2___default()(this.data_operacao) > moment__WEBPACK_IMPORTED_MODULE_2___default()() && this.estado != 'ACRG')) {
+                  _context8.next = 8;
+                  break;
+                }
+
+                Swal.fire({
+                  text: "A data da operação não deve ser superior a data actual.",
+                  icon: 'error',
+                  confirmButtonText: 'Fechar'
+                });
+                return _context8.abrupt("return");
+
+              case 8:
                 if (!(moment__WEBPACK_IMPORTED_MODULE_2___default()(this.data_operacao) < moment__WEBPACK_IMPORTED_MODULE_2___default()() && this.estado == 'ACRG')) {
-                  _context7.next = 8;
+                  _context8.next = 11;
                   break;
                 }
 
@@ -5861,9 +5968,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   icon: 'error',
                   confirmButtonText: 'Fechar'
                 });
-                return _context7.abrupt("return");
+                return _context8.abrupt("return");
 
-              case 8:
+              case 11:
+                if (!(this.utilizador_pergunta == '' && (this.estado == 'CUSS' || this.estado == 'CURS'))) {
+                  _context8.next = 14;
+                  break;
+                }
+
+                Swal.fire({
+                  text: "Deve escolher o utilizador a solicitar ou responder suporte",
+                  icon: 'error',
+                  confirmButtonText: 'Fechar'
+                });
+                return _context8.abrupt("return");
+
+              case 14:
                 self = this;
                 this.$axios.post('auth/registarOperacao', {
                   'tarefa_id': this.idActividade,
@@ -5908,12 +6028,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 });
 
-              case 10:
+              case 16:
               case "end":
-                return _context7.stop();
+                return _context8.stop();
             }
           }
-        }, _callee7, this);
+        }, _callee8, this);
       }));
 
       function registarAccao(_x2) {
@@ -5924,11 +6044,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }(),
     //Listar as acções registadas a uma tarefa
     pegaAccoesTarefa: function () {
-      var _pegaAccoesTarefa = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8() {
+      var _pegaAccoesTarefa = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9() {
         var self;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
           while (1) {
-            switch (_context8.prev = _context8.next) {
+            switch (_context9.prev = _context9.next) {
               case 0:
                 self = this;
                 this.$axios.get('auth/pegaAccoes/' + this.id_tarefa).then(function (response) {
@@ -5941,10 +6061,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
               case "end":
-                return _context8.stop();
+                return _context9.stop();
             }
           }
-        }, _callee8, this);
+        }, _callee9, this);
       }));
 
       function pegaAccoesTarefa() {
@@ -5962,21 +6082,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (event.target.value == 'CUSS' || event.target.value == 'CURS') this.tipo_accao = 1;else this.tipo_accao = 0;
     },
+    onChangeTipoOrigem: function onChangeTipoOrigem(event) {
+      if (event.target.value == 'Atividade') {
+        this.acOrigemDado = this.codigo;
+      } else {
+        this.acOrigemDado = '';
+      }
+    },
     //Função para ver relatorio actividade
     verPdfActividade: function () {
-      var _verPdfActividade = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
+      var _verPdfActividade = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee10$(_context10) {
           while (1) {
-            switch (_context9.prev = _context9.next) {
+            switch (_context10.prev = _context10.next) {
               case 0:
                 this.$axios.get('auth/gerarTarefaPdf/');
 
               case 1:
               case "end":
-                return _context9.stop();
+                return _context10.stop();
             }
           }
-        }, _callee9, this);
+        }, _callee10, this);
       }));
 
       function verPdfActividade() {
@@ -47596,9 +47723,9 @@ var render = function() {
                   _c("img", {
                     attrs: {
                       src: "/images/logo.png",
-                      width: "200",
+                      width: "100",
                       alt: "",
-                      height: "30"
+                      height: "15"
                     }
                   })
                 ])
@@ -48302,7 +48429,7 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c("div", { staticClass: "form-row" }, [
-                            _c("div", { staticClass: "col-md-8" }, [
+                            _c("div", { staticClass: "col-md-9" }, [
                               _c("div", { staticClass: "row" }, [
                                 _c("div", { staticClass: "col-12" }, [
                                   _c(
@@ -48768,7 +48895,7 @@ var render = function() {
                               ])
                             ]),
                             _vm._v(" "),
-                            _c("div", { staticClass: "col-md-4" }, [
+                            _c("div", { staticClass: "col-md-3" }, [
                               _c("img", {
                                 staticClass: "rounded-circle",
                                 staticStyle: { border: "solid #d0d5dc 1px" },
@@ -48796,7 +48923,7 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c("div", { staticClass: "form-row" }, [
-                            _c("div", { staticClass: "col-md-8" }, [
+                            _c("div", { staticClass: "col-md-9" }, [
                               _c("div", { staticClass: "row" }, [
                                 _c("div", { staticClass: "col-12" }, [
                                   _c(
@@ -49223,7 +49350,7 @@ var render = function() {
                                       "is-invalid": _vm.$v.data_execucao.$error,
                                       "is-valid": !_vm.$v.data_execucao.$invalid
                                     },
-                                    attrs: { type: "datetime-local" },
+                                    attrs: { type: "date" },
                                     domProps: {
                                       value: _vm.$v.data_execucao.$model
                                     },
@@ -49259,7 +49386,7 @@ var render = function() {
                               ])
                             ]),
                             _vm._v(" "),
-                            _c("div", { staticClass: "col-md-4" }, [
+                            _c("div", { staticClass: "col-md-3" }, [
                               _c("img", {
                                 staticClass: "rounded-circle foto",
                                 staticStyle: { border: "solid #d0d5dc 1px" },
@@ -49300,6 +49427,7 @@ var render = function() {
                           attrs: { rows: "5" },
                           domProps: { value: _vm.$v.descricao.$model },
                           on: {
+                            keyup: _vm.contDescricao,
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -49316,6 +49444,22 @@ var render = function() {
                           }
                         }),
                         _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            staticClass: "float-right",
+                            staticStyle: { color: "red" }
+                          },
+                          [
+                            _vm._v(
+                              "Quantidade: " +
+                                _vm._s(_vm.qtdeInformada) +
+                                " de " +
+                                _vm._s(_vm.qtdPermitidaDescricao)
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
                         _c("div", { staticClass: "invalid-feedback" }, [
                           !_vm.$v.descricao.required
                             ? _c("span", [
@@ -49326,7 +49470,8 @@ var render = function() {
                           !_vm.$v.descricao.minLength
                             ? _c("span", [
                                 _vm._v(
-                                  "A descricao deve possuír um tamanho maior"
+                                  "A descricao deve possuír um tamanho maior não superior a " +
+                                    _vm._s(_vm.qtdPermitidaDescricao)
                                 )
                               ])
                             : _vm._e(),
@@ -49746,7 +49891,6 @@ var render = function() {
       _vm._v(" "),
       _c("loading", {
         attrs: {
-          animation: _vm.anim,
           active: _vm.visible,
           "can-cancel": true,
           "is-full-page": _vm.fullPage
@@ -49923,7 +50067,6 @@ var render = function() {
       _vm._v(" "),
       _c("loading", {
         attrs: {
-          animation: _vm.anim,
           active: _vm.visible,
           "can-cancel": true,
           "is-full-page": _vm.fullPage
@@ -50129,7 +50272,6 @@ var render = function() {
       _vm._v(" "),
       _c("loading", {
         attrs: {
-          animation: _vm.anim,
           active: _vm.visible,
           "can-cancel": true,
           "is-full-page": _vm.fullPage
@@ -50275,7 +50417,6 @@ var render = function() {
       _vm._v(" "),
       _c("loading", {
         attrs: {
-          animation: _vm.anim,
           active: _vm.visible,
           "can-cancel": true,
           "is-full-page": _vm.fullPage
@@ -50289,102 +50430,77 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "row text-center mb-2" }, [
         _c("div", { staticClass: "col-md-6 col-xl-3" }, [
-          _c(
-            "div",
-            { staticClass: "card-box" },
-            [
-              _c("i", { staticClass: "fas fa-undo-alt font-26" }),
-              _vm._v(" "),
-              _c("h3", { staticClass: "text-primary" }, [
-                _vm._v(_vm._s(_vm.qtdTarefasTotal))
-              ]),
-              _vm._v(" "),
-              _c("router-link", { attrs: { to: "#", exact: "" } }, [
-                _vm._v(
-                  "\n                    Total Actividades Hoje\n                "
-                )
-              ])
-            ],
-            1
-          )
+          _c("div", { staticClass: "card-box" }, [
+            _c("i", { staticClass: "fas fa-undo-alt font-26" }),
+            _vm._v(" "),
+            _c("h3", { staticClass: "text-primary" }, [
+              _vm._v(_vm._s(_vm.qtdTarefasTotal))
+            ]),
+            _vm._v(" "),
+            _c("span", [
+              _vm._v(
+                "\n                    Total Actividades Hoje\n                "
+              )
+            ])
+          ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-4 col-xl-2" }, [
-          _c(
-            "div",
-            { staticClass: "card-box" },
-            [
-              _c("i", { staticClass: "fas fa-clipboard-check font-26" }),
-              _vm._v(" "),
-              _c("h3", { staticClass: "text-success" }, [
-                _vm._v(_vm._s(_vm.qtdTarefasConcluidas))
-              ]),
-              _vm._v(" "),
-              _c("router-link", { attrs: { to: "#", exact: "" } }, [
-                _vm._v("\n                    Regularizadas\n                ")
-              ])
-            ],
-            1
-          )
+          _c("div", { staticClass: "card-box" }, [
+            _c("i", { staticClass: "fas fa-clipboard-check font-26" }),
+            _vm._v(" "),
+            _c("h3", { staticClass: "text-success" }, [
+              _vm._v(_vm._s(_vm.qtdTarefasConcluidas))
+            ]),
+            _vm._v(" "),
+            _c("span", [
+              _vm._v("\n                    Regularizadas\n                ")
+            ])
+          ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-6 col-xl-3" }, [
-          _c(
-            "div",
-            { staticClass: "card-box" },
-            [
-              _c("i", { staticClass: "fas fa-file-alt font-26" }),
-              _vm._v(" "),
-              _c("h3", { staticClass: "text-warning" }, [
-                _vm._v(_vm._s(_vm.qtdTarefasNaoConcluidas))
-              ]),
-              _vm._v(" "),
-              _c("router-link", { attrs: { to: "#", exact: "" } }, [
-                _vm._v(
-                  "\n                    Não Regularizadas\n                "
-                )
-              ])
-            ],
-            1
-          )
+          _c("div", { staticClass: "card-box" }, [
+            _c("i", { staticClass: "fas fa-file-alt font-26" }),
+            _vm._v(" "),
+            _c("h3", { staticClass: "text-warning" }, [
+              _vm._v(_vm._s(_vm.qtdTarefasNaoConcluidas))
+            ]),
+            _vm._v(" "),
+            _c("span", [
+              _vm._v(
+                "\n                    Não Regularizadas\n                "
+              )
+            ])
+          ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-4 col-xl-2" }, [
-          _c(
-            "div",
-            { staticClass: "card-box" },
-            [
-              _c("i", { staticClass: "fas fa-clipboard-list font-26" }),
-              _vm._v(" "),
-              _c("h3", { staticClass: "text-danger" }, [
-                _vm._v(_vm._s(_vm.qtdTarefasAtrasadas))
-              ]),
-              _vm._v(" "),
-              _c("router-link", { attrs: { to: "#", exact: "" } }, [
-                _vm._v("\n                    Atrasadas\n                ")
-              ])
-            ],
-            1
-          )
+          _c("div", { staticClass: "card-box" }, [
+            _c("i", { staticClass: "fas fa-clipboard-list font-26" }),
+            _vm._v(" "),
+            _c("h3", { staticClass: "text-danger" }, [
+              _vm._v(_vm._s(_vm.qtdTarefasAtrasadas))
+            ]),
+            _vm._v(" "),
+            _c("span", [
+              _vm._v("\n                    Atrasadas\n                ")
+            ])
+          ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-4 col-xl-2" }, [
-          _c(
-            "div",
-            { staticClass: "card-box" },
-            [
-              _c("i", { staticClass: "fas fa-file-alt font-26" }),
-              _vm._v(" "),
-              _c("h3", { staticClass: "text-success" }, [
-                _vm._v(_vm._s(_vm.qtdAccoes))
-              ]),
-              _vm._v(" "),
-              _c("router-link", { attrs: { to: "#", exact: "" } }, [
-                _vm._v("\n                    Acções\n                ")
-              ])
-            ],
-            1
-          )
+          _c("div", { staticClass: "card-box" }, [
+            _c("i", { staticClass: "fas fa-file-alt font-26" }),
+            _vm._v(" "),
+            _c("h3", { staticClass: "text-success" }, [
+              _vm._v(_vm._s(_vm.qtdAccoes))
+            ]),
+            _vm._v(" "),
+            _c("span", [
+              _vm._v("\n                    Acções\n                ")
+            ])
+          ])
         ])
       ]),
       _vm._v(" "),
@@ -50449,16 +50565,51 @@ var render = function() {
                                       _vm._v(
                                         "\n                                        " +
                                           _vm._s(tarefa.data_cumprimento) +
-                                          "\n                                    "
+                                          "  \n                                    "
                                       )
                                     ]
                                   )
                                 ]
                               )
                             ])
-                          : _c("td", { attrs: { width: "20%" } }, [
+                          : _vm._e(),
+                        _vm._v(" "),
+                        tarefa.data_prevista < _vm.now && tarefa.avanco < 100
+                          ? _c("td", { attrs: { width: "10%" } }, [
+                              _c(
+                                "div",
+                                { staticClass: "progress mb-1 progress-xl" },
+                                [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "progress-bar bg-danger",
+                                      staticStyle: { width: "100%" },
+                                      attrs: {
+                                        role: "progressbar",
+                                        "aria-valuenow": "50",
+                                        "aria-valuemin": "0",
+                                        "aria-valuemax": "100"
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                        " +
+                                          _vm._s(tarefa.data_prevista) +
+                                          "  \n                                    "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        tarefa.data_prevista > _vm.now && tarefa.avanco < 100
+                          ? _c("td", { attrs: { width: "20%" } }, [
                               _vm._m(2, true)
                             ])
+                          : _vm._e()
                       ]
                     )
                   }),
@@ -50539,7 +50690,7 @@ var staticRenderFns = [
         },
         [
           _vm._v(
-            "\n                                        Actividade não Concluída\n                                    "
+            "\n                                        Actividade em Curso \n                                    "
           )
         ]
       )
@@ -50809,7 +50960,6 @@ var render = function() {
       _vm._v(" "),
       _c("loading", {
         attrs: {
-          animation: _vm.anim,
           active: _vm.visible,
           "can-cancel": true,
           "is-full-page": _vm.fullPage
@@ -51301,11 +51451,8 @@ var render = function() {
       _c("br"),
       _c("br"),
       _vm._v(" "),
-      _c("ModalActividade"),
-      _vm._v(" "),
       _c("loading", {
         attrs: {
-          animation: _vm.anim,
           active: _vm.visible,
           "can-cancel": true,
           "is-full-page": _vm.fullPage
@@ -52477,24 +52624,29 @@ var render = function() {
                                 "is-valid": !_vm.$v.id_origem.$invalid
                               },
                               on: {
-                                change: function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.$set(
-                                    _vm.$v.id_origem,
-                                    "$model",
-                                    $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  )
-                                }
+                                change: [
+                                  function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.$v.id_origem,
+                                      "$model",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  },
+                                  function($event) {
+                                    return _vm.onChangeTipoOrigem($event)
+                                  }
+                                ]
                               }
                             },
                             [
@@ -52790,6 +52942,7 @@ var render = function() {
                           attrs: { rows: "5" },
                           domProps: { value: _vm.$v.descricao_accao.$model },
                           on: {
+                            keyup: _vm.contDescricao,
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -52806,6 +52959,22 @@ var render = function() {
                           }
                         }),
                         _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            staticClass: "float-right",
+                            staticStyle: { color: "red" }
+                          },
+                          [
+                            _vm._v(
+                              "Quantidade: " +
+                                _vm._s(_vm.qtdeInformadaAC) +
+                                " de " +
+                                _vm._s(_vm.qtdPermitidaDescricaoAC)
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
                         _c("div", { staticClass: "invalid-feedback" }, [
                           !_vm.$v.descricao_accao.required
                             ? _c("span", [
@@ -52816,7 +52985,16 @@ var render = function() {
                           !_vm.$v.descricao_accao.minLength
                             ? _c("span", [
                                 _vm._v(
-                                  "A descricao deve possuír um tamanho maior"
+                                  "A descricao deve possuír um tamanho maior não superior a " +
+                                    _vm._s(_vm.qtdPermitidaDescricao)
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          !_vm.$v.descricao_accao.maxLength
+                            ? _c("span", [
+                                _vm._v(
+                                  "A descricao excedeu a quantidade permitida"
                                 )
                               ])
                             : _vm._e()
@@ -53860,7 +54038,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", { attrs: { id: "cabecatabela" } }, [
       _c("tr", [
-        _c("th", [_vm._v("Data")]),
+        _c("th", [_vm._v("Data Operação")]),
         _vm._v(" "),
         _c("th", [_vm._v("Mensagem")]),
         _vm._v(" "),

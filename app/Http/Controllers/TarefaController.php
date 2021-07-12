@@ -69,14 +69,12 @@ class TarefaController extends Controller
                 return response()->json($tarefa->codigo,200);            
             }
         }catch (Exception $e){
-            return response()->json('Verifique a quantidade de texto informada na descrição.',201);
+            return response()->json('Verifique os dados informados.',201);
         }
     }
 
     public function exportarTarefaCSV()
     {
-        //dd(date("2021-06-25"));
-        dd(Tarefa::where(DB::raw('DATE(tarefa.created_at)'),'=',date("2021-06-25"))->get());
         $now = date('Y-m-d');
         return Excel::download(new TarefasExport, 'tarefas_'.$now.'.xlsx');  
     }
@@ -168,9 +166,15 @@ class TarefaController extends Controller
         $operacao->id = $request->tarefa_id;
         $operacao->codigo = $request->codigo;
         $operacao->acOrigemDado = $request->id_origem.' : '.$request->acOrigemDado;
-        $operacao->created_at = $request->data_operacao;
-        $operacao->utilizador_codigo = $request->utilizador_codigo; 
-        $operacao->descricao = $request->descricao_accao;
+        //Se actividade for Reagendada então data registo é data actual senao pega a data da operação
+        if($request->estado=='ACRG'){
+            $operacao->created_at = date('Y-m-d H:i:s');
+            $operacao->descricao = $request->descricao_accao.' ==> Esta actividade esta sendo reagendada para o dia '.date('d-m-Y',strtotime($request->data_operacao));
+        }else{
+            $operacao->created_at = $request->data_operacao;  
+            $operacao->descricao = $request->descricao_accao;  
+        }
+        $operacao->utilizador_codigo = $request->utilizador_codigo;   
         $operacao->estado = $request->estado;
         $operacao->avanco = $request->avanco; 
         $operacao->tempo_acao = $request->tempo_acao * 60; //tempo * 60  
@@ -243,7 +247,6 @@ class TarefaController extends Controller
                 ->where('tarefa.id','=',$idtarefa)
                 ->orderBy('tarefa_operacao.created_at','ASC')
                 ->get();
-        
         $accoes = $this->secondToHour($accoes);
 
         return response()->json($accoes,200);
@@ -268,10 +271,12 @@ class TarefaController extends Controller
     }
 
     public function getTarefasAPI(){
+        $previus = date('Y-m-d',strtotime("-5 days"));
+        $now = date('Y-m-d');
+
         $tarefas = DB::table('tarefa')
-                //->join('tipo', 'tipo.id', '=', 'tarefa.id_tipo')
-                //->select('tarefa.id','tarefa.codigo','tarefa.titulo','tarefa.solicitante','tarefa.responsavel','tarefa.updated_at')
-                ->where(DB::raw('DATE(tarefa.created_at)'),'=',date('Y-m-d'))
+                ->where(DB::raw('DATE(tarefa.created_at)'),'=',$now)
+                ->orWhere(DB::raw('DATE(tarefa.created_at)'),'>',$previus)
                 ->orderBy('tarefa.created_at','DESC')
                 ->get()->toJson(JSON_PRETTY_PRINT);
 
@@ -279,12 +284,15 @@ class TarefaController extends Controller
     }
 
     public function getOperacaoAPI(){
+        $previus = date('Y-m-d',strtotime("-5 days"));
+        $now = date('Y-m-d');
+        
         $operacoes = DB::table('tarefa_operacao')
-                //->where(DB::raw('DATE(tarefa.updated_at)'),'=',date('Y-m-d'))
                 ->where(DB::raw('DATE(updated_at)'),'=',date('Y-m-d'))
+                ->orWhere(DB::raw('DATE(created_at)'),'>',$previus)
                 ->orderBy('updated_at','DESC')
                 ->get();
-        //$operacoes = $this->siglaToEstado($operacoes)->toJSON();
+        
         return response($operacoes, 200);
     }
 
@@ -410,14 +418,32 @@ class TarefaController extends Controller
         return $accao;
     }
 
-    //Gerar PDF da acção
+    //Pega o estado em texto
+    public function getEstado($estado){
+        switch($estado){
+            case 'ACRG':
+                    return 'Actividade Reagendada';break;
+            case 'ACCO':
+                    return 'Actividade Concluída';break;
+            case 'ACCU':
+                    return 'Actividade em Curso';break;
+            case 'ACRE':
+                    return 'Actividade Reativada';break;
+            case 'CUSS':
+                    return 'Em Curso Solic. Suporte';break;
+            case 'CURS':
+                    return 'Em Curso Resp. Suporte';break;
+        }
+    }
+
+    //Gerar PDF da acção ou relatorio
     public function gerarAccaoPdf($codigo,$data){
         //$tarefa = Tarefa::getTarefaByCodigo($codigo);
         $accao= DB::table('tarefa_operacao')
                 ->join('tarefa', 'tarefa_operacao.id', '=', 'tarefa.id')
                 ->join('users', 'users.id', '=', 'tarefa.id_user')
                 ->join('tipo', 'tipo.id', '=', 'tarefa.id_tipo')
-                ->select('tarefa_operacao.created_at','tarefa_operacao.codigo','tarefa_operacao.descricao','tarefa_operacao.utilizador_codigo','tarefa_operacao.utilizador_pergunta','tarefa_operacao.estado','tarefa_operacao.avanco','tarefa_operacao.tempo_acao','tarefa_operacao.acOrigemDado','tarefa.titulo','tarefa.descricao as tarefa_descricao','tipo.tipo_abreviado','users.name')
+                ->select('tarefa_operacao.created_at','tarefa_operacao.codigo','tarefa_operacao.descricao','tarefa_operacao.utilizador_codigo','tarefa_operacao.utilizador_pergunta','tarefa_operacao.estado','tarefa_operacao.avanco','tarefa_operacao.tempo_acao','tarefa_operacao.acOrigemDado','tarefa.titulo','tarefa.data_prevista','tarefa.descricao as tarefa_descricao','tipo.tipo_abreviado','users.name')
                 ->where('tarefa_operacao.codigo','=',$codigo)
                 ->where('tarefa_operacao.created_at','=',$data)
                 ->first();
@@ -429,9 +455,15 @@ class TarefaController extends Controller
         if(!is_null($accao->utilizador_pergunta)){
             $utilizador_suporte = User::getPessoa($accao->utilizador_pergunta);
             $utilizador_suporte=$utilizador_suporte->name;
-        }      
+        } 
         
-        return view('layouts.pdfAccao',compact('accao','utilizador_suporte'));
+        $utilizador_responsavel = User::getPessoa($accao->utilizador_codigo);
+        $utilizador_responsavel=$utilizador_responsavel->name;
+
+        //Montar assunto
+        $assunto=$this->getEstado($accao->estado).' ('.$accao->avanco.') : '.$accao->tipo_abreviado.' : '.$accao->titulo;
+        
+        return view('layouts.pdfAccao',compact('accao','utilizador_suporte','utilizador_responsavel','assunto'));
 
         //$pdf = PDF::loadView('layouts.pdfAccao',compact('accao','utilizador_suporte'))->setOptions(['debugKeepTemp' => true]);
         //return $pdf->setPaper('a4')->stream('Relatorio Acção.pdf');

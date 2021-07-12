@@ -85,9 +85,9 @@
                             <!-- <span class="logo-sm-text-dark">X</span> -->
                             <img
                                 src="/images/logo.png"
-                                width="200"
+                                width="100"
                                 alt=""
-                                height="30"
+                                height="15"
                             />
                         </span>
                     </router-link>

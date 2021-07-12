@@ -47,7 +47,7 @@
 <div class="container-fluid">
     <table width="700px" style="margin-left:auto;margin-right:auto;position:relative" class="tabela-relatorio">
         <tr>
-            <td width="20%" style="text-align:center;color:#111;font-weight:bold">{{$tarefa->codigo}}</td>
+            <td width="20%" style="font-size:18px;text-align:center;color:#111;font-weight:bold">{{$tarefa->codigo}}</td>
             <td style="font-size:14px;font-weight: bold" @if($tarefa->avanco==100) class="cor-verdeE" @else class="cor-azulE" @endif colspan="5">
                 <br>
                 [Registo de Actividade]<br> 
@@ -107,10 +107,10 @@
             <td @if($tarefa->avanco==100) class="cor-verdeE" @else class="cor-azulE" @endif style="text-align:center" colspan="6">Descrição </td>
         </tr>
         <tr>
-            <td colspan="6">
-                <br><br><br><br><br>
-                {{$tarefa->descricao}}
-                <br><br><br><br><br>
+            <td style="font-weight:bold" colspan="6">
+                <br>
+                <textarea style="border:none;width:98%;height:250px;overflow:hidden">{{$tarefa->descricao}}</textarea>
+                <br>
             </td>
         </tr>
         <tr>

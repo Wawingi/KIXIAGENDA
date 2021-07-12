@@ -77,7 +77,7 @@
             <i class="mdi mdi-plus-circle mr-1"></i>Registar Fecho
         </button>
         -->
-        <loading :animation="anim" :active.sync="visible" :can-cancel="true" :is-full-page="fullPage"/>  
+        <loading :active.sync="visible" :can-cancel="true" :is-full-page="fullPage"/>  
 
         <!--Inicio do conteudo-->
         <br><br>
@@ -129,8 +129,7 @@
                 periodo:'',
                 data_fecho:'',
                 visible: false,
-                fullPage: true,
-                anim:'Spinner'
+                fullPage: true
             };       
         },  
         components: {

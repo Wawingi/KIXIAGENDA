@@ -18,11 +18,7 @@
         <!--Inicio do conteudo-->
         <br/><br/>
 
-        <!--Modal inclusão-->
-        <ModalActividade/>  
-        <!---->    
-
-        <loading :animation="anim" :active.sync="visible" :can-cancel="true" :is-full-page="fullPage"/>  
+        <loading :active.sync="visible" :can-cancel="true" :is-full-page="fullPage"/>  
                    
         <br /><br />
         <div class="row">
@@ -77,7 +73,8 @@
         data(){
             return{
                 tarefas: [],
-                visible: false
+                visible: false,
+                fullPage: true
             };       
         },  
         created(){

@@ -242,7 +242,7 @@
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="name">Tipo Origem</label>
-                                        <select v-model.trim="$v.id_origem.$model" :class="{'is-invalid':$v.id_origem.$error, 'is-valid':!$v.id_origem.$invalid}" class="custom-select custom-select-sm">
+                                        <select @change="onChangeTipoOrigem($event)" v-model.trim="$v.id_origem.$model" :class="{'is-invalid':$v.id_origem.$error, 'is-valid':!$v.id_origem.$invalid}" class="custom-select custom-select-sm">
                                             <option disabled selected :value="''">Selecione a origem</option>
                                             <option v-for="origem in origens" v-bind:value="origem.titulo">{{origem.titulo}}</option>
                                         </select>
@@ -307,10 +307,12 @@
                             <div class="row">
                                 <div class="col-12">
                                     <label for="name">Descrição da Acção</label>
-                                    <textarea v-model.trim="$v.descricao_accao.$model" :class="{'is-invalid':$v.descricao_accao.$error, 'is-valid':!$v.descricao_accao.$invalid}" class="form-control form-control-sm corInput" rows="5"></textarea>
+                                    <textarea v-on:keyup="contDescricao" v-model.trim="$v.descricao_accao.$model" :class="{'is-invalid':$v.descricao_accao.$error, 'is-valid':!$v.descricao_accao.$invalid}" class="form-control form-control-sm corInput" rows="5"></textarea>
+                                    <span style="color:red" class="float-right">Quantidade: {{qtdeInformadaAC}} de {{qtdPermitidaDescricaoAC}}</span>
                                     <div class="invalid-feedback">
                                         <span v-if="!$v.descricao_accao.required">A descricao deve ser fornecida</span>
-                                        <span v-if="!$v.descricao_accao.minLength">A descricao deve possuír um tamanho maior</span>
+                                        <span v-if="!$v.descricao_accao.minLength">A descricao deve possuír um tamanho maior não superior a {{qtdPermitidaDescricao}}</span>
+                                        <span v-if="!$v.descricao_accao.maxLength">A descricao excedeu a quantidade permitida</span>
                                     </div>
                                 </div>
                             </div>
@@ -736,7 +738,7 @@
                             <table class="table table-sm table-bordeless" cellspacing="0" width="100%">
                                 <thead id="cabecatabela">
                                     <tr>
-                                        <th>Data</th>
+                                        <th>Data Operação</th>
                                         <th>Mensagem</th>
                                         <th>Utilizador</th>
                                         <th>Suporte a</th>
@@ -843,7 +845,10 @@
                 descricao_accao_modal:'',
                 estado_modal:'',
                 responsavel_modal:'',
-                urlTarefa: ''
+                urlTarefa: '',
+                qtdPermitidaDescricaoAC:550,
+                qtdeInicialAC:0,
+                qtdeInformadaAC:0
             };       
         },
         validations: {
@@ -905,7 +910,8 @@
             },
             descricao_accao: {
                 required,       
-                minLength: minLength(10)
+                minLength: minLength(10),
+                maxLength: maxLength(550)
             },           
             estado: {
                 required
@@ -935,7 +941,7 @@
                 this.$axios.get('auth/pegaUtilizador')
                 .then(function (response) {
                     if(response.status==200){
-                        self.utilizador_codigo = response.data.username;                                    
+                        self.utilizador_codigo = response.data.username;                                
                     }else{
                       
                     }
@@ -1201,21 +1207,42 @@
                 this.$nextTick(() => { this.$v.$reset(); });   
             },
 
+            //Contar a quantidade de textos na descrição
+            contDescricao: async function() {
+                this.qtdeInformadaAC = this.qtdeInicialAC + this.descricao_accao.length;           
+            },
+
             //Registar acção de uma actividade
             registarAccao: async function(e){
                 this.$v.$touch()
                 if (this.$v.$invalid) {
                     this.submitStatus = 'ERROR'
                 } else {
-                    if(moment(this.data_operacao)<moment() && this.estado=='ACRG'){
+                    if(moment(this.data_operacao)>moment() && this.estado!='ACRG'){
                         Swal.fire({
-                                text: "A data da operação deve ser superior.",
-                                icon: 'error',
-                                confirmButtonText: 'Fechar'
+                            text: "A data da operação não deve ser superior a data actual.",
+                            icon: 'error',
+                            confirmButtonText: 'Fechar'
                         });
                         return;
                     }
-                   
+                    if(moment(this.data_operacao)<moment() && this.estado=='ACRG'){
+                        Swal.fire({
+                            text: "A data da operação deve ser superior.",
+                            icon: 'error',
+                            confirmButtonText: 'Fechar'
+                        });
+                        return;
+                    }
+                    if(this.utilizador_pergunta=='' && (this.estado=='CUSS' || this.estado=='CURS')){
+                        Swal.fire({
+                            text: "Deve escolher o utilizador a solicitar ou responder suporte",
+                            icon: 'error',
+                            confirmButtonText: 'Fechar'
+                        });
+                        return;
+                    }
+            
                     let self = this          
                     this.$axios.post('auth/registarOperacao',{
                         'tarefa_id': this.idActividade,
@@ -1292,6 +1319,14 @@
                     this.tipo_accao = 1;
                 else
                     this.tipo_accao = 0;
+            },
+
+            onChangeTipoOrigem(event){
+                if(event.target.value=='Atividade'){
+                    this.acOrigemDado = this.codigo;
+                }else{
+                    this.acOrigemDado = '';
+                }
             },
 
             //Função para ver relatorio actividade

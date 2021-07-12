@@ -16,7 +16,7 @@
         <!--Inicio do conteudo-->
         <br /><br />
 
-        <loading :animation="anim" :active.sync="visible" :can-cancel="true" :is-full-page="fullPage"/>  
+        <loading :active.sync="visible" :can-cancel="true" :is-full-page="fullPage"/>  
 
         <div class="row">
             <div class="col-12">
@@ -58,7 +58,8 @@
         data(){
             return{
                 tarefas: [],
-                visible: false
+                visible: false,
+                fullPage: true
             };       
         }, 
         components: {
