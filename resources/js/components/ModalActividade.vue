@@ -241,7 +241,7 @@
                                 <div class="col-12">
                                     <label for="name">Descrição</label>
                                     <textarea v-on:keyup="contDescricao" v-model.trim="$v.descricao.$model" :class="{'is-invalid':$v.descricao.$error, 'is-valid':!$v.descricao.$invalid}" class="form-control form-control-sm corInput" rows="5"></textarea>
-                                    <span style="color:red" class="float-right">Quantidade: {{qtdeInformada}} de {{qtdPermitidaDescricao}}</span>
+                                    <span style="color:#3bafda" class="float-right">Quantidade: {{qtdeInformada}} de {{qtdPermitidaDescricao}}</span>
                                     <div class="invalid-feedback">
                                         <span v-if="!$v.descricao.required">A descricao deve ser fornecida</span>
                                         <span v-if="!$v.descricao.minLength">A descricao deve possuír um tamanho maior não superior a {{qtdPermitidaDescricao}}</span>
@@ -559,15 +559,28 @@
             },
 
             contDescricao: async function() {
-                this.qtdeInformada = this.qtdeInicial + this.descricao.length;           
+                var m = encodeURIComponent(this.descricao).match(/%[89ABab]/g);
+                var descricao_length = this.descricao.length + (m ? m.length : 0);
+
+                this.qtdeInformada = this.qtdeInicial + descricao_length;           
             },
 
             registarTarefa: async function(e){
                 this.$v.$touch()
                 if (this.$v.$invalid) {               
                     this.submitStatus = 'ERROR'
-                } else {                  
-                    if(this.selectedOrigem=='LITE'){
+                } else { 
+                    var m = encodeURIComponent(this.descricao).match(/%[89ABab]/g);
+                    var descricao_length = this.descricao.length + (m ? m.length : 0);
+                    if(descricao_length>515){
+                        Swal.fire({
+                            text: "Verifique a quantidade de texto informado na descrição.",
+                            icon: 'error',
+                            confirmButtonText: 'Fechar'
+                        });
+                        return;
+                    }
+                    else if(this.selectedOrigem=='LITE'){
                         if(!isNaN(this.dado_origem)&&this.dado_origem.length==9){
                             this.novo_dado_origem=this.dado_origem;
                         }else{
@@ -626,6 +639,27 @@
                         });
                         return;
                     }
+                    
+                    //Verificar a data de execução para não ser superior a 30 dias
+                    var dias =  Math.floor(( moment(this.data_execucao) - moment(this.data_solicitacao) ) / 86400000);
+                    if(dias>30){
+                        Swal.fire({
+                            text: "A data prevista não pode exceder 30 dias.",
+                            icon: 'error',
+                            confirmButtonText: 'Fechar'
+                        });
+                        return;
+                    }
+
+                    //Actividade do tipo não INACFE não pode ter tempo > 1800
+                    if(this.selectedTipo!='INACFE' && this.tempo*60>1200){
+                        Swal.fire({
+                            text: "O tempo de registo não pode exceder 20 minutos.",
+                            icon: 'error',
+                            confirmButtonText: 'Fechar'
+                        });
+                        return;
+                    } 
                     
                     let self = this          
                     this.$axios.post('auth/registarTarefa',{

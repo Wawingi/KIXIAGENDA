@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Cache;
 use App\Exports\TarefasExport;
+use App\Exports\TarefaOperacaoExport;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 Use Exception;
@@ -77,6 +78,12 @@ class TarefaController extends Controller
     {
         $now = date('Y-m-d');
         return Excel::download(new TarefasExport, 'tarefas_'.$now.'.xlsx');  
+    }
+ 
+    public function exportarOperacaoCSV()
+    {
+        $now = date('Y-m-d');
+        return Excel::download(new TarefaOperacaoExport, 'operacao_'.$now.'.xlsx');  
     }
 
     public function pegaTarefas(){
@@ -169,7 +176,7 @@ class TarefaController extends Controller
         //Se actividade for Reagendada então data registo é data actual senao pega a data da operação
         if($request->estado=='ACRG'){
             $operacao->created_at = date('Y-m-d H:i:s');
-            $operacao->descricao = $request->descricao_accao.' ==> Esta actividade esta sendo reagendada para o dia '.date('d-m-Y',strtotime($request->data_operacao));
+            $operacao->descricao = $request->descricao_accao."\r\n\r\n".' ==> Esta actividade esta sendo reagendada para o dia '.date('d-m-Y',strtotime($request->data_operacao));
         }else{
             $operacao->created_at = $request->data_operacao;  
             $operacao->descricao = $request->descricao_accao;  
@@ -245,7 +252,7 @@ class TarefaController extends Controller
                 ->join('users', 'users.id', '=', 'tarefa.id_user')
                 ->select('tarefa_operacao.created_at','tarefa_operacao.codigo','tarefa_operacao.descricao','tarefa_operacao.utilizador_codigo','tarefa_operacao.utilizador_pergunta','tarefa_operacao.estado','tarefa_operacao.avanco','tarefa_operacao.tempo_acao','users.name')
                 ->where('tarefa.id','=',$idtarefa)
-                ->orderBy('tarefa_operacao.created_at','ASC')
+                ->orderBy('tarefa_operacao.created_at','DESC')
                 ->get();
         $accoes = $this->secondToHour($accoes);
 
@@ -461,9 +468,54 @@ class TarefaController extends Controller
         $utilizador_responsavel=$utilizador_responsavel->name;
 
         //Montar assunto
-        $assunto=$this->getEstado($accao->estado).' ('.$accao->avanco.') : '.$accao->tipo_abreviado.' : '.$accao->titulo;
+        $assunto=$this->getEstado($accao->estado).' ('.$accao->avanco.' %) : '.$accao->tipo_abreviado.' : '.$accao->titulo;
         
         return view('layouts.pdfAccao',compact('accao','utilizador_suporte','utilizador_responsavel','assunto'));
+
+        //$pdf = PDF::loadView('layouts.pdfAccao',compact('accao','utilizador_suporte'))->setOptions(['debugKeepTemp' => true]);
+        //return $pdf->setPaper('a4')->stream('Relatorio Acção.pdf');
+    }
+
+    //Gerar PDF da acção ou relatorio com 10 acçõs
+    public function gerarAccaoGeralPdf($codigo){
+        $tarefa = Tarefa::getTarefaByCodigo($codigo);
+
+        $tarefa = $this->setTempoVisual($tarefa);
+        $solicitantePessoa = User::getPessoa($tarefa->solicitante);
+        $solicitante = User::getCurtoNome($solicitantePessoa->name);
+        $responsavelPessoa = User::getPessoa($tarefa->responsavel);
+        $responsavel = User::getCurtoNome($responsavelPessoa->name);
+   
+        if(is_null($solicitantePessoa->foto)){
+            $imageSolicitante = base64_encode(file_get_contents(public_path('/images/users/default.jpg')));
+        }else{
+            $imageSolicitante = base64_encode(file_get_contents(public_path('/images/users/'.$solicitantePessoa->foto)));
+        }
+
+        if(is_null($responsavelPessoa->foto)){
+            $imageResponsavel = base64_encode(file_get_contents(public_path('/images/users/default.jpg')));
+        }else{
+            $imageResponsavel = base64_encode(file_get_contents(public_path('/images/users/'.$responsavelPessoa->foto)));
+        }              
+
+        $accoes = DB::table('tarefa_operacao')
+                ->where('codigo','=',$codigo)
+                ->orderBy('updated_at','DESC')
+                ->take(10)
+                ->get();
+           
+        foreach($accoes as $accao):
+            $user = User::getPessoa($accao->utilizador_codigo);
+            $accao->utilizador_codigo = User::getCurtoNome($user->name);
+            $accao->id = base64_encode(file_get_contents(public_path('/images/users/'.$user->foto)));
+            $accao = $this->setTempoVisualAccao($accao);
+            $accao->estado = $this->getEstado($accao->estado);
+        endforeach;
+
+        //Montar assunto
+        $assunto = 'Relatório de Actividade : '.$tarefa->tipo.' : '.$tarefa->titulo;
+        
+        return view('layouts.pdfAccaoGeral',compact('assunto','tarefa','imageSolicitante','imageResponsavel','solicitante','responsavel','accoes'));
 
         //$pdf = PDF::loadView('layouts.pdfAccao',compact('accao','utilizador_suporte'))->setOptions(['debugKeepTemp' => true]);
         //return $pdf->setPaper('a4')->stream('Relatorio Acção.pdf');

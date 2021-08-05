@@ -38,9 +38,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('generateCodigo','TarefaController@generateCodigo');
 
         Route::get('exportarTarefaCSV','TarefaController@exportarTarefaCSV');
+        Route::get('exportarOperacaoCSV','TarefaController@exportarOperacaoCSV');
 
         Route::get('gerarTarefaPdf/{codigo}','TarefaController@gerarTarefaPdf');
         Route::get('gerarAccaoPdf/{codigo}/{data}','TarefaController@gerarAccaoPdf');
+        Route::get('gerarAccaoGeralPdf/{codigo}','TarefaController@gerarAccaoGeralPdf');
 
         Route::get('pegaAssessores', 'AssessorController@pegaAssessores');
 

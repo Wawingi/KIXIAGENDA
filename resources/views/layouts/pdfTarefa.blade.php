@@ -45,6 +45,9 @@
 <body style="background:#fff">
 <br>
 <div class="container-fluid">
+    <div width="700px" style="margin-left:auto;margin-right:auto;position:relative">
+        <td style="text-align:center"><button style="margin-left:45%;background-color: #4CAF50;color:#fff" onclick="copiarTabela()" type="button">COPIAR RELATÓRIO</button></td>
+    </div>
     <table width="700px" style="margin-left:auto;margin-right:auto;position:relative" class="tabela-relatorio">
         <tr>
             <td width="20%" style="font-size:18px;text-align:center;color:#111;font-weight:bold">{{$tarefa->codigo}}</td>
@@ -108,9 +111,7 @@
         </tr>
         <tr>
             <td style="font-weight:bold" colspan="6">
-                <br>
-                <textarea style="border:none;width:98%;height:250px;overflow:hidden">{{$tarefa->descricao}}</textarea>
-                <br>
+                <p style="white-space: pre-wrap;font-weight:bold;font-size:17px">{{$tarefa->descricao}}</p>  
             </td>
         </tr>
         <tr>
@@ -127,5 +128,33 @@
         </tr>
     </table>
 </div>
+<script>
+    function copiarTabela(){
+        const elTable = document.querySelector('table');
+
+        let range, sel;
+        
+        if (document.createRange && window.getSelection) {
+            
+            range = document.createRange();
+            sel = window.getSelection();
+            sel.removeAllRanges();
+
+            try {
+            range.selectNodeContents(elTable);
+            sel.addRange(range);
+            } catch (e) { 
+            range.selectNode(elTable);
+            sel.addRange(range);
+            }
+
+            if(document.execCommand('copy')){
+                alert('Relatório copiado com sucesso');
+            };
+        }
+
+        sel.removeAllRanges();
+    }
+</script>
 </body>
 </html>

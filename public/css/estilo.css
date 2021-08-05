@@ -53,7 +53,7 @@
 #InputMostrar{
     pointer-events: none;
     font-weight: bolder;
-    background:#f7b84b73;
+    color:#3bafda;
 }
 
 #Linha{
@@ -92,4 +92,8 @@
 .cor-verdeC{
     background: #afe6cb;
     color:#111111
+}
+
+#linhaDado{
+    margin-top:-15px;
 }

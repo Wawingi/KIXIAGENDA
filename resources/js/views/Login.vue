@@ -1,11 +1,11 @@
 <template>
-<div>
+    <div>
         <div class="account-pages mt-5 mb-5">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-8 col-lg-6 col-xl-5">
                         <div class="card">
-
+                        <loading :active.sync="visible" :can-cancel="true" :is-full-page="fullPage"/> 
                             <div class="card-body p-4">
                                 
                                 <div class="text-center w-75 m-auto">
@@ -49,7 +49,7 @@
         <footer style="color:#fff" class="footer footer-alt">
             2020 &copy; KixiAgenda by <b>KixiCrédito</b> 
         </footer>
-</div>
+    </div>
 </template>
 <script>
     import { required, minLength, maxLength } from 'vuelidate/lib/validators'
@@ -63,8 +63,13 @@
             return{
                 username:'',
                 senha:'',
-                submitStatus: null
+                submitStatus: null,
+                visible: false,
+                fullPage: true
             };
+        },
+        components: {
+            Loading: VueLoading
         },
         validations: {
             username: { 
@@ -81,20 +86,24 @@
                 this.$v.$touch()
                 if (this.$v.$invalid) {
                     this.submitStatus = 'ERROR'
-                } else {                    
-                    let self = this               
+                } else {     
+                    this.visible = true;               
+                    let self = this;               
                     this.$axios.post('login',{
                         'username': this.username,
                         'senha': this.senha
                     })
                     .then(function (response) {
                         if(response.status==200){
+                            self.visible = false;  
                             self.$router.push({name:'dashboard'});                     
                         }else{
+                            self.visible = false;  
                             alert("LITTLE ERROR ");
                         }
                     })
-                    .catch(function (error) {                       
+                    .catch(function (error) {     
+                        self.visible = false;                    
                         Swal.fire({
                             text: 'Erro ao efectuar o login, verifique o username ou a senha.',
                             icon: 'error',

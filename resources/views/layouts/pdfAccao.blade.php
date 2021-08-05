@@ -55,18 +55,22 @@
 <body style="background:#fff">
 <br>
     <div class="container-fluid">
-        <table width="700px" style="margin-left:auto;margin-right:auto;position:relative">
+        <div style="width:685px;margin-left:auto;margin-right:auto">
             <tr>
                 <td style="font-weight:bold">
                     <input style="width:100%" readonly type="text" value="{{$assunto}}" id="assunto">
                 </td>
             </tr>
             <tr>
-                <td style="text-align:center"><button onclick="copiarAssunto()" type="button">COPIAR ASSUNTO</button></td>
+                <td style="text-align:right"><button style="background-color: #fcb603;color:#fff" onclick="copiarAssunto()" type="button">COPIAR ASSUNTO</button></td>
             </tr>
-        </table>
+        </div>
         
-        <br><br>
+        <br><br><br>
+        <div style="width:700px;margin-left:auto;margin-right:auto">
+            <td style="text-align:center"><button style="margin-left:45%;background-color: #4CAF50;color:#fff" onclick="copiarTabela()" type="button">COPIAR RELATÓRIO</button></td>
+        </div>
+
         <table width="700px" style="margin-left:auto;margin-right:auto;position:relative" class="tabela-relatorio">
             <tr>
                 <td style="font-size:16px;text-align:center;color:#ba6907;font-weight:bold;background:#f5e78e">
@@ -119,9 +123,7 @@
             </tr>
             <tr>
                 <td style="font-weight:bold" colspan="8">
-                    <br><br><br>
-                    {{$accao->descricao}}
-                    <br><br><br>
+                    <p style="white-space: pre-wrap;font-weight:bold;font-size:17px">{{$accao->descricao}}</p> 
                 </td>
             </tr>
             <tr style="color:#ba6907">
@@ -165,6 +167,33 @@
             copyAssunto.setSelectionRange(0, 99999)
             document.execCommand("copy");
             alert("Assunto Copiado com sucesso");
+        }
+
+        function copiarTabela(){
+            const elTable = document.querySelector('table');
+
+            let range, sel;
+            
+            if (document.createRange && window.getSelection) {
+                
+                range = document.createRange();
+                sel = window.getSelection();
+                sel.removeAllRanges();
+
+                try {
+                range.selectNodeContents(elTable);
+                sel.addRange(range);
+                } catch (e) { 
+                range.selectNode(elTable);
+                sel.addRange(range);
+                }
+
+                if(document.execCommand('copy')){
+                    alert('Relatório copiado com sucesso');
+                }
+            }
+
+            sel.removeAllRanges();
         }
     </script>
 </body>

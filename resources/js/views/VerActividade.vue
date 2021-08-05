@@ -308,7 +308,7 @@
                                 <div class="col-12">
                                     <label for="name">Descrição da Acção</label>
                                     <textarea v-on:keyup="contDescricao" v-model.trim="$v.descricao_accao.$model" :class="{'is-invalid':$v.descricao_accao.$error, 'is-valid':!$v.descricao_accao.$invalid}" class="form-control form-control-sm corInput" rows="5"></textarea>
-                                    <span style="color:red" class="float-right">Quantidade: {{qtdeInformadaAC}} de {{qtdPermitidaDescricaoAC}}</span>
+                                    <span style="color:#3bafda" class="float-right">Quantidade: {{qtdeInformadaAC}} de {{qtdPermitidaDescricaoAC}}</span>
                                     <div class="invalid-feedback">
                                         <span v-if="!$v.descricao_accao.required">A descricao deve ser fornecida</span>
                                         <span v-if="!$v.descricao_accao.minLength">A descricao deve possuír um tamanho maior não superior a {{qtdPermitidaDescricao}}</span>
@@ -331,6 +331,8 @@
             </div>
         </div>
         <!-- Fim Modal Acção -->
+
+        <loading :active.sync="visible" :can-cancel="true" :is-full-page="fullPage"/>  
 
         <div class="row">
             <div class="col-12">
@@ -365,363 +367,200 @@
                                         </a>
                                     </div>
                                 </div>
+                                
                                 <hr style="height:1px;background-color:#d3d6d5">
-                        
+
                                 <div class="row">
-                                    <div class="col-4">
-                                        <div class="form-group">
-                                            <label for="name">Tipo de Actividade</label>
-                                            <input v-model.trim="selectedTipo" type="text" class="form-control form-control-sm" id="InputMostrar">
-                                        </div>
-                                    </div>
-                                    <div class="col-8">
-                                        <div class="form-group">
-                                            <label for="name">Objecto da Actividade</label>
-                                            <input v-model.trim="titulo" type="text" class="form-control form-control-sm" id="InputMostrar">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label for="name">Código</label>
-                                            <input v-model.trim="codigo" type="text" class="form-control form-control-sm" id="InputMostrar">
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="form-group">
-                                            <label for="name">Tipo Origem</label>
-                                            <input v-model.trim="selectedOrigem" type="text" class="form-control form-control-sm" id="InputMostrar">
-                                        </div>
-                                    </div>
-                                    <div class="col-5">
-                                        <div class="form-group">
-                                            <label for="name">Dado Origem</label>
-                                            <input v-model.trim="dado_origem" type="text" class="form-control form-control-sm" id="InputMostrar">
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label for="name">Tempo de Registo</label>
-                                            <input v-model.trim="tempo" type="text" class="form-control form-control-sm" id="InputMostrar">                                                 
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <fieldset class="border p-2"><legend style="font-size:16px" class="w-auto">DE: </legend>	
-                                            <div class="form-row">
-                                                <div class="col-md-8">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                        <input v-model.trim="departamento_origem" type="text" class="form-control form-control-sm" id="InputMostrar"> 
-                                                        </div><br><br>
-                                                        <div class="col-5">
-                                                            <label for="name">Solicitante</label>
-                                                            <input v-model.trim="selectedSolicitante" type="text" class="form-control form-control-sm" id="InputMostrar"> 
-                                                        </div>
-                                                        <div class="col-7">
-                                                            <label for="name">Data Solicitação</label>
-                                                            <input v-model.trim="data_solicitacao" type="text" class="form-control form-control-sm" id="InputMostrar">                    
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <img
-                                                        style="border:solid #d0d5dc 1px"
-                                                        :src="'images/users/'+fotoSolicitante"
-                                                        alt="user-image"
-                                                        width="112px"
-                                                        height="112px"
-                                                        class="rounded-circle"
-                                                    />
+                                    <div class="col-7">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <div class="form-group">
+                                                    <label for="name">Tipo de Actividade</label>
                                                 </div>
                                             </div>
-                                        </fieldset>	
-                                    </div>
-                                    
-                                    <div class="col-6">
-                                        <fieldset class="border p-2"><legend style="font-size:16px" class="w-auto">PARA: </legend>	
-                                            <div class="form-row">
-                                                <div class="col-md-8">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <input v-model.trim="departamento_destino" type="text" class="form-control form-control-sm" id="InputMostrar"> 
-                                                        </div><br><br>
-                                                        <div class="col-5">
-                                                            <label for="name">Responsável</label>
-                                                            <input v-model.trim="selectedResponsavel" type="text" class="form-control form-control-sm" id="InputMostrar"> 
-                                                        </div>
-                                                        <div class="col-7">
-                                                            <label for="name">Data Prevista</label>
-                                                            <input v-model.trim="data_prevista" type="text" class="form-control form-control-sm" id="InputMostrar">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <img
-                                                        style="border:solid #d0d5dc 1px"
-                                                        :src="'images/users/'+fotoResponsavel"
-                                                        alt="user-image"
-                                                        width="114px"
-                                                        height="114px"
-                                                        class="rounded-circle foto"
-                                                    />
-                                                </div>
-                                            </div>
-                                        </fieldset>	
-                                    </div>
-                                </div> 
-                                <div class="row">
-                                    <div class="col-12">
-                                        <label for="name">Descrição</label>
-                                        <textarea v-model.trim="descricao" class="form-control form-control-sm" rows="5" style="background-color:#f7b84b73;font-weight:bold" readonly></textarea>
-                                    </div>
-                                </div>                    
-                            </div>
-                            <!--Formulário para editar actividade -->
-                            <!--<div id="EditarActividade" v-else="visualizar">
-                                <form ref="formTarefaEdit" v-on:submit.prevent="editarTarefa">
-                                    <div class="row">
-                                        <div class="col-12">                                            
-                                            <button style="float: right;margin:5px" type="submit" class="btn btn-sm btn-rounded btn-warning waves-effect waves-light">
-                                                <i class="fas fa-save mr-1"></i>Actualizar
-                                            </button>
-                                            <button id="app" v-on:click="visualizar = !visualizar" style="float: right;margin:5px" type="button" class="btn btn-sm btn-rounded btn-secondary waves-effect waves-light">
-                                                <i class="mdi mdi-close mr-1"></i>Cancelar
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <hr style="height:1px;background-color:#d3d6d5">
-                                    <input v-model.trim="idActividade" type="hidden" class="form-control form-control-sm corInput">        
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <div class="form-group">
-                                                <label for="name">Tipo de Actividade</label>
-                                                <select v-model.trim="$v.selectedTipo.$model" :class="{'is-invalid':$v.selectedTipo.$error, 'is-valid':!$v.selectedTipo.$invalid}" class="custom-select custom-select-sm">
-                                                    <option disabled selected>{{selectedTipo}}</option>
-                                                    <option v-for="tipo in tipos">{{tipo.tipo}}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-8">
-                                            <div class="form-group">
-                                                <label for="name">Objecto da Actividade</label>
-                                                <input v-model.trim="$v.titulo.$model" :class="{'is-invalid':$v.titulo.$error, 'is-valid':!$v.titulo.$invalid}" type="text" class="form-control form-control-sm corInput" placeholder="informe objecto da actividade">
-                                                <div class="invalid-feedback">
-                                                    <span v-if="!$v.titulo.required">O Título deve ser fornecido</span>
-                                                    <span v-if="!$v.titulo.minLength">O Título deve possuír um tamanho maior que 5 dígitos</span>
+                                            <div class="col-9">
+                                                <div class="form-group">
+                                                    <p id="InputMostrar">: {{selectedTipo}}</p>                                                    
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <div class="form-group">
-                                                <label for="name">Tipo Origem</label>
-                                                <select v-model.trim="$v.selectedOrigem.$model" :class="{'is-invalid':$v.selectedOrigem.$error, 'is-valid':!$v.selectedOrigem.$invalid}" class="custom-select custom-select-sm">
-                                                    <option disabled selected>{{selectedOrigem}}</option>
-                                                    <option v-for="origem in origens">{{origem.titulo}}</option>
-                                                </select>
+
+                                        <div id="linhaDado" class="row">
+                                            <div class="col-3">
+                                                <div class="form-group">
+                                                    <label for="name">Código</label>
+                                                </div>
                                             </div>
+                                            <div class="col-3">
+                                                <div class="form-group">
+                                                    <p id="InputMostrar">: {{codigo}}</p>                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="form-group">
+                                                    <label for="name">Tempo de Registo</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <p id="InputMostrar">: {{tempo}}</p>                                                    
+                                                </div>
+                                            </div>
+                                            
                                         </div>
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <label for="name">Dado Origem</label>
-                                                <input v-model.trim="$v.dado_origem.$model" :class="{'is-invalid':$v.dado_origem.$error, 'is-valid':!$v.dado_origem.$invalid}" type="text" class="form-control form-control-sm corInput" placeholder="Informe o dado de contacto">
-                                                <div class="invalid-feedback">
-                                                    <span v-if="!$v.dado_origem.required">O Dado de origem deve ser fornecido</span>
-                                                    <span v-if="!$v.dado_origem.minLength">O Dado de origem deve possuír um tamanho maior que 5 dígitos</span>
+
+                                        <div id="linhaDado" class="row">
+                                            <div class="col-3">
+                                                <div class="form-group">
+                                                    <label for="name">Origem Actividade</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-9">
+                                                <div class="form-group">
+                                                    <p id="InputMostrar">: {{selectedOrigem}}</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-2">
-                                            <div class="form-group">
-                                                <label for="name">Tempo de Registo</label>                                            
-                                                <select v-model.trim="$v.tempo.$model" :class="{'is-invalid':$v.tempo.$error, 'is-valid':!$v.tempo.$invalid}" class="custom-select custom-select-sm">                                              
-                                                    <option disabled selected v-bind:value="tempo">{{tempo}}</option>
-                                                    <option>0:05</option>
-                                                    <option>0:10</option>
-                                                    <option>0:15</option>
-                                                    <option>0:20</option>
-                                                </select>                                                 
+
+                                        <div id="linhaDado" class="row">
+                                            <div class="col-3">
+                                                <div class="form-group">
+                                                    <label for="name">Dado Origem</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-9">
+                                                <div class="form-group">
+                                                    <p id="InputMostrar">: {{dado_origem}}</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <fieldset class="border p-2"><legend style="font-size:16px" class="w-auto">DE: </legend>	
-                                                <div class="form-row">
-                                                    <div class="col-md-8">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <select v-model.trim="$v.departamento_origem.$model" :class="{'is-invalid':$v.departamento_origem.$error, 'is-valid':!$v.departamento_origem.$invalid}" class="custom-select custom-select-sm ">
-                                                                    <option selected disabled v-bind:value="departamento_origem">{{departamento_origem}}</option>
-                                                                    <option value="Contabilidade & Finanças"> 01 SEDE | Contabilidade & Finanças</option>
-                                                                    <option value="Administração & Marketing">01 SEDE | Administração & Marketing</option>
-                                                                    <option value="Auditoria Interna">01 SEDE | Auditoria Interna</option>
-                                                                    <option value="Operações">01 SEDE | Operações</option>
-                                                                    <option value="Presidente do Comitê Executivo">01 SEDE | Presidente do Comitê Executivo</option>
-                                                                    <option value="Recursos Humanos">01 SEDE | Recursos Humanos</option>
-                                                                    <option value="Sistemas & Organização">01 SEDE | Sistemas & Organização</option>
-                                                                    <option value="Cadeia Produtiva - Zango">01 SEDE | Cadeia Produtiva - Zango</option>
-                                                                    <option value="Operações">01 SEDE | Operações</option>
-                                                                    <option value="Operações">02 HUAMBO | Operações</option>
-                                                                    <option value="Operações">03 MABOR | Operações</option>
-                                                                    <option value="Operações">04 HOJI-YA-HENDA | Operações</option>
-                                                                    <option value="Operações">05 MORRO BENTO | Operações</option>
-                                                                    <option value="Operações">06 VIANA | Operações</option>
-                                                                    <option value="Operações">07 KILAMBA KIAXI | Operações</option>
-                                                                    <option value="Operações">08 BENGUELA | Operações</option>
-                                                                    <option value="Operações">09 CABINDA | Operações</option>
-                                                                    <option value="Operações">10 LUBANGO | Operações</option>
-                                                                    <option value="Operações">11 NAMIBE | Operações</option>
-                                                                    <option value="Operações">12 KUITO | Operações</option>
-                                                                    <option value="Operações">13 UIGE | Operações</option>
-                                                                    <option value="Operações">15 LOBITO | Operações</option>
-                                                                    <option value="Operações">16 MALANGE | Operações</option>
-                                                                    <option value="Operações">18 SUMBE | Operações</option>
-                                                                    <option value="Operações">19 ZANGO | Operações</option>
-                                                                    <option value="Operações">21 BENFICA | Operações</option>
-                                                                    <option value="Operações">22 PANGUILA | Operações</option>
-                                                                    <option value="Sub-Direcção de Pequenas Empresas">26 BOA VIDA | Sub-Direcção de Pequenas Empresas</option>
-                                                                    <option value="DPP-Benguela">99 DDP | DPP-Benguela</option>
-                                                                    <option value="DPP-Kuito">99 DDP | DPP-Kuito</option>
-                                                                    <option value="DPP-Lobito">99 DDP | DPP-Lobito</option>
-                                                                    <option value="DPP-Marginal">99 DDP | DPP-Marginal</option>
-                                                                    <option value="DPP-Namibe">99 DDP | DPP-Namibe</option>
-                                                                    <option value="DPP-Soyo">99 DDP | DPP-Soyo</option>
-                                                                    <option value="DPP-Uige">99 DDP | DPP-Uige</option>
-                                                                    <option value="DPP-Zango">99 DDP | DPP-Zango</option>
-                                                                </select>
-                                                            </div><br><br>
-                                                            <div class="col-5">
-                                                                <label for="name">Solicitante</label>
-                                                                <select @change="onChangeSolicitante($event)" v-model.trim="$v.selectedSolicitante.$model" :class="{'is-invalid':$v.selectedSolicitante.$error, 'is-valid':!$v.selectedSolicitante.$invalid}" class="custom-select custom-select-sm">
-                                                                    <option disabled selected :value="''">Responsável</option>
-                                                                    <option v-for="utilizador in utilizadores" v-bind:key="utilizador.id" v-bind:value="utilizador.username">{{utilizador.username}}</option>
-                                                                </select>
+                                  
+                                        <div class="row">
+                                            <div class="col-11">
+                                                <fieldset style="height:110px" class="border p-2"><legend style="font-size:16px" class="w-auto">DE: </legend>	
+                                                    <div class="form-row">
+                                                        <div class="col-md-10">
+                                                            <div id="linhaDado" class="row">
+                                                                <div class="col-4">
+                                                                    <label for="name">Origem</label>
+                                                                </div>
+                                                                <div class="col-8">
+                                                                    <p id="InputMostrar">: {{departamento_origem}}</p>                  
+                                                                </div>
                                                             </div>
-                                                            <div class="col-7">
-                                                                <label for="name">Data Solicitação</label>
-                                                                <input v-model.trim="$v.data_solicitacaoEdit.$model" :class="{'is-invalid':$v.data_solicitacaoEdit.$error, 'is-valid':!$v.data_solicitacaoEdit.$invalid}" type="datetime-local" class="form-control form-control-sm">
-                                                                <div class="invalid-feedback">
-                                                                    <span v-if="!$v.data_solicitacaoEdit.required">A data deve ser fornecida</span>
+
+                                                            <div id="linhaDado" class="row">
+                                                                <div class="col-4">
+                                                                    <label for="name">Solicitante</label>
+                                                                </div>
+                                                                <div class="col-8">
+                                                                    <p id="InputMostrar">: {{selectedSolicitante}}</p>                  
+                                                                </div>
+                                                            </div>
+
+                                                            <div id="linhaDado" class="row">
+                                                                <div class="col-4">
+                                                                    <label for="name">Data Solicitação</label>
+                                                                </div>
+                                                                <div class="col-8">
+                                                                    <p id="InputMostrar">: {{data_solicitacao}}</p>                  
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div style="margin-top:-25px" class="col-md-2">
+                                                            <img
+                                                                style="border:solid #d0d5dc 1px"
+                                                                :src="'images/users/'+fotoSolicitante"
+                                                                alt="user-image"
+                                                                width="85px"
+                                                                height="85px"
+                                                                class="rounded-circle"
+                                                            />
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <img
-                                                            style="border:solid #d0d5dc 1px"
-                                                            :src="'/images/users/'+fotoSolicitante"
-                                                            alt="user-image"
-                                                            width="112px"
-                                                            height="112px"
-                                                            class="rounded-circle"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </fieldset>	
-                                        </div>
-                                        
-                                        <div class="col-6">
-                                            <fieldset class="border p-2"><legend style="font-size:16px" class="w-auto">PARA: </legend>	
-                                                <div class="form-row">
-                                                    <div class="col-md-8">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <select v-model.trim="$v.departamento_destino.$model" :class="{'is-invalid':$v.departamento_destino.$error, 'is-valid':!$v.departamento_destino.$invalid}" class="custom-select custom-select-sm">
-                                                                    <option selected disabled v-bind:value="departamento_destino">{{departamento_destino}}</option>
-                                                                    <option value="Contabilidade & Finanças"> 01 SEDE | Contabilidade & Finanças</option>
-                                                                    <option value="Administração & Marketing">01 SEDE | Administração & Marketing</option>
-                                                                    <option value="Auditoria Interna">01 SEDE | Auditoria Interna</option>
-                                                                    <option value="Operações">01 SEDE | Operações</option>
-                                                                    <option value="Presidente do Comitê Executivo">01 SEDE | Presidente do Comitê Executivo</option>
-                                                                    <option value="Recursos Humanos">01 SEDE | Recursos Humanos</option>
-                                                                    <option value="Sistemas & Organização">01 SEDE | Sistemas & Organização</option>
-                                                                    <option value="Cadeia Produtiva - Zango">01 SEDE | Cadeia Produtiva - Zango</option>
-                                                                    <option value="Operações">01 SEDE | Operações</option>
-                                                                    <option value="Operações">02 HUAMBO | Operações</option>
-                                                                    <option value="Operações">03 MABOR | Operações</option>
-                                                                    <option value="Operações">04 HOJI-YA-HENDA | Operações</option>
-                                                                    <option value="Operações">05 MORRO BENTO | Operações</option>
-                                                                    <option value="Operações">06 VIANA | Operações</option>
-                                                                    <option value="Operações">07 KILAMBA KIAXI | Operações</option>
-                                                                    <option value="Operações">08 BENGUELA | Operações</option>
-                                                                    <option value="Operações">09 CABINDA | Operações</option>
-                                                                    <option value="Operações">10 LUBANGO | Operações</option>
-                                                                    <option value="Operações">11 NAMIBE | Operações</option>
-                                                                    <option value="Operações">12 KUITO | Operações</option>
-                                                                    <option value="Operações">13 UIGE | Operações</option>
-                                                                    <option value="Operações">15 LOBITO | Operações</option>
-                                                                    <option value="Operações">16 MALANGE | Operações</option>
-                                                                    <option value="Operações">18 SUMBE | Operações</option>
-                                                                    <option value="Operações">19 ZANGO | Operações</option>
-                                                                    <option value="Operações">21 BENFICA | Operações</option>
-                                                                    <option value="Operações">22 PANGUILA | Operações</option>
-                                                                    <option value="Sub-Direcção de Pequenas Empresas">26 BOA VIDA | Sub-Direcção de Pequenas Empresas</option>
-                                                                    <option value="DPP-Benguela">99 DDP | DPP-Benguela</option>
-                                                                    <option value="DPP-Kuito">99 DDP | DPP-Kuito</option>
-                                                                    <option value="DPP-Lobito">99 DDP | DPP-Lobito</option>
-                                                                    <option value="DPP-Marginal">99 DDP | DPP-Marginal</option>
-                                                                    <option value="DPP-Namibe">99 DDP | DPP-Namibe</option>
-                                                                    <option value="DPP-Soyo">99 DDP | DPP-Soyo</option>
-                                                                    <option value="DPP-Uige">99 DDP | DPP-Uige</option>
-                                                                    <option value="DPP-Zango">99 DDP | DPP-Zango</option>
-                                                                </select>
-                                                            </div><br><br>
-                                                            <div class="col-5">
-                                                                <label for="name">Responsável</label>
-                                                                <select @change="onChangeResponsavel($event)" v-model.trim="$v.selectedResponsavel.$model" :class="{'is-invalid':$v.selectedResponsavel.$error, 'is-valid':!$v.selectedResponsavel.$invalid}" class="custom-select custom-select-sm">
-                                                                    <option disabled selected :value="''">Responsável</option>
-                                                                    <option v-for="utilizador in utilizadores" v-bind:key="utilizador.id" v-bind:value="utilizador.username">{{utilizador.username}}</option>
-                                                                </select>
+                                                </fieldset>	
+                                            </div>
+
+                                            <div class="col-11">
+                                                <fieldset style="height:110px" class="border p-2"><legend style="font-size:16px" class="w-auto">PARA: </legend>	
+                                                    <div class="form-row">
+                                                        <div class="col-md-10">
+                                                            <div id="linhaDado" class="row">
+                                                                <div class="col-4">
+                                                                    <label for="name">Destino</label>
+                                                                </div>
+                                                                <div class="col-8">
+                                                                    <p id="InputMostrar">: {{departamento_destino}}</p>                  
+                                                                </div>
                                                             </div>
-                                                            <div class="col-7">
-                                                                <label for="name">Data Prevista</label>
-                                                                <input v-model.trim="$v.data_previstaEdit.$model" :class="{'is-invalid':$v.data_previstaEdit.$error, 'is-valid':!$v.data_previstaEdit.$invalid}" type="datetime-local" class="form-control form-control-sm">
-                                                                <div class="invalid-feedback">
-                                                                    <span v-if="!$v.data_previstaEdit.required">A data deve ser fornecida</span>
+
+                                                            <div id="linhaDado" class="row">
+                                                                <div class="col-4">
+                                                                    <label for="name">Responsável</label>
+                                                                </div>
+                                                                <div class="col-8">
+                                                                    <p id="InputMostrar">: {{selectedResponsavel}}</p>                  
+                                                                </div>
+                                                            </div>
+
+                                                            <div id="linhaDado" class="row">
+                                                                <div class="col-4">
+                                                                    <label for="name">Data Prevista</label>
+                                                                </div>
+                                                                <div class="col-8">
+                                                                    <p id="InputMostrar">: {{data_prevista}}</p>                  
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <img
-                                                            style="border:solid #d0d5dc 1px"
-                                                            :src="'/images/users/'+fotoResponsavel"
-                                                            alt="user-image"
-                                                            width="114px"
-                                                            height="114px"
-                                                            class="rounded-circle foto"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </fieldset>	
-                                        </div>	
+                                                        <div style="margin-top:-25px" class="col-md-2">
+                                                            <img
+                                                                style="border:solid #d0d5dc 1px"
+                                                                :src="'images/users/'+fotoResponsavel"
+                                                                alt="user-image"
+                                                                width="85px"
+                                                                height="85px"
+                                                                class="rounded-circle"
+                                                            />
+                                                        </div>
+                                                    </div>    
+                                                </fieldset>	
+                                            </div>                                           
+                                        </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <label for="name">Descrição</label>
-                                            <textarea v-model.trim="$v.descricao.$model" :class="{'is-invalid':$v.descricao.$error, 'is-valid':!$v.descricao.$invalid}" class="form-control form-control-sm corInput" rows="5"></textarea>
-                                            <div class="invalid-feedback">
-                                                <span v-if="!$v.descricao.required">A descricao deve ser fornecida</span>
-                                                <span v-if="!$v.descricao.minLength">A descricao deve possuír um tamanho maior</span>
+                                    <div class="col-5">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="name">Objecto da Actividade</label>
+                                                     <textarea v-model.trim="titulo" class="form-control form-control-sm" rows="1" style="background-color:#d1f3ff;font-weight:bold" readonly></textarea>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <label for="name">Descrição</label>
+                                                <textarea v-model.trim="descricao" class="form-control form-control-sm" rows="13" style="background-color:#d1f3ff;font-weight:bold" readonly></textarea>
+                                            </div>
+                                        </div>     
                                     </div>
-                                </form>
-                            </div>-->
+                                </div>                           
+                            </div>
                         </div>
 
                         <!--Aba da acção da actividade-->
                         <div class="tab-pane fade" id="accao">
                             <div class="row">
-                                <div class="col-8">         
+                                <div class="col-6">         
                                 </div>
-                                <div class="col-4">                                            
+                                <div class="col-6">                       
+                                    <button 
+                                        style="float: right;margin:5px" 
+                                        type="submit" 
+                                        @click="verRelatorio()"
+                                        class="btn btn-sm btn-rounded btn-secondary waves-effect waves-light">
+                                        <i class="fa fa-eye mr-1"></i>Ver Relatório Top 10 Acção
+                                    </button>
                                     <button 
                                         style="float: right;margin:5px" 
                                         type="submit" 
@@ -748,7 +587,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>                          
-                                    <tr v-for="accao in accoes" @click="selectRow(accao)" class="tabelaClicked" title='Clique aqui para ver acção'>
+                                    <tr v-for="accao in accoes" @click="selectRow(accao)" class="tabelaClicked" title='Clique aqui para ver relatório da acção'>
                                         <td>{{accao.created_at}}</td>
                                         <td>{{accao.descricao}}</td>
                                         <td>{{accao.utilizador_codigo}}</td>
@@ -792,11 +631,11 @@
 
     import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 
-
     export default {
         components: {
             ModalActividade,
-            RangeSlider
+            RangeSlider,
+            Loading: VueLoading
         },
         data(){
             return{
@@ -848,7 +687,9 @@
                 urlTarefa: '',
                 qtdPermitidaDescricaoAC:550,
                 qtdeInicialAC:0,
-                qtdeInformadaAC:0
+                qtdeInformadaAC:0,
+                visible: false,
+                fullPage: true,
             };       
         },
         validations: {
@@ -953,8 +794,8 @@
             pegaActividade: async function(){
                 //Get tarefa dados
                 let id = this.$route.params.id;
-
-                let self = this               
+                this.visible = true;
+                let self = this;               
                 this.$axios.get('auth/verActividade/' + id)
                 .then(function (response) {
                     if(response.status==200){
@@ -977,7 +818,9 @@
                         self.urlTarefa = 'auth/gerarTarefaPdf/'+self.codigo;  
 
                         self.pegaFotoSolicitante(response.data.solicitante,1);  //tipo 1: solicitante, tipo 2: responsavel
-                        self.pegaFotoSolicitante(response.data.responsavel,2);                                                                                         
+                        self.pegaFotoSolicitante(response.data.responsavel,2);  
+                        
+                        self.visible = false;                                                                                        
                     }
                 })
                 .catch(function (error) {
@@ -1127,6 +970,12 @@
                 return idTipo;                
             },
 
+            verRelatorio(){
+                var urlAccao='auth/gerarAccaoGeralPdf/'+this.codigo;
+                
+                window.open(urlAccao, '_blank');     
+            },
+
             selectRow(accao){
                 var created_at=moment(String(accao.created_at)).format('YYYY-MM-DD HH:mm:ss');
                 var urlAccao='auth/gerarAccaoPdf/'+accao.codigo+'/'+created_at;
@@ -1209,7 +1058,10 @@
 
             //Contar a quantidade de textos na descrição
             contDescricao: async function() {
-                this.qtdeInformadaAC = this.qtdeInicialAC + this.descricao_accao.length;           
+                var m = encodeURIComponent(this.descricao_accao).match(/%[89ABab]/g);
+                var descricao_accao_length = this.descricao_accao.length + (m ? m.length : 0);
+                
+                this.qtdeInformadaAC = this.qtdeInicialAC + descricao_accao_length;           
             },
 
             //Registar acção de uma actividade
@@ -1218,6 +1070,16 @@
                 if (this.$v.$invalid) {
                     this.submitStatus = 'ERROR'
                 } else {
+                    var m = encodeURIComponent(this.descricao_accao).match(/%[89ABab]/g);
+                    var descricao_length = this.descricao_accao.length + (m ? m.length : 0);
+                    if(descricao_length>550){
+                        Swal.fire({
+                            text: "Verifique a quantidade de texto informado na descrição.",
+                            icon: 'error',
+                            confirmButtonText: 'Fechar'
+                        });
+                        return;
+                    }
                     if(moment(this.data_operacao)>moment() && this.estado!='ACRG'){
                         Swal.fire({
                             text: "A data da operação não deve ser superior a data actual.",
@@ -1237,6 +1099,14 @@
                     if(this.utilizador_pergunta=='' && (this.estado=='CUSS' || this.estado=='CURS')){
                         Swal.fire({
                             text: "Deve escolher o utilizador a solicitar ou responder suporte",
+                            icon: 'error',
+                            confirmButtonText: 'Fechar'
+                        });
+                        return;
+                    }
+                    if(this.avanco==100 && this.estado!='ACCO'){
+                        Swal.fire({
+                            text: "O estado da actividade com avanço 100%, dever ser sempre concluída.",
                             icon: 'error',
                             confirmButtonText: 'Fechar'
                         });

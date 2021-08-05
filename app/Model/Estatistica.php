@@ -32,7 +32,7 @@ class Estatistica extends Model
     }
     public static function contTarefasAtrasadas(){
         return DB::table('tarefa') 
-                ->where(DB::raw('DATE(created_at)'),'<',date('Y-m-d'))
+                ->where(DB::raw('DATE(data_prevista)'),'<',date('Y-m-d'))
                 ->where('avanco','<',100)
                 ->count();      
     }

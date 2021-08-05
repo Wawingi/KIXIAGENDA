@@ -64,7 +64,28 @@
                 </div>
             </div>            
         </div>
-         
+
+        <div style="margin-top:-25px" class="row">
+            <div class="col-8">         
+            </div>
+            <div class="col-4">                       
+                <button 
+                    style="float: right;margin:5px" 
+                    type="submit" 
+                    @click="exportarExcel(2)"
+                    class="btn btn-sm btn-rounded btn-secondary waves-effect waves-light">
+                    <i class="fa fa-download mr-1"></i>Exportar Operacções
+                </button>
+                <button 
+                    style="float: right;margin:5px" 
+                    type="submit" 
+                    @click="exportarExcel(1)"
+                    class="btn btn-sm btn-rounded btn-success waves-effect waves-light">
+                    <i class="fa fa-download mr-1"></i>Exportar Tarefas
+                </button>
+            </div>
+        </div>
+        <br> 
         <div class="row">
             <div class="col-12">
                 <div class="card-box">
@@ -179,6 +200,14 @@
                 .catch(function (error) {
                     //alert("Erro ao carregar dados");
                 });
+            },
+            exportarExcel(tipo){
+                if(tipo==1){
+                    var urlAccao='auth/exportarTarefaCSV/';
+                }else{
+                    var urlAccao='auth/exportarOperacaoCSV/';
+                }
+                window.open(urlAccao);    
             }
         }        
     };

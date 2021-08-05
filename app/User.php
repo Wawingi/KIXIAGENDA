@@ -68,4 +68,9 @@ class User extends Authenticatable
         ->where('username','=',$username)                
         ->first();         
     }
+    
+    public static function getCurtoNome($name){
+        $nomes = explode(' ', $name);
+        return $nomes[0].' '.$nomes[count($nomes)-1];
+    }
 }
