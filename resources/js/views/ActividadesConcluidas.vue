@@ -9,14 +9,14 @@
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Actividades</a></li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Actividades em Curso</h4>
+                    <h4 class="page-title">Actividades Concluídas</h4>
                 </div>
             </div>
         </div>
         <!-- start page title -->
 
         <!--Inicio do conteudo-->
-        <br/>
+        <br/><br/>
 
         <loading :active.sync="visible" :can-cancel="true" :is-full-page="fullPage"/>  
                    
@@ -49,7 +49,7 @@
                                 <td v-else width="20%">
                                     <div class="progress mb-1 progress-xl">
                                         <div class="progress-bar bg-warning" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                                            Actividade por Regularizar
+                                            Actividade para Hoje
                                         </div>
                                     </div>
                                 </td>                              
@@ -91,7 +91,7 @@
             pegaTarefas: async function(){
                 this.visible = true;
                 let self = this;               
-                this.$axios.get('auth/pegaTarefas')
+                this.$axios.get('auth/pegaTarefasConcluidas')
                 .then(function (response) {
                     if(response.status==200){
                         self.tarefas = response.data;                             

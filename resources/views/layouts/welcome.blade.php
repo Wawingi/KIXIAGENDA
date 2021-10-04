@@ -18,7 +18,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">-->
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="https://coderthemes.com/minton/layouts/assets/images/favicon.ico">
+    <link rel="shortcut icon" href="#">
 
     <!-- App css -->
     <link href="{{ asset('css/app.min.css') }}" rel="stylesheet" type="text/css"/>

@@ -756,11 +756,8 @@
                     let self = this               
                     this.$axios.get('auth/pegaFoto/'+event.target.value)
                     .then(function (response) {
-                        if(response.status==200){  
-                            if(response.data==0)          
-                                self.fotoSolicitante = 'default.jpg';  
-                            else
-                                self.fotoSolicitante = response.data;                                                                          
+                        if(response.status==200){ 
+                            self.fotoSolicitante = response.data;                                                                          
                         }
                     })
                     .catch(function (error) {
@@ -782,11 +779,8 @@
                     let self = this               
                     this.$axios.get('auth/pegaFoto/'+event.target.value)
                     .then(function (response) {
-                        if(response.status==200){  
-                            if(response.data==0)          
-                                self.fotoResponsavel = 'default.jpg';  
-                            else          
-                                self.fotoResponsavel = response.data;                                                      
+                        if(response.status==200){ 
+                            self.fotoResponsavel = response.data;                                                      
                         }
                     })
                     .catch(function (error) {

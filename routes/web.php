@@ -24,6 +24,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('pegaOrigensAll', 'OrigemController@pegaOrigensAPI');
 
         Route::post('registarTarefa', 'TarefaController@registarTarefa');
+        Route::get('pegaTarefasConcluidas', 'TarefaController@pegaTarefasConcluidas');
         Route::get('pegaTarefas', 'TarefaController@pegaTarefas');
         Route::get('pegaGeralTarefas', 'TarefaController@pegaGeralTarefas');
         Route::get('pegaTarefasAtrasadas', 'TarefaController@pegaTarefasAtrasadas');
@@ -43,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('gerarTarefaPdf/{codigo}','TarefaController@gerarTarefaPdf');
         Route::get('gerarAccaoPdf/{codigo}/{data}','TarefaController@gerarAccaoPdf');
         Route::get('gerarAccaoGeralPdf/{codigo}','TarefaController@gerarAccaoGeralPdf');
+        Route::get('contHoras','TarefaController@contHoras');
 
         Route::get('pegaAssessores', 'AssessorController@pegaAssessores');
 

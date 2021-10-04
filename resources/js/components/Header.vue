@@ -124,18 +124,23 @@
                             </a>
                             <ul class="submenu">
                                 <li>
+                                    <router-link to="/home/actividadesConcluidas" exact>
+                                        <i class="fas fa-check mr-1"></i> Actividades Concluídas
+                                    </router-link>
+                                </li>
+                                <li>
                                     <router-link to="/home/minhasActividades" exact>
-                                        <i class="fas fa-clipboard-list"></i> Minhas Actividades
+                                        <i class="fas fa-clipboard-list mr-1"></i> Actividades em Curso
                                     </router-link>
                                 </li>
                                 <li>
                                     <router-link to="/home/actividadesAgendadas" exact>
-                                        <i class="fas fa-history"></i> Actividades Agendadas
+                                        <i class="fas fa-history mr-1"></i> Actividades Agendadas
                                     </router-link>
                                 </li>
                                 <li>
                                     <router-link to="/home/actividadesAtrasadas" exact>
-                                        <i class="fas fa-clock"></i> Actividades Atrasadas
+                                        <i class="fas fa-clock mr-1"></i> Actividades Atrasadas
                                     </router-link>
                                 </li>
                             </ul>

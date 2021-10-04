@@ -73,4 +73,17 @@ class User extends Authenticatable
         $nomes = explode(' ', $name);
         return $nomes[0].' '.$nomes[count($nomes)-1];
     }
+
+    public static function getFoto($username){
+        $foto = DB::table('users')->select('foto')->where('username',$username)->value('foto');
+        if(is_null($foto))
+            return 'default.jpg';
+
+        return $foto;
+    }
+
+    public static function getUsersDpto($departamento){
+        $users = DB::table('users')->select('username')->where('departamento',$departamento)->get();
+        return $users;
+    }
 }

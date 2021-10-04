@@ -2112,6 +2112,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3175,7 +3180,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         var self = this;
         this.$axios.get('auth/pegaFoto/' + event.target.value).then(function (response) {
           if (response.status == 200) {
-            if (response.data == 0) self.fotoSolicitante = 'default.jpg';else self.fotoSolicitante = response.data;
+            self.fotoSolicitante = response.data;
           }
         })["catch"](function (error) {//alert("Erro ao carregar dados do perfil");
         });
@@ -3194,7 +3199,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         var self = this;
         this.$axios.get('auth/pegaFoto/' + event.target.value).then(function (response) {
           if (response.status == 200) {
-            if (response.data == 0) self.fotoResponsavel = 'default.jpg';else self.fotoResponsavel = response.data;
+            self.fotoResponsavel = response.data;
           }
         })["catch"](function (error) {//alert("Erro ao carregar dados do perfil");
         });
@@ -3461,6 +3466,155 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.visible = true;
                 self = this;
                 this.$axios.get('auth/pegaTarefasAtrasadas').then(function (response) {
+                  if (response.status == 200) {
+                    self.tarefas = response.data;
+                    self.$nextTick(function () {
+                      $('#paginationTarefa').DataTable();
+                    });
+                    self.visible = false;
+                  }
+                })["catch"](function (error) {//alert("Erro ao carregar dados");
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function pegaTarefas() {
+        return _pegaTarefas.apply(this, arguments);
+      }
+
+      return pegaTarefas;
+    }()
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ActividadesConcluidas.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/ActividadesConcluidas.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//import ModalActividade from "../components/ModalActividade.vue";
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Loading: VueLoading
+  },
+  data: function data() {
+    return {
+      tarefas: [],
+      visible: false,
+      fullPage: true
+    };
+  },
+  created: function created() {
+    this.pegaTarefas();
+  },
+  methods: {
+    carregaTabela: function carregaTabela() {
+      this.$nextTick(function () {
+        $('#paginationTarefa').DataTable();
+      });
+    },
+    selectRow: function selectRow(id) {
+      this.$router.push({
+        name: 'verActividade',
+        params: {
+          id: id
+        }
+      });
+    },
+    pegaTarefas: function () {
+      var _pegaTarefas = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var self;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this.visible = true;
+                self = this;
+                this.$axios.get('auth/pegaTarefasConcluidas').then(function (response) {
                   if (response.status == 200) {
                     self.tarefas = response.data;
                     self.$nextTick(function () {
@@ -3769,11 +3923,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       tarefas: [],
+      horas_trabalhadas: '',
+      percentagem_hora: '',
+      utilizador: '',
       qtdTarefasTotal: '',
       qtdTarefasConcluidas: '',
       qtdTarefasNaoConcluidas: '',
@@ -3781,21 +3964,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       qtdAccoes: '',
       visible: false,
       fullPage: true,
-      now: moment__WEBPACK_IMPORTED_MODULE_1___default()(new Date()).format('YYYY-MM-DD HH:mm:ss')
+      now: moment__WEBPACK_IMPORTED_MODULE_1___default()(new Date()).format('YYYY-MM-DD HH:mm:ss'),
+      estilo: ''
     };
   },
   components: {
     Loading: VueLoading
   },
   created: function created() {
-    this.pegaTarefas(), this.contTarefas();
+    this.pegaHorasTrabalhadas(), this.pegaTarefas(), this.contTarefas();
   },
   methods: {
-    carregaTabela: function carregaTabela() {
-      this.$nextTick(function () {
-        $('#paginationTarefa').DataTable();
-      });
-    },
     selectRow: function selectRow(id) {
       this.$router.push({
         name: 'verActividade',
@@ -3804,12 +3983,45 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       });
     },
-    pegaTarefas: function () {
-      var _pegaTarefas = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+    pegaHorasTrabalhadas: function () {
+      var _pegaHorasTrabalhadas = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var self;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
+              case 0:
+                self = this;
+                this.$axios.get('auth/contHoras').then(function (response) {
+                  if (response.status == 200) {
+                    self.horas_trabalhadas = response.data.horas_trabalhadas;
+                    self.utilizador = response.data.utilizador;
+                    self.percentagem_hora = response.data.horas_bruto * 100 / 28800;
+                    self.estilo = 'width:' + self.percentagem_hora + '%;font-size:15px';
+                  }
+                })["catch"](function (error) {
+                  location.reload();
+                });
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function pegaHorasTrabalhadas() {
+        return _pegaHorasTrabalhadas.apply(this, arguments);
+      }
+
+      return pegaHorasTrabalhadas;
+    }(),
+    pegaTarefas: function () {
+      var _pegaTarefas = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var self;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 this.visible = true;
                 self = this;
@@ -3827,10 +4039,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 3:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee, this);
+        }, _callee2, this);
       }));
 
       function pegaTarefas() {
@@ -3840,11 +4052,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return pegaTarefas;
     }(),
     contTarefas: function () {
-      var _contTarefas = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var _contTarefas = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         var self;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
                 self = this;
                 this.$axios.get('auth/contActividades').then(function (response) {
@@ -3856,10 +4068,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee3, this);
       }));
 
       function contTarefas() {
@@ -4463,7 +4675,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 //import ModalActividade from "../components/ModalActividade.vue";
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -4611,11 +4822,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     self.username = response.data.username;
                     self.email = response.data.email;
                     self.departamento = response.data.departamento;
-                    self.foto = response.data.foto; //console.log(response.data.foto);                  
+                    self.foto = response.data.foto;
                   } else {
                     alert("Error ");
                   }
                 })["catch"](function (error) {
+                  this.pegaUtilizador();
                   alert("Erro ao carregar dados do perfil");
                 });
 
@@ -5483,9 +5695,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     self.selectedSolicitante = response.data.solicitante, self.selectedResponsavel = response.data.responsavel, self.descricao = response.data.descricao, self.data_solicitacaoEdit = response.data.data_solicitacao.replace(" ", "T");
                     self.data_previstaEdit = response.data.data_prevista.replace(" ", "T");
                     self.urlTarefa = 'auth/gerarTarefaPdf/' + self.codigo;
-                    self.pegaFotoSolicitante(response.data.solicitante, 1); //tipo 1: solicitante, tipo 2: responsavel
-
-                    self.pegaFotoSolicitante(response.data.responsavel, 2);
+                    self.fotoSolicitante = response.data.user_solicitante;
+                    self.fotoResponsavel = response.data.user_responsavel;
                     self.visible = false;
                   }
                 })["catch"](function (error) {
@@ -5506,28 +5717,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return pegaActividade;
     }(),
-    pegaFotoSolicitante: function pegaFotoSolicitante(solicitante, tipo) {
-      var self = this;
-      this.$axios.get('auth/pegaFoto/' + solicitante).then(function (response) {
-        if (response.status == 200) {
-          if (tipo == 1) {
-            if (response.data == 0) {
-              self.fotoSolicitante = 'default.jpg';
-            } else {
-              self.fotoSolicitante = response.data;
-            }
-          } else if (tipo == 2) {
-            if (response.data == 0) {
-              self.fotoResponsavel = 'default.jpg';
-            } else {
-              self.fotoResponsavel = response.data;
-            }
-          }
-        }
-      })["catch"](function (error) {
-        alert("Erro ao pegar foto");
-      });
-    },
     pegaTipos: function () {
       var _pegaTipos = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         var self;
@@ -5539,7 +5728,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.$axios.get('auth/pegaTipos').then(function (response) {
                   if (response.status == 200) {
                     self.tipos = response.data;
-                    console.log(response.data);
                   }
                 })["catch"](function (error) {//alert("Erro ao carregar dados do perfil");
                 });
@@ -5569,7 +5757,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.$axios.get('auth/pegaOrigensAll').then(function (response) {
                   if (response.status == 200) {
                     self.origens = response.data;
-                    console.log(response.data);
                   }
                 })["catch"](function (error) {//alert("Erro ao carregar dados do perfil");
                 });
@@ -5734,7 +5921,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var idTipo;
       this.tipos.forEach(function (tipo) {
         if (tipo.tipo == tipoLido) {
-          console.log("ID: " + tipo.id);
           idTipo = tipo.id;
         }
       });
@@ -47544,7 +47730,7 @@ var staticRenderFns = [
               staticStyle: { color: "#fff" }
             },
             [
-              _vm._v("\n                2020 © KixiAgenda v1.0.0 by "),
+              _vm._v("\n                2020 © KixiAgenda v2.0.0 by "),
               _c("b", [_vm._v("KIXICRÉDITO ")])
             ]
           )
@@ -47755,11 +47941,30 @@ var render = function() {
                   [
                     _c(
                       "router-link",
+                      {
+                        attrs: { to: "/home/actividadesConcluidas", exact: "" }
+                      },
+                      [
+                        _c("i", { staticClass: "fas fa-check mr-1" }),
+                        _vm._v(
+                          " Actividades Concluídas\n                                "
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  [
+                    _c(
+                      "router-link",
                       { attrs: { to: "/home/minhasActividades", exact: "" } },
                       [
-                        _c("i", { staticClass: "fas fa-clipboard-list" }),
+                        _c("i", { staticClass: "fas fa-clipboard-list mr-1" }),
                         _vm._v(
-                          " Minhas Actividades\n                                "
+                          " Actividades em Curso\n                                "
                         )
                       ]
                     )
@@ -47776,7 +47981,7 @@ var render = function() {
                         attrs: { to: "/home/actividadesAgendadas", exact: "" }
                       },
                       [
-                        _c("i", { staticClass: "fas fa-history" }),
+                        _c("i", { staticClass: "fas fa-history mr-1" }),
                         _vm._v(
                           " Actividades Agendadas\n                                "
                         )
@@ -47795,7 +48000,7 @@ var render = function() {
                         attrs: { to: "/home/actividadesAtrasadas", exact: "" }
                       },
                       [
-                        _c("i", { staticClass: "fas fa-clock" }),
+                        _c("i", { staticClass: "fas fa-clock mr-1" }),
                         _vm._v(
                           " Actividades Atrasadas\n                                "
                         )
@@ -50213,6 +50418,211 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ActividadesConcluidas.vue?vue&type=template&id=2cc11973&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/ActividadesConcluidas.vue?vue&type=template&id=2cc11973& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "container-fluid" },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("br"),
+      _c("br"),
+      _vm._v(" "),
+      _c("loading", {
+        attrs: {
+          active: _vm.visible,
+          "can-cancel": true,
+          "is-full-page": _vm.fullPage
+        },
+        on: {
+          "update:active": function($event) {
+            _vm.visible = $event
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12" }, [
+          _c("div", { staticClass: "card-box" }, [
+            _c(
+              "table",
+              {
+                staticClass: "table table-sm table-bordeless",
+                attrs: {
+                  id: "paginationTarefa",
+                  cellspacing: "0",
+                  width: "100%"
+                }
+              },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.tarefas, function(tarefa) {
+                    return _c(
+                      "tr",
+                      {
+                        staticClass: "tabelaClicked",
+                        attrs: { title: "Clique aqui para abrir actividade" },
+                        on: {
+                          click: function($event) {
+                            return _vm.selectRow(tarefa.id)
+                          }
+                        }
+                      },
+                      [
+                        _c("td", [_vm._v(_vm._s(tarefa.codigo))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(tarefa.titulo))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(tarefa.solicitante))]),
+                        _vm._v(" "),
+                        _c("td", { attrs: { width: "20%" } }, [
+                          _vm._v(_vm._s(tarefa.data_solicitacao))
+                        ]),
+                        _vm._v(" "),
+                        tarefa.avanco == 100
+                          ? _c("td", { attrs: { width: "10%" } }, [
+                              _c(
+                                "div",
+                                { staticClass: "progress mb-1 progress-xl" },
+                                [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "progress-bar bg-success",
+                                      staticStyle: { width: "100%" },
+                                      attrs: {
+                                        role: "progressbar",
+                                        "aria-valuenow": "50",
+                                        "aria-valuemin": "0",
+                                        "aria-valuemax": "100"
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                        " +
+                                          _vm._s(tarefa.data_cumprimento) +
+                                          "\n                                    "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            ])
+                          : _c("td", { attrs: { width: "20%" } }, [
+                              _vm._m(2, true)
+                            ])
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ]
+            )
+          ])
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "page-title-box" }, [
+          _c("div", { staticClass: "page-title-right" }, [
+            _c("ol", { staticClass: "breadcrumb m-0" }, [
+              _c("li", { staticClass: "breadcrumb-item" }, [
+                _c("a", { attrs: { href: "javascript: void(0);" } }, [
+                  _vm._v("KIXIAGENDA")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "breadcrumb-item" }, [
+                _c("a", { attrs: { href: "javascript: void(0);" } }, [
+                  _vm._v("Actividades")
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("h4", { staticClass: "page-title" }, [
+            _vm._v("Actividades Concluídas")
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { attrs: { id: "cabecatabela" } }, [
+      _c("tr", [
+        _c("th", [_vm._v("Código")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Objecto de Actividade")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Solicitante")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Data da Solicitação")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Data da Execução")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "progress mb-1 progress-xl" }, [
+      _c(
+        "div",
+        {
+          staticClass: "progress-bar bg-warning",
+          staticStyle: { width: "100%" },
+          attrs: {
+            role: "progressbar",
+            "aria-valuenow": "50",
+            "aria-valuemin": "0",
+            "aria-valuemax": "100"
+          }
+        },
+        [
+          _vm._v(
+            "\n                                        Actividade para Hoje\n                                    "
+          )
+        ]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/AssessoresConta.vue?vue&type=template&id=f06c212a&":
 /*!*************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/AssessoresConta.vue?vue&type=template&id=f06c212a& ***!
@@ -50471,50 +50881,94 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
       _c(
         "div",
         { staticClass: "row", staticStyle: { "margin-top": "-25px" } },
         [
-          _c("div", { staticClass: "col-8" }),
+          _c("div", { staticClass: "col-7" }, [
+            _c("div", { staticClass: "card-box" }, [
+              _c("table", { attrs: { cellspacing: "0", width: "100%" } }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("tbody", [
+                  _c("tr", [
+                    _c("td", [_vm._v(_vm._s(_vm.utilizador))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.horas_trabalhadas))]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { width: "50%" } }, [
+                      _c("div", { staticClass: "progress progress-xl " }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "progress-bar progress-bar-striped progress-bar-animated",
+                            style: _vm.estilo,
+                            attrs: {
+                              role: "progressbar",
+                              "aria-valuenow": "30",
+                              "aria-valuemin": "0",
+                              "aria-valuemax": "100"
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(_vm.percentagem_hora) +
+                                " %  \n                                    "
+                            )
+                          ]
+                        )
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-4" }, [
-            _c(
-              "button",
-              {
-                staticClass:
-                  "btn btn-sm btn-rounded btn-secondary waves-effect waves-light",
-                staticStyle: { float: "right", margin: "5px" },
-                attrs: { type: "submit" },
-                on: {
-                  click: function($event) {
-                    return _vm.exportarExcel(2)
+          _c("div", { staticClass: "col-5" }, [
+            _c("div", { staticClass: "card-box" }, [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "btn btn-sm btn-rounded btn-secondary waves-effect waves-light",
+                  staticStyle: { float: "right", margin: "5px" },
+                  attrs: { type: "submit" },
+                  on: {
+                    click: function($event) {
+                      return _vm.exportarExcel(2)
+                    }
                   }
-                }
-              },
-              [
-                _c("i", { staticClass: "fa fa-download mr-1" }),
-                _vm._v("Exportar Operacções\n            ")
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass:
-                  "btn btn-sm btn-rounded btn-success waves-effect waves-light",
-                staticStyle: { float: "right", margin: "5px" },
-                attrs: { type: "submit" },
-                on: {
-                  click: function($event) {
-                    return _vm.exportarExcel(1)
+                },
+                [
+                  _c("i", { staticClass: "fa fa-download mr-1" }),
+                  _vm._v("Exportar Operacções\n            ")
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "btn btn-sm btn-rounded btn-success waves-effect waves-light",
+                  staticStyle: { margin: "5px" },
+                  attrs: { type: "submit" },
+                  on: {
+                    click: function($event) {
+                      return _vm.exportarExcel(1)
+                    }
                   }
-                }
-              },
-              [
-                _c("i", { staticClass: "fa fa-download mr-1" }),
-                _vm._v("Exportar Tarefas\n            ")
-              ]
-            )
+                },
+                [
+                  _c("i", { staticClass: "fa fa-download mr-1" }),
+                  _vm._v("Exportar Tarefas\n            ")
+                ]
+              )
+            ])
           ])
         ]
       ),
@@ -50535,7 +50989,7 @@ var render = function() {
                 }
               },
               [
-                _vm._m(1),
+                _vm._m(2),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -50561,7 +51015,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         tarefa.avanco == 100
-                          ? _c("td", { attrs: { width: "10%" } }, [
+                          ? _c("td", { attrs: { width: "20%" } }, [
                               _c(
                                 "div",
                                 { staticClass: "progress mb-1 progress-xl" },
@@ -50592,7 +51046,7 @@ var render = function() {
                           : _vm._e(),
                         _vm._v(" "),
                         tarefa.data_prevista < _vm.now && tarefa.avanco < 100
-                          ? _c("td", { attrs: { width: "10%" } }, [
+                          ? _c("td", [
                               _c(
                                 "div",
                                 { staticClass: "progress mb-1 progress-xl" },
@@ -50624,7 +51078,7 @@ var render = function() {
                         _vm._v(" "),
                         tarefa.data_prevista > _vm.now && tarefa.avanco < 100
                           ? _c("td", { attrs: { width: "20%" } }, [
-                              _vm._m(2, true)
+                              _vm._m(3, true)
                             ])
                           : _vm._e()
                       ]
@@ -50669,6 +51123,20 @@ var staticRenderFns = [
             _vm._v("Listar Actividades")
           ])
         ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { attrs: { id: "cabecatabela" } }, [
+      _c("tr", [
+        _c("th", [_vm._v("Utilizador")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Total Horas")]),
+        _vm._v(" "),
+        _c("th")
       ])
     ])
   },
@@ -51486,7 +51954,6 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("br"),
-      _c("br"),
       _vm._v(" "),
       _c("loading", {
         attrs: {
@@ -51500,9 +51967,6 @@ var render = function() {
           }
         }
       }),
-      _vm._v(" "),
-      _c("br"),
-      _c("br"),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-12" }, [
@@ -51616,7 +52080,7 @@ var staticRenderFns = [
           ]),
           _vm._v(" "),
           _c("h4", { staticClass: "page-title" }, [
-            _vm._v("Minhas Actividades")
+            _vm._v("Actividades em Curso")
           ])
         ])
       ])
@@ -51659,7 +52123,7 @@ var staticRenderFns = [
         },
         [
           _vm._v(
-            "\n                                        Actividade para Hoje\n                                    "
+            "\n                                        Actividade por Regularizar\n                                    "
           )
         ]
       )
@@ -54040,7 +54504,7 @@ var staticRenderFns = [
                 _vm._v(" "),
                 _c("span", { staticClass: "d-none d-sm-inline-block" }, [
                   _c("i", { staticClass: "fas fa-cog" }),
-                  _vm._v(" Accção da Actividade")
+                  _vm._v(" Acção da Actividade")
                 ])
               ]
             )
@@ -72037,12 +72501,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_Home_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/Home.vue */ "./resources/js/views/Home.vue");
 /* harmony import */ var _views_Login_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/Login.vue */ "./resources/js/views/Login.vue");
 /* harmony import */ var _views_Perfil_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/Perfil.vue */ "./resources/js/views/Perfil.vue");
-/* harmony import */ var _views_MinhasActividades_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/MinhasActividades.vue */ "./resources/js/views/MinhasActividades.vue");
-/* harmony import */ var _views_ActividadesAtrasadas_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./views/ActividadesAtrasadas.vue */ "./resources/js/views/ActividadesAtrasadas.vue");
-/* harmony import */ var _views_ActividadesAgendadas_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./views/ActividadesAgendadas.vue */ "./resources/js/views/ActividadesAgendadas.vue");
-/* harmony import */ var _views_VerActividade_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./views/VerActividade.vue */ "./resources/js/views/VerActividade.vue");
-/* harmony import */ var _views_AssessoresConta_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./views/AssessoresConta.vue */ "./resources/js/views/AssessoresConta.vue");
-/* harmony import */ var _views_FechoDiario_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./views/FechoDiario.vue */ "./resources/js/views/FechoDiario.vue");
+/* harmony import */ var _views_ActividadesConcluidas_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/ActividadesConcluidas.vue */ "./resources/js/views/ActividadesConcluidas.vue");
+/* harmony import */ var _views_MinhasActividades_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./views/MinhasActividades.vue */ "./resources/js/views/MinhasActividades.vue");
+/* harmony import */ var _views_ActividadesAtrasadas_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./views/ActividadesAtrasadas.vue */ "./resources/js/views/ActividadesAtrasadas.vue");
+/* harmony import */ var _views_ActividadesAgendadas_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./views/ActividadesAgendadas.vue */ "./resources/js/views/ActividadesAgendadas.vue");
+/* harmony import */ var _views_VerActividade_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./views/VerActividade.vue */ "./resources/js/views/VerActividade.vue");
+/* harmony import */ var _views_AssessoresConta_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./views/AssessoresConta.vue */ "./resources/js/views/AssessoresConta.vue");
+/* harmony import */ var _views_FechoDiario_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./views/FechoDiario.vue */ "./resources/js/views/FechoDiario.vue");
+
 
 
 
@@ -72071,29 +72537,33 @@ var routes = [{
     name: 'meuPerfil',
     component: _views_Perfil_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   }, {
+    path: 'actividadesConcluidas',
+    name: 'actividadesConcluidas',
+    component: _views_ActividadesConcluidas_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+  }, {
     path: 'minhasActividades',
     name: 'minhasActividades',
-    component: _views_MinhasActividades_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: _views_MinhasActividades_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
   }, {
     path: 'actividadesAtrasadas',
     name: 'actividadesAtrasadas',
-    component: _views_ActividadesAtrasadas_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
+    component: _views_ActividadesAtrasadas_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
   }, {
     path: 'actividadesAgendadas',
     name: 'actividadesAgendadas',
-    component: _views_ActividadesAgendadas_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
+    component: _views_ActividadesAgendadas_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
   }, {
     path: 'verActividade/:id',
     name: 'verActividade',
-    component: _views_VerActividade_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
+    component: _views_VerActividade_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
   }, {
     path: 'assessores',
     name: 'assessores',
-    component: _views_AssessoresConta_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
+    component: _views_AssessoresConta_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
   }, {
     path: 'fechoDiario',
     name: 'fechoDiario',
-    component: _views_FechoDiario_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
+    component: _views_FechoDiario_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
   }]
 }, {
   path: '/',
@@ -72240,6 +72710,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ActividadesAtrasadas_vue_vue_type_template_id_154bd0da___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ActividadesAtrasadas_vue_vue_type_template_id_154bd0da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/ActividadesConcluidas.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/views/ActividadesConcluidas.vue ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ActividadesConcluidas_vue_vue_type_template_id_2cc11973___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ActividadesConcluidas.vue?vue&type=template&id=2cc11973& */ "./resources/js/views/ActividadesConcluidas.vue?vue&type=template&id=2cc11973&");
+/* harmony import */ var _ActividadesConcluidas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ActividadesConcluidas.vue?vue&type=script&lang=js& */ "./resources/js/views/ActividadesConcluidas.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ActividadesConcluidas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ActividadesConcluidas_vue_vue_type_template_id_2cc11973___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ActividadesConcluidas_vue_vue_type_template_id_2cc11973___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/ActividadesConcluidas.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/ActividadesConcluidas.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/views/ActividadesConcluidas.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ActividadesConcluidas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ActividadesConcluidas.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ActividadesConcluidas.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ActividadesConcluidas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/ActividadesConcluidas.vue?vue&type=template&id=2cc11973&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/views/ActividadesConcluidas.vue?vue&type=template&id=2cc11973& ***!
+  \*************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ActividadesConcluidas_vue_vue_type_template_id_2cc11973___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ActividadesConcluidas.vue?vue&type=template&id=2cc11973& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ActividadesConcluidas.vue?vue&type=template&id=2cc11973&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ActividadesConcluidas_vue_vue_type_template_id_2cc11973___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ActividadesConcluidas_vue_vue_type_template_id_2cc11973___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

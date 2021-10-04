@@ -21,7 +21,7 @@ class TarefaController extends Controller
     public function registarTarefa(Request $request){
         try{
             $tarefa = new Tarefa;  
-            $tarefa->versao_sistema = 'KAW100';
+            $tarefa->versao_sistema = 'KAW200';
             $tarefa->id_tipo = $request->selectedTipo;
             $tarefa->titulo = $request->titulo;
             $tarefa->id_origem = $request->selectedOrigem;
@@ -86,6 +86,11 @@ class TarefaController extends Controller
         return Excel::download(new TarefaOperacaoExport, 'operacao_'.$now.'.xlsx');  
     }
 
+    public function pegaTarefasConcluidas(){
+        $tarefas = Tarefa::getTarefasConcluidas();
+        return response()->json($tarefas,200);
+    }
+
     public function pegaTarefas(){
         $tarefas = Tarefa::getMinhasTarefas($now = date('Y-m-d'));
         return response()->json($tarefas,200);
@@ -120,6 +125,13 @@ class TarefaController extends Controller
 
     public function verActividade($id){
         $actividade = Tarefa::getTarefaById($id);
+      
+        $actividade->user_solicitante = User::getFoto($actividade->solicitante);
+        $actividade->user_responsavel = User::getFoto($actividade->responsavel);
+
+        $actividade->solicitante = User::getCurtoNome(User::getPessoa($actividade->solicitante)->name);
+        $actividade->responsavel = User::getCurtoNome(User::getPessoa($actividade->responsavel)->name);
+       
         return response()->json($actividade,200);
     }
 
@@ -498,26 +510,91 @@ class TarefaController extends Controller
             $imageResponsavel = base64_encode(file_get_contents(public_path('/images/users/'.$responsavelPessoa->foto)));
         }              
 
+        //Cont Acções de uma actividade
+        $contAccoes = DB::table('tarefa_operacao')
+                ->where('codigo','=',$codigo)
+                ->count();
+
+        //Pega as ultimas 10 actividades
         $accoes = DB::table('tarefa_operacao')
                 ->where('codigo','=',$codigo)
                 ->orderBy('updated_at','DESC')
                 ->take(10)
                 ->get();
-           
+        
+        $restantesAccoes = $contAccoes-count($accoes);
+
         foreach($accoes as $accao):
             $user = User::getPessoa($accao->utilizador_codigo);
             $accao->utilizador_codigo = User::getCurtoNome($user->name);
             $accao->id = base64_encode(file_get_contents(public_path('/images/users/'.$user->foto)));
+            $accao->seta = base64_encode(file_get_contents(public_path('/images/seta.png')));
             $accao = $this->setTempoVisualAccao($accao);
             $accao->estado = $this->getEstado($accao->estado);
         endforeach;
 
         //Montar assunto
         $assunto = 'Relatório de Actividade : '.$tarefa->tipo.' : '.$tarefa->titulo;
-        
-        return view('layouts.pdfAccaoGeral',compact('assunto','tarefa','imageSolicitante','imageResponsavel','solicitante','responsavel','accoes'));
+    
+        return view('layouts.pdfAccaoGeral',compact('assunto','tarefa','imageSolicitante','imageResponsavel','solicitante','responsavel','accoes','contAccoes','restantesAccoes'));
 
         //$pdf = PDF::loadView('layouts.pdfAccao',compact('accao','utilizador_suporte'))->setOptions(['debugKeepTemp' => true]);
         //return $pdf->setPaper('a4')->stream('Relatorio Acção.pdf');
+    }
+
+    /*public function contGeralHoras(){
+        $accoes= DB::table('tarefa_operacao')
+                ->join('tarefa', 'tarefa_operacao.id', '=', 'tarefa.id')
+                ->join('users', 'users.id', '=', 'tarefa.id_user')
+                ->select('tarefa_operacao.tempo_acao','users.username','tarefa_operacao.created_at')
+                ->where(DB::raw('DATE(tarefa_operacao.created_at)'),'=',date('Y-m-d'))
+                ->where('tarefa_operacao.utilizador_codigo','=',Auth::user()->username)  
+                ->get();
+        $users=User::getUsersDpto("Sistemas & Organização");
+  
+        $total_tempo=0;
+        $horas_trabalhadas = array();
+
+        foreach($users as $user){
+            foreach($accoes as $accao){
+                if($user->username==$accao->username){
+                    $total_tempo +=$accao->tempo_acao;
+                }
+            }
+            $estatistica = new Estatistica;
+            $estatistica->horas_trabalhadas=gmdate("H:i:s",$total_tempo);
+            $estatistica->utilizador=$user->username;
+  
+            $horas_trabalhadas[]=$estatistica;
+            $total_tempo=0;
+        }
+        return response()->json($horas_trabalhadas,200); 
+        //dd($horas_trabalhadas[6]->horas_trabalhadas);
+    }*/
+    public function contHoras(){
+        $total_accoes= DB::table('tarefa_operacao')
+                ->join('tarefa', 'tarefa_operacao.id', '=', 'tarefa.id')
+                ->join('users', 'users.id', '=', 'tarefa.id_user')
+                ->select('tarefa_operacao.tempo_acao','users.username','tarefa_operacao.created_at')
+                ->where(DB::raw('DATE(tarefa_operacao.created_at)'),'=',date('Y-m-d'))
+                ->where('tarefa_operacao.utilizador_codigo','=',Auth::user()->username)  
+                ->sum('tarefa_operacao.tempo_acao');
+
+        $total_tarefa_feita = DB::table('tarefa')
+                        ->join('users', 'users.id', '=', 'tarefa.id_user')
+                        ->select('tarefa.tempo','users.username')
+                        ->where(DB::raw('DATE(tarefa.created_at)'),'=',date('Y-m-d'))
+                        ->where('tarefa.responsavel','=',Auth::user()->username)  
+                        ->where('tarefa.id_tipo','=','INACFE')  
+                        ->sum('tarefa.tempo'); 
+        
+        $total_tempo=$total_accoes+$total_tarefa_feita;
+
+        $estatistica = new Estatistica;
+        $estatistica->horas_trabalhadas=gmdate("H:i:s",$total_tempo);
+        $estatistica->utilizador=Auth::user()->username;
+        $estatistica->horas_bruto=$total_tempo;
+
+        return response()->json($estatistica,200); 
     }
 }

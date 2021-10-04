@@ -56,13 +56,13 @@
                         self.username = response.data.username;                   
                         self.email = response.data.email;                   
                         self.departamento = response.data.departamento;
-                        self.foto = response.data.foto;
-                        //console.log(response.data.foto);                  
+                        self.foto = response.data.foto;                
                     }else{
                         alert("Error ");
                     }
                 })
                 .catch(function (error) {
+                    this.pegaUtilizador();
                     alert("Erro ao carregar dados do perfil");
                 });
             }

@@ -78,10 +78,6 @@ class UtilizadorController extends Controller
     }
 
     public function pegaFoto($username){
-        $utilizadores = DB::table('users')->select('foto')->where('username',$username)->value('foto');
-        if(is_null($utilizadores))
-            $utilizadores=0;
-
-        return response()->json($utilizadores,200);
+        return response()->json(User::getFoto($username),200);
     }
 }

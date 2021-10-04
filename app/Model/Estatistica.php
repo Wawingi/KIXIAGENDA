@@ -13,6 +13,10 @@ class Estatistica extends Model
     protected $qtdTarefasAtrasadas;
     protected $qtdAccoes;
 
+    protected $horas_trabalhadas;
+    protected $utilizador;
+    protected $horas_bruto;
+
     public static function contTarefasHoje(){
         return DB::table('tarefa') 
                 ->where(DB::raw('DATE(created_at)'),'=',date('Y-m-d'))

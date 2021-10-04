@@ -349,7 +349,7 @@
                                 <li class="nav-item">
                                     <a href="#accao" data-toggle="tab" aria-expanded="false" class="nav-link ">
                                         <span class="d-inline-block d-sm-none"><i class="far fa-user"></i></span>
-                                        <span class="d-none d-sm-inline-block"><i class="fas fa-cog"></i> Accção da Actividade</span>
+                                        <span class="d-none d-sm-inline-block"><i class="fas fa-cog"></i> Acção da Actividade</span>
                                     </a>
                                 </li>
                             </ul>
@@ -816,10 +816,9 @@
                         self.data_solicitacaoEdit = response.data.data_solicitacao.replace(" ", "T");                                                                                             
                         self.data_previstaEdit = response.data.data_prevista.replace(" ", "T");  
                         self.urlTarefa = 'auth/gerarTarefaPdf/'+self.codigo;  
+                        self.fotoSolicitante = response.data.user_solicitante;
+                        self.fotoResponsavel = response.data.user_responsavel;
 
-                        self.pegaFotoSolicitante(response.data.solicitante,1);  //tipo 1: solicitante, tipo 2: responsavel
-                        self.pegaFotoSolicitante(response.data.responsavel,2);  
-                        
                         self.visible = false;                                                                                        
                     }
                 })
@@ -827,38 +826,13 @@
                     alert("Erro ao ver actividade");
                 });
             },
-            pegaFotoSolicitante(solicitante,tipo){
-                let self = this               
-                this.$axios.get('auth/pegaFoto/'+solicitante)
-                .then(function (response) {
-                    if(response.status==200){           
-                        if(tipo==1){   
-                            if(response.data==0){
-                                self.fotoSolicitante = 'default.jpg';
-                            }else{
-                                self.fotoSolicitante = response.data;
-                            }
-                        } else if(tipo==2){
-                            if(response.data==0){
-                                self.fotoResponsavel = 'default.jpg';
-                            }else{
-                                self.fotoResponsavel = response.data;
-                            }
-                        }                                                
-                    }
-                })
-                .catch(function (error) {
-                    alert("Erro ao pegar foto");
-                });      
-            },
-            
+         
             pegaTipos: async function(){
                 let self = this               
                 this.$axios.get('auth/pegaTipos')
                 .then(function (response) {
                     if(response.status==200){
-                        self.tipos = response.data;             
-                        console.log(response.data);                                                               
+                        self.tipos = response.data;                                                                         
                     }
                 })
                 .catch(function (error) {
@@ -870,8 +844,7 @@
                 this.$axios.get('auth/pegaOrigensAll')
                 .then(function (response) {
                     if(response.status==200){
-                        self.origens = response.data;             
-                        console.log(response.data);                                                               
+                        self.origens = response.data;                                                                         
                     }
                 })
                 .catch(function (error) {
@@ -963,7 +936,6 @@
                 var idTipo;
                 this.tipos.forEach(function(tipo) {
                     if(tipo.tipo == tipoLido){
-                        console.log("ID: "+tipo.id);
                         idTipo = tipo.id;
                     }
                 });
@@ -1022,10 +994,7 @@
                                 text: "Actividade Actualizada com sucesso.",
                                 icon: 'success',
                                 confirmButtonText: 'Fechar'
-                            })
-                           
-                           
-                                                                    
+                            })                                          
                         }else{
                             alert("LITTLE ERROR ");
                         }

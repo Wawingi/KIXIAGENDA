@@ -5,6 +5,7 @@ import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 import Perfil from './views/Perfil.vue';
 
+import ActividadesConcluidas from './views/ActividadesConcluidas.vue';
 import MinhasActividades from './views/MinhasActividades.vue';
 import ActividadesAtrasadas from './views/ActividadesAtrasadas.vue';
 import ActividadesAgendadas from './views/ActividadesAgendadas.vue';
@@ -30,6 +31,11 @@ const routes = [
                 path:'meuPerfil',
                 name:'meuPerfil',
                 component:Perfil
+            },
+            {
+                path:'actividadesConcluidas',
+                name:'actividadesConcluidas',
+                component:ActividadesConcluidas
             },
             {
                 path:'minhasActividades',

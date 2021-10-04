@@ -64,25 +64,51 @@
                 </div>
             </div>            
         </div>
-
+        <br>
         <div style="margin-top:-25px" class="row">
-            <div class="col-8">         
+            <div class="col-7">    
+                <div class="card-box">
+                    <table cellspacing="0" width="100%">
+                        <thead id="cabecatabela">
+                            <tr>
+                                <th>Utilizador</th>
+                                <th>Total Horas</th>     
+                                <th></th>     
+                            </tr>
+                        </thead>
+                        <tbody>                          
+                            <tr>           
+                                <td>{{utilizador}}</td>     
+                                <td>{{horas_trabalhadas}}</td>     
+                                <td width="50%">
+                                    <div class="progress progress-xl ">
+                                        <div v-bind:style="estilo" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+                                            {{percentagem_hora}} %  
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>     
+                </div>
             </div>
-            <div class="col-4">                       
+            <div class="col-5">  
+            <div class="card-box">                    
                 <button 
-                    style="float: right;margin:5px" 
+                    style="float:right;margin:5px" 
                     type="submit" 
                     @click="exportarExcel(2)"
                     class="btn btn-sm btn-rounded btn-secondary waves-effect waves-light">
                     <i class="fa fa-download mr-1"></i>Exportar Operacções
                 </button>
                 <button 
-                    style="float: right;margin:5px" 
+                    style="margin:5px" 
                     type="submit" 
                     @click="exportarExcel(1)"
                     class="btn btn-sm btn-rounded btn-success waves-effect waves-light">
                     <i class="fa fa-download mr-1"></i>Exportar Tarefas
                 </button>
+            </div>
             </div>
         </div>
         <br> 
@@ -103,14 +129,14 @@
                                 <td>{{tarefa.codigo}}</td> 
                                 <td>{{tarefa.titulo}}</td>                             
                                 <td width="20%">{{ tarefa.data_solicitacao }}</td>
-                                <td v-if="tarefa.avanco==100" width="10%">
+                                <td v-if="tarefa.avanco==100" width="20%">
                                     <div class="progress mb-1 progress-xl">
                                         <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                                             {{tarefa.data_cumprimento}}  
                                         </div>
                                     </div>
                                 </td>
-                                <td v-if="tarefa.data_prevista<now && tarefa.avanco<100" width="10%">
+                                <td v-if="tarefa.data_prevista<now && tarefa.avanco<100">
                                     <div class="progress mb-1 progress-xl">
                                         <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                                             {{tarefa.data_prevista}}  
@@ -138,6 +164,9 @@
         data(){
             return{
                 tarefas: [],
+                horas_trabalhadas: '',
+                percentagem_hora: '',
+                utilizador: '',
                 qtdTarefasTotal:'',
                 qtdTarefasConcluidas:'',
                 qtdTarefasNaoConcluidas:'',
@@ -145,24 +174,38 @@
                 qtdAccoes:'',
                 visible: false,
                 fullPage: true,
-                now: moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
+                now: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
+                estilo: '',
             };       
         },  
         components: {
             Loading: VueLoading
         },
         created(){
+            this.pegaHorasTrabalhadas(),
             this.pegaTarefas(),
             this.contTarefas()
         },
         methods: {   
-            carregaTabela(){
-                this.$nextTick(() => {
-                    $('#paginationTarefa').DataTable();
-                });
-            },
             selectRow(id){      
                 this.$router.push({name:'verActividade',params:{id:id}})   
+            },
+            pegaHorasTrabalhadas: async function(){
+                let self = this;               
+                this.$axios.get('auth/contHoras')
+                .then(function (response) {
+                    if(response.status==200){
+                        self.horas_trabalhadas = response.data.horas_trabalhadas;                                                                             
+                        self.utilizador = response.data.utilizador; 
+
+                        self.percentagem_hora= (response.data.horas_bruto*100)/28800;    
+
+                        self.estilo='width:'+self.percentagem_hora+'%;font-size:15px'                                                                                                                                             
+                    }
+                })
+                .catch(function (error) {
+                    location.reload();
+                });
             },
             pegaTarefas: async function(){
                 this.visible = true;

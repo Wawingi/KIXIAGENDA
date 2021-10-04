@@ -149,31 +149,30 @@ class Tarefa extends Model
         return $tarefas;
     }
 
+    public static function getTarefasConcluidas(){
+        return DB::table('tarefa')
+                ->select('tarefa.id','tarefa.codigo','tarefa.solicitante','tarefa.titulo','tarefa.avanco','tarefa.data_solicitacao','tarefa.data_cumprimento')
+                ->where('tarefa.avanco','=',100)
+                ->whereNotNull('tarefa.data_cumprimento')     
+                ->where('tarefa.responsavel','=',Auth::user()->username)
+                ->orderBy('tarefa.created_at','DESC')
+                ->get();              
+    }
+
     public static function getMinhasTarefas($now){
-        $prim = DB::table('tarefa')
-                ->join('tipo', 'tipo.id', '=', 'tarefa.id_tipo')
-                ->select('tarefa.id','tarefa.codigo','tarefa.titulo','tarefa.responsavel','tarefa.solicitante','tarefa.data_prevista','tarefa.data_solicitacao','tarefa.data_cumprimento','tarefa.avanco','tipo.tipo')
+        return DB::table('tarefa')
+                ->select('tarefa.id','tarefa.codigo','tarefa.titulo','tarefa.solicitante','tarefa.data_prevista','tarefa.data_solicitacao','tarefa.data_cumprimento','tarefa.avanco')
                 ->where('tarefa.responsavel','=',Auth::user()->username)  
-                ->whereNotNull('tarefa.data_cumprimento')                    
-                ->where(DB::raw('DATE(tarefa.data_prevista)'),'<=',$now);
-                //->orderBy('tarefa.created_at','DESC');
-                
-        $seg = DB::table('tarefa')
-                ->join('tipo', 'tipo.id', '=', 'tarefa.id_tipo')
-                ->select('tarefa.id','tarefa.codigo','tarefa.titulo','tarefa.responsavel','tarefa.solicitante','tarefa.data_prevista','tarefa.data_solicitacao','tarefa.data_cumprimento','tarefa.avanco','tipo.tipo')
-                ->where('tarefa.responsavel','=',Auth::user()->username)                
-                ->where(DB::raw('DATE(tarefa.data_prevista)'),'=',$now)
-                //->orderBy('tarefa.created_at','ASC')
-                ->union($prim)
-                ->get();           
-                
-        return $seg;
+                ->whereNull('tarefa.data_cumprimento')                    
+                ->where('tarefa.data_prevista','>',$now)
+                ->orderBy('tarefa.created_at','DESC')
+                ->get();
     }
 
     public static function getTarefasAtrasadas($now){
         return DB::table('tarefa')
                 ->join('tipo', 'tipo.id', '=', 'tarefa.id_tipo')
-                ->select('tarefa.id','tarefa.codigo','tarefa.solicitante','tarefa.titulo','tarefa.responsavel','tarefa.data_solicitacao','tarefa.data_prevista','tarefa.data_cumprimento','tarefa.avanco','tipo.tipo')
+                ->select('tarefa.id','tarefa.codigo','tarefa.solicitante','tarefa.titulo','tarefa.data_solicitacao','tarefa.data_prevista','tarefa.data_cumprimento','tarefa.avanco')
                 ->where('tarefa.avanco','<',100)
                 ->whereNull('tarefa.data_cumprimento')
                 ->where('tarefa.data_prevista','<',$now)
@@ -184,8 +183,7 @@ class Tarefa extends Model
 
     public static function getTarefasAgendadas($now){
         return DB::table('tarefa')
-                ->join('tipo', 'tipo.id', '=', 'tarefa.id_tipo')
-                ->select('tarefa.id','tarefa.codigo','tarefa.solicitante','tarefa.titulo','tarefa.responsavel','tarefa.data_solicitacao','tarefa.data_prevista','tarefa.data_cumprimento','tarefa.avanco','tipo.tipo')
+                ->select('tarefa.id','tarefa.codigo','tarefa.solicitante','tarefa.titulo','tarefa.data_solicitacao','tarefa.data_prevista','tarefa.data_cumprimento','tarefa.avanco')
                 ->where('tarefa.avanco','<',100)
                 ->whereNull('tarefa.data_cumprimento')
                 ->where(DB::raw('DATE(tarefa.data_prevista)'),'>',$now)
