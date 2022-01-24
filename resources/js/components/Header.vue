@@ -1,5 +1,4 @@
 <template>
-
     <header id="topnav">
         <!-- Topbar Start -->
         <div class="navbar-custom corPadrao">
@@ -14,9 +13,23 @@
                                 <span></span>
                             </div>
                         </a>
-                        <!-- End mobile menu toggle-->
                     </li>
-     
+
+                    <li class="d-none d-sm-block">
+                        <form v-on:submit.prevent="pesquisarTarefa" class="app-search">
+                            <div class="app-search-box">
+                                <div class="input-group">
+                                    <input type="text" v-model.trim="codigo" maxlength="8" class="form-control" placeholder="ex.:LD1234WA">
+                                    <div class="input-group-append">
+                                        <button class="btn" type="submit">
+                                            <i class="fe-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+
                     <li class="dropdown notification-list">
                         <a
                             class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light"
@@ -145,14 +158,16 @@
                                 </li>
                             </ul>
                         </li>
+                       
                         <li class="has-submenu">
-                            <router-link to="/home/assessores" exact>
-                                <i class="far fa-user-circle"></i>Ver Assessores de Conta
+                            <router-link to="/home/estatistica" exact>
+                                <i class="fas fa-chart-bar"></i>Estatísticas
                             </router-link>
                         </li>
-                        <li class="has-submenu">
-                            <router-link to="/home/fechoDiario" exact>
-                                <i class="fas fa-server"></i>Fecho Diário
+
+                         <li class="has-submenu">
+                            <router-link to="/home/assessores" exact>
+                                <i class="far fa-user-circle"></i>Ver Assessores de Conta
                             </router-link>
                         </li>
                         
@@ -174,7 +189,8 @@
         data(){
             return{
                 nome:'',
-                fotoPerfil:''
+                fotoPerfil:'',
+                codigo:'',
             };       
         },  
         mounted(){
@@ -211,6 +227,40 @@
                 .catch(function (error) {
                     alert("ERRO AO LOGOUT");
                 });
+            },
+
+            pesquisarTarefa: async function(){
+                if(this.codigo==''){
+                    Swal.fire({
+                        text: "Informe o código da actividade a pesquisar",
+                        icon: 'error',
+                        confirmButtonText: 'Fechar'
+                    });
+                    return;
+                } else {
+                    let self = this               
+                    this.$axios.get('auth/pesquisarTarefa/'+this.codigo)
+                    .then(function (response) {
+                        if(response.status==200){
+                            self.codigo = ''; 
+                            var verTarefa='#/home/verActividade/'+response.data; 
+                            window.open(verTarefa, '_blank');    
+                        } else if (response.status==201){
+                            Swal.fire({
+                                text: response.data,
+                                icon: 'error',
+                                confirmButtonText: 'Fechar'
+                            });
+                        }                        
+                    })
+                    .catch(function (error) {
+                        Swal.fire({
+                            text: "Houve erro ao pesquisar actividade.",
+                            icon: 'error',
+                            confirmButtonText: 'Fechar'
+                        });
+                    });
+                }
             }
         }
     };

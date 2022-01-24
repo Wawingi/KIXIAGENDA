@@ -11,7 +11,6 @@ import ActividadesAtrasadas from './views/ActividadesAtrasadas.vue';
 import ActividadesAgendadas from './views/ActividadesAgendadas.vue';
 import VerActividade from './views/VerActividade.vue';
 
-
 import Assessores from './views/AssessoresConta.vue';
 import Fecho from './views/FechoDiario.vue';
 Vue.use(Router);
@@ -63,8 +62,8 @@ const routes = [
                 component:Assessores
             },
             {
-                path:'fechoDiario',
-                name:'fechoDiario',
+                path:'estatistica',
+                name:'estatistica',
                 component:Fecho
             }
         ]

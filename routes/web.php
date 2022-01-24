@@ -46,11 +46,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('gerarAccaoGeralPdf/{codigo}','TarefaController@gerarAccaoGeralPdf');
         Route::get('contHoras','TarefaController@contHoras');
 
+        Route::get('verLastAccao/{idtarefa}','TarefaController@verLastAccao');
+        Route::get('pesquisarTarefa/{codigo}','TarefaController@pesquisarTarefa');
+
         Route::get('pegaAssessores', 'AssessorController@pegaAssessores');
 
         Route::post('registarFecho', 'FechoController@registarFecho');
         Route::get('pegaFechos', 'FechoController@pegaFechos'); 
-
-
     });
 });

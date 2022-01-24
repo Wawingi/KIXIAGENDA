@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Model\Tarefa;
 use App\Model\TarefaOperacao;
 use App\Model\Estatistica;
+use App\Model\Helper;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -67,6 +68,25 @@ class TarefaController extends Controller
             $tarefa->id_user = Auth::user()->id;
 
             if($tarefa->save()){
+                //Registar primeira acção da actividade
+                if($request->selectedTipo!='INACFE'){
+                    $operacao = new TarefaOperacao;
+        
+                    $operacao->id = $tarefa->id;
+                    $operacao->codigo = $tarefa->codigo;
+                    $operacao->acOrigemDado = $tarefa->id_origem.' : '.$tarefa->origem_dado;
+                    $operacao->utilizador_codigo = $tarefa->responsavel;   
+                    $operacao->descricao = 'Registo de atividade.';  
+                    $operacao->estado = 'ACCU';
+                    $operacao->avanco = 0; 
+                    $operacao->tempo_acao = $tarefa->tempo; 
+                    $operacao->utilizador_pergunta = null;
+                    $operacao->utilizador_registo =  Auth::user()->username;
+
+                    if($operacao->save()){
+
+                    }
+                }
                 return response()->json($tarefa->codigo,200);            
             }
         }catch (Exception $e){
@@ -133,6 +153,14 @@ class TarefaController extends Controller
         $actividade->responsavel = User::getCurtoNome(User::getPessoa($actividade->responsavel)->name);
        
         return response()->json($actividade,200);
+    }
+
+    public function verLastAccao($idtarefa){
+        $accao = DB::table('tarefa_operacao')->select('created_at','descricao','estado','avanco','tempo_acao','utilizador_codigo')->where('id',$idtarefa)->latest('created_at')->first();
+        $accao->estado = Tarefa::siglaToEstado($accao->estado);
+        $accao->tempo_acao = Tarefa::secondToHour($accao->tempo_acao);
+        $accao->created_at = date('d-m-Y',strtotime($accao->created_at));
+        return response()->json($accao,200);
     }
 
     public function editarTarefa(Request $request){
@@ -267,6 +295,11 @@ class TarefaController extends Controller
                 ->orderBy('tarefa_operacao.created_at','DESC')
                 ->get();
         $accoes = $this->secondToHour($accoes);
+        
+        foreach($accoes as $accao){
+            $accao->fotoResp = User::getFoto($accao->utilizador_codigo);
+            $accao->fotoSuport = User::getFoto($accao->utilizador_pergunta);
+        }
 
         return response()->json($accoes,200);
     }
@@ -491,6 +524,11 @@ class TarefaController extends Controller
     //Gerar PDF da acção ou relatorio com 10 acçõs
     public function gerarAccaoGeralPdf($codigo){
         $tarefa = Tarefa::getTarefaByCodigo($codigo);
+        
+        $dataSolicitacao = date('Y-m-d l',strtotime($tarefa->data_solicitacao));
+
+        //Contar tempo decorrido de uma actividade
+        $tempo_ocorrido = Helper::contIntervaloDias($dataSolicitacao);
 
         $tarefa = $this->setTempoVisual($tarefa);
         $solicitantePessoa = User::getPessoa($tarefa->solicitante);
@@ -524,8 +562,13 @@ class TarefaController extends Controller
         
         $restantesAccoes = $contAccoes-count($accoes);
 
+        //Variavel para armazenar total de hopras de uma acção  
+        $total_tempo_actividade=0;
+
         foreach($accoes as $accao):
             $user = User::getPessoa($accao->utilizador_codigo);
+            $total_tempo_actividade = $total_tempo_actividade+$accao->tempo_acao;
+
             $accao->utilizador_codigo = User::getCurtoNome($user->name);
             $accao->id = base64_encode(file_get_contents(public_path('/images/users/'.$user->foto)));
             $accao->seta = base64_encode(file_get_contents(public_path('/images/seta.png')));
@@ -533,10 +576,13 @@ class TarefaController extends Controller
             $accao->estado = $this->getEstado($accao->estado);
         endforeach;
 
+        //Converte segundos para hora
+        $total_tempo_actividade = gmdate("H:i:s",$total_tempo_actividade);
+
         //Montar assunto
         $assunto = 'Relatório de Actividade : '.$tarefa->tipo.' : '.$tarefa->titulo;
     
-        return view('layouts.pdfAccaoGeral',compact('assunto','tarefa','imageSolicitante','imageResponsavel','solicitante','responsavel','accoes','contAccoes','restantesAccoes'));
+        return view('layouts.pdfAccaoGeral',compact('assunto','tarefa','imageSolicitante','imageResponsavel','solicitante','responsavel','accoes','contAccoes','restantesAccoes','tempo_ocorrido','total_tempo_actividade'));
 
         //$pdf = PDF::loadView('layouts.pdfAccao',compact('accao','utilizador_suporte'))->setOptions(['debugKeepTemp' => true]);
         //return $pdf->setPaper('a4')->stream('Relatorio Acção.pdf');
@@ -596,5 +642,13 @@ class TarefaController extends Controller
         $estatistica->horas_bruto=$total_tempo;
 
         return response()->json($estatistica,200); 
+    }
+
+    public function pesquisarTarefa($codigo){
+        $tarefa = DB::table('tarefa')->where('codigo',$codigo)->value('id');
+        if($tarefa!='')
+            return response()->json($tarefa,200);
+        else
+            return response()->json('Nenhuma actividade relacionada com código fornecido.',201);
     }
 }

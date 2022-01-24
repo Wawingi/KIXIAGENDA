@@ -125,7 +125,7 @@
                             </tr>
                         </thead>
                         <tbody>                          
-                            <tr title='Clique aqui para abrir actividade' v-for="tarefa in tarefas" class="tabelaClicked" @click="selectRow(tarefa.id)">           
+                            <tr title='Clique aqui para abrir actividade' v-for="tarefa in tarefas" class="tabelaClicked" @click="selectRow(tarefa.id,tarefa.codigo)">           
                                 <td>{{tarefa.codigo}}</td> 
                                 <td>{{tarefa.titulo}}</td>                             
                                 <td width="20%">{{ tarefa.data_solicitacao }}</td>
@@ -187,8 +187,13 @@
             this.contTarefas()
         },
         methods: {   
-            selectRow(id){      
-                this.$router.push({name:'verActividade',params:{id:id}})   
+            selectRow(id){     
+                //Chamar outra aba
+                var verTarefa='#/home/verActividade/'+id; 
+                window.open(verTarefa, '_blank');    
+
+                //Chamar outra página
+                //this.$router.push({name:'verActividade',params:{id:id}})   
             },
             pegaHorasTrabalhadas: async function(){
                 let self = this;               

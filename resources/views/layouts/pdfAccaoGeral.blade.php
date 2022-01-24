@@ -89,9 +89,10 @@
                     </div>
                 </td>
                 <td style="font-size:12px" class="cor-azulE" colspan="8">
-                    <div style="margin-left:10px">
+                    <div style="margin:10px 0px 10px 10px">
                         <span>[Actividade]</span><br> 
-                        <span><b>{{$tarefa->tipo}} : {{$tarefa->titulo}}</b></span>
+                        <span><b>{{$tarefa->tipo}} : {{$tarefa->titulo}}</b></span><br><br>
+                        <span>[ Tempo transcorrido: {{$tempo_ocorrido}} dias ] [ Tempo na actividade: {{$total_tempo_actividade}} ]</span>
                     </div>
                 </td>
             </tr>
@@ -112,7 +113,7 @@
                     <br><span style="color:#295380;font-weight:bold">{{$solicitante}}</span>
                     <br><span style="font-size:8px">{{date('d-m-Y H:m',strtotime($tarefa->data_solicitacao))}}</span>
                 </td>
-                <td style="font-size:11px" width="60%" class="cor-AzulC" colspan="6">
+                <td style="font-size:11px" width="40%" class="cor-AzulC" colspan="6">
                     <p>{{$tarefa->descricao}}</p>
                 </td>
                 <td class="cor-AzulC"  width="60%" style="text-align:center;font-size:11px">
@@ -132,7 +133,7 @@
                     <table>
                         <tr>
                             <td width="10%"><img style="margin-left:10px"  src="data:image/png;base64,{{$accoes[0]->seta}}" width="30" height="50"></td>
-                            <td style="text-align:center">
+                            <td width="40%" style="text-align:center">
                                 <img
                                     style="border:solid #fff 1px"
                                     src="data:image/png;base64,{{$accoes[0]->id}}"
@@ -141,7 +142,7 @@
                                     height="30px"/>
                                 <br><span style="font-size:12px;">{{$accoes[0]->utilizador_codigo}}</span>
                             </td>
-                            <td width="60%">
+                            <td width="50%">
                                 <p style="text-align:left">{{$accoes[0]->descricao}}</p><br>
                             </td>
                         </tr>

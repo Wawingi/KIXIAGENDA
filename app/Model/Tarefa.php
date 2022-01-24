@@ -210,4 +210,40 @@ class Tarefa extends Model
                 ->where('tarefa.codigo','=',$tarefa_id)
                 ->first();
     }
+
+    public static function siglaToEstado($sigla){
+        switch($sigla){
+            case 'ACCO': return 'Actividade Concluída'; break;                  
+            case 'ACCU': return 'Actividade em Curso'; break;                  
+            case 'ACRG': return 'Actividade Reagendada'; break;                  
+            case 'ACRT': return 'Actividade Reativada'; break;                  
+            case 'CUSS': return 'Em Curso Solic. Suporte'; break;                  
+            case 'CURS': return 'Em Curso Resp. Suporte'; break;               
+        }       
+    }
+
+    public static function secondToHour($segundos){
+        switch($segundos){
+            case 300: return '0:05'; break;                  
+            case 600: return '0:10'; break;                  
+            case 900: return '0:15'; break;                  
+            case 1200: return '0:20'; break;                  
+            case 1800: return '0:30'; break;                  
+            case 2400: return '0:40'; break;                  
+            case 3000: return '0:50'; break;                  
+            case 3600: return '1:00'; break;                  
+            case 5400: return '1:30'; break;                  
+            case 7200: return '2:00'; break;
+            case 9000: return '2:30'; break;
+            case 10800: return '3:00'; break;
+            case 12600: return '3:30'; break;
+            case 14400: return '4:00'; break;
+            case 16200: return '4:30'; break;
+            case 18000: return '5:00'; break;
+            case 19800: return '5:30'; break;
+            case 21600: return '6:00'; break;
+            case 23400: return '6:30'; break;
+            case 25200: return '7:00'; break;
+        }       
+    }
 }

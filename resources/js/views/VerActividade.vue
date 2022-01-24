@@ -277,7 +277,7 @@
                                 <div v-if="tipo_accao==1" class="col-3">
                                     <label for="name">Utilizador Suporte</label>
                                     <select v-model.trim="utilizador_pergunta" class="custom-select custom-select-sm">
-                                        <option disabled selected :value="''">Solicitante</option>
+                                        <option disabled selected :value="''">Utilizador</option>
                                         <option selected v-for="utilizador in utilizadores" v-bind:value="utilizador.username">{{utilizador.username}}</option>
                                     </select>
                                 </div>
@@ -406,7 +406,6 @@
                                                     <p id="InputMostrar">: {{tempo}}</p>                                                    
                                                 </div>
                                             </div>
-                                            
                                         </div>
 
                                         <div id="linhaDado" class="row">
@@ -544,7 +543,36 @@
                                             </div>
                                         </div>     
                                     </div>
-                                </div>                           
+                                </div>  
+
+                                <hr style="height:1px;background-color:#d3d6d5">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table class="table table-sm table-bordered">
+                                            <tr>
+                                                <td style="text-align:center;font-weight:bold" colspan="6">ÚLTIMA ACÇÃO</td>
+                                            </tr>
+                                            <tr style="background-color:#d1f3ff;font-weight:bold">
+                                                <td>Data Operação</td>
+                                                <td>Assunto</td>
+                                                <td>Estado</td>
+                                                <td>Avanço</td>
+                                                <td>Tempo</td>
+                                                <td>Utilizador</td>
+                                            </tr>
+                                            <tbody> 
+                                                <tr>
+                                                    <td>{{accao_data}}</td>
+                                                    <td>{{accao_descricao}}</td>
+                                                    <td>{{accao_estado}}</td>
+                                                    <td>{{accao_avanco}} %</td>
+                                                    <td>{{accao_tempo}}</td>
+                                                    <td>{{accao_utilizador}}</td>
+                                                </tr>
+                                            </tbody>   
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -590,10 +618,28 @@
                                     <tr v-for="accao in accoes" @click="selectRow(accao)" class="tabelaClicked" title='Clique aqui para ver relatório da acção'>
                                         <td>{{accao.created_at}}</td>
                                         <td>{{accao.descricao}}</td>
-                                        <td>{{accao.utilizador_codigo}}</td>
                                         <td>
-                                            <p v-if="accao.utilizador_pergunta==null" style="color:#f5b602">Sem Suporte</p>
-                                            <p v-else>{{accao.utilizador_pergunta}}</p>
+                                            <center><img
+                                                style="border:solid #d0d5dc 1px"
+                                                :src="'images/users/'+accao.fotoResp"
+                                                alt="user-image"
+                                                width="45px"
+                                                height="45px"
+                                                class="rounded-circle"/></center>
+                                            <center><span>{{accao.utilizador_codigo}}</span></center>
+                                        </td>
+                                        <td>
+                                            <p v-if="accao.utilizador_pergunta==null"></p>
+                                            <div v-else>
+                                                <center><img
+                                                    style="border:solid #d0d5dc 1px"
+                                                    :src="'images/users/'+accao.fotoSuport"
+                                                    alt="user-image"
+                                                    width="45px"
+                                                    height="45px"
+                                                    class="rounded-circle"/></center>
+                                                <center><span>{{accao.utilizador_pergunta}}</span></center>
+                                            </div>
                                         </td>
                                         <td>
                                             <p v-if="accao.estado=='ACCO'">Actividade Concluída</p>
@@ -614,7 +660,6 @@
                                     </tr>
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                 </div>
@@ -690,6 +735,13 @@
                 qtdeInformadaAC:0,
                 visible: false,
                 fullPage: true,
+                //Dados acção
+                accao_data:'',
+                accao_descricao:'',
+                accao_estado:'',
+                accao_avanco:'',
+                accao_tempo:'',
+                accao_utilizador:''
             };       
         },
         validations: {
@@ -769,12 +821,12 @@
         },
 
         mounted(){
+            this.pegaUltimaAccao();
             this.pegaTipos();
             this.pegaOrigens();
             this.pegaUtilizador(); 
             this.pegaUtilizadorLogado(); 
             this.pegaAccoesTarefa();
-            
         },
         methods: { 
             pegaUtilizadorLogado: async function(){
@@ -824,6 +876,26 @@
                 })
                 .catch(function (error) {
                     alert("Erro ao ver actividade");
+                });
+            },
+
+            //Ver primeira acção da actividade
+            pegaUltimaAccao(){
+                console.log("COD: "+this.id_tarefa);
+                let self = this;               
+                this.$axios.get('auth/verLastAccao/'+self.id_tarefa)
+                .then(function (response) {
+                    if(response.status==200){
+                        self.accao_data = response.data.created_at,
+                        self.accao_descricao = response.data.descricao,
+                        self.accao_estado = response.data.estado,
+                        self.accao_avanco = response.data.avanco,
+                        self.accao_tempo = response.data.tempo_acao,
+                        self.accao_utilizador = response.data.utilizador_codigo                                                                        
+                    }
+                })
+                .catch(function (error) {
+                    alert("Erro ultima acção.");
                 });
             },
          
