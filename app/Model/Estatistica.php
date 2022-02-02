@@ -38,11 +38,16 @@ class Estatistica extends Model
         return DB::table('tarefa') 
                 ->where(DB::raw('DATE(data_prevista)'),'<',date('Y-m-d'))
                 ->where('avanco','<',100)
-                ->count();      
+                ->get();      
     }
     public static function contAccoesRegularizadasHoje(){
         return DB::table('tarefa_operacao') 
                 ->where(DB::raw('DATE(created_at)'),'=',date('Y-m-d'))
-                ->count();      
+                ->get();      
     }
+
+    // Construção do gráfico estátistica
+    public static function tarefasRegulaizadas(){
+        dd('AQ');
+    } 
 }

@@ -14,34 +14,36 @@
             </div>
         </div>
 
+        <loading :active.sync="visible" :can-cancel="true" :is-full-page="fullPage"/>  
+
         <div class="row">
             <div class="col-12">
-                <div class="card-box">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div id="tarefas_hoje" style="width: 100%;height:400px"></div>   
-                                </div>
-                            </div>
-                        </div>
-                    </div>                     
+                <div class="card">
+                    <div class="card-body">
+                        <canvas ref="chart"></canvas> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <canvas ref="chartAtrasadas"></canvas> 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>   
-    import { required, minLength, maxLength } from 'vuelidate/lib/validators';
+    import {Bar} from 'vue-chartjs'
 
     export default {       
         data(){
             return{
-                fechos: [],
-                utilizadores: [], 
-                utilizador_codigo:'',
-                periodo:'',
-                data_fecho:'',
+                accoes: '',
                 visible: false,
                 fullPage: true
             };       
@@ -49,61 +51,78 @@
         components: {
             Loading: VueLoading
         },
-        validations: {
-            utilizador_codigo: {
-                required
-            },       
-            periodo: {
-                required
-            },       
-            data_fecho: {
-                required
-            }       
-        },
-        created(){
-            this.criaGrafico()            
-        },
-        methods: {  
-            criaGrafico: async function(){
-                var myChart = echarts.init(document.getElementById('tarefas_hoje'));
-                var option = {
-                    color:['#3398DB'],
-                    tooltip:{
-                        trigger:'axis',
-                        axisPointer:{
-                            type:'shadow'
-                        }
-                    },      
-                    tooltip: {},
-                
-                    xAxis: {
-                        data: ['Belas','Talatona','Viana']
-                    },
-                    yAxis: {},
-                    series: [
-                        {
-                            name: 'Delegados',
-                            type: 'bar',
-                            data: [1,2,3]
-                        }
-                    ]
-                };
-                myChart.setOption(option);
 
-                /*let self = this               
-                this.$axios.get('auth/pegaUtilizadoresDSO')
-                .then(function (response) {
-                    if(response.status==200){
-                        self.utilizadores = response.data;
-                        console.log(response.data);                  
-                    }else{
- 
+        mounted(){
+            this.visible = true;
+            let self = this;               
+            this.$axios.get('auth/graficoTarefasRegularizadas')
+            .then(function (response) {
+                if(response.status==200){
+                    self.accoes = response.data;
+                    self.visible = false;  
+                 
+                    console.log("ARRAY: "+self.accoes.users); 
+
+                    self.pegaTarefasRegularizadas();
+                    self.pegaTarefasAtrasadas();
+                }
+            })
+            .catch(function (error) {
+                
+            });
+        },                      
+        methods: { 
+            pegaTarefasRegularizadas: async function(){
+                var chart = this.$refs.chart;
+                var ctx = chart.getContext("2d");
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: this.accoes.users,
+                        datasets: [{
+                            label: 'Actividades Regularizadas Hoje',
+                            backgroundColor: '#1abc9c',
+                            data: this.accoes.accoes,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
                     }
-                })
-                .catch(function (error) {
-                    alert("Erro ao carregar dados do perfil");
-                });*/
-            },       
+                });                                                                      
+            },
+
+            pegaTarefasAtrasadas: async function(){
+                var chart = this.$refs.chartAtrasadas;
+                var ctx = chart.getContext("2d");
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: this.accoes.users,
+                        datasets: [{
+                            label: 'Actividades Atrasadas',
+                            backgroundColor: '#ff4545',
+                            data: this.accoes.atrasadas,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });                                                                      
+            }
         }        
     };
 </script>

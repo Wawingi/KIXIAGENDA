@@ -62,8 +62,7 @@
                     }
                 })
                 .catch(function (error) {
-                    this.pegaUtilizador();
-                    alert("Erro ao carregar dados do perfil");
+                    self.pegaUtilizador();
                 });
             }
         }

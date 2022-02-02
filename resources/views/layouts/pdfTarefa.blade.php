@@ -123,7 +123,7 @@
         </tr>
         <tr>
             <td style="background:#e3e3e3;color:#797a7a;text-align:center" colspan="6">
-                <p style="font-size:10px">Sistema KixiAgenda v1.0.0 - 2021</p>
+                <p style="font-size:10px">Sistema KixiAgenda v2.0.1 - 2022</p>
             </td>
         </tr>
     </table>

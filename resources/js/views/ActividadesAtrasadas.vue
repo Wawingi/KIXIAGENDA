@@ -82,7 +82,12 @@
                 });
             },
             selectRow(id){      
-                this.$router.push({name:'verActividade',params:{id:id}})   
+                //Chamar outra aba
+                var verTarefa='#/home/verActividade/'+id; 
+                window.open(verTarefa, '_blank');    
+
+                //Chamar outra página   
+                //this.$router.push({name:'verActividade',params:{id:id}})   
             },
             pegaTarefas: async function(){
                 this.visible = true;

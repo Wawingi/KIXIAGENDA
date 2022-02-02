@@ -25,7 +25,9 @@
     },
     "dependencies": {
         "@smartweb/vue-flash-message": "^0.6.10",
+        "chart.js": "^2.9.4",
         "moment": "^2.29.1",
+        "vue-chartjs": "^3.5.1",
         "vue-loading-overlay": "^4.0.3",
         "vue-number-input-spinner": "^2.2.0",
         "vue-range-component": "^1.0.3",

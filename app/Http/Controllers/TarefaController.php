@@ -22,7 +22,7 @@ class TarefaController extends Controller
     public function registarTarefa(Request $request){
         try{
             $tarefa = new Tarefa;  
-            $tarefa->versao_sistema = 'KAW200';
+            $tarefa->versao_sistema = 'KAW201';
             $tarefa->id_tipo = $request->selectedTipo;
             $tarefa->titulo = $request->titulo;
             $tarefa->id_origem = $request->selectedOrigem;
@@ -69,24 +69,29 @@ class TarefaController extends Controller
 
             if($tarefa->save()){
                 //Registar primeira acção da actividade
-                if($request->selectedTipo!='INACFE'){
-                    $operacao = new TarefaOperacao;
+                $operacao = new TarefaOperacao;
         
-                    $operacao->id = $tarefa->id;
-                    $operacao->codigo = $tarefa->codigo;
-                    $operacao->acOrigemDado = $tarefa->id_origem.' : '.$tarefa->origem_dado;
-                    $operacao->utilizador_codigo = $tarefa->responsavel;   
-                    $operacao->descricao = 'Registo de atividade.';  
+                $operacao->id = $tarefa->id;
+                $operacao->codigo = $tarefa->codigo;
+                $operacao->acOrigemDado = $tarefa->id_origem.' : '.$tarefa->origem_dado;
+                $operacao->utilizador_codigo = $tarefa->responsavel;   
+                $operacao->descricao = 'Registo de atividade.';  
+                
+                if($request->selectedTipo!='INACFE'){
                     $operacao->estado = 'ACCU';
-                    $operacao->avanco = 0; 
+                    $operacao->avanco = 0;
                     $operacao->tempo_acao = $tarefa->tempo; 
-                    $operacao->utilizador_pergunta = null;
-                    $operacao->utilizador_registo =  Auth::user()->username;
+                }else{
+                    $operacao->estado = 'ACCO';
+                    $operacao->avanco = 100;
+                    $operacao->tempo_acao = 0;
+                } 
+                
+                $operacao->utilizador_pergunta = null;
+                $operacao->utilizador_registo =  Auth::user()->username;
 
-                    if($operacao->save()){
-
-                    }
-                }
+                if($operacao->save()){}
+                
                 return response()->json($tarefa->codigo,200);            
             }
         }catch (Exception $e){
@@ -129,18 +134,6 @@ class TarefaController extends Controller
     public function pegaTarefasAgendadas(){
         $tarefas = Tarefa::getTarefasAgendadas($now = date('Y-m-d'));//dd($tarefas);
         return response()->json($tarefas,200);               
-    }
-
-    public function contActividades(){        
-        $estatistica = new Estatistica;   
-          
-        $estatistica->qtdTarefasTotal = Estatistica::contTarefasHoje();
-        $estatistica->qtdTarefasConcluidas = Estatistica::contTarefasRegularizadasHoje();
-        $estatistica->qtdTarefasNaoConcluidas = Estatistica::contTarefasNaoRegularizadasHoje();
-        $estatistica->qtdTarefasAtrasadas = Estatistica::contTarefasAtrasadas();
-        $estatistica->qtdAccoes = Estatistica::contAccoesRegularizadasHoje(); 
-        //dd($estatistica);
-        return response()->json($estatistica,200);  
     }
 
     public function verActividade($id){
@@ -617,6 +610,7 @@ class TarefaController extends Controller
         return response()->json($horas_trabalhadas,200); 
         //dd($horas_trabalhadas[6]->horas_trabalhadas);
     }*/
+    
     public function contHoras(){
         $total_accoes= DB::table('tarefa_operacao')
                 ->join('tarefa', 'tarefa_operacao.id', '=', 'tarefa.id')

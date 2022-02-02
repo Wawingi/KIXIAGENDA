@@ -881,7 +881,6 @@
 
             //Ver primeira acção da actividade
             pegaUltimaAccao(){
-                console.log("COD: "+this.id_tarefa);
                 let self = this;               
                 this.$axios.get('auth/verLastAccao/'+self.id_tarefa)
                 .then(function (response) {
@@ -895,7 +894,7 @@
                     }
                 })
                 .catch(function (error) {
-                    alert("Erro ultima acção.");
+                    this.pegaUltimaAccao();
                 });
             },
          
@@ -1068,7 +1067,7 @@
                                 confirmButtonText: 'Fechar'
                             })                                          
                         }else{
-                            alert("LITTLE ERROR ");
+                            
                         }
                     })
                     .catch(function (error) {

@@ -83,7 +83,7 @@ class User extends Authenticatable
     }
 
     public static function getUsersDpto($departamento){
-        $users = DB::table('users')->select('username')->where('departamento',$departamento)->get();
+        $users = DB::table('users')->select('username','name')->where('estado',1)->where('departamento',$departamento)->get();
         return $users;
     }
 }

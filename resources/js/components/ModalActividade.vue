@@ -484,8 +484,7 @@
                 this.$axios.get('auth/pegaTarefas')
                 .then(function (response) {
                     if(response.status==200){
-                        self.tarefas = response.data;             
-                        console.log('YYY: '+response.data);                                                               
+                        self.tarefas = response.data;                                                                         
                     }
                 })
                 .catch(function (error) {

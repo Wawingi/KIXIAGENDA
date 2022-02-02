@@ -29,7 +29,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('pegaGeralTarefas', 'TarefaController@pegaGeralTarefas');
         Route::get('pegaTarefasAtrasadas', 'TarefaController@pegaTarefasAtrasadas');
         Route::get('pegaTarefasAgendadas', 'TarefaController@pegaTarefasAgendadas');
-        Route::get('contActividades', 'TarefaController@contActividades');
+       
         Route::get('verActividade/{id}', 'TarefaController@verActividade');
 
         Route::post('editarTarefa', 'TarefaController@editarTarefa');
@@ -53,5 +53,9 @@ Route::middleware(['auth'])->group(function () {
 
         Route::post('registarFecho', 'FechoController@registarFecho');
         Route::get('pegaFechos', 'FechoController@pegaFechos'); 
+
+        //Rotas para a construção de gráfico
+        Route::get('contActividades', 'EstatisticaController@contActividades');
+        Route::get('graficoTarefasRegularizadas','EstatisticaController@graficoTarefasRegularizadas');
     });
 });
