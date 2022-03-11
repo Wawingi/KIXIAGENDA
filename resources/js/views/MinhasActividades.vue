@@ -27,10 +27,10 @@
                         <thead id="cabecatabela">
                             <tr>
                                 <th>Código</th>
-                                <th>Objecto de Actividade</th>
+                                <th>Título</th>
                                 <th>Solicitante</th>
-                                <th>Data da Solicitação</th>
-                                <th>Data da Execução</th>
+                                <th>Solicitação</th>
+                                <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>                          
@@ -38,11 +38,11 @@
                                 <td>{{tarefa.codigo}}</td>
                                 <td>{{tarefa.titulo}}</td>
                                 <td>{{tarefa.solicitante}}</td>
-                                <td width="20%">{{ tarefa.data_solicitacao }}</td>
+                                <td width="20%">{{ moment(String(tarefa.data_solicitacao)).format('DD-MM-YYYY') }}</td>
                                 <td v-if="tarefa.avanco==100" width="10%">
                                     <div class="progress mb-1 progress-xl">
                                         <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                                            {{tarefa.data_cumprimento}}
+                                            {{ moment(String(tarefa.data_cumprimento)).format('DD-MM-YYYY') }}
                                         </div>
                                     </div>
                                 </td>
@@ -63,8 +63,7 @@
     </div>
 </template>
 <script>
-    //import ModalActividade from "../components/ModalActividade.vue";
-  
+    import moment from 'moment';
     export default {
         components: {
             Loading: VueLoading
@@ -80,6 +79,7 @@
             this.pegaTarefas()
         },
         methods: {   
+            moment,
             carregaTabela(){
                 this.$nextTick(() => {
                     $('#paginationTarefa').DataTable();

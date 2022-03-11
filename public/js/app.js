@@ -2156,13 +2156,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   if (response.status == 200) {
                     self.nome = response.data.name;
                     self.fotoPerfil = response.data.foto;
-                  } else {
-                    alert("Error ");
                   }
-                })["catch"](function (error) {
-                  //self.$router.push({name:'/'})  
-                  alert('Error');
-                });
+                })["catch"](function (error) {});
 
               case 2:
               case "end":
@@ -2191,11 +2186,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     self.$router.push({
                       name: 'login'
                     });
-                  } else {
-                    alert("LITTLE ERROR ");
                   }
                 })["catch"](function (error) {
-                  alert("ERRO AO LOGOUT");
+                  Swal.fire({
+                    text: "Erro ao efectuar logout, tente novamente!",
+                    icon: 'error',
+                    confirmButtonText: 'Fechar'
+                  });
                 });
 
               case 2:
@@ -2293,6 +2290,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
 //
 //
 //
@@ -3002,7 +3001,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 this.submitStatus = 'ERROR';
-                _context6.next = 51;
+                _context6.next = 48;
                 break;
 
               case 5:
@@ -3110,37 +3109,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context6.abrupt("return");
 
               case 39:
-                if (!(moment__WEBPACK_IMPORTED_MODULE_1___default()(this.data_execucao) < moment__WEBPACK_IMPORTED_MODULE_1___default()())) {
-                  _context6.next = 42;
-                  break;
-                }
+                //Verificar a data de execução para não ser passada
 
-                Swal.fire({
-                  text: "A data prevista não pode ser uma data passada.",
-                  icon: 'error',
-                  confirmButtonText: 'Fechar'
-                });
-                return _context6.abrupt("return");
-
-              case 42:
+                /*if((moment(this.data_execucao)<moment())){
+                    Swal.fire({
+                        text: "A data prevista não pode ser uma data passada.",
+                        icon: 'error',
+                        confirmButtonText: 'Fechar'
+                    });
+                    return;
+                }*/
                 //Verificar a data de execução para não ser superior a 30 dias
                 dias = Math.floor((moment__WEBPACK_IMPORTED_MODULE_1___default()(this.data_execucao) - moment__WEBPACK_IMPORTED_MODULE_1___default()(this.data_solicitacao)) / 86400000);
 
-                if (!(dias > 30)) {
-                  _context6.next = 46;
+                if (!(dias > 20)) {
+                  _context6.next = 43;
                   break;
                 }
 
                 Swal.fire({
-                  text: "A data prevista não pode exceder 30 dias.",
+                  text: "A data prevista não pode exceder 20 dias.",
                   icon: 'error',
                   confirmButtonText: 'Fechar'
                 });
                 return _context6.abrupt("return");
 
-              case 46:
+              case 43:
                 if (!(this.selectedTipo != 'INACFE' && this.tempo * 60 > 1200)) {
-                  _context6.next = 49;
+                  _context6.next = 46;
                   break;
                 }
 
@@ -3151,7 +3147,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
                 return _context6.abrupt("return");
 
-              case 49:
+              case 46:
                 self = this;
                 this.$axios.post('auth/registarTarefa', {
                   'selectedTipo': this.selectedTipo,
@@ -3199,7 +3195,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 });
 
-              case 51:
+              case 48:
               case "end":
                 return _context6.stop();
             }
@@ -3291,6 +3287,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3352,6 +3350,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3367,6 +3366,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.pegaTarefas();
   },
   methods: {
+    moment: moment__WEBPACK_IMPORTED_MODULE_1___default.a,
     carregaTabela: function carregaTabela() {
       this.$nextTick(function () {
         $('#paginationTarefa').DataTable();
@@ -3428,6 +3428,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3496,6 +3498,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3511,6 +3514,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.pegaTarefas();
   },
   methods: {
+    moment: moment__WEBPACK_IMPORTED_MODULE_1___default.a,
     carregaTabela: function carregaTabela() {
       this.$nextTick(function () {
         $('#paginationTarefa').DataTable();
@@ -3572,6 +3576,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3642,7 +3648,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//import ModalActividade from "../components/ModalActividade.vue";
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Loading: VueLoading
@@ -3658,6 +3664,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.pegaTarefas();
   },
   methods: {
+    moment: moment__WEBPACK_IMPORTED_MODULE_1___default.a,
     carregaTabela: function carregaTabela() {
       this.$nextTick(function () {
         $('#paginationTarefa').DataTable();
@@ -4013,6 +4020,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4039,6 +4048,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.pegaHorasTrabalhadas(), this.pegaTarefas(), this.contTarefas();
   },
   methods: {
+    moment: moment__WEBPACK_IMPORTED_MODULE_1___default.a,
     selectRow: function selectRow(id) {
       //Chamar outra aba
       var verTarefa = '#/home/verActividade/' + id;
@@ -4057,7 +4067,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   if (response.status == 200) {
                     self.horas_trabalhadas = response.data.horas_trabalhadas;
                     self.utilizador = response.data.utilizador;
-                    self.percentagem_hora = response.data.horas_bruto * 100 / 28800;
+                    self.percentagem_hora = Math.round(response.data.horas_bruto * 100 / 28800);
                     self.estilo = 'width:' + self.percentagem_hora + '%;font-size:15px';
                   }
                 })["catch"](function (error) {
@@ -4544,6 +4554,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -4614,7 +4626,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//import ModalActividade from "../components/ModalActividade.vue";
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Loading: VueLoading
@@ -4630,6 +4642,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.pegaTarefas();
   },
   methods: {
+    moment: moment__WEBPACK_IMPORTED_MODULE_1___default.a,
     carregaTabela: function carregaTabela() {
       this.$nextTick(function () {
         $('#paginationTarefa').DataTable();
@@ -5482,6 +5495,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5552,7 +5575,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       accao_estado: '',
       accao_avanco: '',
       accao_tempo: '',
-      accao_utilizador: ''
+      accao_utilizador: '',
+      estilo: '',
+      percentagem_hora: ''
     };
   },
   validations: {
@@ -5639,6 +5664,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.pegaAccoesTarefa();
   },
   methods: {
+    moment: moment__WEBPACK_IMPORTED_MODULE_2___default.a,
     pegaUtilizadorLogado: function () {
       var _pegaUtilizadorLogado = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var self;
@@ -5689,7 +5715,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     self.visible = false;
                   }
                 })["catch"](function (error) {
-                  alert("Erro ao ver actividade");
+                  this.pegaActividade();
                 });
 
               case 4:
@@ -5711,7 +5737,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var self = this;
       this.$axios.get('auth/verLastAccao/' + self.id_tarefa).then(function (response) {
         if (response.status == 200) {
-          self.accao_data = response.data.created_at, self.accao_descricao = response.data.descricao, self.accao_estado = response.data.estado, self.accao_avanco = response.data.avanco, self.accao_tempo = response.data.tempo_acao, self.accao_utilizador = response.data.utilizador_codigo;
+          self.accao_data = response.data.created_at, self.accao_descricao = response.data.descricao, self.accao_estado = response.data.estado, self.accao_avanco = response.data.avanco, self.accao_tempo = response.data.tempo_acao, self.accao_utilizador = response.data.utilizador_codigo; //Montar a progress do estado e avanço actividade topo
+
+          self.percentagem_hora = self.accao_avanco;
+          self.estilo = 'width:' + self.accao_avanco + '%;font-size:15px';
         }
       })["catch"](function (error) {
         this.pegaUltimaAccao();
@@ -6207,7 +6236,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     self.accoes = response.data;
                   }
                 })["catch"](function (error) {
-                  alert("Erro ao carregar dados da acção");
+                  this.pegaAccoesTarefa();
                 });
 
               case 2:
@@ -65368,6 +65397,16 @@ var render = function() {
                                       _vm._v(" "),
                                       _c(
                                         "option",
+                                        { attrs: { value: "20-Operações" } },
+                                        [
+                                          _vm._v(
+                                            "20 CADEIA PRODUTIVA | Operações"
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
                                         { attrs: { value: "21-Operações" } },
                                         [_vm._v("21 BENFICA | Operações")]
                                       ),
@@ -65858,6 +65897,16 @@ var render = function() {
                                         "option",
                                         { attrs: { value: "19-Operações" } },
                                         [_vm._v("19 ZANGO | Operações")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "20-Operações" } },
+                                        [
+                                          _vm._v(
+                                            "20 CADEIA PRODUTIVA | Operações"
+                                          )
+                                        ]
                                       ),
                                       _vm._v(" "),
                                       _c(
@@ -66639,7 +66688,13 @@ var render = function() {
                         _c("td", [_vm._v(_vm._s(tarefa.solicitante))]),
                         _vm._v(" "),
                         _c("td", { attrs: { width: "20%" } }, [
-                          _vm._v(_vm._s(tarefa.data_solicitacao))
+                          _vm._v(
+                            _vm._s(
+                              _vm
+                                .moment(String(tarefa.data_solicitacao))
+                                .format("DD-MM-YYYY")
+                            )
+                          )
                         ]),
                         _vm._v(" "),
                         _c("td", { attrs: { width: "20%" } }, [
@@ -66662,7 +66717,11 @@ var render = function() {
                                 [
                                   _vm._v(
                                     "\n                                        " +
-                                      _vm._s(tarefa.data_prevista) +
+                                      _vm._s(
+                                        _vm
+                                          .moment(String(tarefa.data_prevista))
+                                          .format("DD-MM-YYYY")
+                                      ) +
                                       "\n                                    "
                                   )
                                 ]
@@ -66723,13 +66782,13 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Código")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Objecto de Actividade")]),
+        _c("th", [_vm._v("Título")]),
         _vm._v(" "),
         _c("th", [_vm._v("Solicitante")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Data da Solicitação")]),
+        _c("th", [_vm._v("Solicitação")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Data Prevista")])
+        _c("th", [_vm._v("Previsão")])
       ])
     ])
   }
@@ -66815,7 +66874,13 @@ var render = function() {
                         _c("td", [_vm._v(_vm._s(tarefa.solicitante))]),
                         _vm._v(" "),
                         _c("td", { attrs: { width: "20%" } }, [
-                          _vm._v(_vm._s(tarefa.data_solicitacao))
+                          _vm._v(
+                            _vm._s(
+                              _vm
+                                .moment(String(tarefa.data_solicitacao))
+                                .format("DD-MM-YYYY")
+                            )
+                          )
                         ]),
                         _vm._v(" "),
                         tarefa.avanco == 100
@@ -66866,9 +66931,15 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                        " +
-                                          _vm._s(tarefa.data_prevista) +
-                                          "\n                                    "
+                                        "\n                                        Atrasada (" +
+                                          _vm._s(
+                                            _vm
+                                              .moment(
+                                                String(tarefa.data_prevista)
+                                              )
+                                              .format("DD-MM-YYYY")
+                                          ) +
+                                          ")\n                                    "
                                       )
                                     ]
                                   )
@@ -66928,13 +66999,13 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Código")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Objecto de Actividade")]),
+        _c("th", [_vm._v("Título")]),
         _vm._v(" "),
         _c("th", [_vm._v("Solicitante")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Data da Solicitação")]),
+        _c("th", [_vm._v("Solicitação")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Data Prevista")])
+        _c("th", [_vm._v("Estado")])
       ])
     ])
   }
@@ -67020,7 +67091,13 @@ var render = function() {
                         _c("td", [_vm._v(_vm._s(tarefa.solicitante))]),
                         _vm._v(" "),
                         _c("td", { attrs: { width: "20%" } }, [
-                          _vm._v(_vm._s(tarefa.data_solicitacao))
+                          _vm._v(
+                            _vm._s(
+                              _vm
+                                .moment(String(tarefa.data_solicitacao))
+                                .format("DD-MM-YYYY")
+                            )
+                          )
                         ]),
                         _vm._v(" "),
                         tarefa.avanco == 100
@@ -67043,9 +67120,15 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                        " +
-                                          _vm._s(tarefa.data_cumprimento) +
-                                          "\n                                    "
+                                        "\n                                        Concluída (" +
+                                          _vm._s(
+                                            _vm
+                                              .moment(
+                                                String(tarefa.data_cumprimento)
+                                              )
+                                              .format("DD-MM-YYYY")
+                                          ) +
+                                          ")\n                                    "
                                       )
                                     ]
                                   )
@@ -67108,13 +67191,13 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Código")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Objecto de Actividade")]),
+        _c("th", [_vm._v("Título")]),
         _vm._v(" "),
         _c("th", [_vm._v("Solicitante")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Data da Solicitação")]),
+        _c("th", [_vm._v("Solicitação")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Data da Execução")])
+        _c("th", [_vm._v("Execução")])
       ])
     ])
   },
@@ -67537,8 +67620,16 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(tarefa.titulo))]),
                         _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(tarefa.responsavel))]),
+                        _vm._v(" "),
                         _c("td", { attrs: { width: "20%" } }, [
-                          _vm._v(_vm._s(tarefa.data_solicitacao))
+                          _vm._v(
+                            _vm._s(
+                              _vm
+                                .moment(String(tarefa.data_solicitacao))
+                                .format("DD-MM-YYYY")
+                            )
+                          )
                         ]),
                         _vm._v(" "),
                         tarefa.avanco == 100
@@ -67561,9 +67652,15 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                        " +
-                                          _vm._s(tarefa.data_cumprimento) +
-                                          "  \n                                    "
+                                        "\n                                        Concluído (" +
+                                          _vm._s(
+                                            _vm
+                                              .moment(
+                                                String(tarefa.data_cumprimento)
+                                              )
+                                              .format("DD-MM-YYYY")
+                                          ) +
+                                          ")  \n                                    "
                                       )
                                     ]
                                   )
@@ -67592,9 +67689,15 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                        " +
-                                          _vm._s(tarefa.data_prevista) +
-                                          "  \n                                    "
+                                        "\n                                        Atrasada (" +
+                                          _vm._s(
+                                            _vm
+                                              .moment(
+                                                String(tarefa.data_prevista)
+                                              )
+                                              .format("DD-MM-YYYY")
+                                          ) +
+                                          ")  \n                                    "
                                       )
                                     ]
                                   )
@@ -67675,11 +67778,13 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Código")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Objecto de Actividade")]),
+        _c("th", [_vm._v("Título")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Data da Solicitação")]),
+        _c("th", [_vm._v("Responsável")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Data da Execução")])
+        _c("th", [_vm._v("Solicitação")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Estado")])
       ])
     ])
   },
@@ -67702,7 +67807,7 @@ var staticRenderFns = [
         },
         [
           _vm._v(
-            "\n                                        Actividade em Curso \n                                    "
+            "\n                                        Em Curso \n                                    "
           )
         ]
       )
@@ -68151,7 +68256,13 @@ var render = function() {
                         _c("td", [_vm._v(_vm._s(tarefa.solicitante))]),
                         _vm._v(" "),
                         _c("td", { attrs: { width: "20%" } }, [
-                          _vm._v(_vm._s(tarefa.data_solicitacao))
+                          _vm._v(
+                            _vm._s(
+                              _vm
+                                .moment(String(tarefa.data_solicitacao))
+                                .format("DD-MM-YYYY")
+                            )
+                          )
                         ]),
                         _vm._v(" "),
                         tarefa.avanco == 100
@@ -68175,7 +68286,13 @@ var render = function() {
                                     [
                                       _vm._v(
                                         "\n                                        " +
-                                          _vm._s(tarefa.data_cumprimento) +
+                                          _vm._s(
+                                            _vm
+                                              .moment(
+                                                String(tarefa.data_cumprimento)
+                                              )
+                                              .format("DD-MM-YYYY")
+                                          ) +
                                           "\n                                    "
                                       )
                                     ]
@@ -68239,13 +68356,13 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Código")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Objecto de Actividade")]),
+        _c("th", [_vm._v("Título")]),
         _vm._v(" "),
         _c("th", [_vm._v("Solicitante")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Data da Solicitação")]),
+        _c("th", [_vm._v("Solicitação")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Data da Execução")])
+        _c("th", [_vm._v("Estado")])
       ])
     ])
   },
@@ -69465,29 +69582,41 @@ var render = function() {
                                 [_vm._v("Escolha o estado")]
                               ),
                               _vm._v(" "),
-                              _c("option", { attrs: { value: "ACCO" } }, [
-                                _vm._v("Actividade Concluída")
-                              ]),
+                              _vm.accao_avanco == 100
+                                ? _c("option", { attrs: { value: "ACRE" } }, [
+                                    _vm._v("Actividade Reativada")
+                                  ])
+                                : _vm._e(),
                               _vm._v(" "),
-                              _c("option", { attrs: { value: "ACCU" } }, [
-                                _vm._v("Actividade em Curso")
-                              ]),
+                              _vm.accao_avanco < 100
+                                ? _c("option", { attrs: { value: "ACCO" } }, [
+                                    _vm._v("Actividade Concluída")
+                                  ])
+                                : _vm._e(),
                               _vm._v(" "),
-                              _c("option", { attrs: { value: "ACRG" } }, [
-                                _vm._v("Actividade Reagendada")
-                              ]),
+                              _vm.accao_avanco < 100
+                                ? _c("option", { attrs: { value: "ACCU" } }, [
+                                    _vm._v("Actividade em Curso")
+                                  ])
+                                : _vm._e(),
                               _vm._v(" "),
-                              _c("option", { attrs: { value: "ACRE" } }, [
-                                _vm._v("Actividade Reativada")
-                              ]),
+                              _vm.accao_avanco < 100
+                                ? _c("option", { attrs: { value: "ACRG" } }, [
+                                    _vm._v("Actividade Reagendada")
+                                  ])
+                                : _vm._e(),
                               _vm._v(" "),
-                              _c("option", { attrs: { value: "CUSS" } }, [
-                                _vm._v("Em Curso(Solicitar Suporte)")
-                              ]),
+                              _vm.accao_avanco < 100
+                                ? _c("option", { attrs: { value: "CUSS" } }, [
+                                    _vm._v("Em Curso(Solicitar Suporte)")
+                                  ])
+                                : _vm._e(),
                               _vm._v(" "),
-                              _c("option", { attrs: { value: "CURS" } }, [
-                                _vm._v("Em Curso(Responder Suporte)")
-                              ])
+                              _vm.accao_avanco < 100
+                                ? _c("option", { attrs: { value: "CURS" } }, [
+                                    _vm._v("Em Curso(Responder Suporte)")
+                                  ])
+                                : _vm._e()
                             ]
                           )
                         ]),
@@ -69722,7 +69851,7 @@ var render = function() {
                   _vm.visualizar
                     ? _c("div", { attrs: { id: "VerActividade" } }, [
                         _c("div", { staticClass: "row" }, [
-                          _c("div", { staticClass: "col-12" }, [
+                          _c("div", { staticClass: "col-9" }, [
                             _c(
                               "a",
                               {
@@ -69737,7 +69866,52 @@ var render = function() {
                                 )
                               ]
                             )
-                          ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "col-3",
+                              staticStyle: {
+                                "text-align": "center",
+                                "font-weight": "bold"
+                              }
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "progress progress-xxl ",
+                                  staticStyle: { height: "30px" }
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "progress-bar progress-bar-striped bg-warning progress-bar-animated",
+                                      style: _vm.estilo,
+                                      attrs: {
+                                        role: "progressbar",
+                                        "aria-valuenow": "50",
+                                        "aria-valuemin": "0",
+                                        "aria-valuemax": "100"
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.percentagem_hora) +
+                                          " % \n                                        "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("span", [_vm._v(_vm._s(_vm.accao_estado))])
+                            ]
+                          )
                         ]),
                         _vm._v(" "),
                         _c("hr", {
@@ -70327,7 +70501,15 @@ var render = function() {
                               }
                             },
                             [
-                              _c("td", [_vm._v(_vm._s(accao.created_at))]),
+                              _c("td", [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm
+                                      .moment(String(accao.created_at))
+                                      .format("DD-MM-YYYY HH:mm")
+                                  )
+                                )
+                              ]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(accao.descricao))]),
                               _vm._v(" "),
@@ -70394,28 +70576,94 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", [
+                                accao.estado == "ACRD"
+                                  ? _c("p", { staticClass: "cor-azulTexto" }, [
+                                      _c("i", {
+                                        staticClass:
+                                          "mdi mdi-content-save-move mdi-18px mr-1"
+                                      }),
+                                      _vm._v("Registada")
+                                    ])
+                                  : _vm._e(),
+                                _vm._v(" "),
                                 accao.estado == "ACCO"
-                                  ? _c("p", [_vm._v("Actividade Concluída")])
+                                  ? _c("p", { staticClass: "cor-verdeTexto" }, [
+                                      _c("i", {
+                                        staticClass:
+                                          "mdi mdi-check-circle mdi-18px mr-1"
+                                      }),
+                                      _vm._v("Concluída")
+                                    ])
                                   : _vm._e(),
                                 _vm._v(" "),
                                 accao.estado == "ACCU"
-                                  ? _c("p", [_vm._v("Actividade em Curso")])
+                                  ? _c(
+                                      "p",
+                                      { staticClass: "cor-laranjaTexto" },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "mdi mdi-progress-clock mdi-18px mr-1"
+                                        }),
+                                        _vm._v("Em Curso")
+                                      ]
+                                    )
                                   : _vm._e(),
                                 _vm._v(" "),
                                 accao.estado == "ACRG"
-                                  ? _c("p", [_vm._v("Actividade Reagendada")])
+                                  ? _c(
+                                      "p",
+                                      { staticClass: "cor-laranjaTexto" },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "mdi mdi-progress-clock mdi-18px mr-1"
+                                        }),
+                                        _vm._v("Reagendada")
+                                      ]
+                                    )
                                   : _vm._e(),
                                 _vm._v(" "),
-                                accao.estado == "ACRT"
-                                  ? _c("p", [_vm._v("Actividade Reativada")])
+                                accao.estado == "ACRE"
+                                  ? _c(
+                                      "p",
+                                      { staticClass: "cor-laranjaTexto" },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "mdi mdi-progress-clock mdi-18px mr-1"
+                                        }),
+                                        _vm._v("Reativada")
+                                      ]
+                                    )
                                   : _vm._e(),
                                 _vm._v(" "),
                                 accao.estado == "CUSS"
-                                  ? _c("p", [_vm._v("Em Curso Solic. Suporte")])
+                                  ? _c(
+                                      "p",
+                                      { staticClass: "cor-laranjaTexto" },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "mdi mdi-progress-clock mdi-18px mr-1"
+                                        }),
+                                        _vm._v("Em Curso Solic. Suporte")
+                                      ]
+                                    )
                                   : _vm._e(),
                                 _vm._v(" "),
                                 accao.estado == "CURS"
-                                  ? _c("p", [_vm._v("Em Curso Resp. Suporte")])
+                                  ? _c(
+                                      "p",
+                                      { staticClass: "cor-laranjaTexto" },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "mdi mdi-progress-clock mdi-18px mr-1"
+                                        }),
+                                        _vm._v("Em Curso Resp. Suporte")
+                                      ]
+                                    )
                                   : _vm._e()
                               ]),
                               _vm._v(" "),
@@ -70427,7 +70675,8 @@ var render = function() {
                                     _c(
                                       "div",
                                       {
-                                        staticClass: "progress-bar bg-success",
+                                        staticClass:
+                                          "progress-bar bg-secondary",
                                         staticStyle: { width: "100%" },
                                         attrs: {
                                           role: "progressbar",
@@ -70914,7 +71163,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", { attrs: { id: "cabecatabela" } }, [
       _c("tr", [
-        _c("th", [_vm._v("Data Operação")]),
+        _c("th", [_vm._v("Operação")]),
         _vm._v(" "),
         _c("th", [_vm._v("Mensagem")]),
         _vm._v(" "),

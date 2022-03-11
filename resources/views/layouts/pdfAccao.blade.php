@@ -50,6 +50,16 @@
             background: #afe6cb;
             color:#111111
         }
+
+        .cor-Warning{
+            background: #cc8501;
+            color: #fff;
+        }
+
+        .cor-WarningC{
+            background: #f1d49e;
+            color: #fff;
+        }
     </style>     
 </head>
 <body style="background:#fff">
@@ -77,49 +87,49 @@
                     {{$accao->codigo}}<br>
                     ({{$accao->avanco}}%)
                 </td>
-                <td style="font-size:14px;font-weight: bold" class="cor-verdeE" colspan="7">
+                <td style="font-size:14px;font-weight: bold" @if($accao->avanco<100) class="cor-Warning" @else class="cor-verdeE" @endif colspan="7">
                     <br>[Registo de Acção]<br> 
                     {{$accao->tipo_abreviado}} : {{$accao->titulo}}<br><br>
                 </td>
             </tr>
             <tr>
-                <td width="80%" class="cor-verdeE" colspan="8"><br>{{$accao->tarefa_descricao}}<br><br></td>
+                <td width="80%" @if($accao->avanco<100) class="cor-Warning" @else class="cor-verdeE" @endif colspan="8"><br>{{$accao->tarefa_descricao}}<br><br></td>
             </tr>
             <tr>
-                <td class="cor-verdeE">Origem: </td>
-                <td class="cor-verdeC" colspan="7">{{$accao->acOrigemDado}}</td>
+                <td @if($accao->avanco<100) class="cor-Warning" @else class="cor-verdeE" @endif>Origem: </td>
+                <td style="color:#000" @if($accao->avanco<100) class="cor-WarningC" @else class="cor-verdeC" @endif colspan="7">{{$accao->acOrigemDado}}</td>
             </tr>
             <tr>
-                <td class="cor-verdeE">Responsável: </td>
-                <td colspan="3" class="cor-verdeC">{{$utilizador_responsavel}}</td>
-                <td class="cor-verdeE">Data: </td>
+                <td @if($accao->avanco<100) class="cor-Warning" @else class="cor-verdeE" @endif>Responsável: </td>
+                <td style="color:#000" colspan="3" @if($accao->avanco<100) class="cor-WarningC" @else class="cor-verdeC" @endif>{{$utilizador_responsavel}}</td>
+                <td @if($accao->avanco<100) class="cor-Warning" @else class="cor-verdeE" @endif>Data: </td>
                 @if($accao->estado=='ACRG')
-                    <td colspan="3" style="background:#66f2b3;color:#111">{{$accao->data_prevista}}</td>
+                    <td style="color:#000" colspan="3" style="background:#66f2b3;color:#111">{{$accao->data_prevista}}</td>
                 @else
-                    <td colspan="3" class="cor-verdeC">{{$accao->created_at}}</td>
+                    <td style="color:#000" colspan="3" @if($accao->avanco<100) class="cor-WarningC" @else class="cor-verdeC" @endif>{{$accao->created_at}}</td>
                 @endif                
             </tr>
             <tr>
-                <td class="cor-verdeE">
+                <td @if($accao->avanco<100) class="cor-Warning" @else class="cor-verdeE" @endif>
                     @if($accao->estado=='CUSS')
                         Solicitar suporte à
                     @elseif($accao->estado=='CURS')
                         Responder suporte à
                     @endif
                 </td>
-                <td colspan="3" class="cor-verdeC">
+                <td style="color:#000" colspan="3" @if($accao->avanco<100) class="cor-WarningC" @else class="cor-verdeC" @endif>
                 @if($accao->estado=='CUSS'||$accao->estado=='CURS')
                     {{$utilizador_suporte}}
                 @endif
                 </td>
-                <td class="cor-verdeE" >Tempo da acção: </td>
-                <td colspan="3" class="cor-verdeC">{{$accao->tempo_acao}}</td>
+                <td @if($accao->avanco<100) class="cor-Warning" @else class="cor-verdeE" @endif>Tempo da acção: </td>
+                <td style="color:#000" colspan="3" @if($accao->avanco<100) class="cor-WarningC" @else class="cor-verdeC" @endif>{{$accao->tempo_acao}}</td>
             </tr>
             <tr>
                 <td colspan="5"><br></td>
             </tr>
             <tr>
-                <td  class="cor-verdeE" style="text-align:center" colspan="8">Descrição </td>
+                <td @if($accao->avanco<100) class="cor-Warning" @else class="cor-verdeE" @endif style="text-align:center" colspan="8">Descrição </td>
             </tr>
             <tr>
                 <td style="font-weight:bold" colspan="8">
@@ -130,6 +140,10 @@
                 @if($accao->estado=='ACRG')
                 <td style="background:#45b080;color:#fff;font-weight:bold;text-align:center" colspan="8">
                     Actividade Reagendada
+                </td>
+                @elseif($accao->estado=='ACRD')
+                <td style="background:#f5e78e;color:#ba6907;font-weight:bold;text-align:center" colspan="8">
+                    Actividade Registada
                 </td>
                 @elseif($accao->estado=='ACCO')
                 <td style="background:#f5e78e;color:#ba6907;font-weight:bold;text-align:center" colspan="8">

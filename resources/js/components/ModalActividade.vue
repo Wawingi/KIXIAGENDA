@@ -120,6 +120,7 @@
                                                             <option value="16-Operações">16 MALANGE | Operações</option>
                                                             <option value="18-Operações">18 SUMBE | Operações</option>
                                                             <option value="19-Operações">19 ZANGO | Operações</option>
+                                                            <option value="20-Operações">20 CADEIA PRODUTIVA | Operações</option>
                                                             <option value="21-Operações">21 BENFICA | Operações</option>
                                                             <option value="22-Operações">22 PANGUILA | Operações</option>
                                                             <option value="26-Sub-Direcção de Pequenas Empresas">26 BOA VIDA | Sub-Direcção de Pequenas Empresas</option>
@@ -194,6 +195,7 @@
                                                             <option value="16-Operações">16 MALANGE | Operações</option>
                                                             <option value="18-Operações">18 SUMBE | Operações</option>
                                                             <option value="19-Operações">19 ZANGO | Operações</option>
+                                                            <option value="20-Operações">20 CADEIA PRODUTIVA | Operações</option>
                                                             <option value="21-Operações">21 BENFICA | Operações</option>
                                                             <option value="22-Operações">22 PANGUILA | Operações</option>
                                                             <option value="26-Sub-Direcção de Pequenas Empresas">26 BOA VIDA | Sub-Direcção de Pequenas Empresas</option>
@@ -630,20 +632,21 @@
                     }
 
                     //Verificar a data de execução para não ser passada
-                    if((moment(this.data_execucao)<moment())){
+                    /*if((moment(this.data_execucao)<moment())){
                         Swal.fire({
                             text: "A data prevista não pode ser uma data passada.",
                             icon: 'error',
                             confirmButtonText: 'Fechar'
                         });
                         return;
-                    }
+                    }*/
                     
                     //Verificar a data de execução para não ser superior a 30 dias
                     var dias =  Math.floor(( moment(this.data_execucao) - moment(this.data_solicitacao) ) / 86400000);
-                    if(dias>30){
+                    
+                    if(dias>20){
                         Swal.fire({
-                            text: "A data prevista não pode exceder 30 dias.",
+                            text: "A data prevista não pode exceder 20 dias.",
                             icon: 'error',
                             confirmButtonText: 'Fechar'
                         });

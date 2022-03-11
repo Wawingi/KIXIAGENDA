@@ -204,13 +204,10 @@
                     if(response.status==200){
                         self.nome = response.data.name;                   
                         self.fotoPerfil = response.data.foto;                   
-                    }else{
-                        alert("Error ");
                     }
                 })
                 .catch(function (error) {
-                    //self.$router.push({name:'/'})  
-                    alert('Error');             
+                        
                 });
             },
 
@@ -220,12 +217,14 @@
                 .then(function (response) {
                     if(response.status==200){
                         self.$router.push({name:'login'})                        
-                    }else{
-                        alert("LITTLE ERROR ");
                     }
                 })
                 .catch(function (error) {
-                    alert("ERRO AO LOGOUT");
+                   Swal.fire({
+                        text: "Erro ao efectuar logout, tente novamente!",
+                        icon: 'error',
+                        confirmButtonText: 'Fechar'
+                    });
                 });
             },
 

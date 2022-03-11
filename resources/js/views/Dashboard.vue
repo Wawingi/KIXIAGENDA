@@ -119,34 +119,36 @@
                         <thead id="cabecatabela">
                             <tr>
                                 <th>Código</th>
-                                <th>Objecto de Actividade</th>                               
-                                <th>Data da Solicitação</th>
-                                <th>Data da Execução</th>
+                                <th>Título</th>                               
+                                <th>Responsável</th>                               
+                                <th>Solicitação</th>
+                                <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>                          
                             <tr title='Clique aqui para abrir actividade' v-for="tarefa in tarefas" class="tabelaClicked" @click="selectRow(tarefa.id,tarefa.codigo)">           
                                 <td>{{tarefa.codigo}}</td> 
                                 <td>{{tarefa.titulo}}</td>                             
-                                <td width="20%">{{ tarefa.data_solicitacao }}</td>
+                                <td>{{tarefa.responsavel}}</td>                             
+                                <td width="20%">{{ moment(String(tarefa.data_solicitacao)).format('DD-MM-YYYY') }}</td>
                                 <td v-if="tarefa.avanco==100" width="20%">
                                     <div class="progress mb-1 progress-xl">
                                         <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                                            {{tarefa.data_cumprimento}}  
+                                            Concluído ({{ moment(String(tarefa.data_cumprimento)).format('DD-MM-YYYY') }})  
                                         </div>
                                     </div>
                                 </td>
                                 <td v-if="tarefa.data_prevista<now && tarefa.avanco<100">
                                     <div class="progress mb-1 progress-xl">
                                         <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                                            {{tarefa.data_prevista}}  
+                                            Atrasada ({{ moment(String(tarefa.data_prevista)).format('DD-MM-YYYY') }})  
                                         </div>
                                     </div>
                                 </td>                               
                                 <td v-if="tarefa.data_prevista>now && tarefa.avanco<100" width="20%">
                                     <div class="progress mb-1 progress-xl">
                                         <div class="progress-bar bg-warning" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                                            Actividade em Curso 
+                                            Em Curso 
                                         </div>
                                     </div>
                                 </td>                              
@@ -187,6 +189,7 @@
             this.contTarefas()
         },
         methods: {   
+            moment,
             selectRow(id){     
                 //Chamar outra aba
                 var verTarefa='#/home/verActividade/'+id; 
@@ -203,7 +206,7 @@
                         self.horas_trabalhadas = response.data.horas_trabalhadas;                                                                             
                         self.utilizador = response.data.utilizador; 
 
-                        self.percentagem_hora= (response.data.horas_bruto*100)/28800;    
+                        self.percentagem_hora = Math.round((response.data.horas_bruto*100)/28800);    
 
                         self.estilo='width:'+self.percentagem_hora+'%;font-size:15px'                                                                                                                                             
                     }

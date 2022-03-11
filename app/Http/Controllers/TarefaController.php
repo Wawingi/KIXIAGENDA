@@ -64,7 +64,7 @@ class TarefaController extends Controller
                 $tarefa->avanco = 00;    
             }
             $tarefa->data_envio = date('Y-m-d H:i:s');
-            $tarefa->codigo = Tarefa::generateCodigo($request->selectedResponsavel);
+            $tarefa->codigo = Tarefa::generateCodigo(Auth::user()->username);
             $tarefa->id_user = Auth::user()->id;
 
             if($tarefa->save()){
@@ -78,7 +78,7 @@ class TarefaController extends Controller
                 $operacao->descricao = 'Registo de atividade.';  
                 
                 if($request->selectedTipo!='INACFE'){
-                    $operacao->estado = 'ACCU';
+                    $operacao->estado = 'ACRD';
                     $operacao->avanco = 0;
                     $operacao->tempo_acao = $tarefa->tempo; 
                 }else{
@@ -176,6 +176,12 @@ class TarefaController extends Controller
 
     public function registarOperacaoTarefa(Request $request){
         $tarefa=Tarefa::objectoActividade($request->codigo);
+        $operacao = TarefaOperacao::getUltimaOperacao($request->codigo);
+        
+        //Verificar a data informada de operação nao ser menor que a data da ultima operação
+        if(date('Y-m-d H:i:s',strtotime($request->data_operacao)) < $operacao->created_at){
+            return response()->json('A data hora da operação deve ser superior.',201);
+        }        
 
         //Não fazer acção na actividade concluída.
         if($tarefa->avanco==100 && $request->estado!='ACRE'){
@@ -220,10 +226,16 @@ class TarefaController extends Controller
         $operacao->tempo_acao = $request->tempo_acao * 60; //tempo * 60  
         $operacao->utilizador_pergunta = $request->utilizador_pergunta;
         $operacao->utilizador_registo =  Auth::user()->username;
-        
+         
+
         if($operacao->save()){
+            $tarefa = Tarefa::find($request->tarefa_id);
+            //Quando outro user concluir actividade registada então ele passa ser responsavel
+            if($tarefa->avanco==0 && $tarefa->responsavel!=$request->utilizador_codigo && $request->avanco==100){
+                $tarefa->responsavel = $operacao->utilizador_codigo;
+                $tarefa->save();
+            }
             //Criar avanço da actividade
-                $tarefa = Tarefa::find($request->tarefa_id);
                 $tarefa->avanco = $request->avanco;
                 $tarefa->save();
             //Actualizar a data de cumprimento caso avanço seja 100%
@@ -245,7 +257,7 @@ class TarefaController extends Controller
             }
 
             return response()->json($operacao,200); 
-        };         
+        };      
     }
 
     //Converter segundos em hora

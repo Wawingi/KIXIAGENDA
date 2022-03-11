@@ -265,12 +265,12 @@
                                     <label for="name">Estado</label>
                                     <select @change="onChangeEstado($event)" v-model.trim="$v.estado.$model" :class="{'is-invalid':$v.estado.$error, 'is-valid':!$v.estado.$invalid}" class="custom-select custom-select-sm">
                                         <option selected disabled :value="''">Escolha o estado</option>
-                                        <option value="ACCO">Actividade Concluída</option>
-                                        <option value="ACCU">Actividade em Curso</option>
-                                        <option value="ACRG">Actividade Reagendada</option>
-                                        <option value="ACRE">Actividade Reativada</option>
-                                        <option value="CUSS">Em Curso(Solicitar Suporte)</option>
-                                        <option value="CURS">Em Curso(Responder Suporte)</option>
+                                        <option v-if="accao_avanco==100" value="ACRE">Actividade Reativada</option>
+                                        <option v-if="accao_avanco<100" value="ACCO">Actividade Concluída</option>
+                                        <option v-if="accao_avanco<100" value="ACCU">Actividade em Curso</option>
+                                        <option v-if="accao_avanco<100" value="ACRG">Actividade Reagendada</option>
+                                        <option v-if="accao_avanco<100" value="CUSS">Em Curso(Solicitar Suporte)</option>
+                                        <option v-if="accao_avanco<100" value="CURS">Em Curso(Responder Suporte)</option>
                                     </select>
                                 </div>
 
@@ -361,10 +361,19 @@
                         <div class="tab-pane fade show active" id="dados">
                             <div id="VerActividade" v-if="visualizar">
                                 <div class="row">
-                                    <div class="col-12">
+                                    <div class="col-9">
                                         <a :href="urlTarefa" target="_blank" class="btn btn-sm btn-rounded btn-primary waves-effect waves-light">
                                             <i class="far fa-eye mr-1"></i>Relatório da Actividade
                                         </a>
+                                    </div>
+
+                                    <div style="text-align:center;font-weight:bold" class="col-3">
+                                        <div style="height:30px" class="progress progress-xxl ">
+                                            <div v-bind:style="estilo" class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                                {{percentagem_hora}} % 
+                                            </div>
+                                        </div>
+                                        <span>{{accao_estado}}</span>
                                     </div>
                                 </div>
                                 
@@ -605,7 +614,7 @@
                             <table class="table table-sm table-bordeless" cellspacing="0" width="100%">
                                 <thead id="cabecatabela">
                                     <tr>
-                                        <th>Data Operação</th>
+                                        <th>Operação</th>
                                         <th>Mensagem</th>
                                         <th>Utilizador</th>
                                         <th>Suporte a</th>
@@ -616,7 +625,7 @@
                                 </thead>
                                 <tbody>                          
                                     <tr v-for="accao in accoes" @click="selectRow(accao)" class="tabelaClicked" title='Clique aqui para ver relatório da acção'>
-                                        <td>{{accao.created_at}}</td>
+                                        <td>{{ moment(String(accao.created_at)).format('DD-MM-YYYY HH:mm') }}</td>
                                         <td>{{accao.descricao}}</td>
                                         <td>
                                             <center><img
@@ -642,16 +651,17 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <p v-if="accao.estado=='ACCO'">Actividade Concluída</p>
-                                            <p v-if="accao.estado=='ACCU'">Actividade em Curso</p>
-                                            <p v-if="accao.estado=='ACRG'">Actividade Reagendada</p>
-                                            <p v-if="accao.estado=='ACRT'">Actividade Reativada</p>
-                                            <p v-if="accao.estado=='CUSS'">Em Curso Solic. Suporte</p>
-                                            <p v-if="accao.estado=='CURS'">Em Curso Resp. Suporte</p>
+                                            <p v-if="accao.estado=='ACRD'" class="cor-azulTexto"><i class="mdi mdi-content-save-move mdi-18px mr-1"></i>Registada</p>
+                                            <p v-if="accao.estado=='ACCO'" class="cor-verdeTexto"><i class="mdi mdi-check-circle mdi-18px mr-1"></i>Concluída</p>
+                                            <p v-if="accao.estado=='ACCU'" class="cor-laranjaTexto"><i class="mdi mdi-progress-clock mdi-18px mr-1"></i>Em Curso</p>
+                                            <p v-if="accao.estado=='ACRG'" class="cor-laranjaTexto"><i class="mdi mdi-progress-clock mdi-18px mr-1"></i>Reagendada</p>
+                                            <p v-if="accao.estado=='ACRE'" class="cor-laranjaTexto"><i class="mdi mdi-progress-clock mdi-18px mr-1"></i>Reativada</p>
+                                            <p v-if="accao.estado=='CUSS'" class="cor-laranjaTexto"><i class="mdi mdi-progress-clock mdi-18px mr-1"></i>Em Curso Solic. Suporte</p>
+                                            <p v-if="accao.estado=='CURS'" class="cor-laranjaTexto"><i class="mdi mdi-progress-clock mdi-18px mr-1"></i>Em Curso Resp. Suporte</p>
                                         </td>
                                         <td>
                                             <div class="progress mb-1 progress-xl">
-                                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                                <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                                                     {{accao.avanco}} %
                                                 </div>
                                             </div>
@@ -741,7 +751,9 @@
                 accao_estado:'',
                 accao_avanco:'',
                 accao_tempo:'',
-                accao_utilizador:''
+                accao_utilizador:'',
+                estilo: '',
+                percentagem_hora:'',
             };       
         },
         validations: {
@@ -816,7 +828,7 @@
                 required
             }        
         },
-        created(){           
+        created(){                
             this.pegaActividade();   
         },
 
@@ -829,6 +841,7 @@
             this.pegaAccoesTarefa();
         },
         methods: { 
+            moment,
             pegaUtilizadorLogado: async function(){
                 let self = this               
                 this.$axios.get('auth/pegaUtilizador')
@@ -871,11 +884,12 @@
                         self.fotoSolicitante = response.data.user_solicitante;
                         self.fotoResponsavel = response.data.user_responsavel;
 
-                        self.visible = false;                                                                                        
+                        self.visible = false;  
+                                                                                                              
                     }
                 })
                 .catch(function (error) {
-                    alert("Erro ao ver actividade");
+                    this.pegaActividade();
                 });
             },
 
@@ -890,7 +904,11 @@
                         self.accao_estado = response.data.estado,
                         self.accao_avanco = response.data.avanco,
                         self.accao_tempo = response.data.tempo_acao,
-                        self.accao_utilizador = response.data.utilizador_codigo                                                                        
+                        self.accao_utilizador = response.data.utilizador_codigo
+
+                        //Montar a progress do estado e avanço actividade topo
+                        self.percentagem_hora=self.accao_avanco;
+                        self.estilo='width:'+self.accao_avanco+'%;font-size:15px';  
                     }
                 })
                 .catch(function (error) {
@@ -1213,7 +1231,7 @@
                     }
                 })
                 .catch(function (error) {
-                    alert("Erro ao carregar dados da acção");
+                    this.pegaAccoesTarefa();
                 });
             },
 

@@ -14,6 +14,8 @@ class User extends Authenticatable
     use Uuid;
     use Notifiable;
 
+    protected $table='users';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -29,7 +31,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'remember_token',
     ];
 
     /**

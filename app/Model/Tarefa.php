@@ -30,8 +30,6 @@ class Tarefa extends Model
     protected $guarded = [];
 
     public static function getLetra($intevalo_data){
-        //dd($intevalo_data);
-        //$intevalo_data=88;
         $letra=null;
         if($intevalo_data>=0 And $intevalo_data<=99){
             switch($intevalo_data){
@@ -99,7 +97,7 @@ class Tarefa extends Model
     //Retornar objecto actividade
     public static function objectoActividade($codigo_actividade){
         return DB::table('tarefa')
-                    ->select('id','codigo','avanco','versao_sistema','id_tipo','data_cumprimento')                
+                    ->select('id','codigo','avanco','versao_sistema','id_tipo','data_cumprimento','responsavel')                
                     ->where('codigo',$codigo_actividade)
                     ->first(); 
     }
@@ -213,10 +211,11 @@ class Tarefa extends Model
 
     public static function siglaToEstado($sigla){
         switch($sigla){
-            case 'ACCO': return 'Actividade Concluída'; break;                  
-            case 'ACCU': return 'Actividade em Curso'; break;                  
-            case 'ACRG': return 'Actividade Reagendada'; break;                  
-            case 'ACRT': return 'Actividade Reativada'; break;                  
+            case 'ACRD': return 'Registada'; break;                  
+            case 'ACCO': return 'Concluída'; break;                  
+            case 'ACCU': return 'Em Curso'; break;                  
+            case 'ACRG': return 'Reagendada'; break;                  
+            case 'ACRE': return 'Reativada'; break;                  
             case 'CUSS': return 'Em Curso Solic. Suporte'; break;                  
             case 'CURS': return 'Em Curso Resp. Suporte'; break;               
         }       

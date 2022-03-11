@@ -24,9 +24,9 @@ class UtilizadorController extends Controller
             $user->foto = $request->Imagen;
 
             if($user->save()){
-                return response()->json(200);
+                return response()->json("Sucesso",200);
             }else{
-                return response()->json(401);
+                return response()->json('Houve um erro ao registar',401);
             }
         } catch (Exception $ex) {
             return $ex->getMessage();

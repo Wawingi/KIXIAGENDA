@@ -97,3 +97,23 @@
 #linhaDado{
     margin-top:-15px;
 }
+
+.cor-azulTexto{
+    color: #5e9ee2;
+    font-weight: bold;
+}
+
+.cor-laranjaTexto{
+    color: #f5b648;
+    font-weight: bold;
+}
+
+.cor-verdeTexto{
+    color: #4da179;
+    font-weight: bold;
+}
+
+.cor-laranjaTexto{
+    color: #f7a40a;
+    font-weight: bold;
+}
