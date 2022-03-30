@@ -179,9 +179,9 @@ class TarefaController extends Controller
         $operacao = TarefaOperacao::getUltimaOperacao($request->codigo);
         
         //Verificar a data informada de operação nao ser menor que a data da ultima operação
-        if(date('Y-m-d H:i:s',strtotime($request->data_operacao)) < $operacao->created_at){
+        /*if(date('Y-m-d H:i:s',strtotime($request->data_operacao)) < $operacao->created_at){
             return response()->json('A data hora da operação deve ser superior.',201);
-        }        
+        }*/        
 
         //Não fazer acção na actividade concluída.
         if($tarefa->avanco==100 && $request->estado!='ACRE'){
@@ -297,7 +297,7 @@ class TarefaController extends Controller
                 ->join('users', 'users.id', '=', 'tarefa.id_user')
                 ->select('tarefa_operacao.created_at','tarefa_operacao.codigo','tarefa_operacao.descricao','tarefa_operacao.utilizador_codigo','tarefa_operacao.utilizador_pergunta','tarefa_operacao.estado','tarefa_operacao.avanco','tarefa_operacao.tempo_acao','users.name')
                 ->where('tarefa.id','=',$idtarefa)
-                ->orderBy('tarefa_operacao.created_at','DESC')
+                ->orderBy('tarefa_operacao.updated_at','DESC')
                 ->get();
         $accoes = $this->secondToHour($accoes);
         

@@ -651,7 +651,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <p v-if="accao.estado=='ACRD'" class="cor-azulTexto"><i class="mdi mdi-content-save-move mdi-18px mr-1"></i>Registada</p>
+                                            <p v-if="accao.estado=='ACRD'" style="color:#5e9ee2"><i class="mdi mdi-content-save-move mdi-18px mr-1"></i>Registada</p>
                                             <p v-if="accao.estado=='ACCO'" class="cor-verdeTexto"><i class="mdi mdi-check-circle mdi-18px mr-1"></i>Concluída</p>
                                             <p v-if="accao.estado=='ACCU'" class="cor-laranjaTexto"><i class="mdi mdi-progress-clock mdi-18px mr-1"></i>Em Curso</p>
                                             <p v-if="accao.estado=='ACRG'" class="cor-laranjaTexto"><i class="mdi mdi-progress-clock mdi-18px mr-1"></i>Reagendada</p>

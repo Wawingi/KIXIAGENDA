@@ -2641,6 +2641,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2683,7 +2684,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   validations: {
     titulo: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"],
-      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["minLength"])(5)
+      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["minLength"])(5),
+      maxLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["maxLength"])(90)
     },
     dado_origem: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"],
@@ -64851,6 +64853,14 @@ var render = function() {
                                     "O Título deve possuír um tamanho maior que 5 dígitos"
                                   )
                                 ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            !_vm.$v.titulo.maxLength
+                              ? _c("span", [
+                                  _vm._v(
+                                    "O Título excedeu a quantidade de caractéres, máximo 80 dígitos"
+                                  )
+                                ])
                               : _vm._e()
                           ])
                         ])
@@ -70577,13 +70587,17 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", [
                                 accao.estado == "ACRD"
-                                  ? _c("p", { staticClass: "cor-azulTexto" }, [
-                                      _c("i", {
-                                        staticClass:
-                                          "mdi mdi-content-save-move mdi-18px mr-1"
-                                      }),
-                                      _vm._v("Registada")
-                                    ])
+                                  ? _c(
+                                      "p",
+                                      { staticStyle: { color: "#5e9ee2" } },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "mdi mdi-content-save-move mdi-18px mr-1"
+                                        }),
+                                        _vm._v("Registada")
+                                      ]
+                                    )
                                   : _vm._e(),
                                 _vm._v(" "),
                                 accao.estado == "ACCO"

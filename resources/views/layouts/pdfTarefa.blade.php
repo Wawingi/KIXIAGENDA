@@ -2,7 +2,7 @@
 <head>
     <style>
         .cor-azulE{
-            background: #295380;
+            background: #4787CD;
             color: #fff;
         }    
         .cor-azulC{
@@ -32,7 +32,7 @@
         }
 
         .cor-verdeE{
-            background: #0d661c;
+            background: #339933;
             color: #fff;
         }
 

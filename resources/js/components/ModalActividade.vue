@@ -35,6 +35,7 @@
                                         <div class="invalid-feedback">
                                             <span v-if="!$v.titulo.required">O Título deve ser fornecido</span>
                                             <span v-if="!$v.titulo.minLength">O Título deve possuír um tamanho maior que 5 dígitos</span>
+                                            <span v-if="!$v.titulo.maxLength">O Título excedeu a quantidade de caractéres, máximo 80 dígitos</span>
                                         </div>
                                     </div>
                                 </div>
@@ -392,7 +393,8 @@
         validations: {
             titulo: { 
                 required,       
-                minLength: minLength(5)
+                minLength: minLength(5),
+                maxLength: maxLength(90)
             },
             dado_origem: { 
                 required,       
@@ -654,9 +656,9 @@
                     }
 
                     //Actividade do tipo não INACFE não pode ter tempo > 1800
-                    if(this.selectedTipo!='INACFE' && this.tempo*60>1200){
+                    if(this.selectedTipo!='INACFE' && this.tempo*60>600){
                         Swal.fire({
-                            text: "O tempo de registo não pode exceder 20 minutos.",
+                            text: "O tempo de registo não pode exceder 10 minutos.",
                             icon: 'error',
                             confirmButtonText: 'Fechar'
                         });
