@@ -24,11 +24,11 @@
                     <table id="paginationTarefa" class="table table-sm table-bordeless" cellspacing="0" width="100%">
                         <thead id="cabecatabela">
                             <tr>
-                                <th>Código</th>
-                                <th>Título</th>
-                                <th>Solicitante</th>
-                                <th>Solicitação</th>
-                                <th>Previsão</th>
+                                <td>Código</td>
+                                <td>Título</td>
+                                <td>Solicitante</td>
+                                <td>Solicitação</td>
+                                <td>Previsão</td>
                             </tr>
                         </thead>
                         <tbody>                          

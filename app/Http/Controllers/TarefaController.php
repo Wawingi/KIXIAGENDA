@@ -7,13 +7,14 @@ use App\Model\Tarefa;
 use App\Model\TarefaOperacao;
 use App\Model\Estatistica;
 use App\Model\Helper;
+use App\Model\Pesquisa;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Cache;
 use App\Exports\TarefasExport;
 use App\Exports\TarefaOperacaoExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Cache;
 use PDF;
 Use Exception;
 
@@ -22,7 +23,7 @@ class TarefaController extends Controller
     public function registarTarefa(Request $request){
         try{
             $tarefa = new Tarefa;  
-            $tarefa->versao_sistema = 'KAW201';
+            $tarefa->versao_sistema = 'KAW202';
             $tarefa->id_tipo = $request->selectedTipo;
             $tarefa->titulo = $request->titulo;
             $tarefa->id_origem = $request->selectedOrigem;
@@ -328,11 +329,12 @@ class TarefaController extends Controller
     }
 
     public function getTarefasAPI(){
-        $previus = date('Y-m-d',strtotime("-5 days"));
+        $previus = date('Y-m-d',strtotime("-10 days"));
         $now = date('Y-m-d');
 
         $tarefas = DB::table('tarefa')
                 ->where(DB::raw('DATE(tarefa.created_at)'),'=',$now)
+                //->where('tarefa.codigo','MA3655EA')
                 ->orWhere(DB::raw('DATE(tarefa.created_at)'),'>',$previus)
                 ->orderBy('tarefa.created_at','DESC')
                 ->get()->toJson(JSON_PRETTY_PRINT);
@@ -392,236 +394,6 @@ class TarefaController extends Controller
             return $ex->getMessage();
         }
     }
-
-    //Pega tempo de segundos para formato visual
-    public function setTempoVisual($tarefa){
-        switch($tarefa->tempo){
-            case 300: $tarefa->tempo = '0:05';break;
-            case 600: $tarefa->tempo = '0:10';break;
-            case 900: $tarefa->tempo = '0:15'; break;                  
-            case 1200: $tarefa->tempo = '0:20'; break;                  
-            case 1800: $tarefa->tempo = '0:30'; break;                  
-            case 2400: $tarefa->tempo = '0:40'; break;                  
-            case 3000: $tarefa->tempo = '0:50'; break;                  
-            case 3600: $tarefa->tempo = '1:00'; break;                  
-            case 5400: $tarefa->tempo = '1:30'; break;                  
-            case 7200: $tarefa->tempo = '2:00'; break;
-            case 9000: $tarefa->tempo = '2:30'; break;
-            case 10800: $tarefa->tempo = '3:00'; break;
-            case 12600: $tarefa->tempo = '3:30'; break;
-            case 14400: $tarefa->tempo = '4:00'; break;
-            case 16200: $tarefa->tempo = '4:30'; break;
-            case 18000: $tarefa->tempo = '5:00'; break;
-            case 19800: $tarefa->tempo = '5:30'; break;
-            case 21600: $tarefa->tempo = '6:00'; break;
-            case 23400: $tarefa->tempo = '6:30'; break;
-            case 25200: $tarefa->tempo = '7:00'; break;                    
-        }
-        return $tarefa;
-    }
-
-    //Gerar PDF da actividade
-    public function gerarTarefaPdf($codigo){
-        $tarefa = Tarefa::getTarefaByCodigo($codigo);
-               
-        $tarefa = $this->setTempoVisual($tarefa);
-        $solicitantePessoa = User::getPessoa($tarefa->solicitante);
-        $solicitante = $solicitantePessoa->name;
-        $responsavelPessoa = User::getPessoa($tarefa->responsavel);
-        $responsavel = $responsavelPessoa->name;
-   
-        if(is_null($solicitantePessoa->foto)){
-            $imageSolicitante = base64_encode(file_get_contents(public_path('/images/users/default.jpg')));
-        }else{
-            $imageSolicitante = base64_encode(file_get_contents(public_path('/images/users/'.$solicitantePessoa->foto)));
-        }
-
-        if(is_null($responsavelPessoa->foto)){
-            $imageResponsavel = base64_encode(file_get_contents(public_path('/images/users/default.jpg')));
-        }else{
-            $imageResponsavel = base64_encode(file_get_contents(public_path('/images/users/'.$responsavelPessoa->foto)));
-        }       
-
-        return View('layouts.pdfTarefa',compact('tarefa','solicitante','responsavel','imageSolicitante','imageResponsavel'));
-
-        //$pdf = PDF::loadView('layouts.pdfTarefa',compact('tarefa','solicitante','responsavel','imageSolicitante','imageResponsavel'))->setOptions(['debugKeepTemp' => true]);
-        //return $pdf->setPaper('a4')->stream('Relatorio Tarefa.pdf');
-    }
-
-    //Pega tempo de segundos para formato visual Acção
-    public function setTempoVisualAccao($accao){
-        switch($accao->tempo_acao){
-            case 300: $accao->tempo_acao = '0:05';break;
-            case 600: $accao->tempo_acao = '0:10';break;
-            case 900: $accao->tempo_acao = '0:15'; break;                  
-            case 1200: $accao->tempo_acao = '0:20'; break;                  
-            case 1800: $accao->tempo_acao = '0:30'; break;                  
-            case 2400: $accao->tempo_acao = '0:40'; break;                  
-            case 3000: $accao->tempo_acao = '0:50'; break;                  
-            case 3600: $accao->tempo_acao = '1:00'; break;                  
-            case 5400: $accao->tempo_acao = '1:30'; break;                  
-            case 7200: $accao->tempo_acao = '2:00'; break;
-            case 9000: $accao->tempo_acao = '2:30'; break;
-            case 10800: $accao->tempo_acao = '3:00'; break;
-            case 12600: $accao->tempo_acao = '3:30'; break;
-            case 14400: $accao->tempo_acao = '4:00'; break;
-            case 16200: $accao->tempo_acao = '4:30'; break;
-            case 18000: $accao->tempo_acao = '5:00'; break;
-            case 19800: $accao->tempo_acao = '5:30'; break;
-            case 21600: $accao->tempo_acao = '6:00'; break;
-            case 23400: $accao->tempo_acao = '6:30'; break;
-            case 25200: $accao->tempo_acao = '7:00'; break;                    
-        }
-        return $accao;
-    }
-
-    //Pega o estado em texto
-    public function getEstado($estado){
-        switch($estado){
-            case 'ACRG':
-                    return 'Actividade Reagendada';break;
-            case 'ACCO':
-                    return 'Actividade Concluída';break;
-            case 'ACCU':
-                    return 'Actividade em Curso';break;
-            case 'ACRE':
-                    return 'Actividade Reativada';break;
-            case 'CUSS':
-                    return 'Em Curso Solic. Suporte';break;
-            case 'CURS':
-                    return 'Em Curso Resp. Suporte';break;
-        }
-    }
-
-    //Gerar PDF da acção ou relatorio
-    public function gerarAccaoPdf($codigo,$data){
-        //$tarefa = Tarefa::getTarefaByCodigo($codigo);
-        $accao= DB::table('tarefa_operacao')
-                ->join('tarefa', 'tarefa_operacao.id', '=', 'tarefa.id')
-                ->join('users', 'users.id', '=', 'tarefa.id_user')
-                ->join('tipo', 'tipo.id', '=', 'tarefa.id_tipo')
-                ->select('tarefa_operacao.created_at','tarefa_operacao.codigo','tarefa_operacao.descricao','tarefa_operacao.utilizador_codigo','tarefa_operacao.utilizador_pergunta','tarefa_operacao.estado','tarefa_operacao.avanco','tarefa_operacao.tempo_acao','tarefa_operacao.acOrigemDado','tarefa.titulo','tarefa.data_prevista','tarefa.descricao as tarefa_descricao','tipo.tipo_abreviado','users.name')
-                ->where('tarefa_operacao.codigo','=',$codigo)
-                ->where('tarefa_operacao.created_at','=',$data)
-                ->first();
-        
-        $utilizador_suporte='';
-        
-        $accao = $this->setTempoVisualAccao($accao);
-        //Verificar se existe utilizador suporte
-        if(!is_null($accao->utilizador_pergunta)){
-            $utilizador_suporte = User::getPessoa($accao->utilizador_pergunta);
-            $utilizador_suporte=$utilizador_suporte->name;
-        } 
-        
-        $utilizador_responsavel = User::getPessoa($accao->utilizador_codigo);
-        $utilizador_responsavel=$utilizador_responsavel->name;
-
-        //Montar assunto
-        $assunto=$this->getEstado($accao->estado).' ('.$accao->avanco.' %) : '.$accao->tipo_abreviado.' : '.$accao->titulo;
-        
-        return view('layouts.pdfAccao',compact('accao','utilizador_suporte','utilizador_responsavel','assunto'));
-
-        //$pdf = PDF::loadView('layouts.pdfAccao',compact('accao','utilizador_suporte'))->setOptions(['debugKeepTemp' => true]);
-        //return $pdf->setPaper('a4')->stream('Relatorio Acção.pdf');
-    }
-
-    //Gerar PDF da acção ou relatorio com 10 acçõs
-    public function gerarAccaoGeralPdf($codigo){
-        $tarefa = Tarefa::getTarefaByCodigo($codigo);
-        
-        $dataSolicitacao = date('Y-m-d l',strtotime($tarefa->data_solicitacao));
-
-        //Contar tempo decorrido de uma actividade
-        $tempo_ocorrido = Helper::contIntervaloDias($dataSolicitacao);
-
-        $tarefa = $this->setTempoVisual($tarefa);
-        $solicitantePessoa = User::getPessoa($tarefa->solicitante);
-        $solicitante = User::getCurtoNome($solicitantePessoa->name);
-        $responsavelPessoa = User::getPessoa($tarefa->responsavel);
-        $responsavel = User::getCurtoNome($responsavelPessoa->name);
-   
-        if(is_null($solicitantePessoa->foto)){
-            $imageSolicitante = base64_encode(file_get_contents(public_path('/images/users/default.jpg')));
-        }else{
-            $imageSolicitante = base64_encode(file_get_contents(public_path('/images/users/'.$solicitantePessoa->foto)));
-        }
-
-        if(is_null($responsavelPessoa->foto)){
-            $imageResponsavel = base64_encode(file_get_contents(public_path('/images/users/default.jpg')));
-        }else{
-            $imageResponsavel = base64_encode(file_get_contents(public_path('/images/users/'.$responsavelPessoa->foto)));
-        }              
-
-        //Cont Acções de uma actividade
-        $contAccoes = DB::table('tarefa_operacao')
-                ->where('codigo','=',$codigo)
-                ->count();
-
-        //Pega as ultimas 10 actividades
-        $accoes = DB::table('tarefa_operacao')
-                ->where('codigo','=',$codigo)
-                ->orderBy('updated_at','DESC')
-                ->take(10)
-                ->get();
-        
-        $restantesAccoes = $contAccoes-count($accoes);
-
-        //Variavel para armazenar total de hopras de uma acção  
-        $total_tempo_actividade=0;
-
-        foreach($accoes as $accao):
-            $user = User::getPessoa($accao->utilizador_codigo);
-            $total_tempo_actividade = $total_tempo_actividade+$accao->tempo_acao;
-
-            $accao->utilizador_codigo = User::getCurtoNome($user->name);
-            $accao->id = base64_encode(file_get_contents(public_path('/images/users/'.$user->foto)));
-            $accao->seta = base64_encode(file_get_contents(public_path('/images/seta.png')));
-            $accao = $this->setTempoVisualAccao($accao);
-            $accao->estado = $this->getEstado($accao->estado);
-        endforeach;
-
-        //Converte segundos para hora
-        $total_tempo_actividade = gmdate("H:i:s",$total_tempo_actividade);
-
-        //Montar assunto
-        $assunto = 'Relatório de Actividade : '.$tarefa->tipo.' : '.$tarefa->titulo;
-    
-        return view('layouts.pdfAccaoGeral',compact('assunto','tarefa','imageSolicitante','imageResponsavel','solicitante','responsavel','accoes','contAccoes','restantesAccoes','tempo_ocorrido','total_tempo_actividade'));
-
-        //$pdf = PDF::loadView('layouts.pdfAccao',compact('accao','utilizador_suporte'))->setOptions(['debugKeepTemp' => true]);
-        //return $pdf->setPaper('a4')->stream('Relatorio Acção.pdf');
-    }
-
-    /*public function contGeralHoras(){
-        $accoes= DB::table('tarefa_operacao')
-                ->join('tarefa', 'tarefa_operacao.id', '=', 'tarefa.id')
-                ->join('users', 'users.id', '=', 'tarefa.id_user')
-                ->select('tarefa_operacao.tempo_acao','users.username','tarefa_operacao.created_at')
-                ->where(DB::raw('DATE(tarefa_operacao.created_at)'),'=',date('Y-m-d'))
-                ->where('tarefa_operacao.utilizador_codigo','=',Auth::user()->username)  
-                ->get();
-        $users=User::getUsersDpto("Sistemas & Organização");
-  
-        $total_tempo=0;
-        $horas_trabalhadas = array();
-
-        foreach($users as $user){
-            foreach($accoes as $accao){
-                if($user->username==$accao->username){
-                    $total_tempo +=$accao->tempo_acao;
-                }
-            }
-            $estatistica = new Estatistica;
-            $estatistica->horas_trabalhadas=gmdate("H:i:s",$total_tempo);
-            $estatistica->utilizador=$user->username;
-  
-            $horas_trabalhadas[]=$estatistica;
-            $total_tempo=0;
-        }
-        return response()->json($horas_trabalhadas,200); 
-        //dd($horas_trabalhadas[6]->horas_trabalhadas);
-    }*/
     
     public function contHoras(){
         $total_accoes= DB::table('tarefa_operacao')
@@ -650,11 +422,24 @@ class TarefaController extends Controller
         return response()->json($estatistica,200); 
     }
 
+    //Auditoria da tarefa pesquisada
+    public function savePesquisa($codigo){
+        $contPesquisas = DB::table('pesquisas')->where('codigo',$codigo)->count();
+
+        $pesquisa = new Pesquisa;
+        $pesquisa->codigo = $codigo;
+        $pesquisa->qtd = ++$contPesquisas;
+        if($pesquisa->save()){
+
+        }
+    }
+
     public function pesquisarTarefa($codigo){
         $tarefa = DB::table('tarefa')->where('codigo',$codigo)->value('id');
-        if($tarefa!='')
+        if($tarefa!=''){
+            $this->savePesquisa($codigo);
             return response()->json($tarefa,200);
-        else
+        } else
             return response()->json('Nenhuma actividade relacionada com código fornecido.',201);
     }
 }

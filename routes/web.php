@@ -31,21 +31,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('pegaTarefasAgendadas', 'TarefaController@pegaTarefasAgendadas');
        
         Route::get('verActividade/{id}', 'TarefaController@verActividade');
-
         Route::post('editarTarefa', 'TarefaController@editarTarefa');
         Route::post('registarOperacao', 'TarefaController@registarOperacaoTarefa');
         Route::get('registarOperacao', 'TarefaController@registarOperacaoTarefa');
         Route::get('pegaAccoes/{idtarefa}','TarefaController@pegaAccoes');
         Route::get('generateCodigo','TarefaController@generateCodigo');
-
         Route::get('exportarTarefaCSV','TarefaController@exportarTarefaCSV');
         Route::get('exportarOperacaoCSV','TarefaController@exportarOperacaoCSV');
-
-        Route::get('gerarTarefaPdf/{codigo}','TarefaController@gerarTarefaPdf');
-        Route::get('gerarAccaoPdf/{codigo}/{data}','TarefaController@gerarAccaoPdf');
-        Route::get('gerarAccaoGeralPdf/{codigo}','TarefaController@gerarAccaoGeralPdf');
+       
         Route::get('contHoras','TarefaController@contHoras');
-
         Route::get('verLastAccao/{idtarefa}','TarefaController@verLastAccao');
         Route::get('pesquisarTarefa/{codigo}','TarefaController@pesquisarTarefa');
 
@@ -57,5 +51,11 @@ Route::middleware(['auth'])->group(function () {
         //Rotas para a construção de gráfico
         Route::get('contActividades', 'EstatisticaController@contActividades');
         Route::get('graficoTarefasRegularizadas','EstatisticaController@graficoTarefasRegularizadas');
+
+        //Rotas geração de relatorios
+        Route::get('gerarAccaoGeralPdf/{codigo}','RelatorioController@gerarAccaoGeralPdf');
+        Route::get('gerarAccaoPdf/{codigo}/{data}','RelatorioController@gerarAccaoPdf');
+        Route::get('gerarTarefaPdf/{codigo}','RelatorioController@gerarTarefaPdf');
+        Route::get('listarPesquisas','RelatorioController@listarPesquisas');
     });
 });

@@ -9,7 +9,7 @@
 }
 
 .corTexto{
-    color:#fff"
+    color:#fff;
 }
 
 .titulo{
@@ -43,7 +43,7 @@
 }
 
 #foto{
-    border:solid #709f89 1px"
+    border:solid #709f89 1px
 }
 
 .tabelaClicked:hover{
@@ -116,4 +116,16 @@
 .cor-laranjaTexto{
     color: #f7a40a;
     font-weight: bold;
+}
+
+.tabela-actividade{
+    border: 1px solid #d1cece;
+}
+
+.tabela-actividade > tr{
+    border: 1px solid #d1cece;
+}
+
+.tabela-actividade > tr > td{
+    border: 1px solid #d1cece;
 }

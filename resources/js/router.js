@@ -12,7 +12,8 @@ import ActividadesAgendadas from './views/ActividadesAgendadas.vue';
 import VerActividade from './views/VerActividade.vue';
 
 import Assessores from './views/AssessoresConta.vue';
-import Fecho from './views/FechoDiario.vue';
+import Estatistica from './views/Estatistica.vue';
+import Pesquisas from './views/Pesquisas.vue';
 Vue.use(Router);
 
 const routes = [
@@ -64,7 +65,12 @@ const routes = [
             {
                 path:'estatistica',
                 name:'estatistica',
-                component:Fecho
+                component:Estatistica
+            },
+            {
+                path:'pesquisas',
+                name:'pesquisas',
+                component:Pesquisas
             }
         ]
     },

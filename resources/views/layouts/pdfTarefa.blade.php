@@ -50,7 +50,10 @@
     </div>
     <table width="700px" style="margin-left:auto;margin-right:auto;position:relative" class="tabela-relatorio">
         <tr>
-            <td width="20%" style="font-size:18px;text-align:center;color:#111;font-weight:bold">{{$tarefa->codigo}}</td>
+            <td width="20%" >
+                <p style="font-size:18px;text-align:center;color:#111;font-weight:bold">{{$tarefa->codigo}}</p>
+                <p style="font-size:15px;text-align:center;font-weight:bold;color:#4787CD;margin-top:-15px">(REGISTO)</p>
+            </td>
             <td style="font-size:14px;font-weight: bold" @if($tarefa->avanco==100) class="cor-verdeE" @else class="cor-azulE" @endif colspan="5">
                 <br>
                 [Registo de Actividade]<br> 
@@ -95,11 +98,11 @@
         </tr>
         <tr>
             <td @if($tarefa->avanco==100) class="cor-verdeE" @else class="cor-azulE" @endif>Data de solicitação: </td>
-            <td @if($tarefa->avanco==100) class="cor-verdeC" @else class="cor-azulC" @endif colspan="5">{{$tarefa->data_solicitacao}}</td>
+            <td @if($tarefa->avanco==100) class="cor-verdeC" @else class="cor-azulC" @endif colspan="5">{{ date('d-m-Y H:i',strtotime($tarefa->data_solicitacao)) }}</td>
         </tr>
         <tr>
             <td @if($tarefa->avanco==100) class="cor-verdeE" @else class="cor-azulE" @endif>Data Prevista de Execução: </td>
-            <td @if($tarefa->avanco==100) class="cor-verdeC" @else class="cor-azulC" @endif colspan="2">{{$tarefa->data_prevista}}</td>
+            <td @if($tarefa->avanco==100) class="cor-verdeC" @else class="cor-azulC" @endif colspan="2">{{ date('d-m-Y',strtotime($tarefa->data_prevista)) }}</td>
             <td width="20%" @if($tarefa->avanco==100) class="cor-verdeE" @else class="cor-azulE" @endif>Tempo de Registo: </td>
             <td colspan="2" @if($tarefa->avanco==100) class="cor-verdeC" @else class="cor-azulC" @endif>{{$tarefa->tempo}}</td>
         </tr>

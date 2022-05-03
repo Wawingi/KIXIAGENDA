@@ -158,16 +158,29 @@
                                 </li>
                             </ul>
                         </li>
-                       
+
                         <li class="has-submenu">
-                            <router-link to="/home/estatistica" exact>
-                                <i class="fas fa-chart-bar"></i>Estatísticas
-                            </router-link>
+                            <a href="#">
+                                <i class="fas fas fa-chart-line"></i>Auditoria
+                                <div class="arrow-down"></div>
+                            </a>
+                            <ul class="submenu">
+                                <li>
+                                    <router-link to="/home/estatistica" exact>
+                                        <i class="fas fa-chart-bar mr-1"></i> Estatistica
+                                    </router-link>
+                                </li>
+                                <li>
+                                    <router-link to="/home/pesquisas" exact>
+                                        <i class="fas fa-clipboard-list mr-1"></i> Histórico de Pesquisa
+                                    </router-link>
+                                </li>
+                            </ul>
                         </li>
 
                          <li class="has-submenu">
                             <router-link to="/home/assessores" exact>
-                                <i class="far fa-user-circle"></i>Ver Assessores de Conta
+                                <i class="far fa-user-circle"></i>Assessores de Conta
                             </router-link>
                         </li>
                         

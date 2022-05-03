@@ -80,4 +80,19 @@ class UtilizadorController extends Controller
     public function pegaFoto($username){
         return response()->json(User::getFoto($username),200);
     }
+
+    //Função logar apartir de API
+    public function loginAPI(Request $request){
+        $user = DB::table('users')
+                ->select('username','name','departamento')
+                ->where('username', $request->username)               
+                ->where('password',sha1($request->password))
+                ->where('estado',1)
+                ->first();
+        
+        if (is_object($user))
+            return response()->json($user,200);
+        else
+            return response()->json(0);
+    }
 }

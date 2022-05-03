@@ -32,27 +32,22 @@
         }
 
         .cor-azulE{
-            background: #295380;
+            background: #4787CD;
             color: #fff;
         }
 
-        .cor-azulC{
-            background: #e0efff;
-            color: #111;
-        }
-
         .cor-verdeE{
-            background: #49693f;
+            background: #339933;
             color: #fff;
         }
 
         .cor-verdeC{
-            background: #dff0d8;
+            background: #afe6cb;
             color:#111111
         }
 
         .cor-AzulC{
-            background: #cee8f5;
+            background: #e0efff;
         }
 
         .cor-AzulLeve{
@@ -100,9 +95,9 @@
                 <td style="text-align:center" class="cor-verdeC">
                     <span style="color:#49693f;font-size:19px;margin-left:5px"><b>{{$accoes[0]->avanco}}%</b></span><br>   
                     <span style="color:#49693f;font-size:13px;margin-left:5px"><b>{{$accoes[0]->estado}}</b></span><br>   
-                    <span style="color:#515151;font-size:12px;margin-left:5px"><b>[{{$contAccoes}}]</b> | {{date('d-m-Y H:m',strtotime($accoes[0]->created_at))}}</span>   
+                    <span style="color:#515151;font-size:12px;margin-left:5px"><b style="font-size:14px">[{{$contAccoes}}]</b> | {{date('d-m-Y',strtotime($accoes[0]->created_at))}}</span>   
                 </td>
-                <td class="cor-AzulC" style="text-align:center;font-size:11px">
+                <td width="18%" class="cor-AzulC" style="text-align:center;font-size:11px">
                     Solicitante<br>
                     <img
                         style="border:solid #fff 1px"
@@ -111,12 +106,12 @@
                         width="40px"
                         height="40px"/>
                     <br><span style="color:#295380;font-weight:bold">{{$solicitante}}</span>
-                    <br><span style="font-size:8px">{{date('d-m-Y H:m',strtotime($tarefa->data_solicitacao))}}</span>
+                    <br><span style="font-weight:bold">SOLICITAÇÃO: {{date('d-m-Y',strtotime($tarefa->data_solicitacao))}}</span>
                 </td>
                 <td style="font-size:11px" width="40%" class="cor-AzulC" colspan="6">
                     <p>{{$tarefa->descricao}}</p>
                 </td>
-                <td class="cor-AzulC"  width="60%" style="text-align:center;font-size:11px">
+                <td class="cor-AzulC"  style="text-align:center;font-size:11px">
                     Responsável<br>
                     <img
                         style="border:solid #fff 1px"
@@ -125,14 +120,18 @@
                         width="40px"
                         height="40px"/>
                     <br><span style="color:#295380;font-weight:bold">{{$responsavel}}</span>
-                    <br><span style="font-size:8px">{{date('d-m-Y H:m',strtotime($tarefa->data_prevista))}}</span>
+                    <br><span style="font-weight:bold">PREVISÃO: {{date('d-m-Y',strtotime($tarefa->data_prevista))}}</span>
                 </td>
             </tr>
+            
             <tr>
                 <td style="font-size:14px;font-weight:bold" class="cor-verdeC" colspan="9">
                     <table>
-                        <tr>
-                            <td width="10%"><img style="margin-left:10px"  src="data:image/png;base64,{{$accoes[0]->seta}}" width="30" height="50"></td>
+                        <tr>                           
+                            <td width="10%">
+                                <img style="margin-left:10px"  src="data:image/png;base64,{{$accoes[0]->seta}}" width="30" height="50">
+                                
+                            </td>                           
                             <td width="40%" style="text-align:center">
                                 <img
                                     style="border:solid #fff 1px"
@@ -151,10 +150,13 @@
             </tr>
            
             @for($i=1;$i < count($accoes);$i++)
-                <tr style="height:20px;background-color:#f5ffff">
-                    <td width="25%">
+                <tr class="cor-azulC" style="height:20px;background-color:111">
+                    <td style="text-align:center" width="15%" class="cor-azulE">
+                        [{{--$contAccoes}}]
+                    </td>
+                    <td >
                         <span style="color:#1299E4;font-size:9px;margin-left:10px">{{$accoes[$i]->avanco}} % - {{$accoes[$i]->estado}}</span>
-                        <br><span style="color:#515151;font-size:8px;margin-left:10px"><b>[{{--$contAccoes}}]</b>  |  {{date('d-m-Y H:m',strtotime($accoes[$i]->created_at))}}</span>
+                        <br><span style="color:#515151;font-size:8px;margin-left:10px">{{date('d-m-Y H:m',strtotime($accoes[$i]->created_at))}}</span>
                     </td>
                     <td style="text-align:center" width="15%" >
                         <img

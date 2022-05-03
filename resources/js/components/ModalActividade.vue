@@ -760,7 +760,7 @@
                     let self = this               
                     this.$axios.get('auth/pegaFoto/'+event.target.value)
                     .then(function (response) {
-                        if(response.status==200){ 
+                        if(response.status==200){
                             self.fotoSolicitante = response.data;                                                                          
                         }
                     })

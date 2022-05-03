@@ -98,7 +98,6 @@
         </div>
         <!-- Fim Modal Relatório actividade-->  
 
-
         <!-- Modal Relatório acção -->
         <div class="modal fade modalRelatorioAccao" v-if="is_modal_visible" id="modalRelatorioAccao" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
@@ -336,33 +335,14 @@
 
         <div class="row">
             <div class="col-12">
-                <div class="card-box">
-                    <div class="row">
-                        <div class="col-6">
-                            <ul class="nav nav-tabs">
-                                <li class="nav-item">
-                                    <a href="#dados" data-toggle="tab" aria-expanded="true" class="nav-link active">
-                                        <span class="d-inline-block d-sm-none"><i class="fas fa-home"></i></span>
-                                        <span class="d-none d-sm-inline-block"><i class="fas fa-file-signature"></i> Dados da Actividade</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#accao" data-toggle="tab" aria-expanded="false" class="nav-link ">
-                                        <span class="d-inline-block d-sm-none"><i class="far fa-user"></i></span>
-                                        <span class="d-none d-sm-inline-block"><i class="fas fa-cog"></i> Acção da Actividade</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                                     
+                <div class="card-box">              
                     <div class="tab-content">
                         <!--Aba da visualização da actividade-->
                         <div class="tab-pane fade show active" id="dados">
                             <div id="VerActividade" v-if="visualizar">
                                 <div class="row">
                                     <div class="col-9">
-                                        <a :href="urlTarefa" target="_blank" class="btn btn-sm btn-rounded btn-primary waves-effect waves-light">
+                                        <a :href="urlTarefa" target="_blank" class="btn btn-sm btn-rounded btn-success waves-effect waves-light">
                                             <i class="far fa-eye mr-1"></i>Relatório da Actividade
                                         </a>
                                     </div>
@@ -380,298 +360,216 @@
                                 <hr style="height:1px;background-color:#d3d6d5">
 
                                 <div class="row">
-                                    <div class="col-7">
-                                        <div class="row">
-                                            <div class="col-3">
-                                                <div class="form-group">
-                                                    <label for="name">Tipo de Actividade</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-9">
-                                                <div class="form-group">
-                                                    <p id="InputMostrar">: {{selectedTipo}}</p>                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div id="linhaDado" class="row">
-                                            <div class="col-3">
-                                                <div class="form-group">
-                                                    <label for="name">Código</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-3">
-                                                <div class="form-group">
-                                                    <p id="InputMostrar">: {{codigo}}</p>                                                    
-                                                </div>
-                                            </div>
-                                            <div class="col-3">
-                                                <div class="form-group">
-                                                    <label for="name">Tempo de Registo</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-2">
-                                                <div class="form-group">
-                                                    <p id="InputMostrar">: {{tempo}}</p>                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div id="linhaDado" class="row">
-                                            <div class="col-3">
-                                                <div class="form-group">
-                                                    <label for="name">Origem Actividade</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-9">
-                                                <div class="form-group">
-                                                    <p id="InputMostrar">: {{selectedOrigem}}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div id="linhaDado" class="row">
-                                            <div class="col-3">
-                                                <div class="form-group">
-                                                    <label for="name">Dado Origem</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-9">
-                                                <div class="form-group">
-                                                    <p id="InputMostrar">: {{dado_origem}}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                  
-                                        <div class="row">
-                                            <div class="col-11">
-                                                <fieldset style="height:110px" class="border p-2"><legend style="font-size:16px" class="w-auto">DE: </legend>	
-                                                    <div class="form-row">
-                                                        <div class="col-md-10">
-                                                            <div id="linhaDado" class="row">
-                                                                <div class="col-4">
-                                                                    <label for="name">Origem</label>
-                                                                </div>
-                                                                <div class="col-8">
-                                                                    <p id="InputMostrar">: {{departamento_origem}}</p>                  
-                                                                </div>
-                                                            </div>
-
-                                                            <div id="linhaDado" class="row">
-                                                                <div class="col-4">
-                                                                    <label for="name">Solicitante</label>
-                                                                </div>
-                                                                <div class="col-8">
-                                                                    <p id="InputMostrar">: {{selectedSolicitante}}</p>                  
-                                                                </div>
-                                                            </div>
-
-                                                            <div id="linhaDado" class="row">
-                                                                <div class="col-4">
-                                                                    <label for="name">Data Solicitação</label>
-                                                                </div>
-                                                                <div class="col-8">
-                                                                    <p id="InputMostrar">: {{data_solicitacao}}</p>                  
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div style="margin-top:-25px" class="col-md-2">
-                                                            <img
-                                                                style="border:solid #d0d5dc 1px"
-                                                                :src="'images/users/'+fotoSolicitante"
-                                                                alt="user-image"
-                                                                width="85px"
-                                                                height="85px"
-                                                                class="rounded-circle"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </fieldset>	
-                                            </div>
-
-                                            <div class="col-11">
-                                                <fieldset style="height:110px" class="border p-2"><legend style="font-size:16px" class="w-auto">PARA: </legend>	
-                                                    <div class="form-row">
-                                                        <div class="col-md-10">
-                                                            <div id="linhaDado" class="row">
-                                                                <div class="col-4">
-                                                                    <label for="name">Destino</label>
-                                                                </div>
-                                                                <div class="col-8">
-                                                                    <p id="InputMostrar">: {{departamento_destino}}</p>                  
-                                                                </div>
-                                                            </div>
-
-                                                            <div id="linhaDado" class="row">
-                                                                <div class="col-4">
-                                                                    <label for="name">Responsável</label>
-                                                                </div>
-                                                                <div class="col-8">
-                                                                    <p id="InputMostrar">: {{selectedResponsavel}}</p>                  
-                                                                </div>
-                                                            </div>
-
-                                                            <div id="linhaDado" class="row">
-                                                                <div class="col-4">
-                                                                    <label for="name">Data Prevista</label>
-                                                                </div>
-                                                                <div class="col-8">
-                                                                    <p id="InputMostrar">: {{data_prevista}}</p>                  
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div style="margin-top:-25px" class="col-md-2">
-                                                            <img
-                                                                style="border:solid #d0d5dc 1px"
-                                                                :src="'images/users/'+fotoResponsavel"
-                                                                alt="user-image"
-                                                                width="85px"
-                                                                height="85px"
-                                                                class="rounded-circle"
-                                                            />
-                                                        </div>
-                                                    </div>    
-                                                </fieldset>	
-                                            </div>                                           
-                                        </div>
-                                    </div>
-
-                                    <div class="col-5">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="name">Objecto da Actividade</label>
-                                                     <textarea v-model.trim="titulo" class="form-control form-control-sm" rows="1" style="background-color:#d1f3ff;font-weight:bold" readonly></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <label for="name">Descrição</label>
-                                                <textarea v-model.trim="descricao" class="form-control form-control-sm" rows="13" style="background-color:#d1f3ff;font-weight:bold" readonly></textarea>
-                                            </div>
-                                        </div>     
-                                    </div>
-                                </div>  
-
-                                <hr style="height:1px;background-color:#d3d6d5">
-                                <div class="row">
                                     <div class="col-12">
                                         <table class="table table-sm table-bordered">
-                                            <tr>
-                                                <td style="text-align:center;font-weight:bold" colspan="6">ÚLTIMA ACÇÃO</td>
+                                            <tr>                           
+                                                <td colspan="4">
+                                                    Título:
+                                                    <textarea v-model.trim="titulo" class="form-control form-control-sm" rows="1" style="background-color:#e0efff;font-weight:bold" readonly></textarea><br>
+                                                    Descrição:
+                                                    <textarea v-model.trim="descricao" class="form-control form-control-sm" rows="3" style="background-color:#e0efff;font-weight:bold" readonly></textarea>
+                                                </td>
                                             </tr>
-                                            <tr style="background-color:#d1f3ff;font-weight:bold">
-                                                <td>Data Operação</td>
-                                                <td>Assunto</td>
-                                                <td>Estado</td>
-                                                <td>Avanço</td>
-                                                <td>Tempo</td>
-                                                <td>Utilizador</td>
+                                            <tr style="background: #4787CD;color:#fff">                           
+                                                <th>Tipo</th>                           
+                                                <th>Codigo</th>
+                                                <th>Origem</th>
+                                                <th>Dado Origem</th>
                                             </tr>
-                                            <tbody> 
-                                                <tr>
-                                                    <td>{{accao_data}}</td>
-                                                    <td>{{accao_descricao}}</td>
-                                                    <td>{{accao_estado}}</td>
-                                                    <td>{{accao_avanco}} %</td>
-                                                    <td>{{accao_tempo}}</td>
-                                                    <td>{{accao_utilizador}}</td>
-                                                </tr>
-                                            </tbody>   
+                                            <tr>                           
+                                                <td>{{selectedTipo}}</td>                           
+                                                <td>{{codigo}}</td>
+                                                <td>{{selectedOrigem}}</td>
+                                                <td>{{dado_origem}}</td>
+                                            </tr>
+                                            <tr>                           
+                                                <td colspan="2">
+                                                    <fieldset style="height:110px" class="border p-2"><legend style="font-size:16px" class="w-auto">DE: </legend>	
+                                                        <div class="form-row">
+                                                            <div class="col-md-10">
+                                                                <div id="linhaDado" class="row">
+                                                                    <div class="col-4">
+                                                                        <label for="name">Origem</label>
+                                                                    </div>
+                                                                    <div class="col-8">
+                                                                        <p id="InputMostrar">: {{departamento_origem}}</p>                  
+                                                                    </div>
+                                                                </div>
+
+                                                                <div id="linhaDado" class="row">
+                                                                    <div class="col-4">
+                                                                        <label for="name">Solicitante</label>
+                                                                    </div>
+                                                                    <div class="col-8">
+                                                                        <p id="InputMostrar">: {{selectedSolicitante}}</p>                  
+                                                                    </div>
+                                                                </div>
+
+                                                                <div id="linhaDado" class="row">
+                                                                    <div class="col-4">
+                                                                        <label for="name">Data Solicitação</label>
+                                                                    </div>
+                                                                    <div class="col-8">
+                                                                        <p id="InputMostrar">: {{data_solicitacao}}</p>                  
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div style="margin-top:-25px" class="col-md-2">
+                                                                <img
+                                                                    style="border:solid #d0d5dc 1px"
+                                                                    :src="'images/users/'+fotoSolicitante"
+                                                                    alt="user-image"
+                                                                    width="75px"
+                                                                    height="75px"
+                                                                    class="rounded-circle"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>	
+                                                </td>                                                
+                                                <td colspan="2">
+                                                    <fieldset style="height:110px" class="border p-2"><legend style="font-size:16px" class="w-auto">PARA: </legend>	
+                                                        <div class="form-row">
+                                                            <div class="col-md-10">
+                                                                <div id="linhaDado" class="row">
+                                                                    <div class="col-4">
+                                                                        <label for="name">Destino</label>
+                                                                    </div>
+                                                                    <div class="col-8">
+                                                                        <p id="InputMostrar">: {{departamento_destino}}</p>                  
+                                                                    </div>
+                                                                </div>
+
+                                                                <div id="linhaDado" class="row">
+                                                                    <div class="col-4">
+                                                                        <label for="name">Responsável</label>
+                                                                    </div>
+                                                                    <div class="col-8">
+                                                                        <p id="InputMostrar">: {{selectedResponsavel}}</p>                  
+                                                                    </div>
+                                                                </div>
+
+                                                                <div id="linhaDado" class="row">
+                                                                    <div class="col-4">
+                                                                        <label for="name">Data Prevista</label>
+                                                                    </div>
+                                                                    <div class="col-8">
+                                                                        <p id="InputMostrar">: {{data_prevista}}</p>                  
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div style="margin-top:-25px" class="col-md-2">
+                                                                <img
+                                                                    style="border:solid #d0d5dc 1px"
+                                                                    :src="'images/users/'+fotoResponsavel"
+                                                                    alt="user-image"
+                                                                    width="75px"
+                                                                    height="75px"
+                                                                    class="rounded-circle"/>
+                                                            </div>
+                                                        </div>    
+                                                    </fieldset>	
+                                                </td>
+                                            </tr>
+                                            
                                         </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                        <!--Aba da acção da actividade-->
-                        <div class="tab-pane fade" id="accao">
-                            <div class="row">
-                                <div class="col-6">         
-                                </div>
-                                <div class="col-6">                       
-                                    <button 
-                                        style="float: right;margin:5px" 
-                                        type="submit" 
-                                        @click="verRelatorio()"
-                                        class="btn btn-sm btn-rounded btn-secondary waves-effect waves-light">
-                                        <i class="fa fa-eye mr-1"></i>Ver Relatório Top 10 Acção
-                                    </button>
-                                    <button 
-                                        style="float: right;margin:5px" 
-                                        type="submit" 
-                                        class="btn btn-sm btn-rounded btn-success waves-effect waves-light" 
-                                        data-backdrop="static"
-                                        data-keyboard="false"
-                                        data-toggle="modal"
-                                        data-target="#modalNovaAccao">
-                                        <i class="mdi mdi-plus-circle mr-1"></i>Adicionar Acção
-                                    </button>
-                                </div>
-                            </div>
-                            <hr style="height:1px;background-color:#d3d6d5">
-                            <table class="table table-sm table-bordeless" cellspacing="0" width="100%">
-                                <thead id="cabecatabela">
-                                    <tr>
-                                        <th>Operação</th>
-                                        <th>Mensagem</th>
-                                        <th>Utilizador</th>
-                                        <th>Suporte a</th>
-                                        <th>Estado</th>
-                                        <th>Avanço</th>
-                                        <th>Tempo</th>
-                                    </tr>
-                                </thead>
-                                <tbody>                          
-                                    <tr v-for="accao in accoes" @click="selectRow(accao)" class="tabelaClicked" title='Clique aqui para ver relatório da acção'>
-                                        <td>{{ moment(String(accao.created_at)).format('DD-MM-YYYY HH:mm') }}</td>
-                                        <td>{{accao.descricao}}</td>
-                                        <td>
-                                            <center><img
-                                                style="border:solid #d0d5dc 1px"
-                                                :src="'images/users/'+accao.fotoResp"
-                                                alt="user-image"
-                                                width="45px"
-                                                height="45px"
-                                                class="rounded-circle"/></center>
-                                            <center><span>{{accao.utilizador_codigo}}</span></center>
-                                        </td>
-                                        <td>
-                                            <p v-if="accao.utilizador_pergunta==null"></p>
-                                            <div v-else>
-                                                <center><img
-                                                    style="border:solid #d0d5dc 1px"
-                                                    :src="'images/users/'+accao.fotoSuport"
-                                                    alt="user-image"
-                                                    width="45px"
-                                                    height="45px"
-                                                    class="rounded-circle"/></center>
-                                                <center><span>{{accao.utilizador_pergunta}}</span></center>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p v-if="accao.estado=='ACRD'" style="color:#5e9ee2"><i class="mdi mdi-content-save-move mdi-18px mr-1"></i>Registada</p>
-                                            <p v-if="accao.estado=='ACCO'" class="cor-verdeTexto"><i class="mdi mdi-check-circle mdi-18px mr-1"></i>Concluída</p>
-                                            <p v-if="accao.estado=='ACCU'" class="cor-laranjaTexto"><i class="mdi mdi-progress-clock mdi-18px mr-1"></i>Em Curso</p>
-                                            <p v-if="accao.estado=='ACRG'" class="cor-laranjaTexto"><i class="mdi mdi-progress-clock mdi-18px mr-1"></i>Reagendada</p>
-                                            <p v-if="accao.estado=='ACRE'" class="cor-laranjaTexto"><i class="mdi mdi-progress-clock mdi-18px mr-1"></i>Reativada</p>
-                                            <p v-if="accao.estado=='CUSS'" class="cor-laranjaTexto"><i class="mdi mdi-progress-clock mdi-18px mr-1"></i>Em Curso Solic. Suporte</p>
-                                            <p v-if="accao.estado=='CURS'" class="cor-laranjaTexto"><i class="mdi mdi-progress-clock mdi-18px mr-1"></i>Em Curso Resp. Suporte</p>
-                                        </td>
-                                        <td>
-                                            <div class="progress mb-1 progress-xl">
-                                                <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                                                    {{accao.avanco}} %
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>{{accao.tempo_acao}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+        <!-- SECÇÃO DAS ACÇÕES DA ACTIVIDADE -->
+        <div class="row">
+            <div class="col-12">    
+                <div class="card-box">
+                    <div class="row">
+                        <div class="col-6">   
+                            <p style="font-weight:bold;font-size:18px"><i class="fas fa-list-ol mr-1"></i>ACÇÕES DA ACTIVIDADE</p>      
+                        </div>
+                        <div class="col-6">                       
+                                <button 
+                                    style="float: right;margin-left:5px" 
+                                    type="submit" 
+                                    @click="verRelatorio()"
+                                    class="btn btn-sm btn-rounded btn-secondary waves-effect waves-light">
+                                    <i class="fa fa-eye mr-1"></i>Ver Relatório Top 10 Acção
+                                </button>
+                                <button 
+                                    style="float: right" 
+                                    type="submit" 
+                                    class="btn btn-sm btn-rounded btn-success waves-effect waves-light" 
+                                    data-backdrop="static"
+                                    data-keyboard="false"
+                                    data-toggle="modal"
+                                    data-target="#modalNovaAccao">
+                                    <i class="mdi mdi-plus-circle mr-1"></i>Adicionar Acção
+                                </button>
                         </div>
                     </div>
+                    <hr style="height:1px;background-color:#d3d6d5">
+                    <table class="table table-sm table-bordeless" cellspacing="0" width="100%">
+                        <thead id="cabecatabela">
+                            <tr>
+                                <th>Operação</th>
+                                <th>Descrição</th>
+                                <th>Utilizador</th>
+                                <th>Suporte a</th>
+                                <th>Estado</th>
+                                <th>Avanço</th>
+                                <th>Tempo</th>
+                            </tr>
+                        </thead>
+                        <tbody>                          
+                            <tr v-for="accao in accoes" @click="selectRow(accao)" class="tabelaClicked" title='Clique aqui para ver relatório da acção'>
+                                <td>{{ moment(String(accao.created_at)).format('DD-MM-YYYY HH:mm') }}</td>
+                                <td>{{accao.descricao}}</td>
+                                <td>
+                                    <center><img
+                                        style="border:solid #d0d5dc 1px"
+                                        :src="'images/users/'+accao.fotoResp"
+                                        alt="user-image"
+                                        width="45px"
+                                        height="45px"
+                                        class="rounded-circle"/></center>
+                                    <center><span>{{accao.utilizador_codigo}}</span></center>
+                                </td>
+                                <td>
+                                    <p v-if="accao.utilizador_pergunta==null"></p>
+                                    <div v-else>
+                                        <center><img
+                                            style="border:solid #d0d5dc 1px"
+                                            :src="'images/users/'+accao.fotoSuport"
+                                            alt="user-image"
+                                            width="45px"
+                                            height="45px"
+                                            class="rounded-circle"/></center>
+                                        <center><span>{{accao.utilizador_pergunta}}</span></center>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p v-if="accao.estado=='ACRD'" style="color:#5e9ee2"><i class="mdi mdi-content-save-move mdi-18px mr-1"></i>Registada</p>
+                                    <p v-if="accao.estado=='ACCO'" class="cor-verdeTexto"><i class="mdi mdi-check-circle mdi-18px mr-1"></i>Concluída</p>
+                                    <p v-if="accao.estado=='ACCU'" class="cor-laranjaTexto"><i class="mdi mdi-progress-clock mdi-18px mr-1"></i>Em Curso</p>
+                                    <p v-if="accao.estado=='ACRG'" class="cor-laranjaTexto"><i class="mdi mdi-progress-clock mdi-18px mr-1"></i>Reagendada</p>
+                                    <p v-if="accao.estado=='ACRE'" class="cor-laranjaTexto"><i class="mdi mdi-progress-clock mdi-18px mr-1"></i>Reativada</p>
+                                    <p v-if="accao.estado=='CUSS'" class="cor-laranjaTexto"><i class="mdi mdi-progress-clock mdi-18px mr-1"></i>Em Curso Solic. Suporte</p>
+                                    <p v-if="accao.estado=='CURS'" class="cor-laranjaTexto"><i class="mdi mdi-progress-clock mdi-18px mr-1"></i>Em Curso Resp. Suporte</p>
+                                </td>
+                                <td>
+                                    <div class="progress mb-1 progress-xl">
+                                        <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                            {{accao.avanco}} %
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{accao.tempo_acao}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -951,7 +849,7 @@
                     }
                 })
                 .catch(function (error) {
-                    alert("Erro ao carregar dados do perfil");
+                    this.pegaUtilizador();
                 });
             },
             //Pega tempo de segundos para formato visual

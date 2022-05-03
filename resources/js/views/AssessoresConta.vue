@@ -20,14 +20,14 @@
         <div class="row">
             <div class="col-12">
                 <div class="card-box">
-                    <table id="paginationTarefa" class="table table-bordered" cellspacing="0" width="100%">
+                    <table id="paginationTarefa" class="table table-sm table-bordeless" cellspacing="0" width="100%">
                         <thead id="cabecatabela">
                             <tr>
-                                <th></th>
-                                <th>Nome</th>
-                                <th>Agência(s)</th>
-                                <th>Área</th>
-                                <th>Contacto</th>
+                                <td></td>
+                                <td>Nome</td>
+                                <td>Agência(s)</td>
+                                <td>Área</td>
+                                <td>Contacto</td>
                             </tr>
                         </thead>
                         <tbody>                          
