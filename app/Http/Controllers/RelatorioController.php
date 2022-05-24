@@ -94,10 +94,13 @@ class RelatorioController extends Controller
         if(!is_null($accao->utilizador_pergunta)){
             $utilizador_suporte = User::getPessoa($accao->utilizador_pergunta);
             $utilizador_suporte=$utilizador_suporte->name;
+            $utilizador_suporte=Helper::getShortName($utilizador_suporte);
         } 
         
         $utilizador_responsavel = User::getPessoa($accao->utilizador_codigo);
         $utilizador_responsavel=$utilizador_responsavel->name;
+        $utilizador_responsavel=Helper::getShortName($utilizador_responsavel);
+        
 
         //Montar assunto
         $assunto=Helper::getEstado($accao->estado).' ('.$accao->avanco.' %) : '.$accao->tipo_abreviado.' : '.$accao->titulo;

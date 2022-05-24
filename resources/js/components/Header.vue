@@ -1,7 +1,7 @@
 <template>
     <header id="topnav">
         <!-- Topbar Start -->
-        <div class="navbar-custom corPadrao">
+        <div class="navbar-custom">
             <div class="container-fluid">
                 <ul class="list-unstyled topnav-menu float-right mb-0">
                     <li class="dropdown notification-list">

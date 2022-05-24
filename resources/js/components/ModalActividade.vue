@@ -451,7 +451,7 @@
                     }
                 })
                 .catch(function (error) {
-                    //alert("Erro ao carregar dados do perfil");
+                    self.pegaTipos();
                 });
             },
             pegaOrigens: async function(id_tipo){
@@ -465,7 +465,7 @@
                     }
                 })
                 .catch(function (error) {
-                    //alert("Erro ao carregar dados do perfil");
+                    self.pegaOrigens();
                 });
             },
             pegaUtilizador: async function(){
@@ -480,7 +480,7 @@
                     }
                 })
                 .catch(function (error) {
-                    alert("Erro ao carregar dados do perfil");
+                    self.pegaUtilizador();
                 });
             },
             pegaTarefas: async function(){

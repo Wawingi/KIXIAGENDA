@@ -103,4 +103,10 @@ class Helper extends Model
                     return 'Em Curso Resp. Suporte';break;
         }
     }
+
+    //Pega 1º e Last nome apenas
+    public static function getShortName($nome){
+        $nome = explode(" ",$nome);
+        return $nome[0]." ".$nome[count($nome)-1];
+    }
 }

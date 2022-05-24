@@ -86,26 +86,26 @@
 
         <table width="700px" style="margin-left:auto;margin-right:auto;position:relative" class="tabela-relatorio">
             <tr>
-                <td @if($accao->avanco<100) class="cor-Warning" @else class="cor-verde" @endif style="font-size:16px;text-align:center;font-weight:bold">
-                    <div @if($accao->avanco<100) style="color:#FFFF00" @else style="color:#FFFF" @endif>
-                        <p style="margin-top:5px">{{$accao->codigo}}</p>
-                        <p style="margin-top:-15px">({{$accao->avanco}}%)</p>
-
-                        @if($accao->estado=='ACRG')
-                            Reagendada                    
-                        @elseif($accao->estado=='ACRD')
-                            Registada      
-                        @elseif($accao->estado=='ACCO')
-                            Concluída   
-                        @elseif($accao->estado=='ACCU')
-                            Em Curso
-                        @elseif($accao->estado=='ACRE')
-                            Reativada
-                        @elseif($accao->estado=='CUSS')
-                            Em Curso Solic. Suporte
-                        @elseif($accao->estado=='CURS')
-                            Em Curso Resp. Suporte
-                        @endif
+                <td style="font-size:16px;text-align:center;font-weight:bold">
+                    <div>
+                        <p style="font-size:18px;text-align:center;color:#111;font-weight:bold;margin-top:5px">{{$accao->codigo}}</p>
+                        <p style="font-size:14px;text-align:center;font-weight:bold;margin-top:-15px"> 
+                            @if($accao->estado=='ACRG')
+                                <span style="color:#CC8501">({{$accao->avanco}}%) - Reagendada</span>                    
+                            @elseif($accao->estado=='ACRD')
+                                <span style="color:#CC8501">({{$accao->avanco}}%) - Registada</span>      
+                            @elseif($accao->estado=='ACCO')
+                                <span style="color:#339933">Concluída</span>   
+                            @elseif($accao->estado=='ACCU')
+                                <span style="color:#CC8501">({{$accao->avanco}}%) - Em Curso</span>
+                            @elseif($accao->estado=='ACRE')
+                                <span style="color:#CC8501">({{$accao->avanco}}%) - Reativada</span>
+                            @elseif($accao->estado=='CUSS')
+                                <span style="color:#CC8501">({{$accao->avanco}}%) - Solic. Suporte</span>
+                            @elseif($accao->estado=='CURS')
+                                <span style="color:#CC8501">({{$accao->avanco}}%) - Resp. Suporte</span>
+                            @endif
+                        </p>
                     </div>
                 </td>
                 <td style="font-size:14px" @if($accao->avanco<100) class="cor-WarningC" @else class="cor-verdeC" @endif colspan="7">

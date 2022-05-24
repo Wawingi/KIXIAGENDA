@@ -2757,7 +2757,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     self.tipos = response.data;
                     console.log(response.data);
                   }
-                })["catch"](function (error) {//alert("Erro ao carregar dados do perfil");
+                })["catch"](function (error) {
+                  self.pegaTipos();
                 });
 
               case 2:
@@ -2787,7 +2788,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     self.origens = response.data;
                     console.log(response.data);
                   }
-                })["catch"](function (error) {//alert("Erro ao carregar dados do perfil");
+                })["catch"](function (error) {
+                  self.pegaOrigens();
                 });
 
               case 2:
@@ -2818,7 +2820,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     console.log(response.data);
                   } else {}
                 })["catch"](function (error) {
-                  alert("Erro ao carregar dados do perfil");
+                  self.pegaUtilizador();
                 });
 
               case 2:
@@ -64310,7 +64312,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("header", { attrs: { id: "topnav" } }, [
-    _c("div", { staticClass: "navbar-custom corPadrao" }, [
+    _c("div", { staticClass: "navbar-custom" }, [
       _c("div", { staticClass: "container-fluid" }, [
         _c(
           "ul",

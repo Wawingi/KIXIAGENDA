@@ -83,16 +83,17 @@ class UtilizadorController extends Controller
 
     //Função logar apartir de API
     public function loginAPI(Request $request){
-        $user = DB::table('users')
-                ->select('username','name','departamento')
-                ->where('username', $request->username)               
-                ->where('password',sha1($request->password))
-                ->where('estado',1)
-                ->first();
-        
-        if (is_object($user))
+        $user = User::select('name','username','email')
+                    ->where('username', $request->username)               
+                    ->where('password',sha1($request->password))
+                    ->where('estado',1)
+                    ->first();
+
+        if (is_object($user)){
+            Auth::login($user);
+           
             return response()->json($user,200);
-        else
+        } else
             return response()->json(0);
     }
 }

@@ -26,19 +26,22 @@
         .tabela-relatorio > tr{
             border: 1px solid #d1cece;
         }
-
         .tabela-relatorio > tr > td{
             border: 1px solid #d1cece;
         }
-
         .cor-verdeE{
             background: #339933;
             color: #fff;
         }
-
         .cor-verdeC{
             background: #afe6cb;
             color:#111111
+        }
+        .txt-verde{
+            color:#339933;
+        }
+        .txt-blue{
+            color:#4787CD;
         }
     </style>     
 </head>
@@ -52,7 +55,11 @@
         <tr>
             <td width="20%" >
                 <p style="font-size:18px;text-align:center;color:#111;font-weight:bold">{{$tarefa->codigo}}</p>
-                <p style="font-size:15px;text-align:center;font-weight:bold;color:#4787CD;margin-top:-15px">(REGISTO)</p>
+                @if($tarefa->avanco==100)
+                    <p style="color:#339933;font-size:13px;text-align:center;font-weight:bold;margin-top:-15px">Concluída</p>
+                @else
+                    <p style="color:#4787CD;font-size:13px;text-align:center;font-weight:bold;margin-top:-15px">(Registada)</p>
+                @endif
             </td>
             <td style="font-size:14px;font-weight: bold" @if($tarefa->avanco==100) class="cor-verdeE" @else class="cor-azulE" @endif colspan="5">
                 <br>
@@ -116,13 +123,6 @@
             <td style="font-weight:bold" colspan="6">
                 <p style="white-space: pre-wrap;font-weight:bold;font-size:17px">{{$tarefa->descricao}}</p>  
             </td>
-        </tr>
-        <tr>
-            @if($tarefa->avanco==100)     
-                <td style="background:#afe6cb;color:#111;text-align:center" colspan="6">
-                    Actividade Concluída
-                </td>
-            @endif
         </tr>
         <tr>
             <td style="background:#e3e3e3;color:#797a7a;text-align:center" colspan="6">
