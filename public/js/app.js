@@ -2138,13 +2138,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3139,13 +3132,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 //Verificar a data de execução para não ser superior a 30 dias
                 dias = Math.floor((moment__WEBPACK_IMPORTED_MODULE_1___default()(this.data_execucao) - moment__WEBPACK_IMPORTED_MODULE_1___default()(this.data_solicitacao)) / 86400000);
 
-                if (!(dias > 20)) {
+                if (!(dias > 30)) {
                   _context6.next = 43;
                   break;
                 }
 
                 Swal.fire({
-                  text: "A data prevista não pode exceder 20 dias.",
+                  text: "A data prevista não pode exceder 30 dias.",
                   icon: 'error',
                   confirmButtonText: 'Fechar'
                 });
@@ -3367,6 +3360,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3515,6 +3512,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3601,6 +3602,10 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -3877,6 +3882,10 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -4477,6 +4486,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
@@ -4579,6 +4589,10 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -4895,6 +4909,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4925,9 +4943,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.$axios.get('auth/listarPesquisas').then(function (response) {
                   if (response.status == 200) {
                     self.pesquisas = response.data;
-                    self.$nextTick(function () {
-                      $('#paginationTarefa').DataTable();
-                    });
                     self.visible = false;
                   }
                 })["catch"](function (error) {
@@ -5634,7 +5649,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       accao_tempo: '',
       accao_utilizador: '',
       estilo: '',
-      percentagem_hora: ''
+      percentagem_hora: '',
+      //Dados Extra
+      data_criacao_actividade: ''
     };
   },
   validations: {
@@ -5711,9 +5728,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   created: function created() {
     this.pegaActividade();
+    this.pegaUltimaAccao();
   },
   mounted: function mounted() {
-    this.pegaUltimaAccao();
     this.pegaTipos();
     this.pegaOrigens();
     this.pegaUtilizador();
@@ -5769,6 +5786,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     self.urlTarefa = 'auth/gerarTarefaPdf/' + self.codigo;
                     self.fotoSolicitante = response.data.user_solicitante;
                     self.fotoResponsavel = response.data.user_responsavel;
+                    self.data_criacao_actividade = response.data.created_at;
                     self.visible = false;
                   }
                 })["catch"](function (error) {
@@ -5798,6 +5816,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
           self.percentagem_hora = self.accao_avanco;
           self.estilo = 'width:' + self.accao_avanco + '%;font-size:15px';
+          self.avanco = response.data.avanco;
         }
       })["catch"](function (error) {
         this.pegaUltimaAccao();
@@ -6149,7 +6168,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 this.submitStatus = 'ERROR';
-                _context8.next = 24;
+                _context8.next = 30;
                 break;
 
               case 5:
@@ -6221,6 +6240,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context8.abrupt("return");
 
               case 22:
+                if (!(this.avanco == 0)) {
+                  _context8.next = 25;
+                  break;
+                }
+
+                Swal.fire({
+                  text: "O avanço deve ser superior a 0.",
+                  icon: 'error',
+                  confirmButtonText: 'Fechar'
+                });
+                return _context8.abrupt("return");
+
+              case 25:
+                if (!(moment__WEBPACK_IMPORTED_MODULE_2___default()(this.data_criacao_actividade) > moment__WEBPACK_IMPORTED_MODULE_2___default()(this.data_operacao))) {
+                  _context8.next = 28;
+                  break;
+                }
+
+                Swal.fire({
+                  text: "Informe uma data maior que a data de criação da actividade.",
+                  icon: 'error',
+                  confirmButtonText: 'Fechar'
+                });
+                return _context8.abrupt("return");
+
+              case 28:
                 self = this;
                 this.$axios.post('auth/registarOperacao', {
                   'tarefa_id': this.idActividade,
@@ -6265,7 +6310,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 });
 
-              case 24:
+              case 30:
               case "end":
                 return _context8.stop();
             }
@@ -64410,7 +64455,7 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "dropdown-menu dropdown-menu-right profile-dropdown "
+                    "dropdown-menu dropdown-menu-right profile-dropdown"
                 },
                 [
                   _vm._m(2),
@@ -64457,31 +64502,24 @@ var render = function() {
               "router-link",
               { staticClass: "logo text-center", attrs: { to: "/home" } },
               [
-                _c(
-                  "span",
-                  {
-                    staticClass: "logo-lg",
-                    staticStyle: { "margin-left": "-50px" }
-                  },
-                  [
-                    _c("img", {
-                      attrs: {
-                        src: "images/logo.png",
-                        width: "200",
-                        alt: "",
-                        height: "30"
-                      }
-                    })
-                  ]
-                ),
+                _c("span", { staticClass: "logo-lg" }, [
+                  _c("img", {
+                    attrs: {
+                      src: "images/logomarca.png",
+                      width: "50",
+                      alt: "",
+                      height: "50"
+                    }
+                  })
+                ]),
                 _vm._v(" "),
                 _c("span", { staticClass: "logo-sm" }, [
                   _c("img", {
                     attrs: {
-                      src: "/images/logo.png",
-                      width: "100",
+                      src: "/images/logomarca.png",
+                      width: "50",
                       alt: "",
-                      height: "15"
+                      height: "50"
                     }
                   })
                 ])
@@ -66766,68 +66804,79 @@ var render = function() {
                 _c(
                   "tbody",
                   _vm._l(_vm.tarefas, function(tarefa) {
-                    return _c(
-                      "tr",
-                      {
-                        staticClass: "tabelaClicked",
-                        attrs: { title: "Clique aqui para abrir actividade" },
-                        on: {
-                          click: function($event) {
-                            return _vm.selectRow(tarefa.id)
-                          }
-                        }
-                      },
-                      [
-                        _c("td", [_vm._v(_vm._s(tarefa.codigo))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(tarefa.titulo))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(tarefa.solicitante))]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "20%" } }, [
-                          _vm._v(
-                            _vm._s(
-                              _vm
-                                .moment(String(tarefa.data_solicitacao))
-                                .format("DD-MM-YYYY")
+                    return _c("tr", { staticClass: "tabelaClicked" }, [
+                      _c("td", [_vm._v(_vm._s(tarefa.codigo))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(tarefa.titulo))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(tarefa.solicitante))]),
+                      _vm._v(" "),
+                      _c("td", { attrs: { width: "20%" } }, [
+                        _vm._v(
+                          _vm._s(
+                            _vm
+                              .moment(String(tarefa.data_solicitacao))
+                              .format("DD-MM-YYYY")
+                          )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { attrs: { width: "20%" } }, [
+                        _c(
+                          "div",
+                          { staticClass: "progress mb-1 progress-xl" },
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "progress-bar bg-success",
+                                staticStyle: { width: "100%" },
+                                attrs: {
+                                  role: "progressbar",
+                                  "aria-valuenow": "50",
+                                  "aria-valuemin": "0",
+                                  "aria-valuemax": "100"
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(
+                                      _vm
+                                        .moment(String(tarefa.data_prevista))
+                                        .format("DD-MM-YYYY")
+                                    ) +
+                                    "\n                                    "
+                                )
+                              ]
                             )
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "20%" } }, [
-                          _c(
-                            "div",
-                            { staticClass: "progress mb-1 progress-xl" },
-                            [
-                              _c(
-                                "div",
-                                {
-                                  staticClass: "progress-bar bg-success",
-                                  staticStyle: { width: "100%" },
-                                  attrs: {
-                                    role: "progressbar",
-                                    "aria-valuenow": "50",
-                                    "aria-valuemin": "0",
-                                    "aria-valuemax": "100"
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                        " +
-                                      _vm._s(
-                                        _vm
-                                          .moment(String(tarefa.data_prevista))
-                                          .format("DD-MM-YYYY")
-                                      ) +
-                                      "\n                                    "
-                                  )
-                                ]
-                              )
-                            ]
-                          )
-                        ])
-                      ]
-                    )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { attrs: { width: "20%" } }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass:
+                              "btn btn-secondary btn-rounded btn-sm float-right",
+                            attrs: {
+                              title: "Clique aqui para abrir actividade",
+                              href: "#"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.selectRow(tarefa.id)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-eye" }),
+                            _vm._v(" Ver Actividade ")
+                          ]
+                        )
+                      ])
+                    ])
                   }),
                   0
                 )
@@ -66885,7 +66934,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("td", [_vm._v("Solicitação")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Previsão")])
+        _c("td", [_vm._v("Previsão")]),
+        _vm._v(" "),
+        _c("td")
       ])
     ])
   }
@@ -66952,99 +67003,110 @@ var render = function() {
                 _c(
                   "tbody",
                   _vm._l(_vm.tarefas, function(tarefa) {
-                    return _c(
-                      "tr",
-                      {
-                        staticClass: "tabelaClicked",
-                        attrs: { title: "Clique aqui para abrir actividade" },
-                        on: {
-                          click: function($event) {
-                            return _vm.selectRow(tarefa.id)
-                          }
-                        }
-                      },
-                      [
-                        _c("td", [_vm._v(_vm._s(tarefa.codigo))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(tarefa.titulo))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(tarefa.solicitante))]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "20%" } }, [
-                          _vm._v(
-                            _vm._s(
-                              _vm
-                                .moment(String(tarefa.data_solicitacao))
-                                .format("DD-MM-YYYY")
-                            )
+                    return _c("tr", { staticClass: "tabelaClicked" }, [
+                      _c("td", [_vm._v(_vm._s(tarefa.codigo))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(tarefa.titulo))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(tarefa.solicitante))]),
+                      _vm._v(" "),
+                      _c("td", { attrs: { width: "20%" } }, [
+                        _vm._v(
+                          _vm._s(
+                            _vm
+                              .moment(String(tarefa.data_solicitacao))
+                              .format("DD-MM-YYYY")
                           )
-                        ]),
-                        _vm._v(" "),
-                        tarefa.avanco == 100
-                          ? _c("td", { attrs: { width: "10%" } }, [
-                              _c(
-                                "div",
-                                { staticClass: "progress mb-1 progress-xl" },
-                                [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass: "progress-bar bg-success",
-                                      staticStyle: { width: "100%" },
-                                      attrs: {
-                                        role: "progressbar",
-                                        "aria-valuenow": "50",
-                                        "aria-valuemin": "0",
-                                        "aria-valuemax": "100"
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                        " +
-                                          _vm._s(tarefa.data_cumprimento) +
-                                          "\n                                    "
-                                      )
-                                    ]
-                                  )
-                                ]
-                              )
-                            ])
-                          : _c("td", { attrs: { width: "20%" } }, [
-                              _c(
-                                "div",
-                                { staticClass: "progress mb-1 progress-xl" },
-                                [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass: "progress-bar bg-danger",
-                                      staticStyle: { width: "100%" },
-                                      attrs: {
-                                        role: "progressbar",
-                                        "aria-valuenow": "50",
-                                        "aria-valuemin": "0",
-                                        "aria-valuemax": "100"
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                        Atrasada (" +
-                                          _vm._s(
-                                            _vm
-                                              .moment(
-                                                String(tarefa.data_prevista)
-                                              )
-                                              .format("DD-MM-YYYY")
-                                          ) +
-                                          ")\n                                    "
-                                      )
-                                    ]
-                                  )
-                                ]
-                              )
-                            ])
-                      ]
-                    )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      tarefa.avanco == 100
+                        ? _c("td", { attrs: { width: "10%" } }, [
+                            _c(
+                              "div",
+                              { staticClass: "progress mb-1 progress-xl" },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "progress-bar bg-success",
+                                    staticStyle: { width: "100%" },
+                                    attrs: {
+                                      role: "progressbar",
+                                      "aria-valuenow": "50",
+                                      "aria-valuemin": "0",
+                                      "aria-valuemax": "100"
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(tarefa.data_cumprimento) +
+                                        "\n                                    "
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ])
+                        : _c("td", { attrs: { width: "20%" } }, [
+                            _c(
+                              "div",
+                              { staticClass: "progress mb-1 progress-xl" },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "progress-bar bg-danger",
+                                    staticStyle: { width: "100%" },
+                                    attrs: {
+                                      role: "progressbar",
+                                      "aria-valuenow": "50",
+                                      "aria-valuemin": "0",
+                                      "aria-valuemax": "100"
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                        Atrasada (" +
+                                        _vm._s(
+                                          _vm
+                                            .moment(
+                                              String(tarefa.data_prevista)
+                                            )
+                                            .format("DD-MM-YYYY")
+                                        ) +
+                                        ")\n                                    "
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ]),
+                      _vm._v(" "),
+                      _c("td", { attrs: { width: "20%" } }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass:
+                              "btn btn-secondary btn-rounded btn-sm float-right",
+                            attrs: {
+                              title: "Clique aqui para abrir actividade",
+                              href: "#"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.selectRow(tarefa.id)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-eye" }),
+                            _vm._v(" Ver Actividade ")
+                          ]
+                        )
+                      ])
+                    ])
                   }),
                   0
                 )
@@ -67102,7 +67164,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("td", [_vm._v("Solicitação")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Estado")])
+        _c("td", [_vm._v("Estado")]),
+        _vm._v(" "),
+        _c("td")
       ])
     ])
   }
@@ -67173,12 +67237,7 @@ var render = function() {
                       "tr",
                       {
                         staticClass: "tabelaClicked",
-                        attrs: { title: "Clique aqui para abrir actividade" },
-                        on: {
-                          click: function($event) {
-                            return _vm.selectRow(tarefa.id)
-                          }
-                        }
+                        attrs: { title: "Clique aqui para abrir actividade" }
                       },
                       [
                         _c("td", [_vm._v(_vm._s(tarefa.codigo))]),
@@ -67234,7 +67293,30 @@ var render = function() {
                             ])
                           : _c("td", { attrs: { width: "20%" } }, [
                               _vm._m(2, true)
-                            ])
+                            ]),
+                        _vm._v(" "),
+                        _c("td", { attrs: { width: "20%" } }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass:
+                                "btn btn-secondary btn-rounded btn-sm float-right",
+                              attrs: {
+                                title: "Clique aqui para abrir actividade",
+                                href: "#"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.selectRow(tarefa.id)
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-eye" }),
+                              _vm._v(" Ver Actividade ")
+                            ]
+                          )
+                        ])
                       ]
                     )
                   }),
@@ -67294,7 +67376,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("td", [_vm._v("Solicitação")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Execução")])
+        _c("td", [_vm._v("Execução")]),
+        _vm._v(" "),
+        _c("td")
       ])
     ])
   },
@@ -67513,7 +67597,7 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("div", { staticClass: "row text-center mb-2" }, [
-        _c("div", { staticClass: "col-md-6 col-xl-3" }, [
+        _c("div", { staticClass: "col-md-3 col-xl-3" }, [
           _c("div", { staticClass: "card-box" }, [
             _c("i", { staticClass: "fas fa-undo-alt font-26" }),
             _vm._v(" "),
@@ -67529,7 +67613,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-md-4 col-xl-2" }, [
+        _c("div", { staticClass: "col-md-2 col-xl-2" }, [
           _c("div", { staticClass: "card-box" }, [
             _c("i", { staticClass: "fas fa-clipboard-check font-26" }),
             _vm._v(" "),
@@ -67543,7 +67627,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-md-6 col-xl-3" }, [
+        _c("div", { staticClass: "col-md-3 col-xl-3" }, [
           _c("div", { staticClass: "card-box" }, [
             _c("i", { staticClass: "fas fa-file-alt font-26" }),
             _vm._v(" "),
@@ -67559,7 +67643,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-md-4 col-xl-2" }, [
+        _c("div", { staticClass: "col-md-2 col-xl-2" }, [
           _c("div", { staticClass: "card-box" }, [
             _c("i", { staticClass: "fas fa-clipboard-list font-26" }),
             _vm._v(" "),
@@ -67573,7 +67657,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-md-4 col-xl-2" }, [
+        _c("div", { staticClass: "col-md-2 col-xl-2" }, [
           _c("div", { staticClass: "card-box" }, [
             _c("i", { staticClass: "fas fa-file-alt font-26" }),
             _vm._v(" "),
@@ -67701,115 +67785,126 @@ var render = function() {
                 _c(
                   "tbody",
                   _vm._l(_vm.tarefas, function(tarefa) {
-                    return _c(
-                      "tr",
-                      {
-                        staticClass: "tabelaClicked",
-                        attrs: { title: "Clique aqui para abrir actividade" },
-                        on: {
-                          click: function($event) {
-                            return _vm.selectRow(tarefa.id, tarefa.codigo)
-                          }
-                        }
-                      },
-                      [
-                        _c("td", [_vm._v(_vm._s(tarefa.codigo))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(tarefa.titulo))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(tarefa.responsavel))]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "20%" } }, [
-                          _vm._v(
-                            _vm._s(
-                              _vm
-                                .moment(String(tarefa.data_solicitacao))
-                                .format("DD-MM-YYYY")
-                            )
+                    return _c("tr", { staticClass: "tabelaClicked" }, [
+                      _c("td", [_vm._v(_vm._s(tarefa.codigo))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(tarefa.titulo))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(tarefa.responsavel))]),
+                      _vm._v(" "),
+                      _c("td", { attrs: { width: "20%" } }, [
+                        _vm._v(
+                          _vm._s(
+                            _vm
+                              .moment(String(tarefa.data_solicitacao))
+                              .format("DD-MM-YYYY")
                           )
-                        ]),
-                        _vm._v(" "),
-                        tarefa.avanco == 100
-                          ? _c("td", { attrs: { width: "20%" } }, [
-                              _c(
-                                "div",
-                                { staticClass: "progress mb-1 progress-xl" },
-                                [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass: "progress-bar bg-success",
-                                      staticStyle: { width: "100%" },
-                                      attrs: {
-                                        role: "progressbar",
-                                        "aria-valuenow": "50",
-                                        "aria-valuemin": "0",
-                                        "aria-valuemax": "100"
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                        Concluído (" +
-                                          _vm._s(
-                                            _vm
-                                              .moment(
-                                                String(tarefa.data_cumprimento)
-                                              )
-                                              .format("DD-MM-YYYY")
-                                          ) +
-                                          ")  \n                                    "
-                                      )
-                                    ]
-                                  )
-                                ]
-                              )
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        tarefa.data_prevista < _vm.now && tarefa.avanco < 100
-                          ? _c("td", [
-                              _c(
-                                "div",
-                                { staticClass: "progress mb-1 progress-xl" },
-                                [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass: "progress-bar bg-danger",
-                                      staticStyle: { width: "100%" },
-                                      attrs: {
-                                        role: "progressbar",
-                                        "aria-valuenow": "50",
-                                        "aria-valuemin": "0",
-                                        "aria-valuemax": "100"
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                        Atrasada (" +
-                                          _vm._s(
-                                            _vm
-                                              .moment(
-                                                String(tarefa.data_prevista)
-                                              )
-                                              .format("DD-MM-YYYY")
-                                          ) +
-                                          ")  \n                                    "
-                                      )
-                                    ]
-                                  )
-                                ]
-                              )
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        tarefa.data_prevista > _vm.now && tarefa.avanco < 100
-                          ? _c("td", { attrs: { width: "20%" } }, [
-                              _vm._m(3, true)
-                            ])
-                          : _vm._e()
-                      ]
-                    )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      tarefa.avanco == 100
+                        ? _c("td", { attrs: { width: "20%" } }, [
+                            _c(
+                              "div",
+                              { staticClass: "progress mb-1 progress-xl" },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "progress-bar bg-success",
+                                    staticStyle: { width: "100%" },
+                                    attrs: {
+                                      role: "progressbar",
+                                      "aria-valuenow": "50",
+                                      "aria-valuemin": "0",
+                                      "aria-valuemax": "100"
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                        Concluído (" +
+                                        _vm._s(
+                                          _vm
+                                            .moment(
+                                              String(tarefa.data_cumprimento)
+                                            )
+                                            .format("DD-MM-YYYY")
+                                        ) +
+                                        ")  \n                                    "
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      tarefa.data_prevista < _vm.now && tarefa.avanco < 100
+                        ? _c("td", [
+                            _c(
+                              "div",
+                              { staticClass: "progress mb-1 progress-xl" },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "progress-bar bg-danger",
+                                    staticStyle: { width: "100%" },
+                                    attrs: {
+                                      role: "progressbar",
+                                      "aria-valuenow": "50",
+                                      "aria-valuemin": "0",
+                                      "aria-valuemax": "100"
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                        Atrasada (" +
+                                        _vm._s(
+                                          _vm
+                                            .moment(
+                                              String(tarefa.data_prevista)
+                                            )
+                                            .format("DD-MM-YYYY")
+                                        ) +
+                                        ")  \n                                    "
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      tarefa.data_prevista > _vm.now && tarefa.avanco < 100
+                        ? _c("td", { attrs: { width: "20%" } }, [
+                            _vm._m(3, true)
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("td", { attrs: { width: "20%" } }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass:
+                              "btn btn-secondary btn-rounded btn-sm float-right",
+                            attrs: {
+                              title: "Clique aqui para abrir actividade",
+                              href: "#"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.selectRow(tarefa.id, tarefa.codigo)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-eye" }),
+                            _vm._v(" Ver Actividade ")
+                          ]
+                        )
+                      ])
+                    ])
                   }),
                   0
                 )
@@ -67881,7 +67976,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("td", [_vm._v("Solicitação")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Estado")])
+        _c("td", [_vm._v("Estado")]),
+        _vm._v(" "),
+        _c("td")
       ])
     ])
   },
@@ -68244,8 +68341,26 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "text-center w-75 m-auto" }, [
       _c("img", {
-        attrs: { src: "images/logo.png", width: "200", alt: "", height: "30" }
-      })
+        attrs: {
+          src: "images/logomarca.png",
+          width: "50",
+          alt: "",
+          height: "50"
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "p",
+        {
+          staticClass: "logo-lg-text-light",
+          staticStyle: {
+            "font-size": "20px",
+            color: "#0f5b3b",
+            "font-family": "arial"
+          }
+        },
+        [_vm._v("KIXIAGENDA")]
+      )
     ])
   },
   function() {
@@ -68267,7 +68382,7 @@ var staticRenderFns = [
       "footer",
       { staticClass: "footer footer-alt", staticStyle: { color: "#fff" } },
       [
-        _vm._v("\n        2020 © KixiAgenda by "),
+        _vm._v("\n        2022 © KixiAgenda by "),
         _c("b", [_vm._v("KixiCrédito")])
       ]
     )
@@ -68334,74 +68449,85 @@ var render = function() {
                 _c(
                   "tbody",
                   _vm._l(_vm.tarefas, function(tarefa) {
-                    return _c(
-                      "tr",
-                      {
-                        staticClass: "tabelaClicked",
-                        attrs: { title: "Clique aqui para abrir actividade" },
-                        on: {
-                          click: function($event) {
-                            return _vm.selectRow(tarefa.id)
-                          }
-                        }
-                      },
-                      [
-                        _c("td", [_vm._v(_vm._s(tarefa.codigo))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(tarefa.titulo))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(tarefa.solicitante))]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "20%" } }, [
-                          _vm._v(
-                            _vm._s(
-                              _vm
-                                .moment(String(tarefa.data_solicitacao))
-                                .format("DD-MM-YYYY")
-                            )
+                    return _c("tr", { staticClass: "tabelaClicked" }, [
+                      _c("td", [_vm._v(_vm._s(tarefa.codigo))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(tarefa.titulo))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(tarefa.solicitante))]),
+                      _vm._v(" "),
+                      _c("td", { attrs: { width: "20%" } }, [
+                        _vm._v(
+                          _vm._s(
+                            _vm
+                              .moment(String(tarefa.data_solicitacao))
+                              .format("DD-MM-YYYY")
                           )
-                        ]),
-                        _vm._v(" "),
-                        tarefa.avanco == 100
-                          ? _c("td", { attrs: { width: "10%" } }, [
-                              _c(
-                                "div",
-                                { staticClass: "progress mb-1 progress-xl" },
-                                [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass: "progress-bar bg-success",
-                                      staticStyle: { width: "100%" },
-                                      attrs: {
-                                        role: "progressbar",
-                                        "aria-valuenow": "50",
-                                        "aria-valuemin": "0",
-                                        "aria-valuemax": "100"
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                        " +
-                                          _vm._s(
-                                            _vm
-                                              .moment(
-                                                String(tarefa.data_cumprimento)
-                                              )
-                                              .format("DD-MM-YYYY")
-                                          ) +
-                                          "\n                                    "
-                                      )
-                                    ]
-                                  )
-                                ]
-                              )
-                            ])
-                          : _c("td", { attrs: { width: "20%" } }, [
-                              _vm._m(2, true)
-                            ])
-                      ]
-                    )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      tarefa.avanco == 100
+                        ? _c("td", { attrs: { width: "10%" } }, [
+                            _c(
+                              "div",
+                              { staticClass: "progress mb-1 progress-xl" },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "progress-bar bg-success",
+                                    staticStyle: { width: "100%" },
+                                    attrs: {
+                                      role: "progressbar",
+                                      "aria-valuenow": "50",
+                                      "aria-valuemin": "0",
+                                      "aria-valuemax": "100"
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(
+                                          _vm
+                                            .moment(
+                                              String(tarefa.data_cumprimento)
+                                            )
+                                            .format("DD-MM-YYYY")
+                                        ) +
+                                        "\n                                    "
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ])
+                        : _c("td", { attrs: { width: "20%" } }, [
+                            _vm._m(2, true)
+                          ]),
+                      _vm._v(" "),
+                      _c("td", { attrs: { width: "20%" } }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass:
+                              "btn btn-secondary btn-rounded btn-sm float-right",
+                            attrs: {
+                              title: "Clique aqui para abrir actividade",
+                              href: "#"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.selectRow(tarefa.id)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-eye" }),
+                            _vm._v(" Ver Actividade ")
+                          ]
+                        )
+                      ])
+                    ])
                   }),
                   0
                 )
@@ -68459,7 +68585,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("td", [_vm._v("Solicitação")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Estado")])
+        _c("td", [_vm._v("Estado")]),
+        _vm._v(" "),
+        _c("td")
       ])
     ])
   },
@@ -68631,11 +68759,7 @@ var render = function() {
                 "table",
                 {
                   staticClass: "table table-sm table-bordeless",
-                  attrs: {
-                    id: "paginationTarefa",
-                    cellspacing: "0",
-                    width: "100%"
-                  }
+                  attrs: { cellspacing: "0", width: "100%" }
                 },
                 [
                   _vm._m(1),
@@ -68643,92 +68767,104 @@ var render = function() {
                   _c(
                     "tbody",
                     _vm._l(_vm.pesquisas, function(pesquisa) {
-                      return _c(
-                        "tr",
-                        {
-                          staticClass: "tabelaClicked",
-                          on: {
-                            click: function($event) {
-                              return _vm.selectRow(pesquisa.id_tarefa)
-                            }
-                          }
-                        },
-                        [
-                          _c("td", [
-                            _c("i", {
-                              staticClass: "fas fa-check-circle mr-1",
-                              staticStyle: { color: "#339933" }
-                            }),
-                            _vm._v(_vm._s(pesquisa.codigo))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(pesquisa.titulo))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(pesquisa.responsavel))]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "div",
-                              {
-                                staticClass: "progress mb-1 progress-xl",
-                                staticStyle: {
-                                  width: "20%",
-                                  "margin-left": "40px"
+                      return _c("tr", { staticClass: "tabelaClicked" }, [
+                        _c("td", [
+                          _c("i", {
+                            staticClass: "fas fa-check-circle mr-1",
+                            staticStyle: { color: "#339933" }
+                          }),
+                          _vm._v(_vm._s(pesquisa.codigo))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(pesquisa.titulo))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(pesquisa.responsavel))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "progress mb-1 progress-xl",
+                              staticStyle: {
+                                width: "20%",
+                                "margin-left": "40px"
+                              }
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "progress-bar progress-bar-animated progress-bar-striped bg-success",
+                                  staticStyle: { width: "100%" },
+                                  attrs: { role: "progressbar" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                            " +
+                                      _vm._s(pesquisa.qtd) +
+                                      " X\n                                        "
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "progress mb-1 progress-xl",
+                              staticStyle: { width: "70%" }
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "progress-bar bg-primary",
+                                  staticStyle: { width: "100%" },
+                                  attrs: { role: "progressbar" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                            " +
+                                      _vm._s(
+                                        _vm
+                                          .moment(String(pesquisa.created_at))
+                                          .format("DD-MM-YYYY HH:mm")
+                                      ) +
+                                      "\n                                        "
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "a",
+                            {
+                              staticClass:
+                                "btn btn-secondary btn-rounded btn-sm float-right",
+                              attrs: {
+                                title: "Clique aqui para abrir actividade",
+                                href: "#"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.selectRow(pesquisa.id_tarefa)
                                 }
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "progress-bar progress-bar-animated progress-bar-striped bg-success",
-                                    staticStyle: { width: "100%" },
-                                    attrs: { role: "progressbar" }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                            " +
-                                        _vm._s(pesquisa.qtd) +
-                                        " X\n                                        "
-                                    )
-                                  ]
-                                )
-                              ]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "div",
-                              {
-                                staticClass: "progress mb-1 progress-xl",
-                                staticStyle: { width: "70%" }
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass: "progress-bar bg-primary",
-                                    staticStyle: { width: "100%" },
-                                    attrs: { role: "progressbar" }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                            " +
-                                        _vm._s(
-                                          _vm
-                                            .moment(String(pesquisa.created_at))
-                                            .format("DD-MM-YYYY HH:mm")
-                                        ) +
-                                        "\n                                        "
-                                    )
-                                  ]
-                                )
-                              ]
-                            )
-                          ])
-                        ]
-                      )
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-eye" }),
+                              _vm._v(" Ver Actividade ")
+                            ]
+                          )
+                        ])
+                      ])
                     }),
                     0
                   )
@@ -68787,7 +68923,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("td", [_vm._v("Vezes Pesquisadas")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Data da Pesquisa")])
+        _c("td", [_vm._v("Data da Pesquisa")]),
+        _vm._v(" "),
+        _c("td")
       ])
     ])
   }
@@ -70693,89 +70831,88 @@ var render = function() {
                 _c(
                   "tbody",
                   _vm._l(_vm.accoes, function(accao) {
-                    return _c(
-                      "tr",
-                      {
-                        staticClass: "tabelaClicked",
-                        attrs: {
-                          title: "Clique aqui para ver relatório da acção"
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.selectRow(accao)
-                          }
-                        }
-                      },
-                      [
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(
-                              _vm
-                                .moment(String(accao.created_at))
-                                .format("DD-MM-YYYY HH:mm")
-                            )
+                    return _c("tr", { staticClass: "tabelaClicked" }, [
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm
+                              .moment(String(accao.created_at))
+                              .format("DD-MM-YYYY HH:mm")
                           )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(accao.descricao))]),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          [
-                            _c("center", [
-                              _c("img", {
-                                staticClass: "rounded-circle",
-                                staticStyle: { border: "solid #d0d5dc 1px" },
-                                attrs: {
-                                  src: "images/users/" + accao.fotoResp,
-                                  alt: "user-image",
-                                  width: "45px",
-                                  height: "45px"
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("center", [
-                              _c("span", [
-                                _vm._v(_vm._s(accao.utilizador_codigo))
-                              ])
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(accao.descricao))]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          _c("center", [
+                            _c("img", {
+                              staticClass: "rounded-circle",
+                              staticStyle: { border: "solid #d0d5dc 1px" },
+                              attrs: {
+                                src: "images/users/" + accao.fotoResp,
+                                alt: "user-image",
+                                width: "45px",
+                                height: "45px"
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("center", [
+                            _c("span", [
+                              _vm._v(_vm._s(accao.utilizador_codigo))
                             ])
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c("td", [
-                          accao.utilizador_pergunta == null
-                            ? _c("p")
-                            : _c(
-                                "div",
-                                [
-                                  _c("center", [
-                                    _c("img", {
-                                      staticClass: "rounded-circle",
-                                      staticStyle: {
-                                        border: "solid #d0d5dc 1px"
-                                      },
-                                      attrs: {
-                                        src: "images/users/" + accao.fotoSuport,
-                                        alt: "user-image",
-                                        width: "45px",
-                                        height: "45px"
-                                      }
-                                    })
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("center", [
-                                    _c("span", [
-                                      _vm._v(_vm._s(accao.utilizador_pergunta))
-                                    ])
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("td", [
+                        accao.utilizador_pergunta == null
+                          ? _c("p")
+                          : _c(
+                              "div",
+                              [
+                                _c("center", [
+                                  _c("img", {
+                                    staticClass: "rounded-circle",
+                                    staticStyle: {
+                                      border: "solid #d0d5dc 1px"
+                                    },
+                                    attrs: {
+                                      src: "images/users/" + accao.fotoSuport,
+                                      alt: "user-image",
+                                      width: "45px",
+                                      height: "45px"
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("center", [
+                                  _c("span", [
+                                    _vm._v(_vm._s(accao.utilizador_pergunta))
                                   ])
-                                ],
-                                1
-                              )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
+                                ])
+                              ],
+                              1
+                            )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          attrs: {
+                            title: "Clique aqui para ver relatório da acção"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.selectRow(accao)
+                            }
+                          }
+                        },
+                        [
                           accao.estado == "ACRD"
                             ? _c("p", { staticStyle: { color: "#5e9ee2" } }, [
                                 _c("i", {
@@ -70845,40 +70982,40 @@ var render = function() {
                                 _vm._v("Em Curso Resp. Suporte")
                               ])
                             : _vm._e()
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "div",
-                            { staticClass: "progress mb-1 progress-xl" },
-                            [
-                              _c(
-                                "div",
-                                {
-                                  staticClass: "progress-bar bg-secondary",
-                                  staticStyle: { width: "100%" },
-                                  attrs: {
-                                    role: "progressbar",
-                                    "aria-valuenow": "50",
-                                    "aria-valuemin": "0",
-                                    "aria-valuemax": "100"
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                        " +
-                                      _vm._s(accao.avanco) +
-                                      " %\n                                    "
-                                  )
-                                ]
-                              )
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(accao.tempo_acao))])
-                      ]
-                    )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "div",
+                          { staticClass: "progress mb-1 progress-xl" },
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "progress-bar bg-secondary",
+                                staticStyle: { width: "100%" },
+                                attrs: {
+                                  role: "progressbar",
+                                  "aria-valuenow": "50",
+                                  "aria-valuemin": "0",
+                                  "aria-valuemax": "100"
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(accao.avanco) +
+                                    " %\n                                    "
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(accao.tempo_acao))])
+                    ])
                   }),
                   0
                 )

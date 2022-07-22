@@ -524,7 +524,7 @@
                             </tr>
                         </thead>
                         <tbody>                          
-                            <tr v-for="accao in accoes" @click="selectRow(accao)" class="tabelaClicked" title='Clique aqui para ver relatório da acção'>
+                            <tr v-for="accao in accoes" class="tabelaClicked">
                                 <td>{{ moment(String(accao.created_at)).format('DD-MM-YYYY HH:mm') }}</td>
                                 <td>{{accao.descricao}}</td>
                                 <td>
@@ -550,7 +550,7 @@
                                         <center><span>{{accao.utilizador_pergunta}}</span></center>
                                     </div>
                                 </td>
-                                <td>
+                                <td title='Clique aqui para ver relatório da acção' @click="selectRow(accao)">
                                     <p v-if="accao.estado=='ACRD'" style="color:#5e9ee2"><i class="mdi mdi-content-save-move mdi-18px mr-1"></i>Registada</p>
                                     <p v-if="accao.estado=='ACCO'" class="cor-verdeTexto"><i class="mdi mdi-check-circle mdi-18px mr-1"></i>Concluída</p>
                                     <p v-if="accao.estado=='ACCU'" class="cor-laranjaTexto"><i class="mdi mdi-progress-clock mdi-18px mr-1"></i>Em Curso</p>
@@ -652,6 +652,8 @@
                 accao_utilizador:'',
                 estilo: '',
                 percentagem_hora:'',
+                //Dados Extra
+                data_criacao_actividade:''
             };       
         },
         validations: {
@@ -727,11 +729,11 @@
             }        
         },
         created(){                
-            this.pegaActividade();   
+            this.pegaActividade();  
+            this.pegaUltimaAccao(); 
         },
 
         mounted(){
-            this.pegaUltimaAccao();
             this.pegaTipos();
             this.pegaOrigens();
             this.pegaUtilizador(); 
@@ -781,9 +783,9 @@
                         self.urlTarefa = 'auth/gerarTarefaPdf/'+self.codigo;  
                         self.fotoSolicitante = response.data.user_solicitante;
                         self.fotoResponsavel = response.data.user_responsavel;
+                        self.data_criacao_actividade = response.data.created_at;
 
-                        self.visible = false;  
-                                                                                                              
+                        self.visible = false;                                                                                                                
                     }
                 })
                 .catch(function (error) {
@@ -806,7 +808,9 @@
 
                         //Montar a progress do estado e avanço actividade topo
                         self.percentagem_hora=self.accao_avanco;
-                        self.estilo='width:'+self.accao_avanco+'%;font-size:15px';  
+                        self.estilo='width:'+self.accao_avanco+'%;font-size:15px';
+
+                        self.avanco = response.data.avanco;  
                     }
                 })
                 .catch(function (error) {
@@ -1068,7 +1072,24 @@
                         });
                         return;
                     }
-            
+                    if(this.avanco==0){
+                        Swal.fire({
+                            text: "O avanço deve ser superior a 0.",
+                            icon: 'error',
+                            confirmButtonText: 'Fechar'
+                        });
+                        return;
+                    }
+                    if(moment(this.data_criacao_actividade) > moment(this.data_operacao)){
+                        Swal.fire({
+                            text: "Informe uma data maior que a data de criação da actividade.",
+                            icon: 'error',
+                            confirmButtonText: 'Fechar'
+                        });
+                        return;
+                    }
+
+                                
                     let self = this          
                     this.$axios.post('auth/registarOperacao',{
                         'tarefa_id': this.idActividade,

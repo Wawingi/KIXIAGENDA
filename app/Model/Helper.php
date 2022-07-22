@@ -30,9 +30,10 @@ class Helper extends Model
         return $cont2;
     }
 
-     //Pega tempo de segundos para formato visual Acção
-     public static function setTempoVisualAccao($accao){
+    //Pega tempo de segundos para formato visual Acção
+    public static function setTempoVisualAccao($accao){
         switch($accao->tempo_acao){
+            case 0: $accao->tempo_acao = '0:00';break;
             case 300: $accao->tempo_acao = '0:05';break;
             case 600: $accao->tempo_acao = '0:10';break;
             case 900: $accao->tempo_acao = '0:15'; break;                  

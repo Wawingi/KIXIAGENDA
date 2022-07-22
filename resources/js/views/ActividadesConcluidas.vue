@@ -31,10 +31,11 @@
                                 <td>Solicitante</td>
                                 <td>Solicitação</td>
                                 <td>Execução</td>
+                                <td></td>
                             </tr>
                         </thead>
                         <tbody>                          
-                            <tr title='Clique aqui para abrir actividade' v-for="tarefa in tarefas" class="tabelaClicked" @click="selectRow(tarefa.id)">
+                            <tr title='Clique aqui para abrir actividade' v-for="tarefa in tarefas" class="tabelaClicked">
                                 <td>{{tarefa.codigo}}</td>
                                 <td>{{tarefa.titulo}}</td>
                                 <td>{{tarefa.solicitante}}</td>
@@ -52,6 +53,9 @@
                                             Actividade para Hoje
                                         </div>
                                     </div>
+                                </td>  
+                                <td width="20%">
+                                    <a @click="selectRow(tarefa.id)" title="Clique aqui para abrir actividade" href="#" class="btn btn-secondary btn-rounded btn-sm float-right"><i class='fas fa-eye'></i> Ver Actividade </a>
                                 </td>                              
                             </tr>
                         </tbody>

@@ -9,7 +9,8 @@
                             <div class="card-body p-4">
                                 
                                 <div class="text-center w-75 m-auto">
-                                    <img src="images/logo.png" width="200" alt="" height="30">                    
+                                    <img src="images/logomarca.png" width="50" alt="" height="50">   
+                                    <p style="font-size:20px;color:#0f5b3b;font-family:arial" class="logo-lg-text-light">KIXIAGENDA</p>                 
                                 </div>
                                 <br><hr>
                                 <form  v-on:submit.prevent="logar">
@@ -47,7 +48,7 @@
         </div>
 
         <footer style="color:#fff" class="footer footer-alt">
-            2020 &copy; KixiAgenda by <b>KixiCrédito</b> 
+            2022 &copy; KixiAgenda by <b>KixiCrédito</b> 
         </footer>
     </div>
 </template>

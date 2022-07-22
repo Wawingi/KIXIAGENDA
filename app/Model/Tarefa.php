@@ -137,7 +137,7 @@ class Tarefa extends Model
                 ->where(DB::raw('DATE(tarefa.created_at)'),'=',date('Y-m-d'))
                 ->orWhere('tarefa.avanco','<',100)
                 ->orderBy('tarefa.created_at','DESC')
-                ->get();      
+                ->get();    
     }
 
     public static function getAllTarefas(){
@@ -195,7 +195,7 @@ class Tarefa extends Model
         return DB::table('tarefa')
                 ->join('tipo', 'tipo.id', '=', 'tarefa.id_tipo')
                 ->join('origem','origem.id','=','tarefa.id_origem')
-                ->select('tarefa.id','tarefa.codigo','tarefa.titulo','tarefa.origem_dado','tarefa.tempo','tarefa.solicitante','tarefa.responsavel','tarefa.data_solicitacao','tarefa.data_prevista','tarefa.departamento_origem','tarefa.departamento_destino','tarefa.descricao','tipo.tipo','origem.titulo as origem')
+                ->select('tarefa.id','tarefa.codigo','tarefa.titulo','tarefa.origem_dado','tarefa.tempo','tarefa.solicitante','tarefa.responsavel','tarefa.data_solicitacao','tarefa.data_prevista','tarefa.departamento_origem','tarefa.departamento_destino','tarefa.created_at','tarefa.descricao','tipo.tipo','origem.titulo as origem')
                 ->where('tarefa.id','=',$tarefa_id)
                 ->first();
     }

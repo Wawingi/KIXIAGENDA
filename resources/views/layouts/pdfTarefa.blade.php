@@ -56,9 +56,9 @@
             <td width="20%" >
                 <p style="font-size:18px;text-align:center;color:#111;font-weight:bold">{{$tarefa->codigo}}</p>
                 @if($tarefa->avanco==100)
-                    <p style="color:#339933;font-size:13px;text-align:center;font-weight:bold;margin-top:-15px">Concluída</p>
+                    <p style="color:#339933;font-size:13px;text-align:center;font-weight:bold;margin-top:-15px">[Concluída]</p>
                 @else
-                    <p style="color:#4787CD;font-size:13px;text-align:center;font-weight:bold;margin-top:-15px">(Registada)</p>
+                    <p style="color:#4787CD;font-size:13px;text-align:center;font-weight:bold;margin-top:-15px">[Registada]</p>
                 @endif
             </td>
             <td style="font-size:14px;font-weight: bold" @if($tarefa->avanco==100) class="cor-verdeE" @else class="cor-azulE" @endif colspan="5">

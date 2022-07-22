@@ -16,6 +16,7 @@ class CreatePesquisasTable extends Migration
         Schema::create('pesquisas', function (Blueprint $table) {
             $table->uuid('id');
             $table->string('codigo',8);
+            $table->string('responsavel',10);
             $table->smallInteger('qtd');   
             $table->timestamps();
 

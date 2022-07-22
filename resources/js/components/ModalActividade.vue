@@ -646,9 +646,9 @@
                     //Verificar a data de execução para não ser superior a 30 dias
                     var dias =  Math.floor(( moment(this.data_execucao) - moment(this.data_solicitacao) ) / 86400000);
                     
-                    if(dias>20){
+                    if(dias>30){
                         Swal.fire({
-                            text: "A data prevista não pode exceder 20 dias.",
+                            text: "A data prevista não pode exceder 30 dias.",
                             icon: 'error',
                             confirmButtonText: 'Fechar'
                         });

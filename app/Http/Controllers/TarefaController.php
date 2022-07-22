@@ -123,8 +123,15 @@ class TarefaController extends Controller
     }
 
     public function pegaGeralTarefas(){
+        //$expiration = 60*2; //Segundos
+        //$key = 'tarefas';
+        
         $tarefas = Tarefa::getGeralTarefas(); 
-        return response()->json($tarefas,200);        
+        return response()->json($tarefas,200);   
+        
+        /*return Cache::remember($key,$expiration, function() {
+            return response()->json(Tarefa::getGeralTarefas(),200);
+        });*/
     }
 
     public function pegaTarefasAtrasadas(){
@@ -133,7 +140,7 @@ class TarefaController extends Controller
     }
 
     public function pegaTarefasAgendadas(){
-        $tarefas = Tarefa::getTarefasAgendadas($now = date('Y-m-d'));//dd($tarefas);
+        $tarefas = Tarefa::getTarefasAgendadas($now = date('Y-m-d'));
         return response()->json($tarefas,200);               
     }
 
@@ -178,11 +185,20 @@ class TarefaController extends Controller
     public function registarOperacaoTarefa(Request $request){
         $tarefa=Tarefa::objectoActividade($request->codigo);
         $operacao = TarefaOperacao::getUltimaOperacao($request->codigo);
-        
-        //Verificar a data informada de operação nao ser menor que a data da ultima operação
-        /*if(date('Y-m-d H:i:s',strtotime($request->data_operacao)) < $operacao->created_at){
-            return response()->json('A data hora da operação deve ser superior.',201);
-        }*/        
+     
+        //Validar registo da acção com a data passada e avanço > q actual
+        if(date('Y-m-d H:i:s',strtotime($request->data_operacao)) < $operacao->created_at && $request->avanco > $tarefa->avanco){
+            return response()->json('O registo da acção passada deve ter avanço inferior ao selecionado.',201);
+        }
+
+        if(date('Y-m-d H:i:s',strtotime($request->data_operacao)) > $operacao->created_at && $request->avanco < $tarefa->avanco){
+            return response()->json('Escolha um avanço mair que ['.$tarefa->avanco.' %]',201);
+        }
+
+        //Validar o registo de acção em data passada
+        if(date('Y-m-d H:i:s',strtotime($request->data_operacao)) < $operacao->created_at && $operacao->avanco==0){
+            return response()->json('A data hora da operação deve ser superior. A data do registo da actividade é [ '.date('d-m-Y H:i:s',strtotime($operacao->created_at)).' ]',201);
+        }       
 
         //Não fazer acção na actividade concluída.
         if($tarefa->avanco==100 && $request->estado!='ACRE'){
@@ -205,9 +221,9 @@ class TarefaController extends Controller
         }
 
         //Avanço deve sempre ser maior q a existente excepto reactivada
-        if($tarefa->avanco>$request->avanco && $request->estado!='ACRE'){
+        /*if($tarefa->avanco>$request->avanco && $request->estado!='ACRE'){
             return response()->json('A percentagem ['.$request->avanco.'] informada deve ser maior do que a ['.$tarefa->avanco.'] última informada.',201);          
-        }
+        }*/
 
         $operacao = new TarefaOperacao;
         $operacao->id = $request->tarefa_id;
@@ -223,7 +239,7 @@ class TarefaController extends Controller
         }
         $operacao->utilizador_codigo = $request->utilizador_codigo;   
         $operacao->estado = $request->estado;
-        $operacao->avanco = $request->avanco; 
+        $operacao->avanco = ($tarefa->avanco > $request->avanco) ? $tarefa->avanco:$request->avanco; 
         $operacao->tempo_acao = $request->tempo_acao * 60; //tempo * 60  
         $operacao->utilizador_pergunta = $request->utilizador_pergunta;
         $operacao->utilizador_registo =  Auth::user()->username;
@@ -265,6 +281,7 @@ class TarefaController extends Controller
     public function secondToHour($accoes){
         foreach($accoes as $accao):
             switch($accao->tempo_acao){
+                case 0:$accao->tempo_acao='0:00'; break;                  
                 case 300:$accao->tempo_acao='0:05'; break;                  
                 case 600:$accao->tempo_acao='0:10'; break;                  
                 case 900:$accao->tempo_acao='0:15'; break;                  
@@ -298,7 +315,7 @@ class TarefaController extends Controller
                 ->join('users', 'users.id', '=', 'tarefa.id_user')
                 ->select('tarefa_operacao.created_at','tarefa_operacao.codigo','tarefa_operacao.descricao','tarefa_operacao.utilizador_codigo','tarefa_operacao.utilizador_pergunta','tarefa_operacao.estado','tarefa_operacao.avanco','tarefa_operacao.tempo_acao','users.name')
                 ->where('tarefa.id','=',$idtarefa)
-                ->orderBy('tarefa_operacao.updated_at','DESC')
+                ->orderBy('tarefa_operacao.created_at','DESC')
                 ->get();
         $accoes = $this->secondToHour($accoes);
         
@@ -428,6 +445,7 @@ class TarefaController extends Controller
 
         $pesquisa = new Pesquisa;
         $pesquisa->codigo = $codigo;
+        $pesquisa->responsavel = Auth::user()->username;
         $pesquisa->qtd = ++$contPesquisas;
         if($pesquisa->save()){
 

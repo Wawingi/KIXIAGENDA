@@ -91,19 +91,19 @@
                         <p style="font-size:18px;text-align:center;color:#111;font-weight:bold;margin-top:5px">{{$accao->codigo}}</p>
                         <p style="font-size:14px;text-align:center;font-weight:bold;margin-top:-15px"> 
                             @if($accao->estado=='ACRG')
-                                <span style="color:#CC8501">({{$accao->avanco}}%) - Reagendada</span>                    
+                                <span style="color:#CC8501">[{{$accao->avanco}}% - Reagendada]</span>                    
                             @elseif($accao->estado=='ACRD')
-                                <span style="color:#CC8501">({{$accao->avanco}}%) - Registada</span>      
+                                <span style="color:#CC8501">[{{$accao->avanco}}% - Registada]</span>      
                             @elseif($accao->estado=='ACCO')
-                                <span style="color:#339933">Concluída</span>   
+                                <span style="color:#339933">[Concluída]</span>   
                             @elseif($accao->estado=='ACCU')
-                                <span style="color:#CC8501">({{$accao->avanco}}%) - Em Curso</span>
+                                <span style="color:#CC8501">[{{$accao->avanco}}% - Em Curso]</span>
                             @elseif($accao->estado=='ACRE')
-                                <span style="color:#CC8501">({{$accao->avanco}}%) - Reativada</span>
+                                <span style="color:#CC8501">[{{$accao->avanco}}% - Reativada]</span>
                             @elseif($accao->estado=='CUSS')
-                                <span style="color:#CC8501">({{$accao->avanco}}%) - Solic. Suporte</span>
+                                <span style="color:#CC8501">[{{$accao->avanco}}% - Solic. Suporte]</span>
                             @elseif($accao->estado=='CURS')
-                                <span style="color:#CC8501">({{$accao->avanco}}%) - Resp. Suporte</span>
+                                <span style="color:#CC8501">[{{$accao->avanco}}% - Resp. Suporte]</span>
                             @endif
                         </p>
                     </div>

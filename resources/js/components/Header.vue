@@ -37,21 +37,17 @@
                             href="#"
                             role="button"
                             aria-haspopup="false"
-                            aria-expanded="false"
-                        >
+                            aria-expanded="false">
                             <img
                                 :src="'images/users/'+fotoPerfil"
                                 alt="user-image"
-                                class="rounded-circle"
-                            />
+                                class="rounded-circle"/>
                             <span class="pro-user-name ml-1">
                                 {{nome}}
                                 <i class="mdi mdi-chevron-down"></i>
                             </span>
                         </a>
-                        <div
-                            class="dropdown-menu dropdown-menu-right profile-dropdown "
-                        >
+                        <div class="dropdown-menu dropdown-menu-right profile-dropdown">
                             <!-- item-->
                             <div class="dropdown-header noti-title">
                                 <h6 class="text-overflow m-0">
@@ -59,7 +55,6 @@
                                 </h6>
                             </div>
 
-                            <!-- item-->
                             <router-link
                                 to="/home/meuPerfil"
                                 class="dropdown-item notify-item"
@@ -70,7 +65,6 @@
 
                             <div class="dropdown-divider"></div>
 
-                            <!-- item-->
                             <a
                                 v-on:click="logout"
                                 class="dropdown-item notify-item btn"
@@ -80,27 +74,26 @@
                             </a>
                         </div>
                     </li>
-                </ul>
+                </ul> 
                 <!-- LOGO -->
                 <div class="logo-box">
                     <router-link to="/home" class="logo text-center">
-                        <span style="margin-left:-50px" class="logo-lg">
-                            <!--<p style="color:#fff">KIXIAGENDA</p>-->
+                        <span class="logo-lg">
+                            
                             <img
-                                src="images/logo.png"
-                                width="200"
+                                src="images/logomarca.png"
+                                width="50"
                                 alt=""
-                                height="30"
+                                height="50"
                             />
-                            <!-- <span class="logo-lg-text-light">Xeria</span> -->
                         </span>
                         <span class="logo-sm">
                             <!-- <span class="logo-sm-text-dark">X</span> -->
                             <img
-                                src="/images/logo.png"
-                                width="100"
+                                src="/images/logomarca.png"
+                                width="50"
                                 alt=""
-                                height="15"
+                                height="50"
                             />
                         </span>
                     </router-link>
@@ -117,9 +110,9 @@
                     <!-- Navigation Menu-->
                     <ul class="navigation-menu">
                         <li class="has-submenu">
-                            <router-link to="/home" exact>
+                            <router-link  to="/home" exact>
                                 <i class="remixicon-home-4-fill"></i>Inicio
-                            </router-link>
+                            </router-link >
                         </li>
                         <li class="has-submenu">
                             <router-link    

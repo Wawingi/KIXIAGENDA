@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Model\Tarefa;
 use App\Model\Helper;
 use App\Model\Pesquisa;
@@ -133,12 +134,14 @@ class RelatorioController extends Controller
         return View('layouts.pdfTarefa',compact('tarefa','solicitante','responsavel','imageSolicitante','imageResponsavel'));
     }
 
-    //Gerar relatório da actividade
+    //lista de pesquisas efectuadas
     public function listarPesquisas(){
         $pesquisas = DB::table('pesquisas')
                     ->join('tarefa','tarefa.codigo','=','pesquisas.codigo')
                     ->select('tarefa.id as id_tarefa','pesquisas.codigo','tarefa.titulo','tarefa.responsavel','pesquisas.qtd','pesquisas.created_at')
+                    ->where('pesquisas.responsavel',Auth::user()->username)
                     ->orderBy('pesquisas.created_at','DESC')
+                    ->take(25)
                     ->get();
 
         return response()->json($pesquisas,200);    

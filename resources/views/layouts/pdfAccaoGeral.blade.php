@@ -77,10 +77,9 @@
 
         <table width="800px" style="margin-left:auto;margin-right:auto;position:relative" class="tabela-relatorio">
             <tr>
-                <td class="cor-verdeE" style="text-align:center;color:#fff">
+                <td class="cor-azulE" style="text-align:center;color:#fff">
                     <div style="margin:5px 0px 4px 0px">
-                        <span style="margin-top:10px">[Registo de Acção]</span>
-                        <span style="font-size:17px;text-align:center;color:#fff;font-weight:bold">{{$tarefa->codigo}}</span>
+                        <span style="font-size:18px;text-align:center;color:#fff;font-weight:bold;margin-top:5px">{{$tarefa->codigo}}</span>
                     </div>
                 </td>
                 <td style="font-size:12px" class="cor-azulE" colspan="8">

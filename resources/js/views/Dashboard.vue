@@ -18,7 +18,7 @@
         <loading :active.sync="visible" :can-cancel="true" :is-full-page="fullPage"/>  
 
         <div class="row text-center mb-2">
-            <div class="col-md-6 col-xl-3">
+            <div class="col-md-3 col-xl-3">
                 <div class="card-box">
                     <i class="fas fa-undo-alt font-26"></i>
                     <h3 class="text-primary">{{qtdTarefasTotal}}</h3>
@@ -27,7 +27,7 @@
                     </span>
                 </div>
             </div>
-            <div class="col-md-4 col-xl-2">
+            <div class="col-md-2 col-xl-2">
                 <div class="card-box">
                     <i class="fas fa-clipboard-check font-26"></i>
                     <h3 class="text-success">{{qtdTarefasConcluidas}}</h3>
@@ -36,7 +36,7 @@
                     </span>
                 </div>
             </div>
-            <div class="col-md-6 col-xl-3">
+            <div class="col-md-3 col-xl-3">
                 <div class="card-box">
                     <i class="fas fa-file-alt font-26"></i>
                     <h3 class="text-warning">{{qtdTarefasNaoConcluidas}}</h3>
@@ -45,7 +45,7 @@
                     </span>                   
                 </div>
             </div>         
-            <div class="col-md-4 col-xl-2">
+            <div class="col-md-2 col-xl-2">
                 <div class="card-box">
                     <i class="fas fa-clipboard-list font-26"></i>
                     <h3 class="text-danger">{{qtdTarefasAtrasadas}}</h3>
@@ -54,7 +54,7 @@
                     </span>
                 </div>
             </div>
-            <div class="col-md-4 col-xl-2">
+            <div class="col-md-2 col-xl-2">
                 <div class="card-box">
                     <i class="fas fa-file-alt font-26"></i>
                     <h3 class="text-success">{{qtdAccoes}}</h3>
@@ -123,10 +123,11 @@
                                 <td>Responsável</td>                               
                                 <td>Solicitação</td>
                                 <td>Estado</td>
+                                <td></td>
                             </tr>
                         </thead>
                         <tbody>                          
-                            <tr title='Clique aqui para abrir actividade' v-for="tarefa in tarefas" class="tabelaClicked" @click="selectRow(tarefa.id,tarefa.codigo)">           
+                            <tr v-for="tarefa in tarefas" class="tabelaClicked">           
                                 <td>{{tarefa.codigo}}</td> 
                                 <td>{{tarefa.titulo}}</td>                             
                                 <td>{{tarefa.responsavel}}</td>                             
@@ -151,7 +152,10 @@
                                             Em Curso 
                                         </div>
                                     </div>
-                                </td>                              
+                                </td>  
+                                <td width="20%">
+                                    <a @click="selectRow(tarefa.id,tarefa.codigo)" title="Clique aqui para abrir actividade" href="#" class="btn btn-secondary btn-rounded btn-sm float-right"><i class='fas fa-eye'></i> Ver Actividade </a>
+                                </td>                            
                             </tr>
                         </tbody>
                     </table>
