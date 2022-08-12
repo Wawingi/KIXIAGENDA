@@ -4249,6 +4249,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4268,7 +4270,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (response.status == 200) {
         self.accoes = response.data;
         self.visible = false;
-        console.log("ARRAY: " + self.accoes.users);
         self.pegaTarefasRegularizadas();
         self.pegaTarefasAtrasadas();
       }
@@ -4289,7 +4290,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   data: {
                     labels: this.accoes.users,
                     datasets: [{
-                      label: 'Actividades Regularizadas Hoje',
+                      label: 'Tempo Trabalhado (minutos)',
                       backgroundColor: '#1abc9c',
                       data: this.accoes.accoes,
                       borderWidth: 1
@@ -70448,7 +70449,18 @@ var render = function() {
                                 _c("tr", [
                                   _c("td", [_vm._v(_vm._s(_vm.selectedTipo))]),
                                   _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(_vm.codigo))]),
+                                  _c("td", [
+                                    _c(
+                                      "span",
+                                      {
+                                        staticStyle: {
+                                          color: "#4787cd",
+                                          "font-weight": "bold"
+                                        }
+                                      },
+                                      [_vm._v(_vm._s(_vm.codigo))]
+                                    )
+                                  ]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(_vm.selectedOrigem))

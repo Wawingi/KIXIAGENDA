@@ -34,11 +34,6 @@ class UtilizadorController extends Controller
     }
 
     public function logar(Request $request){
-        /*if (Auth::attempt(['username' => $request->username, 'password' => $request->senha],true)) {
-            return response()->json(200);
-        } else {
-            return response()->json(['error'=>'Erro ao logar'],401);
-        }*/
         $user = User::where('username', $request->username)
                   ->where('password',sha1($request->senha))
                   ->first();
@@ -83,15 +78,14 @@ class UtilizadorController extends Controller
 
     //Função logar apartir de API
     public function loginAPI(Request $request){
-        $user = User::select('name','username','email')
+        $user = User::select('name','username','email','departamento','foto')
                     ->where('username', $request->username)               
                     ->where('password',sha1($request->password))
                     ->where('estado',1)
                     ->first();
 
         if (is_object($user)){
-            Auth::login($user);
-           
+            Auth::login($user);           
             return response()->json($user,200);
         } else
             return response()->json(0);

@@ -16,6 +16,7 @@
 
         <loading :active.sync="visible" :can-cancel="true" :is-full-page="fullPage"/>  
 
+        <!-- Actividades regularizadas hoje -->
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -26,6 +27,7 @@
             </div>
         </div>
 
+        <!-- Actividades atrasadas -->
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -60,8 +62,6 @@
                 if(response.status==200){
                     self.accoes = response.data;
                     self.visible = false;  
-                 
-                    console.log("ARRAY: "+self.accoes.users); 
 
                     self.pegaTarefasRegularizadas();
                     self.pegaTarefasAtrasadas();
@@ -80,15 +80,15 @@
                     data: {
                         labels: this.accoes.users,
                         datasets: [{
-                            label: 'Actividades Regularizadas Hoje',
+                            label: 'Tempo Trabalhado (minutos)',
                             backgroundColor: '#1abc9c',
                             data: this.accoes.accoes,
-                            borderWidth: 1
+                            borderWidth: 1                           
                         }]
                     },
                     options: {
                         scales: {
-                            yAxes: [{
+                            yAxes: [{                                
                                 ticks: {
                                     beginAtZero: true
                                 }

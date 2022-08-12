@@ -378,7 +378,7 @@
                                             </tr>
                                             <tr>                           
                                                 <td>{{selectedTipo}}</td>                           
-                                                <td>{{codigo}}</td>
+                                                <td><span style="color:#4787cd;font-weight:bold">{{codigo}}</span></td>
                                                 <td>{{selectedOrigem}}</td>
                                                 <td>{{dado_origem}}</td>
                                             </tr>

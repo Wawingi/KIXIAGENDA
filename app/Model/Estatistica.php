@@ -47,7 +47,10 @@ class Estatistica extends Model
     }
 
     // Construção do gráfico estátistica
-    public static function tarefasRegulaizadas(){
-        dd('AQ');
+    public static function tarefasRegularizadas(){
+        return DB::table('tarefa_operacao') 
+                ->select('utilizador_codigo','tempo_acao')
+                ->where(DB::raw('DATE(created_at)'),'=',date('Y-m-d'))
+                ->get();  
     } 
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Estatistica;
+use App\Model\Helper;
 use App\User;
 
 class EstatisticaController extends Controller
@@ -23,23 +24,25 @@ class EstatisticaController extends Controller
 
     public function graficoTarefasRegularizadas(){
         $users = User::getUsersDpto("Sistemas & Organização");
-        $accoes = Estatistica::contAccoesRegularizadasHoje();
+        $accoes = Estatistica::tarefasRegularizadas();
         $atrasadas = Estatistica::contTarefasAtrasadas();
         
         $utilizadores = array();
         $contAccoes = array();
         $contAtrasadas = array();
-        $qtde=0;
+        $qtde=0; 
         
         //Construir array das actividades de hoje de um utilizador
         foreach($users as $user){
             foreach($accoes as $accao){                
                 if($user->username==$accao->utilizador_codigo){
-                    $qtde++;
+                    $qtde = $qtde+$accao->tempo_acao;
                 }
             }
+            
             array_push($utilizadores,$user->name); 
-            array_push($contAccoes,$qtde); 
+            //array_push($contAccoes,gmdate("H:i",$qtde)); 
+            array_push($contAccoes,$qtde/60); 
             $qtde=0;    
         }
 

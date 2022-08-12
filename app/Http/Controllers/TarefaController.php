@@ -85,7 +85,7 @@ class TarefaController extends Controller
                 }else{
                     $operacao->estado = 'ACCO';
                     $operacao->avanco = 100;
-                    $operacao->tempo_acao = 0;
+                    $operacao->tempo_acao = $tarefa->tempo;
                 } 
                 
                 $operacao->utilizador_pergunta = null;
@@ -191,7 +191,8 @@ class TarefaController extends Controller
             return response()->json('O registo da acção passada deve ter avanço inferior ao selecionado.',201);
         }
 
-        if(date('Y-m-d H:i:s',strtotime($request->data_operacao)) > $operacao->created_at && $request->avanco < $tarefa->avanco){
+        //Validar registo de acção com data actual e avanço menor do que actual
+        if(date('Y-m-d H:i:s',strtotime($request->data_operacao)) > $operacao->created_at && $request->avanco < $tarefa->avanco && $request->estado!='ACRE'){
             return response()->json('Escolha um avanço mair que ['.$tarefa->avanco.' %]',201);
         }
 
@@ -239,7 +240,12 @@ class TarefaController extends Controller
         }
         $operacao->utilizador_codigo = $request->utilizador_codigo;   
         $operacao->estado = $request->estado;
-        $operacao->avanco = ($tarefa->avanco > $request->avanco) ? $tarefa->avanco:$request->avanco; 
+        
+        if($request->estado!='ACRE')
+            $operacao->avanco = ($tarefa->avanco > $request->avanco) ? $tarefa->avanco:$request->avanco;                           
+        else
+            $operacao->avanco = $request->avanco;
+            
         $operacao->tempo_acao = $request->tempo_acao * 60; //tempo * 60  
         $operacao->utilizador_pergunta = $request->utilizador_pergunta;
         $operacao->utilizador_registo =  Auth::user()->username;
