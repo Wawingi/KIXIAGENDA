@@ -268,7 +268,7 @@
         </div>
 
         <!-- Modal Relatório actividade -->
-        <div class="modal fade"  v-if="is_modal2_visible" id="modalRelatorioActividade2" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"aria-hidden="true">
+        <div class="modal fade"  v-if="is_modal2_visible" id="modalRelatorioActividade2" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
                 <div class="modal-content">  
                     <div class="modal-body">    
@@ -394,7 +394,7 @@
             titulo: { 
                 required,       
                 minLength: minLength(5),
-                maxLength: maxLength(90)
+                maxLength: maxLength(78)
             },
             dado_origem: { 
                 required,       

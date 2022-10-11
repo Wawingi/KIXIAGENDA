@@ -28,7 +28,6 @@ class TarefaController extends Controller
             $tarefa->titulo = $request->titulo;
             $tarefa->id_origem = $request->selectedOrigem;
             $tarefa->origem_dado = $request->dado_origem;
-            $tarefa->tempo = $request->tempo * 60; //tempo * 60
             //Fatiar o departamento origem
             $dpto_origem = explode("-",$request->departamento_origem);   
             if($dpto_origem[0]==99||$dpto_origem[0]==26){
@@ -60,9 +59,11 @@ class TarefaController extends Controller
             if($request->selectedTipo=='INACFE'){
                 $tarefa->data_cumprimento = date('Y-m-d H:i:s');
                 $tarefa->avanco = 100;
+                $tarefa->tempo = 0;
             }else{ 
                 $tarefa->data_cumprimento = null;
-                $tarefa->avanco = 00;    
+                $tarefa->avanco = 00; 
+                $tarefa->tempo = $request->tempo * 60; //tempo * 60   
             }
             $tarefa->data_envio = date('Y-m-d H:i:s');
             $tarefa->codigo = Tarefa::generateCodigo(Auth::user()->username);
@@ -85,7 +86,7 @@ class TarefaController extends Controller
                 }else{
                     $operacao->estado = 'ACCO';
                     $operacao->avanco = 100;
-                    $operacao->tempo_acao = $tarefa->tempo;
+                    $operacao->tempo_acao = $request->tempo * 60;
                 } 
                 
                 $operacao->utilizador_pergunta = null;

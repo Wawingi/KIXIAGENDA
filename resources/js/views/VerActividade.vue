@@ -99,7 +99,7 @@
         <!-- Fim Modal Relatório actividade-->  
 
         <!-- Modal Relatório acção -->
-        <div class="modal fade modalRelatorioAccao" v-if="is_modal_visible" id="modalRelatorioAccao" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"aria-hidden="true">
+        <div class="modal fade modalRelatorioAccao" v-if="is_modal_visible" id="modalRelatorioAccao" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
                 <div class="modal-content">
                     
@@ -185,7 +185,7 @@
         <!-- Fim Modal Relatório acção--> 
 
         <!-- Modal Acção -->
-        <div class="modal fade" id="modalNovaAccao" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"aria-hidden="true">
+        <div class="modal fade" id="modalNovaAccao" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
                 <div class="modal-content">
                     <div id="cabeca-modal" class="modal-header">
@@ -1080,7 +1080,8 @@
                         });
                         return;
                     }
-                    if(moment(this.data_criacao_actividade) > moment(this.data_operacao)){
+
+                    if(moment(this.data_solicitacao)  > moment(this.pegaFormatedDataTime(this.data_operacao.replace("T"," ")))){
                         Swal.fire({
                             text: "Informe uma data maior que a data de criação da actividade.",
                             icon: 'error',
@@ -1088,8 +1089,7 @@
                         });
                         return;
                     }
-
-                                
+                         
                     let self = this          
                     this.$axios.post('auth/registarOperacao',{
                         'tarefa_id': this.idActividade,

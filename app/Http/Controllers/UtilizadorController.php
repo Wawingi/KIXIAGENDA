@@ -84,8 +84,9 @@ class UtilizadorController extends Controller
                     ->where('estado',1)
                     ->first();
 
-        if (is_object($user)){
-            Auth::login($user);           
+        $user->foto = base64_encode(file_get_contents(public_path('/images/users/'.$user->foto)));
+
+        if (is_object($user)){         
             return response()->json($user,200);
         } else
             return response()->json(0);

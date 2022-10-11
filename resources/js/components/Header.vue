@@ -79,7 +79,6 @@
                 <div class="logo-box">
                     <router-link to="/home" class="logo text-center">
                         <span class="logo-lg">
-                            
                             <img
                                 src="images/logomarca.png"
                                 width="50"
@@ -91,9 +90,9 @@
                             <!-- <span class="logo-sm-text-dark">X</span> -->
                             <img
                                 src="/images/logomarca.png"
-                                width="50"
+                                width="30"
                                 alt=""
-                                height="50"
+                                height="30"
                             />
                         </span>
                     </router-link>

@@ -2137,7 +2137,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2691,7 +2690,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     titulo: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"],
       minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["minLength"])(5),
-      maxLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["maxLength"])(90)
+      maxLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["maxLength"])(78)
     },
     dado_origem: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"],
@@ -6254,7 +6253,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context8.abrupt("return");
 
               case 25:
-                if (!(moment__WEBPACK_IMPORTED_MODULE_2___default()(this.data_criacao_actividade) > moment__WEBPACK_IMPORTED_MODULE_2___default()(this.data_operacao))) {
+                if (!(moment__WEBPACK_IMPORTED_MODULE_2___default()(this.data_solicitacao) > moment__WEBPACK_IMPORTED_MODULE_2___default()(this.pegaFormatedDataTime(this.data_operacao.replace("T", " "))))) {
                   _context8.next = 28;
                   break;
                 }
@@ -64518,9 +64517,9 @@ var render = function() {
                   _c("img", {
                     attrs: {
                       src: "/images/logomarca.png",
-                      width: "50",
+                      width: "30",
                       alt: "",
-                      height: "50"
+                      height: "30"
                     }
                   })
                 ])
