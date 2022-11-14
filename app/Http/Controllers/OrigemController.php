@@ -26,21 +26,17 @@ class OrigemController extends Controller
 
     public function registarOrigem(Request $request){
         try{
-            //if($this->isTipo($request->id)){
-                //return response()->json(401);
-            //}else{
-                $origem = new Origem;
-                $origem->id = $request->id;
-                $origem->titulo = $request->titulo;
-                $origem->descricao = $request->descricao;
-                $origem->dado = $request->dado;
+            $origem = new Origem;
+            $origem->id = $request->id;
+            $origem->titulo = $request->titulo;
+            $origem->descricao = $request->descricao;
+            $origem->dado = $request->dado;
 
-                if($origem->save()){
-                    return response()->json(200);
-                }else{
-                    return response()->json(401);
-                }
-            //}
+            if($origem->save()){
+                return response()->json(200);
+            }else{
+                return response()->json(401);
+            }
         } catch (Exception $ex) {
             return $ex->getMessage();
         }

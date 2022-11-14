@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Tipo;
+use App\Model\Origem;
+use App\Model\TipoObjecto;
 use Illuminate\Support\Facades\DB;
 Use Exception;
 
@@ -57,5 +59,13 @@ class TipoController extends Controller
         } catch (Exception $ex) {
             return $ex->getMessage();
         }
+    }
+
+    //Pega a Origem e o Tipo Objecto de um determinado tipo
+    public function pegaDependentesTipo($idTipo){
+        $tipos = Origem::getOrigem($idTipo);
+        $tipo_objectos = TipoObjecto::getTipoObjecto($idTipo);
+    
+        return response()->json(['tipos'=>$tipos,'tipo_objectos'=>$tipo_objectos],200);
     }
 }

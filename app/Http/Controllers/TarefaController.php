@@ -68,8 +68,11 @@ class TarefaController extends Controller
             $tarefa->data_envio = date('Y-m-d H:i:s');
             $tarefa->codigo = Tarefa::generateCodigo(Auth::user()->username);
             $tarefa->id_user = Auth::user()->id;
+            $tarefa->id_tipo_objecto = $request->selectedTipoObjecto;
+            $tarefa->objecto = $request->objecto;
 
             if($tarefa->save()){
+
                 //Registar primeira acção da actividade
                 $operacao = new TarefaOperacao;
         
@@ -99,6 +102,18 @@ class TarefaController extends Controller
         }catch (Exception $e){
             return response()->json('Verifique os dados informados.',201);
         }
+    }
+
+    public function verActividade($id){
+        $actividade = Tarefa::getTarefaById($id);
+      
+        $actividade->user_solicitante = User::getFoto($actividade->solicitante);
+        $actividade->user_responsavel = User::getFoto($actividade->responsavel);
+
+        $actividade->solicitante = User::getCurtoNome(User::getPessoa($actividade->solicitante)->name);
+        $actividade->responsavel = User::getCurtoNome(User::getPessoa($actividade->responsavel)->name);
+       
+        return response()->json($actividade,200);
     }
 
     public function exportarTarefaCSV()
@@ -145,42 +160,12 @@ class TarefaController extends Controller
         return response()->json($tarefas,200);               
     }
 
-    public function verActividade($id){
-        $actividade = Tarefa::getTarefaById($id);
-      
-        $actividade->user_solicitante = User::getFoto($actividade->solicitante);
-        $actividade->user_responsavel = User::getFoto($actividade->responsavel);
-
-        $actividade->solicitante = User::getCurtoNome(User::getPessoa($actividade->solicitante)->name);
-        $actividade->responsavel = User::getCurtoNome(User::getPessoa($actividade->responsavel)->name);
-       
-        return response()->json($actividade,200);
-    }
-
     public function verLastAccao($idtarefa){
         $accao = DB::table('tarefa_operacao')->select('created_at','descricao','estado','avanco','tempo_acao','utilizador_codigo')->where('id',$idtarefa)->latest('created_at')->first();
         $accao->estado = Tarefa::siglaToEstado($accao->estado);
         $accao->tempo_acao = Tarefa::secondToHour($accao->tempo_acao);
         $accao->created_at = date('d-m-Y',strtotime($accao->created_at));
         return response()->json($accao,200);
-    }
-
-    public function editarTarefa(Request $request){
-        $tarefa = Tarefa::find($request->id);
-        $tarefa->id_tipo = $request->selectedTipo;
-        $tarefa->titulo = $request->titulo;
-        $tarefa->id_origem = $request->selectedOrigem;
-        $tarefa->origem_dado = $request->dado_origem;
-        $tarefa->tempo = $request->tempo;
-        $tarefa->departamento_origem = $request->departamento_origem;
-        $tarefa->solicitante = $request->selectedSolicitante;
-        $tarefa->data_solicitacao = $request->data_solicitacao;
-        $tarefa->departamento_destino = $request->departamento_destino;
-        $tarefa->responsavel = $request->selectedResponsavel;
-        $tarefa->data_prevista = $request->data_prevista;
-        $tarefa->descricao = $request->descricao;
-
-        $tarefa->save();
     }
 
     public function registarOperacaoTarefa(Request $request){

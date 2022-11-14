@@ -368,6 +368,17 @@
                                                     <textarea v-model.trim="titulo" class="form-control form-control-sm" rows="1" style="background-color:#e0efff;font-weight:bold" readonly></textarea><br>
                                                     Descrição:
                                                     <textarea v-model.trim="descricao" class="form-control form-control-sm" rows="3" style="background-color:#e0efff;font-weight:bold" readonly></textarea>
+                                                    <br>
+                                                    <div class="row">
+                                                        <div class="col-5">
+                                                            Tipo Objecto
+                                                            <textarea v-model.trim="tipo_objecto" class="form-control form-control-sm" rows="1" style="background-color:#e0efff;font-weight:bold" readonly></textarea>
+                                                        </div>
+                                                        <div class="col-7">
+                                                            Objecto
+                                                            <textarea v-model.trim="objecto" class="form-control form-control-sm" rows="1" style="background-color:#e0efff;font-weight:bold" readonly></textarea>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <tr style="background: #4787CD;color:#fff">                           
@@ -526,7 +537,7 @@
                         <tbody>                          
                             <tr v-for="accao in accoes" class="tabelaClicked">
                                 <td>{{ moment(String(accao.created_at)).format('DD-MM-YYYY HH:mm') }}</td>
-                                <td>{{accao.descricao}}</td>
+                                <td title='Clique aqui para ver relatório da acção' @click="selectRow(accao)"><p style="color:#3bafda;font-weight:bold">{{accao.descricao}}</p></td>
                                 <td>
                                     <center><img
                                         style="border:solid #d0d5dc 1px"
@@ -550,7 +561,7 @@
                                         <center><span>{{accao.utilizador_pergunta}}</span></center>
                                     </div>
                                 </td>
-                                <td title='Clique aqui para ver relatório da acção' @click="selectRow(accao)">
+                                <td>
                                     <p v-if="accao.estado=='ACRD'" style="color:#5e9ee2"><i class="mdi mdi-content-save-move mdi-18px mr-1"></i>Registada</p>
                                     <p v-if="accao.estado=='ACCO'" class="cor-verdeTexto"><i class="mdi mdi-check-circle mdi-18px mr-1"></i>Concluída</p>
                                     <p v-if="accao.estado=='ACCU'" class="cor-laranjaTexto"><i class="mdi mdi-progress-clock mdi-18px mr-1"></i>Em Curso</p>
@@ -616,6 +627,8 @@
                 visualizar: true,
                 data_solicitacaoEdit:'',
                 data_previstaEdit:'',
+                tipo_objecto:'',
+                objecto:'',
                 //Dados da Acção
                 data_operacao:'',
                 descricao_accao:'',
@@ -784,6 +797,8 @@
                         self.fotoSolicitante = response.data.user_solicitante;
                         self.fotoResponsavel = response.data.user_responsavel;
                         self.data_criacao_actividade = response.data.created_at;
+                        self.tipo_objecto = response.data.tipo;
+                        self.objecto = response.data.objecto;
 
                         self.visible = false;                                                                                                                
                     }
@@ -957,50 +972,6 @@
                 });
                 return idOrigem;                
             },
-            editarTarefa: async function(e){
-                this.$v.$touch()
-                if (this.$v.$invalid) {
-                    this.submitStatus = 'ERROR'
-                } else {                
-                    let self = this          
-                    this.$axios.post('auth/editarTarefa',{
-                        'id': this.idActividade,
-                        'selectedTipo': this.pegaTipoID(this.selectedTipo),                        
-                        'titulo': this.titulo.toUpperCase(),
-                        'selectedOrigem': this.pegaOrigemID(this.selectedOrigem),
-                        'dado_origem': this.dado_origem,
-                        'tempo': this.setTempoSegundo(this.tempo),
-                        'departamento_origem': this.departamento_origem,
-                        'selectedSolicitante': this.selectedSolicitante,
-                        'data_solicitacao': this.data_solicitacaoEdit.replace("T"," "),
-                        'departamento_destino': this.departamento_destino,
-                        'selectedResponsavel': this.selectedResponsavel,
-                        'data_prevista': this.data_previstaEdit.replace("T", " "),
-                        'descricao': this.descricao,
-                    })
-                    .then(function (response) {
-                        if(response.status==200){  
-                            location.reload(),
-                            Swal.fire({
-                                text: "Actividade Actualizada com sucesso.",
-                                icon: 'success',
-                                confirmButtonText: 'Fechar'
-                            })                                          
-                        }else{
-                            
-                        }
-                    })
-                    .catch(function (error) {
-                        /*self.limaparCampos();
-                        $('#modalClose').click();
-                        self.flashMessage.error({  
-                            message: 'Erro ao registar actividade.',
-                            time: 2500
-                        });*/
-                    });
-                }
-                
-            },
 
             //limpar dados do formulario acção
             limparFormAccao(){
@@ -1081,7 +1052,7 @@
                         return;
                     }
 
-                    if(moment(this.data_solicitacao)  > moment(this.pegaFormatedDataTime(this.data_operacao.replace("T"," ")))){
+                    if(moment(this.data_solicitacao) > moment(this.pegaFormatedDataTime(this.data_operacao.replace("T"," ")))){
                         Swal.fire({
                             text: "Informe uma data maior que a data de criação da actividade.",
                             icon: 'error',

@@ -129,3 +129,8 @@
 .tabela-actividade > tr > td{
     border: 1px solid #d1cece;
 }
+
+.hr{
+    height:1px;
+    background-color:#c9d4ce; 
+}

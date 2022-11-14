@@ -89,7 +89,7 @@
                         <span class="logo-sm">
                             <!-- <span class="logo-sm-text-dark">X</span> -->
                             <img
-                                src="/images/logomarca.png"
+                                src="images/logomarca.png"
                                 width="30"
                                 alt=""
                                 height="30"

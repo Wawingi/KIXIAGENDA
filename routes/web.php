@@ -20,7 +20,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('pegaFoto/{username}', 'UtilizadorController@pegaFoto');
 
         Route::get('pegaTipos', 'TipoController@pegaTipos');
-        Route::get('pegaOrigens/{idTipo}', 'OrigemController@pegaOrigens');
+        Route::get('pegaOrigem_TipoObjecto/{idTipo}', 'TipoController@pegaDependentesTipo');
         Route::get('pegaOrigensAll', 'OrigemController@pegaOrigensAPI');
 
         Route::post('registarTarefa', 'TarefaController@registarTarefa');
@@ -57,5 +57,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('gerarAccaoPdf/{codigo}/{data}','RelatorioController@gerarAccaoPdf');
         Route::get('gerarTarefaPdf/{codigo}','RelatorioController@gerarTarefaPdf');
         Route::get('listarPesquisas','RelatorioController@listarPesquisas');
+
+        //Rotas para Tipo Objecto
+        Route::get('getTipoObjectos','TipoObjectoController@pegaTipoObjectos');
+        Route::get('getObjectos/{idTipo}','ObjectoController@pegaObjectos');
     });
 });

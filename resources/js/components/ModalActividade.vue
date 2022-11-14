@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="col-8">
                                     <div class="form-group">
-                                        <label for="name">Objecto da Actividade</label>
+                                        <label for="name">Título</label>
                                         <input v-model.trim="$v.titulo.$model" :class="{'is-invalid':$v.titulo.$error, 'is-valid':!$v.titulo.$invalid}" type="text" class="form-control form-control-sm corInput" placeholder="informe objecto da actividade">
                                         <div class="invalid-feedback">
                                             <span v-if="!$v.titulo.required">O Título deve ser fornecido</span>
@@ -89,6 +89,32 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div style="margin-bottom:8px" class="row">                               
+                                <div class="col-4">
+                                    <label for="name">Tipo Objecto</label>
+                                    <select @change="onChangeTipoObjecto($event)" v-model.trim="$v.selectedTipoObjecto.$model" :class="{'is-invalid':$v.selectedTipoObjecto.$error, 'is-valid':!$v.selectedTipoObjecto.$invalid}" class="custom-select custom-select-sm">
+                                        <option disabled selected :value="''">selecione o tipo objecto</option>
+                                        <option v-for="tipoObjecto in tipoObjectos" v-bind:key="tipoObjecto.id_tipo_objecto" v-bind:value="tipoObjecto.id_tipo_objecto">{{tipoObjecto.tipo_objecto}}</option>
+                                    </select>
+                                </div>
+                                
+                                <div v-if="showObjecto==2" class="col-8">
+                                    <label for="name">Objecto</label>
+                                    <input v-model.trim="$v.objecto.$model" :class="{'is-invalid':$v.objecto.$error, 'is-valid':!$v.objecto.$invalid}" type="text" class="form-control form-control-sm corInput" placeholder="informe objecto da actividade">
+                                    <div class="invalid-feedback">
+                                        <span v-if="!$v.objecto.required">O objecto deve ser fornecido</span>                                        
+                                    </div>                                        
+                                </div>  
+                                <div v-if="showObjecto==1" class="col-8">
+                                    <label for="name">Objecto</label>
+                                    <select v-model.trim="$v.objecto.$model" :class="{'is-invalid':$v.objecto.$error, 'is-valid':!$v.objecto.$invalid}" class="custom-select custom-select-sm">
+                                        <option disabled selected :value="''">selecione o objecto</option>
+                                        <option v-for="objecto in objectos" v-bind:key="objecto.objecto" v-bind:value="objecto.objecto">{{objecto.objecto}}</option>
+                                    </select>
+                                </div>                              
+                            </div>
+
                             <div class="row">
                                 <div class="col-6">
                                     <fieldset class="border p-2"><legend style="font-size:16px" class="w-auto">DE: </legend>	
@@ -240,6 +266,7 @@
                                     </fieldset>	
                                 </div>	
                             </div>
+                            
                             <div class="row">
                                 <div class="col-12">
                                     <label for="name">Descrição</label>
@@ -252,7 +279,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr style="height:1px;background-color:#c9d4ce" />
+                            <hr class="hr"/>
                             <div class="text-right">
                                 <button id="modalClose" type="button" class="btn btn-rounded btn-secondary waves-effect" data-dismiss="modal">
                                     <i class="mdi mdi-close mr-1"></i>Fechar
@@ -268,7 +295,7 @@
         </div>
 
         <!-- Modal Relatório actividade -->
-        <div class="modal fade"  v-if="is_modal2_visible" id="modalRelatorioActividade2" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+        <!--<div class="modal fade"  v-if="is_modal2_visible" id="modalRelatorioActividade2" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
                 <div class="modal-content">  
                     <div class="modal-body">    
@@ -347,7 +374,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
 </template>
 <script>
@@ -360,10 +387,13 @@
                 selectedOrigem: '',
                 tipos: [],  
                 origens: [], 
+                tipoObjectos:[],
+                objectos:[],
                 utilizadores: [], 
-                tarefas: [],
-                selectedSolicitante: "",
-                selectedResponsavel: "",
+                tarefas: [], 
+                selectedTipoObjecto: '',
+                selectedSolicitante: '',
+                selectedResponsavel: '',
                 fotoSolicitante: 'default.jpg',
                 fotoResponsavel: 'default.jpg',
                 titulo:'',
@@ -387,7 +417,9 @@
                 codigo:'',
                 qtdPermitidaDescricao:515,
                 qtdeInicial:0,
-                qtdeInformada:0
+                qtdeInformada:0,
+                objecto:'',
+                showObjecto:0, //Escolher o tipo de input em função do TipoObjecto (Texto ou Listagem)
             };       
         },  
         validations: {
@@ -423,6 +455,9 @@
             selectedOrigem: { 
                 required     
             },
+            selectedTipoObjecto: {
+                required
+            },
             tempo: {
                 required
             },
@@ -432,11 +467,12 @@
             departamento_destino: {
                 required
             },
-            
+            objecto:{
+                //required                
+            }
         },
         mounted(){
             this.pegaTipos();
-            this.pegaOrigens();
             this.pegaUtilizador();
             this.pegaTarefas();
         },
@@ -446,26 +482,24 @@
                 this.$axios.get('auth/pegaTipos')
                 .then(function (response) {
                     if(response.status==200){
-                        self.tipos = response.data;             
-                        console.log(response.data);                                                               
+                        self.tipos = response.data;                                                                
                     }
                 })
                 .catch(function (error) {
                     self.pegaTipos();
                 });
             },
-            pegaOrigens: async function(id_tipo){
-                 
+            pegaDependentesTipo: async function(id_tipo){                 
                 let self = this               
-                this.$axios.get('auth/pegaOrigens/'+id_tipo)
+                this.$axios.get('auth/pegaOrigem_TipoObjecto/'+id_tipo)
                 .then(function (response) {
                     if(response.status==200){
-                        self.origens = response.data;             
-                        console.log(response.data);                                                               
+                        self.origens = response.data.tipos;   
+                        self.tipoObjectos = response.data.tipo_objectos;   
                     }
                 })
                 .catch(function (error) {
-                    self.pegaOrigens();
+                    //self.pegaDependentesTipo();
                 });
             },
             pegaUtilizador: async function(){
@@ -473,8 +507,7 @@
                 this.$axios.get('auth/pegaUtilizadores')
                 .then(function (response) {
                     if(response.status==200){
-                        self.utilizadores = response.data;
-                        console.log(response.data);                  
+                        self.utilizadores = response.data;               
                     }else{
  
                     }
@@ -492,7 +525,6 @@
                     }
                 })
                 .catch(function (error) {
-                    //alert("Erro ao carregar dados do perfil");
                 });
             },
             limparCampos(){
@@ -557,7 +589,6 @@
                     }
                 })
                 .catch(function (error) {
-                    alert("Erro ao pegar foto");
                 });      
             },
 
@@ -679,6 +710,8 @@
                         'selectedResponsavel': this.selectedResponsavel,
                         'data_execucao': this.data_execucao.replace("T", " "),
                         'descricao': this.descricao,
+                        'selectedTipoObjecto': this.selectedTipoObjecto,
+                        'objecto': this.objecto,
                     })
                     .then(function (response) {
                         if(response.status==200){                        
@@ -718,7 +751,7 @@
             },
 
             onChangeTipo(event) {
-                this.pegaOrigens(event.target.value);
+                this.pegaDependentesTipo(event.target.value);
             },  
 
             onChangeOrigem(event){
@@ -731,18 +764,35 @@
                 });
             },  
 
+            //Escolher o objecto em função do Tipo objecto (Listagem ou Texo)
+            onChangeTipoObjecto(event){  
+                let tipo_controlo = this.tipoObjectos[0].tipo_controlo;
+                this.showObjecto = tipo_controlo;
+                
+                let idTipo = this.tipoObjectos[0].id_tipo_objecto;
+
+                let self = this               
+                this.$axios.get('auth/getObjectos/'+idTipo)
+                .then(function (response) {
+                    if(response.status==200){
+                        self.objectos = response.data;      
+                    }
+                })
+                .catch(function (error) {
+                    //self.pegaDependentesTipo();
+                });
+            },
+
             //Pega foto utilizador
             pegaFotoUtilizador(username){             
                 let self = this               
                 return this.$axios.get('auth/pegaFoto/'+username)
                 .then(function (response) {
                     if(response.status==200){           
-                        console.log('FOTO: '+response.data);
                         return response.data;                                                           
                     }
                 })
                 .catch(function (error) {
-                    //alert("Erro ao carregar dados do perfil");
                 });                                
             },
 
@@ -765,7 +815,6 @@
                         }
                     })
                     .catch(function (error) {
-                        //alert("Erro ao carregar dados do perfil");
                     });       
                 }
             },
@@ -788,7 +837,6 @@
                         }
                     })
                     .catch(function (error) {
-                        //alert("Erro ao carregar dados do perfil");
                     });       
                 }
             }            
