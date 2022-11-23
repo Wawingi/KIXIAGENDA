@@ -30,7 +30,52 @@
                         </form>
                     </li>
 
-                    <li class="dropdown notification-list">
+                    <!--ALTERNATIVE PARA MOBILE-->  
+                    <ul class="navigation-menu list-unstyled topnav-menu float-right mb-0">                                                                         
+                        <li class="has-submenu">
+                            <a
+                                class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light"
+                                data-toggle="dropdown"
+                                href="#"
+                                role="button"
+                                aria-haspopup="false"
+                                aria-expanded="false">
+                                <img
+                                    :src="'images/users/'+fotoPerfil"
+                                    alt="user-image"
+                                    class="rounded-circle"/>
+                                <span class="pro-user-name ml-1">
+                                    {{nome}}
+                                    <i class="mdi mdi-chevron-down"></i>
+                                </span>
+                            </a>
+                            <ul class="submenu">
+                                <div class="dropdown-header noti-title">
+                                <h5 class="text-overflow m-0">
+                                    Seja Bem vindo !
+                                </h5>
+                            </div>  
+                            <div class="dropdown-divider"></div>                           
+                            <li>
+                                <router-link to="/home/meuPerfil" exact>
+                                    <i class="remixicon-account-circle-line"></i> Meu Perfil
+                                </router-link>
+                            </li>
+                            <div class="dropdown-divider"></div>
+                            <li>
+                                <a
+                                    v-on:click="logout"
+                                    class="dropdown-item notify-item btn"
+                                >
+                                    <i class="remixicon-logout-box-line"></i>
+                                    <span>Logout</span>
+                                </a>
+                            </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <!--<li class="dropdown notification-list">
                         <a
                             class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light"
                             data-toggle="dropdown"
@@ -48,7 +93,7 @@
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-dropdown">
-                            <!-- item-->
+                           
                             <div class="dropdown-header noti-title">
                                 <h6 class="text-overflow m-0">
                                     Seja Bem vindo !
@@ -73,7 +118,7 @@
                                 <span>Logout</span>
                             </a>
                         </div>
-                    </li>
+                    </li>-->
                 </ul> 
                 <!-- LOGO -->
                 <div class="logo-box">

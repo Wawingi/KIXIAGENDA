@@ -78,19 +78,39 @@ class RelatorioController extends Controller
 
     //Gerar relatorio da Acção
     public function gerarAccaoPdf($codigo,$data){
-        //$tarefa = Tarefa::getTarefaByCodigo($codigo);
         $accao= DB::table('tarefa_operacao')
                 ->join('tarefa', 'tarefa_operacao.id', '=', 'tarefa.id')
                 ->join('users', 'users.id', '=', 'tarefa.id_user')
                 ->join('tipo', 'tipo.id', '=', 'tarefa.id_tipo')
-                ->select('tarefa_operacao.created_at','tarefa_operacao.codigo','tarefa_operacao.descricao','tarefa_operacao.utilizador_codigo','tarefa_operacao.utilizador_pergunta','tarefa_operacao.estado','tarefa_operacao.avanco','tarefa_operacao.tempo_acao','tarefa_operacao.acOrigemDado','tarefa.titulo','tarefa.data_prevista','tarefa.descricao as tarefa_descricao','tipo.tipo_abreviado','users.name')
+                ->select('tarefa.created_at','tarefa_operacao.codigo','tarefa_operacao.utilizador_codigo','tarefa_operacao.utilizador_pergunta','tarefa_operacao.estado','tarefa_operacao.avanco','tarefa_operacao.acOrigemDado','tarefa.titulo','tarefa.descricao as tarefa_descricao','tipo.tipo_abreviado','users.name')
                 ->where('tarefa_operacao.codigo','=',$codigo)
                 ->where('tarefa_operacao.created_at','=',$data)
                 ->first();
+
+        //Pega as ultimas 10 actividades
+        $accoes = DB::table('tarefa_operacao')
+                ->select('avanco','estado','created_at','utilizador_codigo','descricao','tempo_acao')
+                ->where('codigo','=',$codigo)
+                ->orderBy('updated_at','DESC')
+                ->take(10)
+                ->get();
         
+            $total_tempo_actividade=0;
+            $contAccoes=count($accoes);
+
+            foreach($accoes as $acc):
+                $user = User::getPessoa($accao->utilizador_codigo);
+                $acc->utilizador_codigo = User::getCurtoNome($user->name);
+                $acc->id = base64_encode(file_get_contents(public_path('/images/users/'.$user->foto)));
+                $acc->estado = Helper::getEstado($acc->estado);
+                $total_tempo_actividade = $total_tempo_actividade+$acc->tempo_acao;
+            endforeach;
+            
+            //Converte segundos para hora
+            $total_tempo_actividade = gmdate("h:i:s",$total_tempo_actividade);
+
         $utilizador_suporte='';
         
-        $accao = Helper::setTempoVisualAccao($accao);
         //Verificar se existe utilizador suporte
         if(!is_null($accao->utilizador_pergunta)){
             $utilizador_suporte = User::getPessoa($accao->utilizador_pergunta);
@@ -101,12 +121,66 @@ class RelatorioController extends Controller
         $utilizador_responsavel = User::getPessoa($accao->utilizador_codigo);
         $utilizador_responsavel=$utilizador_responsavel->name;
         $utilizador_responsavel=Helper::getShortName($utilizador_responsavel);
-        
 
         //Montar assunto
         $assunto=Helper::getEstado($accao->estado).' ('.$accao->avanco.' %) : '.$accao->tipo_abreviado.' : '.$accao->titulo;
         
-        return view('layouts.pdfAccao',compact('accao','utilizador_suporte','utilizador_responsavel','assunto'));
+        return view('layouts.pdfAccao',compact('accao','utilizador_suporte','utilizador_responsavel','assunto','accoes','contAccoes','total_tempo_actividade'));
+    }
+
+    //Abrir relatorio de uma acção apartir da tabela de listagem, onde o topo é a linha selecionada
+    public function gerarRelatorioAccao($codigo,$avanco){
+        $accao= DB::table('tarefa_operacao')
+                ->join('tarefa', 'tarefa_operacao.id', '=', 'tarefa.id')
+                ->join('users', 'users.id', '=', 'tarefa.id_user')
+                ->join('tipo', 'tipo.id', '=', 'tarefa.id_tipo')
+                ->select('tarefa.created_at','tarefa_operacao.codigo','tarefa_operacao.utilizador_codigo','tarefa_operacao.utilizador_pergunta','tarefa_operacao.estado','tarefa_operacao.avanco','tarefa_operacao.acOrigemDado','tarefa.titulo','tarefa.descricao as tarefa_descricao','tipo.tipo_abreviado','users.name')
+                ->where('tarefa_operacao.codigo','=',$codigo)
+                ->first();
+                
+        //Pega as ultimas 10 actividades
+        $accoes = DB::table('tarefa_operacao')
+                ->select('avanco','estado','created_at','utilizador_codigo','descricao','tempo_acao')
+                ->where('codigo','=',$codigo)
+                ->where('avanco','<=',$avanco)
+                ->orderBy('updated_at','DESC')
+                ->take(10)
+                ->get();
+
+            $accao->avanco = $accoes[0]->avanco;
+            $accao->estado = $accoes[0]->estado;
+        
+            $total_tempo_actividade=0;
+            $contAccoes=count($accoes);
+
+            foreach($accoes as $acc):
+                $user = User::getPessoa($accao->utilizador_codigo);
+                $acc->utilizador_codigo = User::getCurtoNome($user->name);
+                $acc->id = base64_encode(file_get_contents(public_path('/images/users/'.$user->foto)));
+                $acc->estado = Helper::getEstado($acc->estado);
+                $total_tempo_actividade = $total_tempo_actividade+$acc->tempo_acao;
+            endforeach;
+           
+            //Converte segundos para hora
+            $total_tempo_actividade = gmdate("H:i:s",$total_tempo_actividade);
+           
+        $utilizador_suporte='';
+        
+        //Verificar se existe utilizador suporte
+        if(!is_null($accao->utilizador_pergunta)){
+            $utilizador_suporte = User::getPessoa($accao->utilizador_pergunta);
+            $utilizador_suporte=$utilizador_suporte->name;
+            $utilizador_suporte=Helper::getShortName($utilizador_suporte);
+        } 
+        
+        $utilizador_responsavel = User::getPessoa($accao->utilizador_codigo);
+        $utilizador_responsavel=$utilizador_responsavel->name;
+        $utilizador_responsavel=Helper::getShortName($utilizador_responsavel);
+
+        //Montar assunto
+        $assunto=Helper::getEstado($accao->estado).' ('.$accao->avanco.' %) : '.$accao->tipo_abreviado.' : '.$accao->titulo;
+        
+        return view('layouts.pdfAccao',compact('accao','utilizador_suporte','utilizador_responsavel','assunto','accoes','contAccoes','total_tempo_actividade'));
     }
 
     //Gerar relatório da actividade

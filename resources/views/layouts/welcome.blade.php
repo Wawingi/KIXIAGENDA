@@ -6,7 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'KixiAgenda') }}</title>
 
     <link rel="shortcut icon" href="{{ asset('images/logomarca.png') }}">
 
@@ -37,7 +37,7 @@
 <body>
     <div id="app"></div>
 
-    <!--<script src="{{ asset('js/vendor.min.js') }}"></script>-->
+    <script src="{{ asset('js/vendor2.min.js') }}"></script>
 
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/app.min.js') }}" defer></script>

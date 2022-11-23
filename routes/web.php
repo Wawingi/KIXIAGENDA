@@ -57,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('gerarAccaoPdf/{codigo}/{data}','RelatorioController@gerarAccaoPdf');
         Route::get('gerarTarefaPdf/{codigo}','RelatorioController@gerarTarefaPdf');
         Route::get('listarPesquisas','RelatorioController@listarPesquisas');
+        Route::get('gerarRelatorioAccao/{codigo}/{avanco}','RelatorioController@gerarRelatorioAccao');
 
         //Rotas para Tipo Objecto
         Route::get('getTipoObjectos','TipoObjectoController@pegaTipoObjectos');

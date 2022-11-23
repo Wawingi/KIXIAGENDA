@@ -18,7 +18,7 @@
         <loading :active.sync="visible" :can-cancel="true" :is-full-page="fullPage"/>  
 
         <div class="row text-center mb-2">
-            <div class="col-md-3 col-sm-2">
+            <div class="col-sm-2 col-md-3 col-12">
                 <div class="card-box">
                     <i class="fas fa-undo-alt font-26"></i>
                     <h3 class="text-primary">{{qtdTarefasTotal}}</h3>
@@ -66,7 +66,7 @@
         </div>
         <br>
         <div style="margin-top:-25px" class="row">
-            <div class="col-7">    
+            <div class="col-lg-6 col-md-3">    
                 <div class="card-box">
                     <table cellspacing="0" width="100%">
                         <thead id="cabecatabela">
@@ -92,23 +92,25 @@
                     </table>     
                 </div>
             </div>
-            <div class="col-5">  
-            <div class="card-box">                    
-                <button 
-                    style="float:right;margin:5px" 
-                    type="submit" 
-                    @click="exportarExcel(2)"
-                    class="btn btn-sm btn-rounded btn-secondary waves-effect waves-light">
-                    <i class="fa fa-download mr-1"></i>Exportar Operacções
-                </button>
-                <button 
-                    style="margin:5px" 
-                    type="submit" 
-                    @click="exportarExcel(1)"
-                    class="btn btn-sm btn-rounded btn-success waves-effect waves-light">
-                    <i class="fa fa-download mr-1"></i>Exportar Tarefas
-                </button>
+            <div class="col-lg-3 col-md-3 col-sm-6">  
+                <div style="text-align: center" class="card-box">                    
+                    <button                        
+                        type="submit" 
+                        @click="exportarExcel(2)"
+                        class="btn btn-sm btn-rounded btn-secondary waves-effect waves-light">
+                        <i class="fa fa-download mr-1"></i>Exportar Operacções
+                    </button>
+                </div>
             </div>
+            <div class="col-lg-3 col-md-2 col-sm-6">  
+                <div style="text-align: center" class="card-box">                    
+                    <button                         
+                        type="submit" 
+                        @click="exportarExcel(1)"
+                        class="btn btn-sm btn-rounded btn-success waves-effect waves-light">
+                        <i class="fa fa-download mr-1"></i>Exportar Tarefas
+                    </button>
+                </div>
             </div>
         </div>
         <br> 

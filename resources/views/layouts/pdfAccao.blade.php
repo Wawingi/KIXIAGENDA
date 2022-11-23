@@ -125,8 +125,8 @@
 
             <tr style="text-align:center">
                 <td @if($accao->avanco<100) class="cor-Warning" @else class="cor-verde" @endif>Responsável</td>
-                <td colspan="4" @if($accao->avanco<100) class="cor-Warning" @else class="cor-verde" @endif>Data</td>
-                <td @if($accao->avanco<100) class="cor-Warning" @else class="cor-verde" @endif>Tempo da acção</td>
+                <td colspan="4" @if($accao->avanco<100) class="cor-Warning" @else class="cor-verde" @endif>Data Criação Actividade</td>
+                <td @if($accao->avanco<100) class="cor-Warning" @else class="cor-verde" @endif>Tempo Ocorrido</td>
                 <td colspan="2" @if($accao->avanco<100) class="cor-Warning" @else class="cor-verde" @endif>
                     Utilizador Suporte
                 </td>                      
@@ -135,22 +135,46 @@
             <tr style="text-align:center;font-weight:bold">
                 <td style="color:#000" @if($accao->avanco<100) class="cor-WarningC" @else class="cor-verdeC" @endif>{{$utilizador_responsavel}}</td>
                 <td style="color:#000" colspan="4" @if($accao->avanco<100) class="cor-WarningC" @else class="cor-verdeC" @endif>{{ date('d-m-Y',strtotime($accao->created_at)) }}</td>
-                <td style="color:#000" @if($accao->avanco<100) class="cor-WarningC" @else class="cor-verdeC" @endif>{{$accao->tempo_acao}}</td> 
+                <td style="color:#000" @if($accao->avanco<100) class="cor-WarningC" @else class="cor-verdeC" @endif>{{$total_tempo_actividade}}</td> 
                 <td colspan="2" style="color:#000" @if($accao->avanco<100) class="cor-WarningC" @else class="cor-verdeC" @endif>
                 @if($accao->estado=='CUSS'||$accao->estado=='CURS')
                     {{$utilizador_suporte}}
                 @endif
                 </td>
-            </tr>
-         
+            </tr>         
             <tr>
-                <td @if($accao->avanco<100) class="cor-Warning" @else class="cor-verde" @endif style="text-align:center" colspan="8"><B>Descrição</B></td>
+                <td @if($accao->avanco<100) class="cor-Warning" @else class="cor-verde" @endif style="text-align:center" colspan="8"><B>Acções Actividade</B></td>
             </tr>
             <tr>
-                <td style="font-weight:bold" colspan="8">
-                    <p style="white-space: pre-wrap;font-weight:bold;font-size:17px">{{$accao->descricao}}</p> 
+                <td colspan="8">
+                    <table>
+                        @for($i=0;$i < count($accoes);$i++)
+                        <tr class="cor-azulC" style="height:20px;background-color:111">
+                            <td style="text-align:center" width="60px" class="cor-azulE">
+                                [{{$contAccoes--}}]
+                            </td>
+                            <td width="120px">
+                                <span style="color:#1299E4;font-size:12px;margin-left:10px">{{$accoes[$i]->avanco}} % - {{$accoes[$i]->estado}}</span>
+                                <br><span style="color:#515151;font-size:11px;margin-left:10px">{{date('d-m-Y H:m',strtotime($accoes[$i]->created_at))}}</span>
+                            </td>
+                            <td style="text-align:center" width="90px">
+                                <img
+                                    style="border:solid #fff 1px;margin:5px 0px 0px 0px"
+                                    src="data:image/png;base64,{{ $accoes[$i]->id }}"
+                                    alt="user-image"
+                                    width="30px"
+                                    height="30px"/>
+                                <br><span style="color:#515151;font-size:10px">{{$accoes[$i]->utilizador_codigo}}</span>
+                            </td>
+                            <td width="410px" colspan="8">
+                                <p style="color:#515151;margin-left:9px;font-size:11px;white-space: pre-wrap">{{$accoes[$i]->descricao}}</p>
+                            </td>
+                        </tr>
+                        @endfor 
+                    </table>
                 </td>
             </tr>
+           
             <tr>
                 <td style="background:#e3e3e3;color:#797a7a;text-align:center" colspan="8">
                     <p style="font-size:10px">Sistema KixiAgenda v2.0.1 - 2022</p>

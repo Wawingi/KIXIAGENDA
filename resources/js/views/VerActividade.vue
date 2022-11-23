@@ -537,28 +537,28 @@
                         <tbody>                          
                             <tr v-for="accao in accoes" class="tabelaClicked">
                                 <td>{{ moment(String(accao.created_at)).format('DD-MM-YYYY HH:mm') }}</td>
-                                <td title='Clique aqui para ver relatório da acção' @click="selectRow(accao)"><p style="color:#3bafda;font-weight:bold">{{accao.descricao}}</p></td>
+                                <td title='Clique aqui para ver relatório da acção' @click="selectRow(accao)"><p style="color:#3bafda;font-weight:bold"><a href="#">{{accao.descricao}}</a></p></td>
                                 <td>
-                                    <center><img
+                                    <img
                                         style="border:solid #d0d5dc 1px"
                                         :src="'images/users/'+accao.fotoResp"
                                         alt="user-image"
                                         width="45px"
                                         height="45px"
-                                        class="rounded-circle"/></center>
-                                    <center><span>{{accao.utilizador_codigo}}</span></center>
+                                        class="rounded-circle"/>
+                                    <span> {{accao.utilizador_codigo}}</span>
                                 </td>
                                 <td>
                                     <p v-if="accao.utilizador_pergunta==null"></p>
                                     <div v-else>
-                                        <center><img
+                                        <img
                                             style="border:solid #d0d5dc 1px"
                                             :src="'images/users/'+accao.fotoSuport"
                                             alt="user-image"
                                             width="45px"
                                             height="45px"
-                                            class="rounded-circle"/></center>
-                                        <center><span>{{accao.utilizador_pergunta}}</span></center>
+                                            class="rounded-circle"/>
+                                        <span>{{accao.utilizador_pergunta}}</span>
                                     </div>
                                 </td>
                                 <td>
@@ -594,6 +594,7 @@
     import 'vue-range-slider/dist/vue-range-slider.css'
 
     import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+import { exit } from "process";
 
     export default {
         components: {
@@ -745,7 +746,6 @@
             this.pegaActividade();  
             this.pegaUltimaAccao(); 
         },
-
         mounted(){
             this.pegaTipos();
             this.pegaOrigens();
@@ -807,7 +807,6 @@
                     this.pegaActividade();
                 });
             },
-
             //Ver primeira acção da actividade
             pegaUltimaAccao(){
                 let self = this;               
@@ -832,7 +831,6 @@
                     this.pegaUltimaAccao();
                 });
             },
-         
             pegaTipos: async function(){
                 let self = this               
                 this.$axios.get('auth/pegaTipos')
@@ -954,6 +952,13 @@
                 window.open(urlAccao, '_blank');     
             },
 
+            //Abrir relatorio de uma acção apartir da tabela de listagem, onde o topo é a linha selecionada
+            openRelatorio(accao){
+                var urlAccao='auth/gerarRelatorioAccao/'+accao.codigo+'/'+accao.avanco;
+                window.open(urlAccao, '_blank');  
+            },
+
+            //Abrir relatorio de uma acção apartir do registo da acção
             selectRow(accao){
                 var created_at=moment(String(accao.created_at)).format('YYYY-MM-DD HH:mm:ss');
                 var urlAccao='auth/gerarAccaoPdf/'+accao.codigo+'/'+created_at;
