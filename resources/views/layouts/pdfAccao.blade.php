@@ -32,7 +32,7 @@
         }
 
         .cor-azulE{
-            background: #295380;
+            background: #3f7dbf;
             color: #fff;
         }
 
@@ -143,11 +143,17 @@
                 </td>
             </tr>         
             <tr>
-                <td @if($accao->avanco<100) class="cor-Warning" @else class="cor-verde" @endif style="text-align:center" colspan="8"><B>Acções Actividade</B></td>
+                <td @if($accao->avanco<100) class="cor-Warning" @else class="cor-verde" @endif style="text-align:center" colspan="8"><B>Acção da Actividade</B></td>
+            </tr>
+            <tr>
+                <td colspan="8"><p style="font-size:14px;font-weight:bold;white-space: pre-wrap">{{$accao->descricao}}</p></td>
             </tr>
             <tr>
                 <td colspan="8">
                     <table>
+                        <tr>
+                            <td class="cor-azulE" style="text-align:center" colspan="8"><B>Histórico de Acções</B></td>
+                        </tr>
                         @for($i=0;$i < count($accoes);$i++)
                         <tr class="cor-azulC" style="height:20px;background-color:111">
                             <td style="text-align:center" width="60px" class="cor-azulE">
@@ -166,7 +172,7 @@
                                     height="30px"/>
                                 <br><span style="color:#515151;font-size:10px">{{$accoes[$i]->utilizador_codigo}}</span>
                             </td>
-                            <td width="410px" colspan="8">
+                            <td colspan="4" width="410px">
                                 <p style="color:#515151;margin-left:9px;font-size:11px;white-space: pre-wrap">{{$accoes[$i]->descricao}}</p>
                             </td>
                         </tr>

@@ -18,6 +18,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('pegaUtilizadores', 'UtilizadorController@pegaUtilizadores');
         Route::get('pegaUtilizadoresDSO', 'UtilizadorController@pegaUtilizadoresDSO');
         Route::get('pegaFoto/{username}', 'UtilizadorController@pegaFoto');
+        Route::get('pegaUtilizadorByUser/{username}', 'UtilizadorController@pegaUtilizadorByUser');
 
         Route::get('pegaTipos', 'TipoController@pegaTipos');
         Route::get('pegaOrigem_TipoObjecto/{idTipo}', 'TipoController@pegaDependentesTipo');

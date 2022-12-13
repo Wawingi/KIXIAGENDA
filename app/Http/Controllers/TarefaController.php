@@ -72,7 +72,6 @@ class TarefaController extends Controller
             $tarefa->objecto = $request->objecto;
 
             if($tarefa->save()){
-
                 //Registar primeira acção da actividade
                 $operacao = new TarefaOperacao;
         
@@ -93,7 +92,8 @@ class TarefaController extends Controller
                 } 
                 
                 $operacao->utilizador_pergunta = null;
-                $operacao->utilizador_registo =  Auth::user()->username;
+                $operacao->utilizador_registo = Auth::user()->username;
+                $operacao->created_at = $request->data_solicitacao;
 
                 if($operacao->save()){}
                 

@@ -2719,6 +2719,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2797,8 +2801,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     selectedOrigem: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"]
     },
-    selectedTipoObjecto: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"]
+    selectedTipoObjecto: {//required
     },
     tempo: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"]
@@ -2848,6 +2851,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return pegaTipos;
     }(),
+    //Ao escolher o Tipo Actividade preenche automaticamente a Origem e Tipo Objecto
     pegaDependentesTipo: function () {
       var _pegaDependentesTipo = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(id_tipo) {
         var self;
@@ -3342,9 +3346,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         });
       } else {
         var self = this;
-        this.$axios.get('auth/pegaFoto/' + event.target.value).then(function (response) {
+        this.$axios.get('auth/pegaUtilizadorByUser/' + event.target.value).then(function (response) {
           if (response.status == 200) {
-            self.fotoSolicitante = response.data;
+            self.fotoSolicitante = response.data.foto;
+            self.departamento_origem = response.data.departamento;
           }
         })["catch"](function (error) {});
       }
@@ -3360,9 +3365,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         });
       } else {
         var self = this;
-        this.$axios.get('auth/pegaFoto/' + event.target.value).then(function (response) {
+        this.$axios.get('auth/pegaUtilizadorByUser/' + event.target.value).then(function (response) {
           if (response.status == 200) {
-            self.fotoResponsavel = response.data;
+            self.fotoResponsavel = response.data.foto;
+            self.departamento_destino = response.data.departamento;
           }
         })["catch"](function (error) {});
       }
@@ -65567,332 +65573,6 @@ var render = function() {
                           _c("div", { staticClass: "form-row" }, [
                             _c("div", { staticClass: "col-md-9" }, [
                               _c("div", { staticClass: "row" }, [
-                                _c("div", { staticClass: "col-12" }, [
-                                  _c(
-                                    "select",
-                                    {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model.trim",
-                                          value:
-                                            _vm.$v.departamento_origem.$model,
-                                          expression:
-                                            "$v.departamento_origem.$model",
-                                          modifiers: { trim: true }
-                                        }
-                                      ],
-                                      staticClass:
-                                        "custom-select custom-select-sm ",
-                                      class: {
-                                        "is-invalid":
-                                          _vm.$v.departamento_origem.$error,
-                                        "is-valid": !_vm.$v.departamento_origem
-                                          .$invalid
-                                      },
-                                      on: {
-                                        change: function($event) {
-                                          var $$selectedVal = Array.prototype.filter
-                                            .call(
-                                              $event.target.options,
-                                              function(o) {
-                                                return o.selected
-                                              }
-                                            )
-                                            .map(function(o) {
-                                              var val =
-                                                "_value" in o
-                                                  ? o._value
-                                                  : o.value
-                                              return val
-                                            })
-                                          _vm.$set(
-                                            _vm.$v.departamento_origem,
-                                            "$model",
-                                            $event.target.multiple
-                                              ? $$selectedVal
-                                              : $$selectedVal[0]
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: { selected: "", disabled: "" },
-                                          domProps: { value: "" }
-                                        },
-                                        [_vm._v("Escolha a origem")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: {
-                                            value: "1-Contabilidade & Finanças"
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            " 01 SEDE | Contabilidade & Finanças"
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: {
-                                            value: "1-Administração & Marketing"
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "01 SEDE | Administração & Marketing"
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: {
-                                            value: "1-Auditoria Interna"
-                                          }
-                                        },
-                                        [_vm._v("01 SEDE | Auditoria Interna")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "1-Operações" } },
-                                        [_vm._v("01 SEDE | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: {
-                                            value:
-                                              "1-Presidente do Comitê Executivo"
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "01 SEDE | Presidente do Comitê Executivo"
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: { value: "1-Recursos Humanos" }
-                                        },
-                                        [_vm._v("01 SEDE | Recursos Humanos")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: {
-                                            value: "1-Sistemas & Organização"
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "01 SEDE | Sistemas & Organização"
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "2-Operações" } },
-                                        [_vm._v("02 HUAMBO | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "3-Operações" } },
-                                        [_vm._v("03 MABOR | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "4-Operações" } },
-                                        [_vm._v("04 HOJI-YA-HENDA | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "5-Operações" } },
-                                        [_vm._v("05 MORRO BENTO | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "6-Operações" } },
-                                        [_vm._v("06 VIANA | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "7-Operações" } },
-                                        [_vm._v("07 KILAMBA KIAXI | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "8-Operações" } },
-                                        [_vm._v("08 BENGUELA | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "9-Operações" } },
-                                        [_vm._v("09 CABINDA | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "10-Operações" } },
-                                        [_vm._v("10 LUBANGO | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "11-Operações" } },
-                                        [_vm._v("11 NAMIBE | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "12-Operações" } },
-                                        [_vm._v("12 KUITO | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "13-Operações" } },
-                                        [_vm._v("13 UIGE | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "15-Operações" } },
-                                        [_vm._v("15 LOBITO | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "16-Operações" } },
-                                        [_vm._v("16 MALANGE | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "18-Operações" } },
-                                        [_vm._v("18 SUMBE | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "19-Operações" } },
-                                        [_vm._v("19 ZANGO | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "20-Operações" } },
-                                        [
-                                          _vm._v(
-                                            "20 CADEIA PRODUTIVA | Operações"
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "21-Operações" } },
-                                        [_vm._v("21 BENFICA | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "22-Operações" } },
-                                        [_vm._v("22 PANGUILA | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: {
-                                            value:
-                                              "26-Sub-Direcção de Pequenas Empresas"
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "26 BOA VIDA | Sub-Direcção de Pequenas Empresas"
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "99-DPP-Benguela" } },
-                                        [_vm._v("99 DDP | DPP-Benguela")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "99-DPP-Kuito" } },
-                                        [_vm._v("99 DDP | DPP-Kuito")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "99-DPP-Lobito" } },
-                                        [_vm._v("99 DDP | DPP-Lobito")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "99-DPP-Marginal" } },
-                                        [_vm._v("99 DDP | DPP-Marginal")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "99-DPP-Namibe" } },
-                                        [_vm._v("99 DDP | DPP-Namibe")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "99-DPP-Soyo" } },
-                                        [_vm._v("99 DDP | DPP-Soyo")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "99-DPP-Uige" } },
-                                        [_vm._v("99 DDP | DPP-Uige")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "99-DPP-Zango" } },
-                                        [_vm._v("99 DDP | DPP-Zango")]
-                                      )
-                                    ]
-                                  )
-                                ]),
-                                _c("br"),
-                                _c("br"),
-                                _vm._v(" "),
                                 _c("div", { staticClass: "col-5" }, [
                                   _c("label", { attrs: { for: "name" } }, [
                                     _vm._v("Solicitante")
@@ -66037,6 +65717,49 @@ var render = function() {
                                         : _vm._e()
                                     ]
                                   )
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-12" }, [
+                                  _c("br"),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model.trim",
+                                        value:
+                                          _vm.$v.departamento_origem.$model,
+                                        expression:
+                                          "$v.departamento_origem.$model",
+                                        modifiers: { trim: true }
+                                      }
+                                    ],
+                                    staticClass:
+                                      "form-control form-control-sm corInput",
+                                    staticStyle: {
+                                      background: "#f5f7fa",
+                                      "font-weight": "bold"
+                                    },
+                                    attrs: { readonly: "", type: "text" },
+                                    domProps: {
+                                      value: _vm.$v.departamento_origem.$model
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.$v.departamento_origem,
+                                          "$model",
+                                          $event.target.value.trim()
+                                        )
+                                      },
+                                      blur: function($event) {
+                                        return _vm.$forceUpdate()
+                                      }
+                                    }
+                                  })
                                 ])
                               ])
                             ]),
@@ -66071,332 +65794,6 @@ var render = function() {
                           _c("div", { staticClass: "form-row" }, [
                             _c("div", { staticClass: "col-md-9" }, [
                               _c("div", { staticClass: "row" }, [
-                                _c("div", { staticClass: "col-12" }, [
-                                  _c(
-                                    "select",
-                                    {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model.trim",
-                                          value:
-                                            _vm.$v.departamento_destino.$model,
-                                          expression:
-                                            "$v.departamento_destino.$model",
-                                          modifiers: { trim: true }
-                                        }
-                                      ],
-                                      staticClass:
-                                        "custom-select custom-select-sm",
-                                      class: {
-                                        "is-invalid":
-                                          _vm.$v.departamento_destino.$error,
-                                        "is-valid": !_vm.$v.departamento_destino
-                                          .$invalid
-                                      },
-                                      on: {
-                                        change: function($event) {
-                                          var $$selectedVal = Array.prototype.filter
-                                            .call(
-                                              $event.target.options,
-                                              function(o) {
-                                                return o.selected
-                                              }
-                                            )
-                                            .map(function(o) {
-                                              var val =
-                                                "_value" in o
-                                                  ? o._value
-                                                  : o.value
-                                              return val
-                                            })
-                                          _vm.$set(
-                                            _vm.$v.departamento_destino,
-                                            "$model",
-                                            $event.target.multiple
-                                              ? $$selectedVal
-                                              : $$selectedVal[0]
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: { selected: "", disabled: "" },
-                                          domProps: { value: "" }
-                                        },
-                                        [_vm._v("Escolha a origem")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: {
-                                            value: "1-Contabilidade & Finanças"
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            " 01 SEDE | Contabilidade & Finanças"
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: {
-                                            value: "1-Administração & Marketing"
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "01 SEDE | Administração & Marketing"
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: {
-                                            value: "1-Auditoria Interna"
-                                          }
-                                        },
-                                        [_vm._v("01 SEDE | Auditoria Interna")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "1-Operações" } },
-                                        [_vm._v("01 SEDE | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: {
-                                            value:
-                                              "1-Presidente do Comitê Executivo"
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "01 SEDE | Presidente do Comitê Executivo"
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: { value: "1-Recursos Humanos" }
-                                        },
-                                        [_vm._v("01 SEDE | Recursos Humanos")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: {
-                                            value: "1-Sistemas & Organização"
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "01 SEDE | Sistemas & Organização"
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "2-Operações" } },
-                                        [_vm._v("02 HUAMBO | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "3-Operações" } },
-                                        [_vm._v("03 MABOR | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "4-Operações" } },
-                                        [_vm._v("04 HOJI-YA-HENDA | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "5-Operações" } },
-                                        [_vm._v("05 MORRO BENTO | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "6-Operações" } },
-                                        [_vm._v("06 VIANA | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "7-Operações" } },
-                                        [_vm._v("07 KILAMBA KIAXI | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "8-Operações" } },
-                                        [_vm._v("08 BENGUELA | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "9-Operações" } },
-                                        [_vm._v("09 CABINDA | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "10-Operações" } },
-                                        [_vm._v("10 LUBANGO | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "11-Operações" } },
-                                        [_vm._v("11 NAMIBE | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "12-Operações" } },
-                                        [_vm._v("12 KUITO | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "13-Operações" } },
-                                        [_vm._v("13 UIGE | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "15-Operações" } },
-                                        [_vm._v("15 LOBITO | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "16-Operações" } },
-                                        [_vm._v("16 MALANGE | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "18-Operações" } },
-                                        [_vm._v("18 SUMBE | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "19-Operações" } },
-                                        [_vm._v("19 ZANGO | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "20-Operações" } },
-                                        [
-                                          _vm._v(
-                                            "20 CADEIA PRODUTIVA | Operações"
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "21-Operações" } },
-                                        [_vm._v("21 BENFICA | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "22-Operações" } },
-                                        [_vm._v("22 PANGUILA | Operações")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: {
-                                            value:
-                                              "26-Sub-Direcção de Pequenas Empresas"
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "26 BOA VIDA | Sub-Direcção de Pequenas Empresas"
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "99-DPP-Benguela" } },
-                                        [_vm._v("99 DDP | DPP-Benguela")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "99-DPP-Kuito" } },
-                                        [_vm._v("99 DDP | DPP-Kuito")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "99-DPP-Lobito" } },
-                                        [_vm._v("99 DDP | DPP-Lobito")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "99-DPP-Marginal" } },
-                                        [_vm._v("99 DDP | DPP-Marginal")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "99-DPP-Namibe" } },
-                                        [_vm._v("99 DDP | DPP-Namibe")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "99-DPP-Soyo" } },
-                                        [_vm._v("99 DDP | DPP-Soyo")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "99-DPP-Uige" } },
-                                        [_vm._v("99 DDP | DPP-Uige")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "99-DPP-Zango" } },
-                                        [_vm._v("99 DDP | DPP-Zango")]
-                                      )
-                                    ]
-                                  )
-                                ]),
-                                _c("br"),
-                                _c("br"),
-                                _vm._v(" "),
                                 _c("div", { staticClass: "col-5" }, [
                                   _c("label", { attrs: { for: "name" } }, [
                                     _vm._v("Responsável")
@@ -66538,6 +65935,49 @@ var render = function() {
                                         : _vm._e()
                                     ]
                                   )
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-12" }, [
+                                  _c("br"),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model.trim",
+                                        value:
+                                          _vm.$v.departamento_destino.$model,
+                                        expression:
+                                          "$v.departamento_destino.$model",
+                                        modifiers: { trim: true }
+                                      }
+                                    ],
+                                    staticClass:
+                                      "form-control form-control-sm corInput",
+                                    staticStyle: {
+                                      background: "#f5f7fa",
+                                      "font-weight": "bold"
+                                    },
+                                    attrs: { readonly: "", type: "text" },
+                                    domProps: {
+                                      value: _vm.$v.departamento_destino.$model
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.$v.departamento_destino,
+                                          "$model",
+                                          $event.target.value.trim()
+                                        )
+                                      },
+                                      blur: function($event) {
+                                        return _vm.$forceUpdate()
+                                      }
+                                    }
+                                  })
                                 ])
                               ])
                             ]),

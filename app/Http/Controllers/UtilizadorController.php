@@ -59,7 +59,7 @@ class UtilizadorController extends Controller
     }
 
     public function pegaUtilizadores(){
-        $utilizadores = DB::table('users')->select('id','username','foto')->orderBy('username', 'asc')->get();
+        $utilizadores = DB::table('users')->select('id','username','foto')->where('estado',1)->orderBy('username', 'asc')->get();
         return response()->json($utilizadores,200);
     }
 
@@ -74,6 +74,15 @@ class UtilizadorController extends Controller
 
     public function pegaFoto($username){
         return response()->json(User::getFoto($username),200);
+    }
+
+    //Ao escolher o utilizador pelo nome ele retorna a foto e o departamento
+    public function pegaUtilizadorByUser($username){
+        $pessoa = User::getPessoa($username);
+        if(is_null($pessoa->foto))
+            $pessoa->foto='default.jpg';
+
+        return response()->json($pessoa,200);
     }
 
     //Função logar apartir de API

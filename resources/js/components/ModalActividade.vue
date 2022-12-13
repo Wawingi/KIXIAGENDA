@@ -121,8 +121,24 @@
                                         <div class="form-row">
                                             <div class="col-md-9">
                                                 <div class="row">
+                                                    <div class="col-5">
+                                                        <label for="name">Solicitante</label>
+                                                        <select @change="onChangeSolicitante($event)" v-model.trim="$v.selectedSolicitante.$model" :class="{'is-invalid':$v.selectedSolicitante.$error, 'is-valid':!$v.selectedSolicitante.$invalid}" class="custom-select custom-select-sm">
+                                                            <option disabled selected :value="''">Solicitante</option>
+                                                            <option v-for="utilizador in utilizadores" v-bind:key="utilizador.id" v-bind:value="utilizador.username">{{utilizador.username}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-7">
+                                                        <label for="name">Data Solicitação</label>
+                                                        <input v-model.trim="$v.data_solicitacao.$model" :class="{'is-invalid':$v.data_solicitacao.$error, 'is-valid':!$v.data_solicitacao.$invalid}" type="datetime-local" class="form-control form-control-sm">
+                                                        <div class="invalid-feedback">
+                                                            <span v-if="!$v.data_solicitacao.required">A data deve ser fornecida</span>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-12">
-                                                        <select v-model.trim="$v.departamento_origem.$model" :class="{'is-invalid':$v.departamento_origem.$error, 'is-valid':!$v.departamento_origem.$invalid}" class="custom-select custom-select-sm ">
+                                                        <br>
+                                                        <input style="background:#f5f7fa;font-weight:bold" readonly v-model.trim="$v.departamento_origem.$model" type="text" class="form-control form-control-sm corInput">
+                                                        <!--<select v-model.trim="$v.departamento_origem.$model" :class="{'is-invalid':$v.departamento_origem.$error, 'is-valid':!$v.departamento_origem.$invalid}" class="custom-select custom-select-sm ">
                                                             <option selected disabled :value="''">Escolha a origem</option>
                                                             <option value="1-Contabilidade & Finanças"> 01 SEDE | Contabilidade & Finanças</option>
                                                             <option value="1-Administração & Marketing">01 SEDE | Administração & Marketing</option>
@@ -159,21 +175,7 @@
                                                             <option value="99-DPP-Soyo">99 DDP | DPP-Soyo</option>
                                                             <option value="99-DPP-Uige">99 DDP | DPP-Uige</option>
                                                             <option value="99-DPP-Zango">99 DDP | DPP-Zango</option>
-                                                        </select>
-                                                    </div><br><br>
-                                                    <div class="col-5">
-                                                        <label for="name">Solicitante</label>
-                                                        <select @change="onChangeSolicitante($event)" v-model.trim="$v.selectedSolicitante.$model" :class="{'is-invalid':$v.selectedSolicitante.$error, 'is-valid':!$v.selectedSolicitante.$invalid}" class="custom-select custom-select-sm">
-                                                            <option disabled selected :value="''">Solicitante</option>
-                                                            <option v-for="utilizador in utilizadores" v-bind:key="utilizador.id" v-bind:value="utilizador.username">{{utilizador.username}}</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-7">
-                                                        <label for="name">Data Solicitação</label>
-                                                        <input v-model.trim="$v.data_solicitacao.$model" :class="{'is-invalid':$v.data_solicitacao.$error, 'is-valid':!$v.data_solicitacao.$invalid}" type="datetime-local" class="form-control form-control-sm">
-                                                        <div class="invalid-feedback">
-                                                            <span v-if="!$v.data_solicitacao.required">A data deve ser fornecida</span>
-                                                        </div>
+                                                        </select>-->
                                                     </div>
                                                 </div>
                                             </div>
@@ -196,8 +198,24 @@
                                         <div class="form-row">
                                             <div class="col-md-9">
                                                 <div class="row">
+                                                    <div class="col-5">
+                                                        <label for="name">Responsável</label>
+                                                        <select @change="onChangeResponsavel($event)" v-model.trim="$v.selectedResponsavel.$model" :class="{'is-invalid':$v.selectedResponsavel.$error, 'is-valid':!$v.selectedResponsavel.$invalid}" class="custom-select custom-select-sm">
+                                                            <option disabled selected :value="''">Responsável</option>
+                                                            <option v-for="utilizador in utilizadores" v-bind:key="utilizador.id" v-bind:value="utilizador.username">{{utilizador.username}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-7">
+                                                        <label for="name">Data Execução</label>
+                                                        <input v-model.trim="$v.data_execucao.$model" :class="{'is-invalid':$v.data_execucao.$error, 'is-valid':!$v.data_execucao.$invalid}" type="date" class="form-control form-control-sm">
+                                                        <div class="invalid-feedback">
+                                                            <span v-if="!$v.data_execucao.required">A data deve ser fornecida</span>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-12">
-                                                        <select v-model.trim="$v.departamento_destino.$model" :class="{'is-invalid':$v.departamento_destino.$error, 'is-valid':!$v.departamento_destino.$invalid}" class="custom-select custom-select-sm">
+                                                        <br>
+                                                        <input style="background:#f5f7fa;font-weight:bold" readonly v-model.trim="$v.departamento_destino.$model" type="text" class="form-control form-control-sm corInput">
+                                                        <!--<select v-model.trim="$v.departamento_destino.$model" :class="{'is-invalid':$v.departamento_destino.$error, 'is-valid':!$v.departamento_destino.$invalid}" class="custom-select custom-select-sm">
                                                             <option selected disabled :value="''">Escolha a origem</option>
                                                             <option value="1-Contabilidade & Finanças"> 01 SEDE | Contabilidade & Finanças</option>
                                                             <option value="1-Administração & Marketing">01 SEDE | Administração & Marketing</option>
@@ -234,21 +252,7 @@
                                                             <option value="99-DPP-Soyo">99 DDP | DPP-Soyo</option>
                                                             <option value="99-DPP-Uige">99 DDP | DPP-Uige</option>
                                                             <option value="99-DPP-Zango">99 DDP | DPP-Zango</option>
-                                                        </select>
-                                                    </div><br><br>
-                                                    <div class="col-5">
-                                                        <label for="name">Responsável</label>
-                                                        <select @change="onChangeResponsavel($event)" v-model.trim="$v.selectedResponsavel.$model" :class="{'is-invalid':$v.selectedResponsavel.$error, 'is-valid':!$v.selectedResponsavel.$invalid}" class="custom-select custom-select-sm">
-                                                            <option disabled selected :value="''">Responsável</option>
-                                                            <option v-for="utilizador in utilizadores" v-bind:key="utilizador.id" v-bind:value="utilizador.username">{{utilizador.username}}</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-7">
-                                                        <label for="name">Data Execução</label>
-                                                        <input v-model.trim="$v.data_execucao.$model" :class="{'is-invalid':$v.data_execucao.$error, 'is-valid':!$v.data_execucao.$invalid}" type="date" class="form-control form-control-sm">
-                                                        <div class="invalid-feedback">
-                                                            <span v-if="!$v.data_execucao.required">A data deve ser fornecida</span>
-                                                        </div>
+                                                        </select>-->
                                                     </div>
                                                 </div>
                                             </div>
@@ -456,7 +460,7 @@
                 required     
             },
             selectedTipoObjecto: {
-                required
+                //required
             },
             tempo: {
                 required
@@ -489,6 +493,8 @@
                     self.pegaTipos();
                 });
             },
+
+            //Ao escolher o Tipo Actividade preenche automaticamente a Origem e Tipo Objecto
             pegaDependentesTipo: async function(id_tipo){                 
                 let self = this               
                 this.$axios.get('auth/pegaOrigem_TipoObjecto/'+id_tipo)
@@ -808,10 +814,11 @@
                     })
                 }else{
                     let self = this               
-                    this.$axios.get('auth/pegaFoto/'+event.target.value)
+                    this.$axios.get('auth/pegaUtilizadorByUser/'+event.target.value)
                     .then(function (response) {
                         if(response.status==200){
-                            self.fotoSolicitante = response.data;                                                                          
+                            self.fotoSolicitante = response.data.foto;
+                            self.departamento_origem = response.data.departamento;                                                                          
                         }
                     })
                     .catch(function (error) {
@@ -830,10 +837,11 @@
                     })
                 } else {          
                     let self = this               
-                    this.$axios.get('auth/pegaFoto/'+event.target.value)
+                    this.$axios.get('auth/pegaUtilizadorByUser/'+event.target.value)
                     .then(function (response) {
                         if(response.status==200){ 
-                            self.fotoResponsavel = response.data;                                                      
+                            self.fotoResponsavel = response.data.foto;  
+                            self.departamento_destino = response.data.departamento;                                                       
                         }
                     })
                     .catch(function (error) {

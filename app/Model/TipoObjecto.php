@@ -11,7 +11,8 @@ class TipoObjecto extends Model
 
     public static function getTipoObjecto($idTipo) {
         return DB::table('tipo')
-                ->join('tipoobjecto','tipoobjecto.id','=','tipo.id_tipo_objecto')
+                ->join('tipo_tipoobjecto','tipo_tipoobjecto.id_tipo','=','tipo.id')
+                ->join('tipoobjecto','tipoobjecto.id','=','tipo_tipoobjecto.id_tipoobjecto')
                 ->select('tipo.id','tipoobjecto.id as id_tipo_objecto','tipoobjecto.tipo as tipo_objecto','tipoobjecto.tipo_controlo')
                 ->where('tipo.id',$idTipo)
                 ->get();

@@ -82,7 +82,7 @@ class RelatorioController extends Controller
                 ->join('tarefa', 'tarefa_operacao.id', '=', 'tarefa.id')
                 ->join('users', 'users.id', '=', 'tarefa.id_user')
                 ->join('tipo', 'tipo.id', '=', 'tarefa.id_tipo')
-                ->select('tarefa.created_at','tarefa_operacao.codigo','tarefa_operacao.utilizador_codigo','tarefa_operacao.utilizador_pergunta','tarefa_operacao.estado','tarefa_operacao.avanco','tarefa_operacao.acOrigemDado','tarefa.titulo','tarefa.descricao as tarefa_descricao','tipo.tipo_abreviado','users.name')
+                ->select('tarefa.created_at','tarefa_operacao.codigo','tarefa_operacao.utilizador_codigo','tarefa_operacao.utilizador_pergunta','tarefa_operacao.estado','tarefa_operacao.avanco','tarefa_operacao.acOrigemDado','tarefa_operacao.descricao','tarefa.titulo','tarefa.descricao as tarefa_descricao','tipo.tipo_abreviado','users.name')
                 ->where('tarefa_operacao.codigo','=',$codigo)
                 ->where('tarefa_operacao.created_at','=',$data)
                 ->first();
@@ -96,10 +96,10 @@ class RelatorioController extends Controller
                 ->get();
         
             $total_tempo_actividade=0;
-            $contAccoes=count($accoes);
+            $contAccoes=DB::table('tarefa_operacao')->where('codigo','=',$codigo)->count();
 
             foreach($accoes as $acc):
-                $user = User::getPessoa($accao->utilizador_codigo);
+                $user = User::getPessoa($acc->utilizador_codigo);
                 $acc->utilizador_codigo = User::getCurtoNome($user->name);
                 $acc->id = base64_encode(file_get_contents(public_path('/images/users/'.$user->foto)));
                 $acc->estado = Helper::getEstado($acc->estado);
